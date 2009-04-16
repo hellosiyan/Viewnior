@@ -1,0 +1,6 @@
+	Coding Style
+
+The coding style is kept consistent in all files, using
+GNU Indent Program with the following arguments:
+-nut -i4 -bli0 -cli0 -brs
+
