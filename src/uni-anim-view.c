@@ -1,65 +1,26 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4; coding: utf-8 -*- 
+/*
+ * Copyright © 2009 Siyan Panayotov <xsisqox@gmail.com>
  *
- * Copyright © 2007-2009 Björn Lindqvist <bjourne@gmail.com>
  *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License
- * as published by the Free Software Foundation; either version 2, or
+ * Based on code by (see README for details):
+ * - Björn Lindqvist <bjourne@gmail.com>
+ *
+ * This file is part of Viewnior.
+ *
+ * Viewnior is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
+ * Viewnior is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
- * 02111-1307, USA.
+ * You should have received a copy of the GNU General Public License
+ * along with Viewnior.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * SECTION:gtkanimview
- * @see_also: #UniImageView, The
- * <filename>./tests/ex-anim.c</filename> program for an example of
- * how this widget is used
- * @short_description: Subclass of #UniImageView capable of playing
- * GIF animations.
- *
- * <para>
- *   UniAnimView subclasses UniImageView. It has the same look and
- *   feel as its parent but is also capable of displaying GIF
- *   animations.
- * </para>
- * <refsect2>
- *   <title>Keybindings</title>
- *   <para>
- *     UniAnimView uses a few more keybindings in addition to those used
- *     by UniImageView:
- *     <table width = "100%" border = "0">
- *       <thead>
- *         <tr>
- *           <th>Keys</th>
- *           <th>Corresponding function</th>
- *           <th>Description</th>
- *         </tr>
- *       </thead>
- *       <tbody>
- *         <tr>
- *           <td>%GDK_p</td>
- *           <td>uni_anim_view_set_is_playing()</td>
- *           <td>Stops or resumes the running animation.</td>
- *         </tr>
- *         <tr>
- *           <td>%GDK_j</td>
- *           <td>uni_anim_view_step()</td>
- *           <td>Steps the animation one frame forward.</td>
- *         </tr>
- *       </tbody>  
- *     </table>  
- *   </para>  
- * </refsect2>
- **/
 #include <glib.h>
 #include <gdk/gdkkeysyms.h>
 #include "uni-anim-view.h"
@@ -126,26 +87,26 @@ uni_anim_view_toggle_running (UniAnimView * aview)
 
 
 /* static gboolean
-uni_anim_view_on_query_tooltip_cb	(GtkWidget  *widget,
-									 gint        x,
-									 gint        y,
-									 gboolean    keyboard_mode,
-									 GtkTooltip *tooltip,
-									 gpointer    user_data)
+uni_anim_view_on_query_tooltip_cb   (GtkWidget  *widget,
+                                     gint        x,
+                                     gint        y,
+                                     gboolean    keyboard_mode,
+                                     GtkTooltip *tooltip,
+                                     gpointer    user_data)
 {
-	gchar * tooltip_string;
-	GdkPixbufAnimation *anim = UNI_ANIM_VIEW(widget)->anim;
-	
-	tooltip_string = g_markup_printf_escaped("<b>Information</b>\n"
-											 "%ix%i pixels\n"
-											 "%.2f%% zoom",
-											 gdk_pixbuf_animation_get_width(anim),
-											 gdk_pixbuf_animation_get_height(anim),
-											 UNI_IMAGE_VIEW(widget)->zoom*100);
-	
-	gtk_tooltip_set_markup(tooltip, tooltip_string);
-	
-	return TRUE;
+    gchar * tooltip_string;
+    GdkPixbufAnimation *anim = UNI_ANIM_VIEW(widget)->anim;
+
+    tooltip_string = g_markup_printf_escaped("<b>Information</b>\n"
+                                             "%ix%i pixels\n"
+                                             "%.2f%% zoom",
+                                             gdk_pixbuf_animation_get_width(anim),
+                                             gdk_pixbuf_animation_get_height(anim),
+                                             UNI_IMAGE_VIEW(widget)->zoom*100);
+
+    gtk_tooltip_set_markup(tooltip, tooltip_string);
+
+    return TRUE;
 } */
 
 
@@ -238,13 +199,7 @@ uni_anim_view_class_init (UniAnimViewClass * klass)
  * uni_anim_view_new:
  * @returns: A new #UniAnimView.
  *
- * Creates a new #UniAnimView with default values. The default values
- * are:
- *
- * <itemizedlist>
- *   <listitem>anim : %NULL</listitem>
- *   <listitem>is_playing : %FALSE</listitem>
- * </itemizedlist>
+ * Creates a new #UniAnimView with default values.
  **/
 GtkWidget *
 uni_anim_view_new (void)
@@ -260,7 +215,7 @@ uni_anim_view_new (void)
 /**
  * uni_anim_view_get_anim:
  * @aview: a #UniAnimView.
- * @returns: the current animation 
+ * @returns: the current animation
  *
  * Returns the current animation of the view.
  **/

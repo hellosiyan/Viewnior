@@ -1,4 +1,25 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4; coding: utf-8 -*- */
+/*
+ * Copyright © 2009 Siyan Panayotov <xsisqox@gmail.com>
+ *
+ * Based on code by (see README for details):
+ * - Björn Lindqvist <bjourne@gmail.com>
+ *
+ * This file is part of Viewnior.
+ *
+ * Viewnior is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Viewnior is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Viewnior.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #ifndef __UNI_CACHE_H__
 #define __UNI_CACHE_H__
 
@@ -9,26 +30,6 @@
 typedef struct _UniPixbufDrawOpts UniPixbufDrawOpts;
 typedef struct _UniPixbufDrawCache UniPixbufDrawCache;
 
-/**
- * UniPixbufDrawMethod:
- *
- * Enumeration constants that determine the proper way to draw the
- * next time.
- *
- * <itemizedlist>
- *   <listitem>UNI_PIXBUF_DRAW_METHOD_SCALE : Scale the area of the
- *   pixbuf to draw and put the result in cache. This is the slowest
- *   draw method as the whole area to be drawn must be rescaled. It is
- *   mostly used when no part of #UniPixbufDrawCache:s cache is
- *   valid.</listitem>
- *   <listitem>UNI_PIXBUF_DRAW_METHOD_CONTAINS : Get the area of the
- *   pixbuf to draw from the cache without updating the cache
- *   afterwards. Only blitting is needed.</listitem>
- *   <listitem>UNI_PIXBUF_DRAW_METHOD_SCROLL : Partially use the cache
- *   and scale the region not cached. The cache is updated with the
- *   result.</listitem>
- * </itemizedlist>
- **/
 typedef enum {
     UNI_PIXBUF_DRAW_METHOD_SCALE = 0,
     UNI_PIXBUF_DRAW_METHOD_CONTAINS = 1,

@@ -1,42 +1,25 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4; coding: utf-8 -*- 
+/*
+ * Copyright © 2009 Siyan Panayotov <xsisqox@gmail.com>
  *
- * Copyright © 2007-2009 Björn Lindqvist <bjourne@gmail.com>
+ * Based on code by (see README for details):
+ * - Björn Lindqvist <bjourne@gmail.com>
  *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License
- * as published by the Free Software Foundation; either version 2, or
+ * This file is part of Viewnior.
+ *
+ * Viewnior is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
+ * Viewnior is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
- * 02111-1307, USA.
+ * You should have received a copy of the GNU General Public License
+ * along with Viewnior.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * SECTION:uni-scroll-win
- * @see_also: <ulink url =
- * "http://developer.gnome.org/doc/API/2.0/gtk/GtkScrolledWindow.html">GtkScrolledWindow</ulink>,
- * the GTK widget that UniScrollWin mimics.
- * @short_description: Scrollable window suitable for #UniImageView
- *
- * <para>
- *   #UniScrollWin provides a widget similar in appearance to
- *   GtkScrollableWindow that is more suitable for displaying
- *   #UniImageView's.
- * </para>
- * <refsect2>
- *   <title>WTF!</title>
- *   <para>
- *     Moo
- *   </para>
- * </refsect2>
- **/
 #include <glib/gi18n.h>
 #include "uni-scroll-win.h"
 #include "uni-nav.h"
@@ -199,7 +182,7 @@ uni_scroll_win_leave_notify (UniScrollWin * window, GdkEventCrossing * ev)
 static void
 uni_scroll_win_set_view (UniScrollWin * window, UniImageView * view)
 {
-    // Setup the scrollbars 
+    // Setup the scrollbars
     GtkAdjustment *hadj;
     hadj = (GtkAdjustment *) g_object_new (GTK_TYPE_ADJUSTMENT, NULL);
 
@@ -209,13 +192,13 @@ uni_scroll_win_set_view (UniScrollWin * window, UniImageView * view)
     window->hscroll = gtk_hscrollbar_new (hadj);
     window->vscroll = gtk_vscrollbar_new (vadj);
 
-    // We want to be notified when the adjustments change. 
+    // We want to be notified when the adjustments change.
     g_signal_connect (hadj, "changed",
                       G_CALLBACK (uni_scroll_win_adjustment_changed), window);
     g_signal_connect (vadj, "changed",
                       G_CALLBACK (uni_scroll_win_adjustment_changed), window);
 
-    // Output the adjustments to the widget. 
+    // Output the adjustments to the widget.
     gtk_widget_set_scroll_adjustments (GTK_WIDGET (view), hadj, vadj);
 
     // Add the widgets to the table.

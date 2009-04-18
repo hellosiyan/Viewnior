@@ -1,89 +1,33 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4; coding: utf-8 -*- 
+/*
+ * Copyright © 2009 Siyan Panayotov <xsisqox@gmail.com>
  *
- * Copyright © 2007-2009 Björn Lindqvist <bjourne@gmail.com>
+ * Based on code by (see README for details):
+ * - Björn Lindqvist <bjourne@gmail.com>
  *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License
- * as published by the Free Software Foundation; either version 2, or
+ * This file is part of Viewnior.
+ *
+ * Viewnior is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
+ * Viewnior is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
- * 02111-1307, USA.
+ * You should have received a copy of the GNU General Public License
+ * along with Viewnior.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * SECTION:gtkimagetooldragger
- * @see_also: #UniImageView, #GtkIImageTool, #GtkImageToolSelector
- * @short_description: Default image tool for paning the image
- *
- * <para>
- *   UniDragger is the default image tool for #UniImageView.
- *   Its only feature is that it can drag the image around.
- * </para>
- **/
 #include <stdlib.h>
 #include "uni-dragger.h"
-
-/*************************************************************/
-/***** Static stuff ******************************************/
-/*************************************************************/
-/**
- * uni_dragger_is_draggable:
- *
- * Returns %TRUE if the view can be dragged when the cursor is at the
- * position specified by @x and @y.
- **/
-/*static gboolean
-uni_dragger_is_draggable (UniDragger *dragger,
-                                     int                  x,
-                                     int                  y)
-{
-    UniImageView *view = dragger->view;
-    GdkRectangle draw_rect;
-    if (!uni_image_view_get_draw_rect (view, &draw_rect))
-        return FALSE;
-    
-    gdouble zoom = uni_image_view_get_zoom (view);
-    GdkPixbuf *pixbuf = uni_image_view_get_pixbuf (view);
-
-    int pb_w = gdk_pixbuf_get_width (pixbuf);
-    int pb_h = gdk_pixbuf_get_height (pixbuf);
-
-    int zoom_w = (int) (pb_w * zoom + 0.5);
-    int zoom_h = (int) (pb_h * zoom + 0.5);
-
-    int alloc_w = GTK_WIDGET (view)->allocation.width;
-    int alloc_h = GTK_WIDGET (view)->allocation.height;
-    
-    if (uni_rectangle_contains (draw_rect, x, y) &&
-        (zoom_w > alloc_w || zoom_h > alloc_h))
-        return TRUE;
-    return FALSE;
-}*/
-
 
 G_DEFINE_TYPE (UniDragger, uni_dragger, G_TYPE_OBJECT);
 
 /*************************************************************/
 /***** Actions ***********************************************/
 /*************************************************************/
-/*static GdkCursor*
-cursor_at_point (GtkIImageTool *tool,
-                 int            x,
-                 int            y)
-{
-    UniDragger *dragger = UNI_DRAGGER (tool);
-    if (uni_dragger_is_draggable (dragger, x, y))
-        return dragger->open_hand;
-    return NULL;
-}*/
 
 gboolean
 uni_dragger_button_press (UniDragger * tool, GdkEventButton * ev)
@@ -145,17 +89,6 @@ uni_dragger_paint_image (UniDragger * tool,
 /*************************************************************/
 /***** Stuff that deals with the type ************************/
 /*************************************************************/
-/* static void
-gtk_iimage_tool_interface_init (gpointer g_iface,
-                                gpointer iface_data)
-{
-    GtkIImageToolClass *klass = (GtkIImageToolClass *) g_iface;
-    klass->button_press = button_press;
-    klass->button_release = button_release;
-    klass->motion_notify = motion_notify;
-    klass->pixbuf_changed = pixbuf_changed;
-    klass->paint_image = paint_image;
-}*/
 
 static void
 uni_dragger_finalize (GObject * object)

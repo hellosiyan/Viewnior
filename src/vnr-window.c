@@ -1,3 +1,22 @@
+/*
+ * Copyright © 2009 Siyan Panayotov <xsisqox@gmail.com>
+ *
+ * This file is part of Viewnior.
+ *
+ * Viewnior is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Viewnior is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Viewnior.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include <gtk/gtk.h>
 #include "vnr-window.h"
 #include "uni-anim-view.h"
@@ -9,10 +28,10 @@
 
 G_DEFINE_TYPE (VnrWindow, vnr_window, GTK_TYPE_WINDOW);
 
-/* static void		vnr_window_finalize		(GObject *object); */
+/* static void      vnr_window_finalize     (GObject *object); */
 static gint vnr_window_delete (GtkWidget * widget, GdkEventAny * event);
-/*static gint		vnr_window_key_press	(GtkWidget *widget, GdkEventKey *event);*/
-/*static gboolean	vnr_window_state_event	( GtkWidget* widget, GdkEventWindowState* state );*/
+/*static gint       vnr_window_key_press    (GtkWidget *widget, GdkEventKey *event);*/
+/*static gboolean   vnr_window_state_event  ( GtkWidget* widget, GdkEventWindowState* state );*/
 
 
 static void

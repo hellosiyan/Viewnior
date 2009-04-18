@@ -52,8 +52,8 @@ VNR_MODULES="gtk+-2.0 >= $GTK_REQUIRED \
              glib-2.0 >= $GLIB_REQUIRED \
              gio-2.0 >= $GLIB_REQUIRED \
              gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED \
-	     gnome-icon-theme >= $GNOME_ICON_THEME_REQUIRED \
-	     shared-mime-info >= $SHARED_MIME_INFO_REQUIRED"
+             gnome-icon-theme >= $GNOME_ICON_THEME_REQUIRED \
+             shared-mime-info >= $SHARED_MIME_INFO_REQUIRED"
 
 
 PKG_CHECK_MODULES(VNR, $VNR_MODULES)
@@ -62,22 +62,22 @@ AC_SUBST(VNR_LIBS)
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile
-		 data/Makefile
-		 data/viewnior.desktop.in
-		 data/icons/Makefile
-		 data/icons/16x16/Makefile
-		 data/icons/16x16/apps/Makefile
-		 data/icons/22x22/Makefile
-		 data/icons/22x22/apps/Makefile
-		 data/icons/24x24/Makefile
-		 data/icons/24x24/apps/Makefile
-		 data/icons/32x32/Makefile
-		 data/icons/32x32/apps/Makefile
-		 data/icons/48x48/Makefile
-		 data/icons/48x48/apps/Makefile
-		 data/icons/scalable/Makefile
-		 data/icons/scalable/apps/Makefile
-		 po/Makefile.in])
+                 data/Makefile
+                 data/viewnior.desktop.in
+                 data/icons/Makefile
+                 data/icons/16x16/Makefile
+                 data/icons/16x16/apps/Makefile
+                 data/icons/22x22/Makefile
+                 data/icons/22x22/apps/Makefile
+                 data/icons/24x24/Makefile
+                 data/icons/24x24/apps/Makefile
+                 data/icons/32x32/Makefile
+                 data/icons/32x32/apps/Makefile
+                 data/icons/48x48/Makefile
+                 data/icons/48x48/apps/Makefile
+                 data/icons/scalable/Makefile
+                 data/icons/scalable/apps/Makefile
+                 po/Makefile.in])
 AC_OUTPUT
 
 echo "
@@ -85,7 +85,7 @@ echo "
 	Location ......... : $prefix/bin
 	CFLAGS ........... : $CFLAGS
 
-	To compile:
+	To compile and install:
 	1. Become root (using su)
 	2. Type 'make install'
 "

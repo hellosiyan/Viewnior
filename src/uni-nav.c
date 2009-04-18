@@ -1,50 +1,25 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4; coding: utf-8 -*- 
+/*
+ * Copyright © 2009 Siyan Panayotov <xsisqox@gmail.com>
  *
- * Copyright © 2007-2009 Björn Lindqvist <bjourne@gmail.com>
+ * Based on code by (see README for details):
+ * - Björn Lindqvist <bjourne@gmail.com>
  *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License
- * as published by the Free Software Foundation; either version 2, or
+ * This file is part of Viewnior.
+ *
+ * Viewnior is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
+ * Viewnior is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
- * 02111-1307, USA.
+ * You should have received a copy of the GNU General Public License
+ * along with Viewnior.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * SECTION: uni-nav
- * @short_description: Navigation window showing a thumbnailed
- * overview of a #UniImageView.
- * <mediaobject>
- *  <imageobject align = "center">
- *    <imagedata fileref = "navwin-open.png" align = "center"/>
- *  </imageobject>
- *  <caption>
- *    <emphasis>Screenshot of an active navigation window</emphasis>
- *  </caption>  
- * </mediaobject>
- *
- * <para>
- *   UniNav is a popup window that shows a downscaled preview of
- *   the pixbuf that #UniImageView is showing. The user can drag
- *   around a rectangle which indicates the current view of the image.
- * </para>
- * <para>
- *   This class is used by #UniScrollWin itself. It is probably not
- *   very useful for clients of this library.
- * </para>
- * <para>
- *   UniNav has the same keybindings that #UniImageView has. All
- *   keypresses that it receives are passed along to the view.
- * </para>
- **/
 #include "uni-nav.h"
 
 
@@ -267,7 +242,7 @@ uni_nav_pixbuf_changed (UniNav * nav)
 {
     Size pw = uni_nav_get_preview_size (nav);
 
-    // Set the new size and position of the preview. 
+    // Set the new size and position of the preview.
     gtk_widget_set_size_request (GTK_WIDGET (nav->preview),
                                  pw.width, pw.height);
     uni_nav_update_position (nav);
@@ -426,11 +401,7 @@ uni_nav_class_init (UniNavClass * klass)
  * @returns: a new #UniNav showing the view.
  *
  * Creates a new #UniNav for showing thumbnails of the view. The
- * default values are:
- *
- * <itemizedlist>
- *   <listitem>pixbuf : %NULL</listitem> 
- * </itemizedlist>
+ * default values are is pixbuf=NULL.
  **/
 GtkWidget *
 uni_nav_new (UniImageView * view)

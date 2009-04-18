@@ -1,4 +1,4 @@
-# Bulgarian translation of eog po-file.
+# Bulgarian translation of viewnior po-file.
 # Copyright (C) 2009 Free Software Foundation, Inc.
 # Siyan Panayotov <xsisqox@gmail.com>, 2009.
 #

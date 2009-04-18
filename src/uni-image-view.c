@@ -1,254 +1,24 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4; coding: utf-8 -*- 
+/*
+ * Copyright © 2009 Siyan Panayotov <xsisqox@gmail.com>
  *
- * Copyright © 2007-2009 Björn Lindqvist <bjourne@gmail.com>
+ * Based on code by (see README for details):
+ * - Björn Lindqvist <bjourne@gmail.com>
  *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License
- * as published by the Free Software Foundation; either version 2, or
+ * This file is part of Viewnior.
+ *
+ * Viewnior is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
+ * Viewnior is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
- * 02111-1307, USA.
+ * You should have received a copy of the GNU General Public License
+ * along with Viewnior.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-/**
- * SECTION:gtkimageview
- * @see_also: #UniAnimView
- * @short_description: General purpose image viewer for Gtk+
- * <mediaobject>
- *   <imageobject align = "center">
- *     <imagedata fileref = "gtkimageview-in-window.png" align = "center"/>
- *   </imageobject>
- *   <caption>
- *     <emphasis>Screenshot of the <filename>./tests/interactive</filename> demo
- *     application</emphasis>
- *   </caption>  
- * </mediaobject>
- *
- * <para>
- *   UniImageView is a full-featured general purpose image viewer
- *   widget for GTK. It provides a scrollable, zoomable pane in which
- *   a pixbuf can be displayed.
- * </para>
- * <refsect2>
- *   <title>Keybindings</title>
- *   <para>
- *     When focused, UniImageView responds to the following keybindings:
- *     <table width = "100%" border = "0">
- *       <thead>
- *         <tr>
- *           <th>Keys</th>
- *           <th>Corresponding function</th>
- *           <th>Description</th>
- *         </tr>  
- *       </thead>  
- *       <tbody>
- *         <tr>
- *           <td>%GDK_KP_Add, %GDK_equal, %GDK_plus</td>
- *           <td>uni_image_view_zoom_in()</td>
- *           <td>Causes the widget to zoom in one step.</td>
- *         </tr>
- *         <tr>
- *           <td>%GDK_KP_Subtract, %GDK_minus</td>
- *           <td>uni_image_view_zoom_out()</td>
- *           <td>Causes the widget to zoom out one step.</td>
- *         </tr>
- *         <tr>
- *           <td>%GDK_1</td>
- *           <td>uni_image_view_set_zoom()</td>
- *           <td>Sets zoom to 100%.</td>
- *         </tr>
- *         <tr>
- *           <td>%GDK_2</td>
- *           <td>uni_image_view_set_zoom()</td>
- *           <td>Sets zoom to 200%.</td>
- *         </tr>
- *         <tr>
- *           <td>%GDK_3</td>
- *           <td>uni_image_view_set_zoom()</td>
- *           <td>Sets zoom to 300%.</td>
- *         </tr>
- *         <tr>
- *           <td>%GDK_x</td>
- *           <td>uni_image_view_set_fitting()</td>
- *           <td>Sets fitting to %TRUE so that the whole pixbuf
- *           becomes visible.</td>
- *         </tr>
- *         <tr>
- *           <td>%GDK_Page_Up, %GDK_Up + %GDK_SHIFT_MASK</td>
- *           <td></td>
- *           <td>Scroll the view half a page upwards.</td>
- *         </tr>
- *         <tr>
- *           <td>%GDK_Page_Down, %GDK_Down + %GDK_SHIFT_MASK</td>
- *           <td></td>
- *           <td>Scroll the view half a page downwards.</td>
- *         </tr>
- *         <tr>
- *           <td>%GDK_Left + %GDK_SHIFT_MASK</td>
- *           <td></td>
- *           <td>Scroll the view half a page leftwards.</td>
- *         </tr>
- *         <tr>
- *           <td>%GDK_Right + %GDK_SHIFT_MASK</td>
- *           <td></td>
- *           <td>Scroll the view half a page rightwards.</td>
- *         </tr>  
- *       </tbody>          
- *     </table> 
- *   </para>
- * </refsect2>
- * <refsect2>
- *   <title>Mouse actions</title>
- *   <para>
- *     When focused, UniImageView responds to the following mouse
- *     actions:
- *   </para>
- *   <table width = "100%" border = "0">
- *       <thead>
- *         <tr>
- *           <th>Mouse gesture</th>
- *           <th>Description</th>
- *         </tr>  
- *       </thead>  
- *       <tbody>
- *         <tr>
- *           <td>Mouse wheel scroll + %GDK_CONTROL_MASK</td>
- *           <td>Increase or decrease the zoom of the view depending on
- *           the direction of the scroll.</td>
- *         </tr>  
- *       </tbody>
- *   </table>
- * </refsect2>
- * <refsect2>
- *   <title>Coordinate systems</title>
- *   <para>
- *     Operations on UniImageView are executed in three different
- *     2D coordinate systems:
- *   </para>
- *   <itemizedlist>
- *     <listitem>
- *       Image coordinates: each coordinate represents a pixel in the
- *       image. The range of valid coordinates goes
- *       from <emphasis>(0,0)-(p.w,p.h)</emphasis>,
- *       where <emphasis>p.w</emphasis> and <emphasis>p.h</emphasis>
- *       is the width and height of the image.
- *     </listitem>
- *     <listitem>
- *       Widget coordinates: each coordinate represents a pixel in the
- *       image view widgets coordinate system. The range of valid
- *       coordinates goes from <emphasis>(0,0)-(a.w,a.h)</emphasis>
- *       where <emphasis>a.w</emphasis> and <emphasis>a.h</emphasis> is
- *       the allocated width and height of the widget. Naturally, these
- *       coordinates are only valid for as long as the widget is
- *       realized.
- *     </listitem>
- *     <listitem>
- *       Zoom coordinates: this coordinate system is the most frequently
- *       used coordinate system in UniImageView. The range of valid
- *       coordinates goes from <emphasis>(0,0)-z(p.w,p.h)</emphasis>
- *       where <emphasis>p.w</emphasis> and <emphasis>p.h</emphasis> is
- *       the width and height of the image and <emphasis>z</emphasis> is
- *       the current zoom of the view. In other words, this coordinate
- *       system is simply the image coordinate system scaled.
- *     </listitem>
- *   </itemizedlist>
- * </refsect2>
- * <refsect2>
- *   <title>Settings</title>
- *   <para>
- *     UniImageView has a few settings that can be configured by users of
- *     the library. For example, when showing transparent images it may
- *     in certain cases be better to draw alpha transparent parts using
- *     the widgets background color instead of the default checkerboard:
- *     <informalexample>
- *       <programlisting>
- *         uni_image_view_set_transp (UNI_IMAGE_VIEW (view),
- *                                    GTK_IMAGE_TRANSP_COLOR,
- *                                    0x00000000);
- *       </programlisting>  
- *     </informalexample>
- *     When the window that is showing the widget is fullscreened, other
- *     settings has to be tweaked to make the view look as good as
- *     possible:
- *     <informalexample>
- *       <programlisting>
- *         uni_image_view_set_show_cursor (UNI_IMAGE_VIEW (view), FALSE);
- *       </programlisting>  
- *     </informalexample>
- *     Naturally, you should reset these settings again when the view
- *     leaves fullscreen mode.
- *   </para>
- *   <title>Updating the image data</title>
- *   <para>
- *     UniImageView aggresively caches the scaled image data. This
- *     behaviour is most often beneficial and makes the widget very
- *     fast. For example, try opening a very large image (4000x2000
- *     pixels or so) in UniImageView. The widget will spend some time
- *     bilinearly scaling the image at the start. Then try minimizing
- *     and unminimizing the window. The image will reappear immedately
- *     because the view has cached it.
- *   </para>
- *   <informalexample>
- *     <programlisting>
- *       // Do some operation on the pixbuf data here
- *       gtk_widget_queue_draw_area (10, 10, 50, 50) // Incorrect!
- *     </programlisting>
- *   </informalexample>
- * </refsect2>
- * <refsect1>
- *   <title>Example</title>
- *   <para>
- *     This is the minimal code needed for using UniImageView. 
- *   </para>
- *   <informalexample>
- *     <programlisting>
- * #include &lt;gtkimageview/gtkimageview.h&gt;
- * int
- * main (int argc, char *argv[])
- * {
- *     gtk_init (&amp;argc, &amp;argv);
- *     GtkWidget *window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
- *     GtkWidget *view = uni_image_view_new (<!-- -->);
- *     GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file ("tests/gnome_logo.jpg", NULL);
- * 
- *     uni_image_view_set_pixbuf (UNI_IMAGE_VIEW (view), pixbuf, TRUE);
- *     gtk_container_add (GTK_CONTAINER (window), view);
- *     gtk_widget_show_all (window);
- *     gtk_main ();
- * }
- *     </programlisting>  
- *   </informalexample>
- *   <para>
- *     Compile and run with:
- *   </para>
- *   <informalexample>
- *     <programlisting>
- * $ gcc -o minimal minimal.c `pkg-config --cflags --libs gtkimageview`
- * $ ./minimal
- *     </programlisting>
- *   </informalexample>
- *   <para>
- *     The result should look something like the following:
- *   </para>
- *   <mediaobject>
- *     <imageobject align = "center">
- *       <imagedata fileref = "ex-mini.png" align = "center"/>
- *     </imageobject>
- *   </mediaobject>
- *   <para>
- *     Note that because the example doesn't use #UniScrollWin many
- *     nice features aren't available.
- *   </para>  
- * </refsect1>
- **/
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
@@ -335,32 +105,6 @@ uni_image_view_clamp_offset (UniImageView * view, gdouble * x, gdouble * y)
     *x = MAX (*x, 0);
     *y = MAX (*y, 0);
 }
-
-/**
- * uni_image_view_update_cursor:
- *
- * Query the tool what cursor it wants the view to display and then
- * use that cursor.
- *
- * Consider for example if the pointer is over a hotspot in the image.
- * If an arrow key is pressed, then the hotspot is moved, but the
- * cursor is not so no motion event is fired. Therefore, this method
- * must be called BOTH when the mouse is moved and when the offset is
- * changed.
- **/
-/*static void
-uni_image_view_update_cursor (UniImageView *view)
-{
-    GtkWidget *widget = GTK_WIDGET (view);
-    if (!GTK_WIDGET_REALIZED (widget))
-        return;
-    int x, y;
-    gdk_window_get_pointer (widget->window, &x, &y, NULL);
-    GdkCursor *cursor = view->void_cursor;
-    if (view->show_cursor)
-        cursor = gtk_iimage_tool_cursor_at_point (view->tool, x, y);
-    gdk_window_set_cursor (widget->window, cursor);
-}*/
 
 static void
 uni_image_view_update_adjustments (UniImageView * view)
@@ -496,7 +240,7 @@ uni_image_view_repaint_area (UniImageView * view, GdkRectangle * paint_rect)
 
     view->is_rendering = TRUE;
 
-    // Image area is the area on the widget occupied by the pixbuf. 
+    // Image area is the area on the widget occupied by the pixbuf.
     GdkRectangle image_area;
     Size alloc = uni_image_view_get_allocated_size (view);
     uni_image_view_get_draw_rect (view, &image_area);
@@ -661,7 +405,7 @@ uni_image_view_scroll_to (UniImageView * view,
 
     uni_image_view_clamp_offset (view, &offset_x, &offset_y);
 
-    /* Round avoids floating point to integer conversion errors. See 
+    /* Round avoids floating point to integer conversion errors. See
      */
     delta_x = floor (offset_x - view->offset_x + 0.5);
     delta_y = floor (offset_y - view->offset_y + 0.5);
@@ -1063,28 +807,7 @@ uni_image_view_init_signals (UniImageViewClass * klass)
      * The ::zoom-changed signal is emitted when the zoom factor of
      * the view changes. Listening to this signal is useful if, for
      * example, you have a label that displays the zoom factor of the
-     * view. Use uni_image_view_get_zoom() to retrieve the value. For
-     * example:
-     *
-     * <informalexample>
-     *   <programlisting>
-     *     // Handler that will be called when the zoom changes.
-     *     static void
-     *     zoom_cb (UniImageView *view,
-     *              GtkLabel     *label)
-     *     {
-     *         gdouble zoom = uni_image_view_get_zoom (view);
-     *         char *text = g_strdup_printf ("%d%%", (int)(zoom * 100.0));
-	 *         gtk_label_set_text (label, text);
-     *         g_free (text);
-     *     }
-     *     ...
-     *     // Connect the callback to the signal.
-     *     GtkWidget *label = gtk_label_new ("100%");
-     *     g_signal_connect (G_OBJECT (view), "zoom-changed",
-     *                       G_CALLBACK (zoom_cb), label);
-     *   </programlisting>
-     * </informalexample>
+     * view. Use uni_image_view_get_zoom() to retrieve the value.
      **/
     uni_image_view_signals[ZOOM_CHANGED] =
         g_signal_new ("zoom_changed",
@@ -1102,33 +825,6 @@ uni_image_view_init_signals (UniImageViewClass * klass)
      * Listening to this signal is useful if you, for example, have a
      * label that displays the width and height of the pixbuf in the
      * view.
-     *
-     * <informalexample>
-     *   <programlisting>
-     *     // Handler that will be called when the pixbuf changes.
-     *     static void
-     *     pixbuf_cb (UniImageView *view,
-     *                GtkLabel     *label)
-     *     {
-     *         GdkPixbuf *new_pb = uni_image_view_get_pixbuf (view);
-     *         if (!new_pb)
-     *         {
-     *             // Empty label if no pixbuf.
-     *             gtk_label_set_text (label, "");
-     *             return;
-     *         }
-     *         int width = gdk_pixbuf_get_width (new_pb);
-     *         int height = gdk_pixbuf_get_height (new_pb);
-     *         char *text = g_strdup_printf ("%d, %d", width, height);
-     *         gtk_label_set_text (label, text);
-     *         g_free (text);
-     *     }
-     *     ...
-     *     GtkWidget *label = gtk_label_new ("");
-     *     g_signal_connect (G_OBJECT (view), "pixbuf-changed",
-     *                       G_CALLBACK (pixbuf_cb), label);
-     *   </programlisting>
-     * </informalexample>
      **/
     uni_image_view_signals[PIXBUF_CHANGED] =
         g_signal_new ("pixbuf_changed",
@@ -1270,21 +966,7 @@ uni_image_view_class_init (UniImageViewClass * klass)
  * uni_image_view_new:
  * @returns: a new #UniImageView.
  *
- * Creates a new image view with default values. The default values
- * are:
- *
- * <itemizedlist>
- *  <listitem>black bg : %FALSE</listitem>
- *  <listitem>fitting : %TRUE</listitem>
- *  <listitem>image tool : a #UniDragger instance</listitem>
- *  <listitem>interpolation mode : %GDK_INTERP_BILINEAR</listitem>
- *  <listitem>offset : (0, 0)</listitem>
- *  <listitem>pixbuf : %NULL</listitem>
- *  <listitem>show cursor: %TRUE</listitem>
- *  <listitem>show frame : %TRUE</listitem>
- *  <listitem>transp : #GTK_IMAGE_TRANSP_GRID</listitem>
- *  <listitem>zoom : 1.0</listitem>
- * </itemizedlist>
+ * Creates a new image view with default values.
  **/
 GtkWidget *
 uni_image_view_new (void)
@@ -1335,7 +1017,7 @@ uni_image_view_get_viewport (UniImageView * view, GdkRectangle * rect)
  * @returns: %TRUE if the view is allocated and has a pixbuf, %FALSE
  *   otherwise.
  *
- * Get the rectangle in the widget where the pixbuf is painted. 
+ * Get the rectangle in the widget where the pixbuf is painted.
  *
  * For example, if the widgets allocated size is 100, 100 and the
  * pixbufs size is 50, 50 and the zoom factor is 1.0, then the pixbuf

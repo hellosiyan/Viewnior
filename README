@@ -1,6 +1,47 @@
-	Coding Style
+Viewnior - Fast and elegant image viewer
+----------------------------------------
 
+About
+-----
+
+This is Viewnior, an image viewer program. Created to be simple, fast
+and elegant. It's minimalistic interface provides more screenspace for
+your images. Among its features are:
+
+* Mouse and keyboard zooming
+* Scrolling and dragging
+* GIF animation support
+
+Most of the Viewnior's sources handling image viewing are adopted from
+the GtkImageView library by Björn Lindqvist. The files were cleaned up
+and modified, so that unused functionalities were removed
+(GtkImageToolSelector, GtkImageToolPainter, GtkZooms). Variable prefixes
+were changed from gtk_ to uni_ for clarity.
+
+Requirements
+------------
+
+This package requires the following modules to be installed: glib,
+GTK+, gio, gdk-pixbuf, gnome-icon-theme, shared-mime-info.
+
+You can get these packages from your favourite GNOME FTP mirror or at
+http://download.gnome.org/sources or from other sources where GNOME
+packages are distributed. shared-mime-info can be downloaded
+from the freedesktop.org website.
+
+License
+-------
+
+This program is released under the terms of the GNU General Public
+License.  Please see the file COPYING for details.
+
+Coding Style
+------------
+
+(Outdated)
 The coding style is kept consistent in all files, using
 GNU Indent Program with the following arguments:
 -nut -i4 -bli0 -cli0 -brs
 
+
+Last Edited - 18 April 2009
