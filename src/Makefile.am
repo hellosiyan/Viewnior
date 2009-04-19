@@ -12,6 +12,7 @@ uni_headers =	    \
 	uni-scroll-win.h	\
 	uni-dragger.h		\
 	uni-nav.h		\
+	vnr-message-area.h	\
 	uni-zoom.h		\
 	uni-utils.h		\
 	vnr-tools.h
@@ -26,6 +27,7 @@ viewnior_SOURCES =		\
 	uni-scroll-win.c	\
 	uni-dragger.c		\
 	uni-image-view.c	\
+	vnr-message-area.c	\
 	mouse_handler.c		\
 	uni-utils.c		\
 	vnr-tools.c		\

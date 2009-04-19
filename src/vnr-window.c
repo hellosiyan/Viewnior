@@ -19,8 +19,10 @@
 
 #include <gtk/gtk.h>
 #include "vnr-window.h"
+#include "uni-scroll-win.h"
 #include "uni-anim-view.h"
 #include "vnr-tools.h"
+#include "vnr-message-area.h"
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -37,25 +39,8 @@ static gint vnr_window_delete (GtkWidget * widget, GdkEventAny * event);
 static void
 vnr_window_class_init (VnrWindowClass * klass)
 {
-    /* GObjectClass *g_object_class = (GObjectClass *) klass; */
     GtkWidgetClass *widget_class = (GtkWidgetClass *) klass;
-
-    /*      g_object_class->constructor = eog_window_constructor;
-     *      g_object_class->dispose = eog_window_dispose;
-     *g_object_class->finalize = vnr_window_finalize;
-     *      g_object_class->set_property = eog_window_set_property;
-     *      g_object_class->get_property = eog_window_get_property; */
-
     widget_class->delete_event = vnr_window_delete;
-    /*widget_class->key_press_event = vnr_window_key_press;
-     *      widget_class->button_press_event = eog_window_button_press;
-     *      widget_class->drag_data_received = eog_window_drag_data_received;
-     *      widget_class->configure_event = eog_window_configure_event;
-     *widget_class->window_state_event = vnr_window_state_event;
-     *      widget_class->unrealize = eog_window_unrealize;
-     *      widget_class->focus_in_event = eog_window_focus_in_event;
-     *      widget_class->focus_out_event = eog_window_focus_out_event; */
-
 }
 
 GtkWidget *
@@ -72,6 +57,19 @@ vnr_window_init (VnrWindow * window)
 
     window->max_width = gdk_screen_width () * 0.8;
     window->max_height = gdk_screen_height () * 0.8;
+
+    window->layout = gtk_vbox_new(FALSE,0);
+    gtk_container_add (GTK_CONTAINER (window), window->layout);
+    gtk_widget_show(window->layout);
+
+    window->msg_area = vnr_message_area_new();
+    gtk_box_pack_start (GTK_BOX (window->layout), window->msg_area, FALSE,FALSE,0);
+    gtk_widget_show(GTK_WIDGET (window->msg_area));
+
+    window->view = uni_anim_view_new ();
+    window->scroll_view = uni_scroll_win_new (UNI_IMAGE_VIEW (window->view));
+    gtk_box_pack_end (GTK_BOX (window->layout), window->scroll_view, TRUE,TRUE,0);
+    gtk_widget_show_all(GTK_WIDGET (window->scroll_view));
 
     g_signal_connect (G_OBJECT (window), "destroy",
                       G_CALLBACK (gtk_main_quit), NULL);
@@ -91,14 +89,18 @@ vnr_window_open (VnrWindow * win, const char *path)
     GError *error = NULL;
     gint img_h, img_w;          /* Width and Height of the pixbuf */
 
+    gtk_window_set_title (GTK_WINDOW (win), g_path_get_basename (path));
+
     pixbuf = gdk_pixbuf_animation_new_from_file (path, &error);
 
     if (error != NULL)
     {
         /* Warn about the error! */
-        printf ("ERROR: %s\n", error->message);
+        vnr_message_area_show_warning(VNR_MESSAGE_AREA (win->msg_area), error->message);
+        g_warning("%s\n", error->message);
         return FALSE;
     }
+
 
     img_w = gdk_pixbuf_animation_get_width (pixbuf);
     img_h = gdk_pixbuf_animation_get_height (pixbuf);
@@ -109,10 +111,6 @@ vnr_window_open (VnrWindow * win, const char *path)
                        (img_h < 200) ? 200 : img_h);
 
     uni_anim_view_set_anim (UNI_ANIM_VIEW (win->view), pixbuf);
-
-    gtk_window_set_title (GTK_WINDOW (win),
-                          g_strconcat (g_path_get_basename (path),
-                                       " - Viewnior", NULL));
 
     return TRUE;
 }

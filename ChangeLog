@@ -1,4 +1,21 @@
-2009-04-19  Sisqo  <sisqo@sisqo-desktop>
+2009-04-19  Siyan Panayotov  <sisqo@sisqo-desktop>
 
-	* src/main.c (main): Added --version argument
+	* src/main.c (main): Added --version argument.
+	* src/vnr-window.c (vnr_window_open): Remove application's
+    name from the window title.
 
+    Add warning area:
+	* src/vnr-message-area.c:
+	* src/vnr-message-area.h:
+	New files.
+	* src/vnr-window.c (vnr_window_class_init), (vnr_window_init):
+	* src/vnr-window.h:
+    Include a message area in the layout.
+	* src/vnr-window.c (vnr_window_open): Warn about errors, while
+    loading image.
+	* src/Makefile.am: Add src/vnr-message-area.c and 
+    src/vnr-message-area.h
+
+1999-09-15  Siyan Panayotov  <sisqo@sisqo-desktop>
+
+	* Started the ChangeLog.

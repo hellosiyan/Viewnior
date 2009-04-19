@@ -22,6 +22,7 @@
 #include "vnr-window.h"
 #include "uni-scroll-win.h"
 #include "uni-image-view.h"
+#include "vnr-message-area.h"
 #include "uni-anim-view.h"
 
 static char **files = NULL;     //array of files specified to be opened
@@ -61,15 +62,8 @@ main (int argc, char *argv[])
     }
 
     win = (VnrWindow *) vnr_window_new ();
-    gtk_window_set_default_size (GTK_WINDOW (win), 800, 600);
+    gtk_window_set_default_size (GTK_WINDOW (win), 480, 300);
     gtk_window_set_position (GTK_WINDOW (win), GTK_WIN_POS_CENTER);
-
-
-    win->view = uni_anim_view_new ();
-    win->scroll_view = uni_scroll_win_new (UNI_IMAGE_VIEW (win->view));
-
-    /* Where "box" is a GtkBox already part of your layout. */
-    gtk_container_add (GTK_CONTAINER (win), win->scroll_view);
 
     //printf("FILE: %s\n", *files);
 
@@ -77,10 +71,14 @@ main (int argc, char *argv[])
     {
         vnr_window_open (win, *files);
     }
+    else
+    {
+        vnr_message_area_show_warning(VNR_MESSAGE_AREA (win->msg_area),
+                                      "No image specified!");
+    }
 
 
-    gtk_widget_show_all (GTK_WIDGET (win));
-
+    gtk_widget_show (GTK_WIDGET (win));
     gtk_main ();
 
     return 0;

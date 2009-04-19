@@ -24,7 +24,8 @@
 #include <glib-object.h>
 #include <gtk/gtk.h>
 
-G_BEGIN_DECLS typedef struct _VnrWindow VnrWindow;
+G_BEGIN_DECLS
+typedef struct _VnrWindow VnrWindow;
 typedef struct _VnrWindowClass VnrWindowClass;
 
 #define VNR_TYPE_WINDOW             (vnr_window_get_type ())
@@ -36,6 +37,10 @@ typedef struct _VnrWindowClass VnrWindowClass;
 
 struct _VnrWindow {
     GtkWindow win;
+
+    GtkWidget *layout;
+
+    GtkWidget *msg_area;
 
     GtkWidget *view;
     GtkWidget *scroll_view;
@@ -52,7 +57,7 @@ GType       vnr_window_get_type (void) G_GNUC_CONST;
 
 GtkWidget*  vnr_window_new      (void);
 
-gboolean    vnr_window_open     (VnrWindow * win, const char *path);
+gboolean    vnr_window_open     (VnrWindow *win, const char *path);
 
 G_END_DECLS
 #endif /* __VNR_WINDOW_H__ */
