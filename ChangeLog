@@ -1,0 +1,4 @@
+2009-04-19  Sisqo  <sisqo@sisqo-desktop>
+
+	* src/main.c (main): Added --version argument
+

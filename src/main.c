@@ -17,6 +17,7 @@
  * along with Viewnior.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <config.h>
 #include <gtk/gtk.h>
 #include "vnr-window.h"
 #include "uni-scroll-win.h"
@@ -24,12 +25,13 @@
 #include "uni-anim-view.h"
 
 static char **files = NULL;     //array of files specified to be opened
+static gboolean version = FALSE;
 
 /* List of option entries
  * The only option is for specifying file to be opened. */
 static GOptionEntry opt_entries[] = {
-    {G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_FILENAME_ARRAY, &files, NULL,
-     ("[FILE]")},
+    {G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_FILENAME_ARRAY, &files, NULL, "[FILE]"},
+    {"version", 0, 0, G_OPTION_ARG_NONE, &version, NULL, NULL},
     {NULL}
 };
 
@@ -50,6 +52,11 @@ main (int argc, char *argv[])
         printf
             ("%s\nRun 'viewnior --help' to see a full list of available command line options.\n",
              error->message);
+        return 1;
+    }
+    else if(version)
+    {
+        printf("%s\n", PACKAGE_STRING);
         return 1;
     }
 
