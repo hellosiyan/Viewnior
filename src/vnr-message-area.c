@@ -38,7 +38,7 @@ vnr_message_area_new ()
 }
 
 static void
-vnr_message_area_init (VnrMessageArea * msg_area)
+vnr_message_area_initialize(VnrMessageArea * msg_area)
 {
     msg_area->hbox = gtk_hbox_new(FALSE, 12);
     gtk_container_add(GTK_CONTAINER (msg_area), msg_area->hbox);
@@ -53,6 +53,13 @@ vnr_message_area_init (VnrMessageArea * msg_area)
 
     gtk_widget_hide_all(msg_area->hbox);
     gtk_widget_set_state(GTK_WIDGET(msg_area), GTK_STATE_SELECTED);
+    msg_area->initialized = TRUE;
+}
+
+static void
+vnr_message_area_init (VnrMessageArea * msg_area)
+{
+    msg_area->initialized = FALSE;
 }
 
 static gint
@@ -65,6 +72,10 @@ vnr_message_area_delete (GtkWidget * widget, GdkEventAny * event)
 void
 vnr_message_area_show_warning (VnrMessageArea *msg_area, const char *message)
 {
+    if(!msg_area->initialized)
+    {
+        vnr_message_area_initialize(msg_area);
+    }
     gtk_label_set_markup(GTK_LABEL(msg_area->message),
                          g_markup_printf_escaped
                          ("<span weight=\"bold\">%s</span>",message));

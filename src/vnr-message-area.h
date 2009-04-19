@@ -44,6 +44,8 @@ struct _VnrMessageArea {
 
     GtkWidget *image;
     GtkWidget *message;
+
+    gboolean initialized;
 };
 
 struct _VnrMessageAreaClass {
