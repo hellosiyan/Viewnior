@@ -1,3 +1,11 @@
+2009-04-20  Siyan Panayotov  <sisqo@sisqo-desktop>
+
+    * src/vnr-message-area.c: Small memory improvement -
+    Compose message area on the first call to show it.
+    * TODO: Check "Implement warning dialogs" -
+    Already completed.
+
+
 2009-04-19  Siyan Panayotov  <sisqo@sisqo-desktop>
 
 	* src/main.c (main): Added --version argument.
