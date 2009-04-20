@@ -58,12 +58,12 @@ uni_dragger_motion_notify (UniDragger * tool, GdkEventMotion * ev)
         return FALSE;
 
     GdkRectangle viewport;
-    uni_image_view_get_viewport ((UniImageView *) tool->view, &viewport);
+    uni_image_view_get_viewport (UNI_IMAGE_VIEW (tool->view), &viewport);
 
     int offset_x = viewport.x + dx;
     int offset_y = viewport.y + dy;
 
-    uni_image_view_set_offset ((UniImageView *) tool->view, offset_x,
+    uni_image_view_set_offset (UNI_IMAGE_VIEW (tool->view), offset_x,
                                offset_y, FALSE);
 
     mouse_handler->drag_base_x = mouse_handler->drag_ofs_x;

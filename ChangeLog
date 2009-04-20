@@ -1,5 +1,15 @@
 2009-04-20  Siyan Panayotov  <sisqo@sisqo-desktop>
 
+    * src/main.c: Fix program termination status
+    when invalid args are passed.
+    * src/vnr-window.c (vnr_window_open): Remove g_warning()
+    if image opening is unsuccessful.
+    * src/uni-image-view.c:
+    * src/uni-dragger.c: Change type conversions from (UniBlahBlah *) to
+    UNI_BLAH_BLAH().
+
+2009-04-20  Siyan Panayotov  <sisqo@sisqo-desktop>
+
     * NEWS: Viewnior 0.2 !
 	* configure.ac: Version bump.
 

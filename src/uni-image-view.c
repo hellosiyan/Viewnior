@@ -283,7 +283,7 @@ uni_image_view_repaint_area (UniImageView * view, GdkRectangle * paint_rect)
             interp,
             view->pixbuf
         };
-        uni_dragger_paint_image ((UniDragger *) view->tool, &opts,
+        uni_dragger_paint_image (UNI_DRAGGER(view->tool), &opts,
                                  widget->window);
     }
 
@@ -555,7 +555,7 @@ uni_image_view_button_press (GtkWidget * widget, GdkEventButton * ev)
     UniImageView *view = UNI_IMAGE_VIEW (widget);
     if (ev->type == GDK_BUTTON_PRESS && ev->button == 1)
     {
-        return uni_dragger_button_press ((UniDragger *) view->tool, ev);
+        return uni_dragger_button_press (UNI_DRAGGER(view->tool), ev);
     }
     else if (ev->type == GDK_2BUTTON_PRESS && ev->button == 1)
     {
@@ -577,7 +577,7 @@ static int
 uni_image_view_button_release (GtkWidget * widget, GdkEventButton * ev)
 {
     UniImageView *view = UNI_IMAGE_VIEW (widget);
-    return uni_dragger_button_release ((UniDragger *) view->tool, ev);
+    return uni_dragger_button_release (UNI_DRAGGER(view->tool), ev);
 }
 
 static int
@@ -587,7 +587,7 @@ uni_image_view_motion_notify (GtkWidget * widget, GdkEventMotion * ev)
     if (view->is_rendering)
         return FALSE;
     //uni_image_view_update_cursor (view);
-    return uni_dragger_motion_notify ((UniDragger *) view->tool, ev);
+    return uni_dragger_motion_notify (UNI_DRAGGER(view->tool), ev);
 }
 
 static gboolean
@@ -677,7 +677,7 @@ uni_image_view_init (UniImageView * view)
     view->is_rendering = FALSE;
     view->show_cursor = TRUE;
     view->void_cursor = NULL;
-    view->tool = (GObject *) uni_dragger_new ((GtkWidget *) view);
+    view->tool = G_OBJECT (uni_dragger_new ((GtkWidget *) view));
 
     view->transp = GTK_IMAGE_TRANSP_GRID;
 
@@ -1188,7 +1188,7 @@ uni_image_view_set_pixbuf (UniImageView * view,
 
     g_signal_emit (G_OBJECT (view),
                    uni_image_view_signals[PIXBUF_CHANGED], 0);
-    uni_dragger_pixbuf_changed ((UniDragger *) view->tool, reset_fit, NULL);
+    uni_dragger_pixbuf_changed (UNI_DRAGGER(view->tool), reset_fit, NULL);
 }
 
 /**

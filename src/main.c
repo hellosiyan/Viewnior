@@ -58,7 +58,7 @@ main (int argc, char *argv[])
     else if(version)
     {
         printf("%s\n", PACKAGE_STRING);
-        return 1;
+        return 0;
     }
 
     win = (VnrWindow *) vnr_window_new ();

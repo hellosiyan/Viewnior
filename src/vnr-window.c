@@ -24,16 +24,9 @@
 #include "vnr-tools.h"
 #include "vnr-message-area.h"
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-
 G_DEFINE_TYPE (VnrWindow, vnr_window, GTK_TYPE_WINDOW);
 
-/* static void      vnr_window_finalize     (GObject *object); */
 static gint vnr_window_delete (GtkWidget * widget, GdkEventAny * event);
-/*static gint       vnr_window_key_press    (GtkWidget *widget, GdkEventKey *event);*/
-/*static gboolean   vnr_window_state_event  ( GtkWidget* widget, GdkEventWindowState* state );*/
 
 
 static void
@@ -97,7 +90,6 @@ vnr_window_open (VnrWindow * win, const char *path)
     {
         /* Warn about the error! */
         vnr_message_area_show_warning(VNR_MESSAGE_AREA (win->msg_area), error->message);
-        g_warning("%s\n", error->message);
         return FALSE;
     }
 
