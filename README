@@ -15,7 +15,7 @@ your images. Among its features are:
 Most of the Viewnior's sources handling image viewing are adopted from
 the GtkImageView library by Björn Lindqvist. The files were cleaned up
 and modified, so that unused functionalities were removed
-(GtkImageToolSelector, GtkImageToolPainter, GtkZooms). Variable prefixes
+(GtkImageToolSelector, GtkImageToolPainter, GtkZooms).Prefixes
 were changed from gtk_ to uni_ for clarity.
 
 Requirements

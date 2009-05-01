@@ -21,40 +21,72 @@
 #define __VNR_IMAGE_H__
 
 #include <glib.h>
+#include <gio/gio.h>
+#include <stdio.h>
 #include "vnr-tools.h"
 
 void
-fit_to_size (gint * w, gint * h, gint mw, gint mh)
+vnr_tools_fit_to_size (gint * width, gint * height, gint max_width, gint max_height)
 {
-    gfloat ratio, mratio;
+    gfloat ratio, max_ratio;
 
     /* if size fits well, then exit */
-    if (*w < mw && *h < mh)
+    if (*width < max_width && *height < max_height)
         return;
     /* check if dividing by 0 */
-    if (*w == 0 || mh == 0)
+    if (*width == 0 || max_height == 0)
         return;
 
-    ratio = 1. * (*h) / (*w);
-    mratio = 1. * mh / mw;
+    ratio = 1. * (*height) / (*width);
+    max_ratio = 1. * max_height / max_width;
 
-    if (mratio > ratio)
+    if (max_ratio > ratio)
     {
-        *w = mw;
-        *h = ratio * (*w);
+        *width = max_width;
+        *height = ratio * (*width);
     }
-    else if (ratio > mratio)
+    else if (ratio > max_ratio)
     {
-        *h = mh;
-        *w = (*h) / ratio;
+        *height = max_height;
+        *width = (*height) / ratio;
     }
     else
     {
-        *w = mh;
-        *h = mh;
+        *width = max_height;
+        *height = max_height;
     }
 
     return;
+}
+
+GSList*
+vnr_tools_get_list_from_array (gchar **files)
+{
+    GSList *uri_list = NULL;
+    gint i;
+
+    if (files == NULL) return NULL;
+
+    for (i = 0; files[i]; i++) {
+        char *uri_string;
+
+        GFile *file;
+
+        //printf("IN:%s\n",files[i]);
+        file = g_file_new_for_commandline_arg (files[i]);
+
+        uri_string = g_file_get_path (file);
+        //printf("OUT:%s\n",uri_string);
+
+        g_object_unref (file);
+
+        if (uri_string) {
+            uri_list = g_slist_prepend (uri_list, g_strdup (uri_string));
+            g_free (uri_string);
+        }
+    }
+
+    return g_slist_reverse (uri_list);
 }
 
 #endif /* __VNR_IMAGE_H__ */

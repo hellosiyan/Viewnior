@@ -40,6 +40,7 @@ typedef struct _VnrMessageAreaClass VnrMessageAreaClass;
 struct _VnrMessageArea {
     GtkEventBox parent;
 
+    VnrWindow *vnr_win;
     GtkWidget *hbox;
 
     GtkWidget *image;
@@ -57,7 +58,9 @@ GType       vnr_message_area_get_type (void) G_GNUC_CONST;
 GtkWidget*  vnr_message_area_new      (void);
 
 void        vnr_message_area_show_warning (VnrMessageArea *msg_area, const char *message);
-void        vnr_message_area_hide_warning (VnrMessageArea *msg_area);
+void        vnr_message_area_hide         (VnrMessageArea *msg_area);
+
+gboolean    vnr_message_area_get_visible  (VnrMessageArea *msg_area);
 
 G_END_DECLS
 #endif /* __VNR_MESSAGE_AREA_H__ */

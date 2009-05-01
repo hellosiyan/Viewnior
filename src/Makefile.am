@@ -4,34 +4,36 @@ BUILT_SOURCES =			\
 	uni-marshal.c		\
 	uni-marshal.h		
 
-uni_headers =	    \
-	mouse_handler.h		\
-	uni-cache.h		\
+uni_headers =           \
+	mouse_handler.h     \
+	uni-cache.h         \
 	uni-image-view.h	\
 	uni-anim-view.h		\
 	uni-scroll-win.h	\
 	uni-dragger.h		\
-	uni-nav.h		\
+	uni-nav.h           \
 	vnr-message-area.h	\
-	uni-zoom.h		\
-	uni-utils.h		\
+	vnr-file.h          \
+	uni-zoom.h          \
+	uni-utils.h         \
 	vnr-tools.h
 
 viewnior_SOURCES =		\
-	main.c			\
+	main.c              \
 	vnr-window.c		\
 	vnr-window.h		\
-	uni-cache.c		\
+	uni-cache.c         \
 	uni-anim-view.c		\
-	uni-nav.c		\
+	uni-nav.c           \
 	uni-scroll-win.c	\
 	uni-dragger.c		\
 	uni-image-view.c	\
 	vnr-message-area.c	\
 	mouse_handler.c		\
-	uni-utils.c		\
-	vnr-tools.c		\
-	$(BUILT_SOURCES)	\
+	vnr-file.c          \
+	uni-utils.c         \
+	vnr-tools.c         \
+	$(BUILT_SOURCES)    \
 	$(uni_headers)
 
 viewnior_CFLAGS = $(VNR_CFLAGS) $(VNR_WARNINGS)

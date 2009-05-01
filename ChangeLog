@@ -1,4 +1,28 @@
-2009-04-20  Siyan Panayotov  <sisqo@sisqo-desktop>
+2009-05-01  Siyan Panayotov  <xsisqox@gmail.com>
+
+    * data/icons: Icons modified (for better view in small sizes)
+    * src/Makefile.am: Add src/vnr-file.c and src/vnr-file.h
+    * src/vnr-message-area.c:
+    * src/vnr-message-area.h:
+    Fix show/hide. Memory improvements.
+
+    Add file navigation API:
+    * data/viewnior.desktop.in.in: Use 'Exec=viewnior %F' to support
+    multiple file selection.
+    * src/main.c (main): Support file navigation api.
+    * src/uni-image-view.c (uni_image_view_init_signals): Remove
+    unusable key bindings.
+    * src/vnr-file.c:
+    * src/vnr-file.h:
+    New files.
+    * src/vnr-tools.c (vnr_tools_get_list_from_array): New function to
+    put commandline args in GSList.
+    * src/vnr-tools.h:
+    * src/vnr-window.h:
+    * src/vnr-window.c: Add vnr_window_close().
+    (vnr_window_open): Porting to VnrFile.
+
+2009-04-20  Siyan Panayotov  <xsisqox@gmail.com>
 
     * src/main.c: Fix program termination status
     when invalid args are passed.
@@ -8,12 +32,12 @@
     * src/uni-dragger.c: Change type conversions from (UniBlahBlah *) to
     UNI_BLAH_BLAH().
 
-2009-04-20  Siyan Panayotov  <sisqo@sisqo-desktop>
+2009-04-20  Siyan Panayotov  <xsisqox@gmail.com>
 
     * NEWS: Viewnior 0.2 !
-	* configure.ac: Version bump.
+    * configure.ac: Version bump.
 
-2009-04-20  Siyan Panayotov  <sisqo@sisqo-desktop>
+2009-04-20  Siyan Panayotov  <xsisqox@gmail.com>
 
     * src/vnr-message-area.c: Small memory improvement -
     Compose message area on the first call to show it.
@@ -21,24 +45,24 @@
     Already completed.
     * data/icons: Viewnior's icon changed!
 
-2009-04-19  Siyan Panayotov  <sisqo@sisqo-desktop>
+2009-04-19  Siyan Panayotov  <xsisqox@gmail.com>
 
-	* src/main.c (main): Added --version argument.
-	* src/vnr-window.c (vnr_window_open): Remove application's
+    * src/main.c (main): Added --version argument.
+    * src/vnr-window.c (vnr_window_open): Remove application's
     name from the window title.
 
     Add warning area:
-	* src/vnr-message-area.c:
-	* src/vnr-message-area.h:
-	New files.
-	* src/vnr-window.c (vnr_window_class_init), (vnr_window_init):
-	* src/vnr-window.h:
+    * src/vnr-message-area.c:
+    * src/vnr-message-area.h:
+    New files.
+    * src/vnr-window.c (vnr_window_class_init), (vnr_window_init):
+    * src/vnr-window.h:
     Include a message area in the layout.
-	* src/vnr-window.c (vnr_window_open): Warn about errors, while
+    * src/vnr-window.c (vnr_window_open): Warn about errors, while
     loading image.
-	* src/Makefile.am: Add src/vnr-message-area.c and 
+    * src/Makefile.am: Add src/vnr-message-area.c and
     src/vnr-message-area.h
 
-1999-09-15  Siyan Panayotov  <sisqo@sisqo-desktop>
+2009-04-15  Siyan Panayotov  <xsisqox@gmail.com>
 
-	* Started the ChangeLog.
+    * Started the ChangeLog.

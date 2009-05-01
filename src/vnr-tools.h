@@ -20,6 +20,8 @@
 #ifndef __VNR_IMAGE_H__
 #define __VNR_IMAGE_H__
 
-void    fit_to_size (gint * w, gint * h, gint mw, gint mh);
+void    vnr_tools_fit_to_size (gint * w, gint * h, gint mw, gint mh);
+
+GSList *vnr_tools_get_list_from_array (gchar **files);
 
 #endif /* __VNR_IMAGE_H__ */

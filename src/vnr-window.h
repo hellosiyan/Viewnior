@@ -23,8 +23,10 @@
 #include <glib.h>
 #include <glib-object.h>
 #include <gtk/gtk.h>
+#include "vnr-file.h"
 
 G_BEGIN_DECLS
+
 typedef struct _VnrWindow VnrWindow;
 typedef struct _VnrWindowClass VnrWindowClass;
 
@@ -45,6 +47,8 @@ struct _VnrWindow {
     GtkWidget *view;
     GtkWidget *scroll_view;
 
+    GList *file_list;
+
     gint max_width;
     gint max_height;
 };
@@ -55,9 +59,16 @@ struct _VnrWindowClass {
 
 GType       vnr_window_get_type (void) G_GNUC_CONST;
 
-GtkWidget*  vnr_window_new      (void);
+/* Constructors */
+GtkWindow*  vnr_window_new      (void);
 
-gboolean    vnr_window_open     (VnrWindow *win, const char *path);
+/* Actions */
+gboolean    vnr_window_open     (VnrWindow *win, gboolean fit_to_screen);
+void        vnr_window_close    (VnrWindow *win);
+
+void        vnr_window_set_list (VnrWindow *win, GList *list);
+gboolean    vnr_window_next     (VnrWindow *win);
+gboolean    vnr_window_prev     (VnrWindow *win);
 
 G_END_DECLS
 #endif /* __VNR_WINDOW_H__ */

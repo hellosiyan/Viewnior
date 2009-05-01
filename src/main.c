@@ -24,8 +24,10 @@
 #include "uni-image-view.h"
 #include "vnr-message-area.h"
 #include "uni-anim-view.h"
+#include "vnr-file.h"
+#include "vnr-tools.h"
 
-static char **files = NULL;     //array of files specified to be opened
+static gchar **files = NULL;     //array of files specified to be opened
 static gboolean version = FALSE;
 
 /* List of option entries
@@ -36,12 +38,21 @@ static GOptionEntry opt_entries[] = {
     {NULL}
 };
 
+void
+print_list(gpointer * data, gpointer user_data)
+{
+    printf("%s\n", VNR_FILE(data)->display_name);
+}
+
 int
 main (int argc, char *argv[])
 {
     GError *error = NULL;
     GOptionContext *opt_context;
-    VnrWindow *win;
+    GtkWindow *win;
+
+    GSList *uri_list = NULL;
+    GList *file_list = NULL;
 
     opt_context = g_option_context_new ("- Elegant Image Viewer");
     g_option_context_add_main_entries (opt_context, opt_entries, NULL);
@@ -61,20 +72,44 @@ main (int argc, char *argv[])
         return 0;
     }
 
-    win = (VnrWindow *) vnr_window_new ();
-    gtk_window_set_default_size (GTK_WINDOW (win), 480, 300);
-    gtk_window_set_position (GTK_WINDOW (win), GTK_WIN_POS_CENTER);
+    win = vnr_window_new ();
+    gtk_window_set_default_size (win, 480, 300);
+    gtk_window_set_position (win, GTK_WIN_POS_CENTER);
 
-    //printf("FILE: %s\n", *files);
+    uri_list = vnr_tools_get_list_from_array (files);
 
-    if (G_LIKELY (files))
+    if(uri_list == NULL)
     {
-        vnr_window_open (win, *files);
+        vnr_message_area_show_warning(VNR_MESSAGE_AREA (VNR_WINDOW(win)->msg_area),
+                                      "No image specified!");
     }
     else
     {
-        vnr_message_area_show_warning(VNR_MESSAGE_AREA (win->msg_area),
-                                      "No image specified!");
+        if (g_slist_length(uri_list) == 1)
+        {
+            vnr_file_load_single_uri (uri_list->data, &file_list, &error);
+        }
+        else
+        {
+            vnr_file_load_uri_list (uri_list, &file_list, &error);
+        }
+
+        if(error != NULL)
+        {
+            vnr_message_area_show_warning(VNR_MESSAGE_AREA (VNR_WINDOW(win)->msg_area),
+                                          error->message);
+        }
+        else if(file_list == NULL)
+        {
+            vnr_message_area_show_warning(VNR_MESSAGE_AREA (VNR_WINDOW(win)->msg_area),
+                                          "The given locations contain no images.");
+        }
+        else
+        {
+            vnr_window_set_list(VNR_WINDOW(win), file_list);
+            vnr_window_open(VNR_WINDOW(win), TRUE);
+            //g_timeout_add_seconds (2, (GSourceFunc)vnr_window_next, VNR_WINDOW(win));
+        }
     }
 
 

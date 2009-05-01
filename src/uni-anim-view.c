@@ -251,7 +251,9 @@ void
 uni_anim_view_set_anim (UniAnimView * aview, GdkPixbufAnimation * anim)
 {
     if (aview->anim)
+    {
         g_object_unref (aview->anim);
+    }
     aview->anim = anim;
     if (!aview->anim)
     {

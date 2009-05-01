@@ -72,20 +72,34 @@ vnr_message_area_delete (GtkWidget * widget, GdkEventAny * event)
 void
 vnr_message_area_show_warning (VnrMessageArea *msg_area, const char *message)
 {
+    char *warning;
     if(!msg_area->initialized)
     {
         vnr_message_area_initialize(msg_area);
     }
-    gtk_label_set_markup(GTK_LABEL(msg_area->message),
-                         g_markup_printf_escaped
-                         ("<span weight=\"bold\">%s</span>",message));
+    warning = g_markup_printf_escaped ("<span weight=\"bold\">%s</span>",
+                                       message);
 
+    gtk_label_set_markup(GTK_LABEL(msg_area->message), warning);
+
+    g_free (warning);
+    vnr_window_close(msg_area->vnr_win);
     gtk_widget_show_all(GTK_WIDGET (msg_area->hbox));
 }
 
 void
-vnr_message_area_hide_warning (VnrMessageArea *msg_area)
+vnr_message_area_hide (VnrMessageArea *msg_area)
 {
     gtk_widget_hide_all(GTK_WIDGET (msg_area->hbox));
 }
 
+gboolean
+vnr_message_area_get_visible (VnrMessageArea *msg_area)
+{
+    if(msg_area->initialized && GTK_WIDGET_VISIBLE(msg_area))
+    {
+        return TRUE;
+    }
+    else
+        return FALSE;
+}

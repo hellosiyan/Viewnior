@@ -2,7 +2,7 @@
 _Name=Viewnior
 _Comment=Elegant Image Viewer
 TryExec=viewnior
-Exec=viewnior %f
+Exec=viewnior %F
 Icon=viewnior
 StartupNotify=true
 Terminal=false

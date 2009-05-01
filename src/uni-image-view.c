@@ -724,16 +724,6 @@ uni_image_view_finalize (GObject * object)
 static void
 uni_image_view_init_signals (UniImageViewClass * klass)
 {
-    /**
-     * UniImageView::set-zoom:
-     * @view: The #UniImageView that received the signal.
-     * @zoom: The new zoom factor.
-     *
-     * The ::set-zoom signal is a keybinding signal emitted when
-     * %GDK_1, %GDK_2 or %GDK_3 is pressed on the widget which causes
-     * the zoom to be set to 100%, 200% or 300%. The signal should not
-     * be used by clients of this library.
-     **/
     uni_image_view_signals[SET_ZOOM] =
         g_signal_new ("set_zoom",
                       G_TYPE_FROM_CLASS (klass),
@@ -749,14 +739,6 @@ uni_image_view_init_signals (UniImageViewClass * klass)
                       G_STRUCT_OFFSET (UniImageViewClass, zoom_in),
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-    /**
-     * UniImageView::zoom-out:
-     * @view: The #UniImageView that received the signal.
-     *
-     * The ::zoom-out signal is a keybinding signal emitted when
-     * %GDK_minus or %GDK_KP_Subtract is pressed on the widget. The
-     * signal should not be used by clients of this library.
-     **/
     uni_image_view_signals[ZOOM_OUT] =
         g_signal_new ("zoom_out",
                       G_TYPE_FROM_CLASS (klass),
@@ -764,15 +746,6 @@ uni_image_view_init_signals (UniImageViewClass * klass)
                       G_STRUCT_OFFSET (UniImageViewClass, zoom_out),
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-    /**
-     * UniImageView::set-fit-mode:
-     * @view: the #UniImageView that received the signal.
-     * @fiting: whether to fit the image or not
-     *
-     * The ::set-fit-mode signal is a keybinding signal emitted when
-     * the %GDK_W key is pressed on the widget. The signal should not
-     * be used by clients of this library.
-     **/
     uni_image_view_signals[SET_FITTING] =
         g_signal_new ("set_fitting",
                       G_TYPE_FROM_CLASS (klass),
@@ -781,16 +754,6 @@ uni_image_view_init_signals (UniImageViewClass * klass)
                       NULL, NULL,
                       g_cclosure_marshal_VOID__BOOLEAN,
                       G_TYPE_NONE, 1, G_TYPE_INT);
-    /**
-     * UniImageView::scroll:
-     * @view: The #UniImageView that received the signal.
-     * @xscroll: Horizontal scroll constant.
-     * @yscroll: Vertical scroll constant.
-     *
-     * The ::scroll signal is a keybinding signal emitted when a key
-     * is used to scroll the view. The signal should not be used by
-     * clients of this library.
-     **/
     uni_image_view_signals[SCROLL] =
         g_signal_new ("scroll",
                       G_TYPE_FROM_CLASS (klass),
@@ -800,15 +763,6 @@ uni_image_view_init_signals (UniImageViewClass * klass)
                       uni_marshal_VOID__ENUM_ENUM,
                       G_TYPE_NONE,
                       2, GTK_TYPE_SCROLL_TYPE, GTK_TYPE_SCROLL_TYPE);
-    /**
-     * UniImageView::zoom-changed:
-     * @view: The #UniImageView that emitted the signal.
-     *
-     * The ::zoom-changed signal is emitted when the zoom factor of
-     * the view changes. Listening to this signal is useful if, for
-     * example, you have a label that displays the zoom factor of the
-     * view. Use uni_image_view_get_zoom() to retrieve the value.
-     **/
     uni_image_view_signals[ZOOM_CHANGED] =
         g_signal_new ("zoom_changed",
                       G_TYPE_FROM_CLASS (klass),
@@ -890,6 +844,12 @@ uni_image_view_class_init (UniImageViewClass * klass)
                                   "set_zoom", 1, G_TYPE_DOUBLE, 2.0);
     gtk_binding_entry_add_signal (binding_set, GDK_3, 0,
                                   "set_zoom", 1, G_TYPE_DOUBLE, 3.0);
+    gtk_binding_entry_add_signal (binding_set, GDK_KP_1, 0,
+                                  "set_zoom", 1, G_TYPE_DOUBLE, 1.0);
+    gtk_binding_entry_add_signal (binding_set, GDK_KP_2, 0,
+                                  "set_zoom", 1, G_TYPE_DOUBLE, 2.0);
+    gtk_binding_entry_add_signal (binding_set, GDK_KP_3, 0,
+                                  "set_zoom", 1, G_TYPE_DOUBLE, 3.0);
 
     /* Zoom in */
     gtk_binding_entry_add_signal (binding_set, GDK_plus, 0, "zoom_in", 0);
@@ -902,11 +862,13 @@ uni_image_view_class_init (UniImageViewClass * klass)
                                   "zoom_out", 0);
 
     /* Set fitting */
-    gtk_binding_entry_add_signal (binding_set, GDK_x, 0,
+    gtk_binding_entry_add_signal (binding_set, GDK_f, 0,
+                                  "set_fitting", 1, G_TYPE_BOOLEAN, TRUE);
+    gtk_binding_entry_add_signal (binding_set, GDK_KP_0, 0,
                                   "set_fitting", 1, G_TYPE_BOOLEAN, TRUE);
 
     /* Unmodified scrolling */
-    gtk_binding_entry_add_signal (binding_set, GDK_Right, 0,
+    /*gtk_binding_entry_add_signal (binding_set, GDK_Right, 0,
                                   "scroll", 2,
                                   GTK_TYPE_SCROLL_TYPE,
                                   GTK_SCROLL_STEP_RIGHT,
@@ -925,7 +887,7 @@ uni_image_view_class_init (UniImageViewClass * klass)
                                   "scroll", 2,
                                   GTK_TYPE_SCROLL_TYPE,
                                   GTK_SCROLL_NONE,
-                                  GTK_TYPE_SCROLL_TYPE, GTK_SCROLL_STEP_UP);
+                                  GTK_TYPE_SCROLL_TYPE, GTK_SCROLL_STEP_UP);*/
 
     /* Shifted scrolling */
     gtk_binding_entry_add_signal (binding_set, GDK_Right, GDK_SHIFT_MASK,
@@ -950,7 +912,7 @@ uni_image_view_class_init (UniImageViewClass * klass)
                                   GTK_TYPE_SCROLL_TYPE, GTK_SCROLL_PAGE_DOWN);
 
     /* Page Up & Down */
-    gtk_binding_entry_add_signal (binding_set, GDK_Page_Up, 0,
+    /*gtk_binding_entry_add_signal (binding_set, GDK_Page_Up, 0,
                                   "scroll", 2,
                                   GTK_TYPE_SCROLL_TYPE,
                                   GTK_SCROLL_NONE,
@@ -959,7 +921,7 @@ uni_image_view_class_init (UniImageViewClass * klass)
                                   "scroll", 2,
                                   GTK_TYPE_SCROLL_TYPE,
                                   GTK_SCROLL_NONE,
-                                  GTK_TYPE_SCROLL_TYPE, GTK_SCROLL_PAGE_DOWN);
+                                  GTK_TYPE_SCROLL_TYPE, GTK_SCROLL_PAGE_DOWN);*/
 }
 
 /**

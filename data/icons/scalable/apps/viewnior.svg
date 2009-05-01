@@ -15,8 +15,11 @@
    sodipodi:version="0.32"
    inkscape:version="0.46"
    version="1.0"
-   sodipodi:docname="drawing (another copy).svg"
-   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+   sodipodi:docname="viewnior.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="/home/sisqo/Programming/viewnior/data/icons/scalable/apps/viewnior.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -28,13 +31,13 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="7.0710678"
-     inkscape:cx="33.659698"
+     inkscape:cx="2.6619047"
      inkscape:cy="29.825235"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1152"
-     inkscape:window-height="815"
+     inkscape:window-width="1150"
+     inkscape:window-height="812"
      inkscape:window-x="0"
      inkscape:window-y="0"
      showguides="true"
@@ -248,11 +251,11 @@
        d="M 41.719299,41.901203 A 17.235727,3.9774756 0 1 1 7.2478447,41.901203 A 17.235727,3.9774756 0 1 1 41.719299,41.901203 z"
        transform="matrix(0.9923076,0,0,1,-0.2952346,0.6516511)" />
     <path
-       style="font-size:40px;font-style:normal;font-weight:normal;fill:url(#radialGradient3184);fill-opacity:1;stroke:#763400;stroke-width:1.04499995999999995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:url(#radialGradient3184);fill-opacity:1;stroke:#763400;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Sans"
        d="M 4.53125,4.53125 L 18.09375,43.46875 L 30.15625,43.46875 L 30.4375,42.65625 C 30.377082,42.611149 30.309124,42.57765 30.25,42.53125 C 29.721455,42.11645 29.124787,41.737891 28.8125,41.15625 C 28.046439,39.729443 28.199965,38.247306 30.0625,37 C 28.581145,35.992301 26.696823,35.628435 26.5625,33.65625 C 26.391236,31.141694 28.933008,30.833973 30.46875,30.3125 C 29.36599,28.446066 28.949306,27.513001 30.375,26.09375 C 32.05404,24.4223 33.135268,25.186059 35.125,26.40625 C 35.506103,24.146395 35.156831,23.497854 37.0625,23.3125 L 43.46875,4.53125 L 32.1875,4.53125 L 24.21875,32.5625 L 16.15625,4.53125 L 4.53125,4.53125 z"
        id="path3649" />
     <path
-       style="font-size:40px;font-style:normal;font-weight:normal;fill:none;fill-opacity:1;stroke:#f7b8b8;stroke-width:1.04499995999999995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:none;fill-opacity:1;stroke:#f7b8b8;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;font-family:Bitstream Vera Sans;stroke-dasharray:none"
        d="M 5.96875,5.5625 L 18.8125,42.4375 L 28.6875,42.4375 C 28.405364,42.183423 28.127524,42.068378 27.90625,41.65625 C 27.439545,40.787001 27.219436,39.75157 27.46875,38.75 C 27.610366,38.181085 27.92207,37.674943 28.34375,37.1875 C 27.960796,36.983191 27.618358,36.806418 27.21875,36.53125 C 26.411223,35.975191 25.620254,35.02555 25.53125,33.71875 C 25.422008,32.11482 26.361828,30.917502 27.375,30.34375 C 28.018401,29.979396 28.547757,29.885117 29.125,29.71875 C 28.866117,29.207305 28.493931,28.694559 28.4375,28.125 C 28.341446,27.155524 28.828141,26.199367 29.65625,25.375 C 30.629382,24.406267 31.766961,23.963277 32.8125,24.15625 C 33.376868,24.260414 33.851537,24.634084 34.34375,24.90625 C 34.394033,24.523598 34.398528,24.073863 34.5625,23.6875 C 34.734631,23.281913 35.099219,22.843843 35.53125,22.625 C 35.757211,22.51054 36.035854,22.491576 36.28125,22.4375 L 42.03125,5.5625 L 32.96875,5.5625 L 24.21875,36.335 L 15.375,5.5625 L 5.96875,5.5625 z"
        id="path5192"
        sodipodi:nodetypes="cccsscssscssscsscccccc" />
