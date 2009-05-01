@@ -1,0 +1,6 @@
+*.gmo
+*.mo
+*.pot
+POTFILES
+stamp-it
+.intltool-merge-cache
