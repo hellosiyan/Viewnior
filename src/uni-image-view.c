@@ -890,7 +890,7 @@ uni_image_view_class_init (UniImageViewClass * klass)
                                   GTK_TYPE_SCROLL_TYPE, GTK_SCROLL_STEP_UP);*/
 
     /* Shifted scrolling */
-    gtk_binding_entry_add_signal (binding_set, GDK_Right, GDK_SHIFT_MASK,
+    /*gtk_binding_entry_add_signal (binding_set, GDK_Right, GDK_SHIFT_MASK,
                                   "scroll", 2,
                                   GTK_TYPE_SCROLL_TYPE,
                                   GTK_SCROLL_PAGE_RIGHT,
@@ -910,6 +910,7 @@ uni_image_view_class_init (UniImageViewClass * klass)
                                   GTK_TYPE_SCROLL_TYPE,
                                   GTK_SCROLL_NONE,
                                   GTK_TYPE_SCROLL_TYPE, GTK_SCROLL_PAGE_DOWN);
+    */
 
     /* Page Up & Down */
     /*gtk_binding_entry_add_signal (binding_set, GDK_Page_Up, 0,
