@@ -12,6 +12,7 @@ AC_CONFIG_HEADERS([config.h])
 AC_ISC_POSIX
 AC_PROG_CC
 AM_PROG_CC_STDC
+AM_PROG_CC_C_O
 AC_HEADER_STDC
 
 VNR_WARNINGS=-Wall
@@ -81,11 +82,11 @@ AC_CONFIG_FILES([Makefile
 AC_OUTPUT
 
 echo "
-	Viewnior ......... : Version $VERSION
-	Location ......... : $prefix/bin
-	CFLAGS ........... : $CFLAGS
+    Viewnior ......... : Version $VERSION
+    Location ......... : $prefix/bin
+    CFLAGS ........... : $CFLAGS
 
-	To compile and install:
-	1. Become root (using su)
-	2. Type 'make install'
+    To compile and install:
+    1. Become root (using su)
+    2. Type 'make install'
 "
