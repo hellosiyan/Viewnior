@@ -41,6 +41,13 @@ vnr_window_new ()
 {
     return (GtkWindow *) g_object_new (VNR_TYPE_WINDOW, NULL);
 }
+static void
+menu_bar_allocate_cb (GtkWidget *widget, GtkAllocation *alloc, VnrWindow *window)
+{
+    /* widget is the VnrMenuBar */
+    g_signal_handlers_disconnect_by_func(widget, menu_bar_allocate_cb, window);
+    vnr_window_open(window, TRUE);
+}
 
 static void
 vnr_window_init (VnrWindow * window)
@@ -69,6 +76,10 @@ vnr_window_init (VnrWindow * window)
 
     g_signal_connect (G_OBJECT (window), "destroy",
                       G_CALLBACK (gtk_main_quit), NULL);
+
+    g_signal_connect (G_OBJECT (window->menu_bar), "size-allocate",
+                      G_CALLBACK (menu_bar_allocate_cb), window);
+
 }
 
 static gint
@@ -85,14 +96,14 @@ vnr_window_open (VnrWindow * win, gboolean fit_to_screen)
     GdkPixbufAnimation *pixbuf;
     GError *error = NULL;
 
-    file = VNR_FILE(win->file_list->data);
+    if(win->file_list == NULL)
+        return FALSE;
 
-    //printf("OPENING:%s\n", file->uri);
+    file = VNR_FILE(win->file_list->data);
 
     gtk_window_set_title (GTK_WINDOW (win), file->display_name);
 
     pixbuf = gdk_pixbuf_animation_new_from_file (file->uri, &error);
-    //pixbuf = gdk_pixbuf_animation_new_from_file (g_filename_from_uri(file->uri,NULL,NULL), &error);
 
     if (error != NULL)
     {
@@ -108,9 +119,7 @@ vnr_window_open (VnrWindow * win, gboolean fit_to_screen)
         img_h = gdk_pixbuf_animation_get_height (pixbuf);
 
         vnr_tools_fit_to_size (&img_w, &img_h, win->max_width, win->max_height);
-
-        gtk_window_resize (GTK_WINDOW (win), (img_w < 200) ? 200 : img_w,
-                           (img_h < 200) ? 200 : img_h);
+        gtk_window_resize (GTK_WINDOW (win), img_w, img_h+win->menu_bar->allocation.height);
     }
 
     uni_anim_view_set_anim (UNI_ANIM_VIEW (win->view), pixbuf);

@@ -250,7 +250,7 @@ uni_scroll_win_size_request (GtkWidget * widget, GtkRequisition * req)
     /* Chain up. */
     GTK_WIDGET_CLASS (uni_scroll_win_parent_class)->size_request
         (widget, req);
-    req->width = req->height = 80;
+    req->width = req->height = 200;
 }
 
 /*************************************************************/
