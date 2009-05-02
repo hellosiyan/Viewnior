@@ -20,7 +20,9 @@
  * along with Viewnior.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <glib/gi18n.h>
+#include <libintl.h>
+#define _(String) gettext (String)
+
 #include "uni-scroll-win.h"
 #include "uni-nav.h"
 
@@ -285,7 +287,7 @@ uni_scroll_win_init (UniScrollWin * window)
                               window);
 
     gtk_widget_set_tooltip_text (window->nav_box,
-                                 "Open the navigator window");
+                                 _("Open the navigator window"));
 }
 
 static void

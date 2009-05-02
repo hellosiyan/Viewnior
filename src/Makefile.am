@@ -2,7 +2,7 @@ bin_PROGRAMS = viewnior
 
 BUILT_SOURCES =			\
 	uni-marshal.c		\
-	uni-marshal.h		
+	uni-marshal.h
 
 uni_headers =           \
 	mouse_handler.h     \
@@ -36,7 +36,11 @@ viewnior_SOURCES =		\
 	$(BUILT_SOURCES)    \
 	$(uni_headers)
 
-viewnior_CFLAGS = $(VNR_CFLAGS) $(VNR_WARNINGS)
+viewnior_CFLAGS = 		\
+	$(VNR_CFLAGS) 		\
+	$(VNR_WARNINGS)		\
+	-DPACKAGE_LOCALE_DIR=\""$(datadir)/locale"\"
+
 viewnior_LDADD = $(VNR_LIBS)
 
 uni-marshal.h: uni-marshal.list $(GLIB_GENMARSHAL)

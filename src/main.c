@@ -17,8 +17,12 @@
  * along with Viewnior.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <libintl.h>
+#define _(String) gettext (String)
+
 #include <config.h>
 #include <gtk/gtk.h>
+#include "config.h"
 #include "vnr-window.h"
 #include "uni-scroll-win.h"
 #include "uni-image-view.h"
@@ -54,6 +58,11 @@ main (int argc, char *argv[])
     GSList *uri_list = NULL;
     GList *file_list = NULL;
 
+
+    bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
+    bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+    textdomain (GETTEXT_PACKAGE);
+
     opt_context = g_option_context_new ("- Elegant Image Viewer");
     g_option_context_add_main_entries (opt_context, opt_entries, NULL);
     g_option_context_add_group (opt_context, gtk_get_option_group (TRUE));
@@ -78,12 +87,7 @@ main (int argc, char *argv[])
 
     uri_list = vnr_tools_get_list_from_array (files);
 
-    if(uri_list == NULL)
-    {
-        vnr_message_area_show_warning(VNR_MESSAGE_AREA (VNR_WINDOW(win)->msg_area),
-                                      "No image specified!");
-    }
-    else
+    if(uri_list != NULL)
     {
         if (g_slist_length(uri_list) == 1)
         {
@@ -102,7 +106,7 @@ main (int argc, char *argv[])
         else if(file_list == NULL)
         {
             vnr_message_area_show_warning(VNR_MESSAGE_AREA (VNR_WINDOW(win)->msg_area),
-                                          "The given locations contain no images.");
+                                          _("The given locations contain no images."));
         }
         else
         {
