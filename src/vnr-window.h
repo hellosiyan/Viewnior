@@ -41,6 +41,7 @@ struct _VnrWindow {
     GtkWindow win;
 
     GtkWidget *layout;
+    GtkWidget *menus;
 
     GtkWidget *msg_area;
 

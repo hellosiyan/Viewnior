@@ -52,6 +52,8 @@ menu_bar_allocate_cb (GtkWidget *widget, GtkAllocation *alloc, VnrWindow *window
 static void
 vnr_window_init (VnrWindow * window)
 {
+    GtkWidget *toolbar;
+    GtkToolItem *tool;
     window->file_list = NULL;
 
     gtk_window_set_title ((GtkWindow *) window, "Viewnior");
@@ -77,7 +79,7 @@ vnr_window_init (VnrWindow * window)
     g_signal_connect (G_OBJECT (window), "destroy",
                       G_CALLBACK (gtk_main_quit), NULL);
 
-    g_signal_connect (G_OBJECT (window->menu_bar), "size-allocate",
+    g_signal_connect (G_OBJECT (window->menus), "size-allocate",
                       G_CALLBACK (menu_bar_allocate_cb), window);
 
 }
@@ -119,7 +121,12 @@ vnr_window_open (VnrWindow * win, gboolean fit_to_screen)
         img_h = gdk_pixbuf_animation_get_height (pixbuf);
 
         vnr_tools_fit_to_size (&img_w, &img_h, win->max_width, win->max_height);
+<<<<<<< HEAD:src/vnr-window.c
         gtk_window_resize (GTK_WINDOW (win), img_w, img_h+win->menu_bar->allocation.height);
+=======
+
+        gtk_window_resize (GTK_WINDOW (win), img_w, img_h+win->menus->allocation.height);
+>>>>>>> Add dumb toolbar to see how it looks like:src/vnr-window.c
     }
 
     uni_anim_view_set_anim (UNI_ANIM_VIEW (win->view), pixbuf);
