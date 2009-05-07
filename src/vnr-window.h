@@ -43,6 +43,9 @@ struct _VnrWindow {
     GtkWidget *layout;
     GtkWidget *menus;
 
+    GtkWidget *menu_bar;
+    GtkWidget *toolbar;
+
     GtkWidget *msg_area;
 
     GtkWidget *view;

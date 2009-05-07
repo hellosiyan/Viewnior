@@ -52,19 +52,28 @@ menu_bar_allocate_cb (GtkWidget *widget, GtkAllocation *alloc, VnrWindow *window
 static void
 vnr_window_init (VnrWindow * window)
 {
-    GtkWidget *toolbar;
-    GtkToolItem *tool;
     window->file_list = NULL;
 
     gtk_window_set_title ((GtkWindow *) window, "Viewnior");
     gtk_window_set_icon_name ((GtkWindow *) window, "viewnior");
 
-    window->max_width = gdk_screen_width () * 0.8;
-    window->max_height = gdk_screen_height () * 0.8;
+    window->max_width = gdk_screen_width () * 0.7;
+    window->max_height = gdk_screen_height () * 0.7;
 
     window->layout = gtk_vbox_new(FALSE,0);
     gtk_container_add (GTK_CONTAINER (window), window->layout);
     gtk_widget_show(window->layout);
+
+    window->menus = gtk_vbox_new(FALSE,0);
+    gtk_box_pack_start (GTK_BOX (window->layout), window->menus, FALSE,FALSE,0);
+
+    window->menu_bar = vnr_menu_bar_new();
+    gtk_box_pack_start (GTK_BOX (window->menus), window->menu_bar, FALSE,FALSE,0);
+
+    window->toolbar = vnr_toolbar_new();
+
+    gtk_box_pack_start (GTK_BOX (window->menus), window->toolbar, FALSE,FALSE,0);
+    gtk_widget_show_all(window->menus);
 
     window->msg_area = vnr_message_area_new();
     VNR_MESSAGE_AREA(window->msg_area)->vnr_win = window;
@@ -121,12 +130,8 @@ vnr_window_open (VnrWindow * win, gboolean fit_to_screen)
         img_h = gdk_pixbuf_animation_get_height (pixbuf);
 
         vnr_tools_fit_to_size (&img_w, &img_h, win->max_width, win->max_height);
-<<<<<<< HEAD:src/vnr-window.c
-        gtk_window_resize (GTK_WINDOW (win), img_w, img_h+win->menu_bar->allocation.height);
-=======
 
         gtk_window_resize (GTK_WINDOW (win), img_w, img_h+win->menus->allocation.height);
->>>>>>> Add dumb toolbar to see how it looks like:src/vnr-window.c
     }
 
     uni_anim_view_set_anim (UNI_ANIM_VIEW (win->view), pixbuf);
