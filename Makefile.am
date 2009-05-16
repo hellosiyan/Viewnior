@@ -2,7 +2,8 @@ SUBDIRS = src data po
 
 EXTRA_DIST = intltool-extract.in \
 			 intltool-merge.in \
-			 intltool-update.in
+			 intltool-update.in\
+			 ChangeLog-20090517
 
 DISTCLEANFILES = intltool-extract \
 				 intltool-merge \

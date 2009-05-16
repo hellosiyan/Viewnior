@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-02 23:17+0300\n"
+"POT-Creation-Date: 2009-05-17 01:57+0300\n"
 "PO-Revision-Date: 2009-05-02 23:17+0300\n"
 "Last-Translator: Siyan Panayotov <xsisqox@gmail.com>\n"
 "Language-Team: Siyan Panayotov <xsisqox@gmail.com>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: ../data/viewnior.desktop.in.in.h:1
+#: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:184
 msgid "Elegant Image Viewer"
 msgstr "Елегантна програма за разглеждане на картинки"
 
@@ -31,3 +31,104 @@ msgstr "Не са открити изображения"
 #: ../src/uni-scroll-win.c:290
 msgid "Open the navigator window"
 msgstr "Отваряне прозореца за навигация"
+
+#: ../src/vnr-window.c:195
+msgid "_File"
+msgstr ""
+
+#: ../src/vnr-window.c:196
+msgid "_View"
+msgstr "Изглед"
+
+#: ../src/vnr-window.c:197
+msgid "_Image"
+msgstr "Изображение"
+
+#: ../src/vnr-window.c:198
+msgid "_Go"
+msgstr "Начало"
+
+#: ../src/vnr-window.c:199
+msgid "_Help"
+msgstr "Помощ"
+
+#: ../src/vnr-window.c:201
+msgid "_Close"
+msgstr "Затваряне"
+
+#: ../src/vnr-window.c:202
+msgid "Close window"
+msgstr "Затваряне на прозореца"
+
+#: ../src/vnr-window.c:204
+msgid "_About"
+msgstr "Относно"
+
+#: ../src/vnr-window.c:205
+msgid "About this application"
+msgstr "Относно това приложение"
+
+#: ../src/vnr-window.c:210 ../src/vnr-window.c:222 ../src/vnr-window.c:225
+msgid "_Zoom In"
+msgstr "Увеличаване"
+
+#: ../src/vnr-window.c:211
+msgid "Enlarge the image"
+msgstr "Увеличаване на изображението"
+
+#: ../src/vnr-window.c:213 ../src/vnr-window.c:228
+msgid "Zoom _Out"
+msgstr "Намаляване"
+
+#: ../src/vnr-window.c:214 ../src/vnr-window.c:223 ../src/vnr-window.c:226
+#: ../src/vnr-window.c:229
+msgid "Shrink the image"
+msgstr "Смаляване на изображението"
+
+#: ../src/vnr-window.c:216
+msgid "_Normal Size"
+msgstr "Нормален размер"
+
+#: ../src/vnr-window.c:217
+msgid "Show the image at its normal size"
+msgstr "Показване на изображението в нормалния му размер"
+
+#: ../src/vnr-window.c:219
+msgid "Best _Fit"
+msgstr "Най-добро изпълване"
+
+#: ../src/vnr-window.c:220
+msgid "Fit the image to the window"
+msgstr "Вместване на изображението съобразно прозореца"
+
+#: ../src/vnr-window.c:234
+msgid "_Previous Image"
+msgstr "Предишно изображение"
+
+#: ../src/vnr-window.c:235
+msgid "Go to the previous image of the collection"
+msgstr "Отиване на предишното изображение от колекцията"
+
+#: ../src/vnr-window.c:237
+msgid "_Next Image"
+msgstr "Следващо изображение"
+
+#: ../src/vnr-window.c:238
+msgid "Go to the next image of the collection"
+msgstr "Отиване на следващото изображение от колекцията"
+
+#: ../src/vnr-window.c:240
+msgid "_First Image"
+msgstr "Първо изображение"
+
+#: ../src/vnr-window.c:241
+msgid "Go to the first image of the collection"
+msgstr "Отиване на първото изображение от колекцията"
+
+#: ../src/vnr-window.c:243
+msgid "_Last Image"
+msgstr "Последно изображение"
+
+#: ../src/vnr-window.c:244
+msgid "Go to the last image of the collection"
+msgstr "Отиване на последното изображение от колекцията"
