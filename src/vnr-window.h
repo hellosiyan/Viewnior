@@ -40,6 +40,12 @@ typedef struct _VnrWindowClass VnrWindowClass;
 struct _VnrWindow {
     GtkWindow win;
 
+    GtkUIManager *ui_mngr;
+
+    GtkActionGroup *actions_window;
+    GtkActionGroup *actions_image;
+    GtkActionGroup *actions_collection;
+
     GtkWidget *layout;
     GtkWidget *menus;
 
@@ -73,6 +79,8 @@ void        vnr_window_close    (VnrWindow *win);
 void        vnr_window_set_list (VnrWindow *win, GList *list);
 gboolean    vnr_window_next     (VnrWindow *win);
 gboolean    vnr_window_prev     (VnrWindow *win);
+gboolean    vnr_window_first    (VnrWindow *win);
+gboolean    vnr_window_last     (VnrWindow *win);
 
 G_END_DECLS
 #endif /* __VNR_WINDOW_H__ */

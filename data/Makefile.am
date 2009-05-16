@@ -11,7 +11,15 @@ desktopdir = $(datadir)/applications
 
 desktop_DATA = $(DESKTOP_FILES)
 
+uidir = $(pkgdatadir)
+UI_FILES =          \
+    viewnior-ui.xml
 
-EXTRA_DIST = $(DESKTOP_IN_FILES)
+ui_DATA = $(UI_FILES)
+
+
+EXTRA_DIST =            \
+    $(DESKTOP_IN_FILES) \
+    $(UI_FILES)
 
 CLEANFILES = viewnior.desktop.in viewnior.desktop

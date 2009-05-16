@@ -13,8 +13,6 @@ uni_headers =           \
     uni-dragger.h       \
     uni-nav.h           \
     vnr-message-area.h  \
-    vnr-menu-bar.h      \
-    vnr-toolbar.h       \
     vnr-file.h          \
     uni-zoom.h          \
     uni-utils.h         \
@@ -31,8 +29,6 @@ viewnior_SOURCES =      \
     uni-dragger.c       \
     uni-image-view.c    \
     vnr-message-area.c  \
-    vnr-menu-bar.c      \
-    vnr-toolbar.c       \
     mouse_handler.c     \
     vnr-file.c          \
     uni-utils.c         \
@@ -43,7 +39,8 @@ viewnior_SOURCES =      \
 viewnior_CFLAGS =       \
     $(VNR_CFLAGS)       \
     $(VNR_WARNINGS)     \
-    -DPACKAGE_LOCALE_DIR=\""$(datadir)/locale"\"
+    -DPACKAGE_LOCALE_DIR=\""$(datadir)/locale"\" \
+    -DVNR_DATA_DIR=\""$(pkgdatadir)"\"
 
 viewnior_LDADD = $(VNR_LIBS)
 

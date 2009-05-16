@@ -868,7 +868,7 @@ uni_image_view_class_init (UniImageViewClass * klass)
                                   "set_fitting", 1, G_TYPE_BOOLEAN, TRUE);
 
     /* Unmodified scrolling */
-    /*gtk_binding_entry_add_signal (binding_set, GDK_Right, 0,
+    gtk_binding_entry_add_signal (binding_set, GDK_Right, 0,
                                   "scroll", 2,
                                   GTK_TYPE_SCROLL_TYPE,
                                   GTK_SCROLL_STEP_RIGHT,
@@ -887,10 +887,10 @@ uni_image_view_class_init (UniImageViewClass * klass)
                                   "scroll", 2,
                                   GTK_TYPE_SCROLL_TYPE,
                                   GTK_SCROLL_NONE,
-                                  GTK_TYPE_SCROLL_TYPE, GTK_SCROLL_STEP_UP);*/
+                                  GTK_TYPE_SCROLL_TYPE, GTK_SCROLL_STEP_UP);
 
     /* Shifted scrolling */
-    /*gtk_binding_entry_add_signal (binding_set, GDK_Right, GDK_SHIFT_MASK,
+    gtk_binding_entry_add_signal (binding_set, GDK_Right, GDK_SHIFT_MASK,
                                   "scroll", 2,
                                   GTK_TYPE_SCROLL_TYPE,
                                   GTK_SCROLL_PAGE_RIGHT,
@@ -910,10 +910,9 @@ uni_image_view_class_init (UniImageViewClass * klass)
                                   GTK_TYPE_SCROLL_TYPE,
                                   GTK_SCROLL_NONE,
                                   GTK_TYPE_SCROLL_TYPE, GTK_SCROLL_PAGE_DOWN);
-    */
 
     /* Page Up & Down */
-    /*gtk_binding_entry_add_signal (binding_set, GDK_Page_Up, 0,
+    gtk_binding_entry_add_signal (binding_set, GDK_Page_Up, 0,
                                   "scroll", 2,
                                   GTK_TYPE_SCROLL_TYPE,
                                   GTK_SCROLL_NONE,
@@ -922,7 +921,7 @@ uni_image_view_class_init (UniImageViewClass * klass)
                                   "scroll", 2,
                                   GTK_TYPE_SCROLL_TYPE,
                                   GTK_SCROLL_NONE,
-                                  GTK_TYPE_SCROLL_TYPE, GTK_SCROLL_PAGE_DOWN);*/
+                                  GTK_TYPE_SCROLL_TYPE, GTK_SCROLL_PAGE_DOWN);
 }
 
 /**
