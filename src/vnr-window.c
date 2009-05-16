@@ -201,21 +201,12 @@ static const GtkActionEntry action_entries_window[] = {
     { "FileClose", GTK_STOCK_CLOSE, N_("_Close"), "<control>W",
       N_("Close window"),
       G_CALLBACK (gtk_main_quit) },
-    { "HelpManual", GTK_STOCK_HELP, N_("_Contents"), "F1",
-      N_("Help on this application"),
-      G_CALLBACK (dumb) },
     { "HelpAbout", GTK_STOCK_ABOUT, N_("_About"), NULL,
       N_("About this application"),
       G_CALLBACK (vnr_window_cmd_about) }
 };
 
 static const GtkActionEntry action_entries_image[] = {
-    { "SetAsWallpaper", NULL, N_("Set as _Desktop Background"), NULL,
-      N_("Set the selected image as the desktop background"),
-      G_CALLBACK (dumb) },
-    { "ImageMoveToTrash", "user-trash", N_("Move to _Trash"), NULL,
-      N_("Move the selected image to the trash folder"),
-      G_CALLBACK (dumb) },
     { "ViewZoomIn", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>plus",
       N_("Enlarge the image"),
       G_CALLBACK (vnr_window_cmd_zoom_in) },
