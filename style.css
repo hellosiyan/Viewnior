@@ -1,0 +1,108 @@
+*{
+margin:0px;
+padding:0px;
+}
+
+body{
+cursor:default;
+text-align:center;
+text-indent:10px;
+background-color:#EFEFEF;
+font-size:17px;
+font-weight:normal;
+font-family:"Times New Roman", Times, serif;
+background-image:url('vnr_logo_back.png');
+background-position:top left;
+background-repeat:repeat-x;
+background-attachment:scroll;
+}
+
+h2{
+font-size:20px;
+font-weight:bold;
+font-style:normal;
+}
+
+h6{
+font-size:17px;
+font-weight:normal;
+font-style:normal;
+text-decoration:underline;
+}
+
+a{
+font-family:inherit;
+text-decoration:none;
+color:white;
+}
+
+ul{
+list-style-image:url('bullet.png');
+margin-top:10px;
+margin-left:40px;
+}
+
+#page{
+border-left:1px solid black;
+border-right:1px solid black;
+margin:0 auto;
+width:950px;
+padding-bottom:30px;
+}
+#header{
+height:215px;
+background-image:url('vnr_logo.png');
+background-position:top center;
+background-repeat:no-repeat;
+background-attachment:scroll;
+}
+#logo{
+display:none;
+}
+#nav{
+background-color:#585858;
+font-size:18px;
+font-weight:bold;
+}
+
+#navigation{
+background-color:#585858;
+color:white;
+font-size:18px;
+font-weight:bold;
+}
+#navigation li{
+display:inline;
+padding:5px;
+}
+#navigation li a{
+padding:5px;
+}
+
+#navigation li a:hover{
+background-color:#e13f3f;
+}
+
+#scrshot{
+float:right;
+}
+
+#contacts, #downloads{
+text-indent:0px;
+}
+
+.section{
+margin-top:10px;
+margin-left:20px;
+text-align:left;
+}
+
+.section a{
+color:#585858;
+border-bottom:1px dashed red;
+}
+
+.section p{
+margin-left:20px;
+margin-top:10px;
+}
