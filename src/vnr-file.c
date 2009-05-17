@@ -227,6 +227,10 @@ vnr_file_load_single_uri(char *p_path, GList **file_list, GError **error)
             //printf("FOUND: %s\n",VNR_FILE(current_position->data)->uri);
             *file_list = current_position;
         }
+        else if(*file_list == NULL)
+        {
+            return;
+        }
         else
         {
             g_warn_if_reached();

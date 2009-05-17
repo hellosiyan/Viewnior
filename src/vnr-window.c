@@ -153,6 +153,86 @@ vnr_window_cmd_prev (GtkAction *action, gpointer user_data)
 }
 
 static void
+file_open_dialog_response_cb (GtkWidget *dialog,
+                  gint       response_id,
+                  VnrWindow  *window)
+{
+    if (response_id == GTK_RESPONSE_ACCEPT) {
+        GSList *uri_list = NULL;
+        GList *file_list = NULL;
+        GError *error = NULL;
+        uri_list = gtk_file_chooser_get_filenames (GTK_FILE_CHOOSER (dialog));
+        if (g_slist_length(uri_list) == 1)
+        {
+            vnr_file_load_single_uri (uri_list->data, &file_list, &error);
+        }
+        else
+        {
+            vnr_file_load_uri_list (uri_list, &file_list, &error);
+        }
+
+        if(error != NULL)
+        {
+            vnr_window_close(window);
+            gtk_action_group_set_sensitive(window->actions_collection, FALSE);
+            vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
+                                          error->message);
+        }
+        else if(file_list == NULL)
+        {
+            vnr_window_close(window);
+            gtk_action_group_set_sensitive(window->actions_collection, FALSE);
+            vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
+                                          _("The given locations contain no images."));
+        }
+        else
+        {
+            vnr_window_set_list(window, file_list);
+            gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_WATCH));
+            gtk_main_iteration_do (FALSE);
+
+            vnr_window_close(window);
+            vnr_window_open(window, FALSE);
+            gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_LEFT_PTR));
+        }
+    }
+
+    gtk_widget_destroy (dialog);
+}
+
+static void
+vnr_window_cmd_open(GtkAction *action, gpointer user_data)
+{
+    g_return_if_fail (VNR_IS_WINDOW (user_data));
+    VnrWindow *window;
+    window = VNR_WINDOW(user_data);
+
+    GtkWidget *dialog;
+    dialog = gtk_file_chooser_dialog_new ("Open File",
+                          GTK_WINDOW(user_data),
+                          GTK_FILE_CHOOSER_ACTION_OPEN,
+                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                          GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+                          NULL);
+
+    gtk_window_set_modal (GTK_WINDOW(dialog), FALSE);
+    gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
+
+    gchar *filename;
+    if(window->file_list != NULL)
+    {
+        filename = g_path_get_dirname (VNR_FILE(window->file_list->data)->uri);
+        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER(dialog), filename);
+    }
+
+    g_signal_connect (dialog, "response",
+                      G_CALLBACK (file_open_dialog_response_cb),
+                      window);
+
+    gtk_widget_show_all (GTK_WIDGET(dialog));
+}
+
+static void
 vnr_window_cmd_about (GtkAction *action, gpointer user_data)
 {
     VnrWindow *window;
@@ -215,6 +295,9 @@ static const GtkActionEntry action_entries_window[] = {
     { "Go",    NULL, N_("_Go") },
     { "Help",  NULL, N_("_Help") },
 
+    { "FileOpen", GTK_STOCK_OPEN, N_("_Open"), "<control>O",
+      N_("Open a File"),
+      G_CALLBACK (vnr_window_cmd_open) },
     { "FileClose", GTK_STOCK_CLOSE, N_("_Close"), "<control>W",
       N_("Close window"),
       G_CALLBACK (gtk_main_quit) },
@@ -343,7 +426,6 @@ vnr_window_drag_data_received (GtkWidget *widget,
 
     if (context->suggested_action == GDK_ACTION_COPY) {
         window = VNR_WINDOW (widget);
-        vnr_window_close(window);
 
         uri_list = vnr_tools_parse_uri_string_list_to_file_list ((gchar *) selection_data->data);
 
@@ -360,13 +442,14 @@ vnr_window_drag_data_received (GtkWidget *widget,
 
         if(error != NULL)
         {
-
+            vnr_window_close(window);
             gtk_action_group_set_sensitive(window->actions_collection, FALSE);
             vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
                                           error->message);
         }
         else if(file_list == NULL)
         {
+            vnr_window_close(window);
             gtk_action_group_set_sensitive(window->actions_collection, FALSE);
             vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
                                           _("The given locations contain no images."));
@@ -378,6 +461,7 @@ vnr_window_drag_data_received (GtkWidget *widget,
             /* This makes the cursor show NOW */
             gtk_main_iteration_do (FALSE);
 
+            vnr_window_close(window);
             vnr_window_open(window, FALSE);
             gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_LEFT_PTR));
         }
