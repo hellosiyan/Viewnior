@@ -66,11 +66,13 @@ font-weight:bold;
 }
 
 #navigation{
+margin-left:0px;
 background-color:#585858;
 color:white;
 font-size:18px;
 font-weight:bold;
 }
+
 #navigation li{
 display:inline;
 padding:5px;
