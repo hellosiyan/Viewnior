@@ -374,7 +374,12 @@ vnr_window_drag_data_received (GtkWidget *widget,
         else
         {
             vnr_window_set_list(window, file_list);
-            vnr_window_open (window, FALSE);
+            gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_WATCH));
+            /* This makes the cursor show NOW */
+            gtk_main_iteration_do (FALSE);
+
+            vnr_window_open(window, FALSE);
+            gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_LEFT_PTR));
         }
     }
 }
