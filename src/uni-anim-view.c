@@ -257,6 +257,7 @@ uni_anim_view_set_anim (UniAnimView * aview, GdkPixbufAnimation * anim)
     aview->anim = anim;
     if (!aview->anim)
     {
+        uni_anim_view_set_is_playing (aview, FALSE);
         uni_image_view_set_pixbuf (UNI_IMAGE_VIEW (aview), NULL, TRUE);
         return;
     }

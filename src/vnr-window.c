@@ -343,6 +343,7 @@ vnr_window_drag_data_received (GtkWidget *widget,
 
     if (context->suggested_action == GDK_ACTION_COPY) {
         window = VNR_WINDOW (widget);
+        vnr_window_close(window);
 
         uri_list = vnr_tools_parse_uri_string_list_to_file_list ((gchar *) selection_data->data);
 
@@ -350,7 +351,6 @@ vnr_window_drag_data_received (GtkWidget *widget,
 
         if (g_slist_length(uri_list) == 1)
         {
-            //printf("file: %s\n", (gchar *)uri_list->data);
             vnr_file_load_single_uri (uri_list->data, &file_list, &error);
         }
         else
@@ -360,11 +360,14 @@ vnr_window_drag_data_received (GtkWidget *widget,
 
         if(error != NULL)
         {
+
+            gtk_action_group_set_sensitive(window->actions_collection, FALSE);
             vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
                                           error->message);
         }
         else if(file_list == NULL)
         {
+            gtk_action_group_set_sensitive(window->actions_collection, FALSE);
             vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
                                           _("The given locations contain no images."));
         }
@@ -372,14 +375,7 @@ vnr_window_drag_data_received (GtkWidget *widget,
         {
             vnr_window_set_list(window, file_list);
             vnr_window_open (window, FALSE);
-            //vnr_window_open(VNR_WINDOW(win), TRUE);
-            //g_timeout_add_seconds (2, (GSourceFunc)vnr_window_next, VNR_WINDOW(win));
         }
-
-
-        /*file_list = eog_util_parse_uri_string_list_to_file_list ((gchar *) selection_data->data);
-
-        eog_window_open_file_list (window, file_list);*/
     }
 }
 
@@ -533,12 +529,15 @@ vnr_window_open (VnrWindow * win, gboolean fit_to_screen)
 
     if (error != NULL)
     {
-        gtk_action_group_set_sensitive(win->actions_image, FALSE);
         vnr_message_area_show_warning(VNR_MESSAGE_AREA (win->msg_area), error->message);
         return FALSE;
     }
     else
     {
+        if(vnr_message_area_get_visible(VNR_MESSAGE_AREA(win->msg_area)))
+        {
+            vnr_message_area_hide(VNR_MESSAGE_AREA(win->msg_area));
+        }
         gtk_action_group_set_sensitive(win->actions_image, TRUE);
     }
 
@@ -566,6 +565,7 @@ vnr_window_close(VnrWindow *win)
 {
     gtk_window_set_title (GTK_WINDOW (win), "Viewnior");
     uni_anim_view_set_anim (UNI_ANIM_VIEW (win->view), NULL);
+    gtk_action_group_set_sensitive(win->actions_image, FALSE);
 }
 
 void
@@ -573,9 +573,14 @@ vnr_window_set_list (VnrWindow *win, GList *list)
 {
     if (win->file_list != NULL)
         g_list_free (win->file_list);
-    printf("length: %i\n", g_list_length(list));
     if (g_list_length(g_list_first(list)) != 1)
+    {
         gtk_action_group_set_sensitive(win->actions_collection, TRUE);
+    }
+    else
+    {
+        gtk_action_group_set_sensitive(win->actions_collection, FALSE);
+    }
     g_assert(list != NULL);
     win->file_list = list;
 }
@@ -588,11 +593,6 @@ vnr_window_next (VnrWindow *win){
     if(next == NULL)
     {
         next = g_list_first(win->file_list);
-    }
-
-    if(vnr_message_area_get_visible(VNR_MESSAGE_AREA(win->msg_area)))
-    {
-        vnr_message_area_hide(VNR_MESSAGE_AREA(win->msg_area));
     }
 
     win->file_list = next;
@@ -614,11 +614,6 @@ vnr_window_prev (VnrWindow *win){
     if(prev == NULL)
     {
         prev = g_list_last(win->file_list);
-    }
-
-    if(vnr_message_area_get_visible(VNR_MESSAGE_AREA(win->msg_area)))
-    {
-        vnr_message_area_hide(VNR_MESSAGE_AREA(win->msg_area));
     }
 
     win->file_list = prev;
