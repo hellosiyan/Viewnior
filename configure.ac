@@ -44,6 +44,7 @@ AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 
 GTK_REQUIRED=2.12
 GLIB_REQUIRED=2.15.3
+GCONF_REQUIRED=2.22.0
 GDKPIXBUF_REQUIRED=2.4.0
 GNOME_ICON_THEME_REQUIRED=2.19.1
 SHARED_MIME_INFO_REQUIRED=0.20
@@ -53,6 +54,7 @@ VNR_MODULES="gtk+-2.0 >= $GTK_REQUIRED \
              glib-2.0 >= $GLIB_REQUIRED \
              gio-2.0 >= $GLIB_REQUIRED \
              gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED \
+             gconf-2.0 >= $GCONF_REQUIRED \
              gnome-icon-theme >= $GNOME_ICON_THEME_REQUIRED \
              shared-mime-info >= $SHARED_MIME_INFO_REQUIRED"
 

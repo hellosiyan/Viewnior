@@ -23,6 +23,7 @@
 #include <glib.h>
 #include <gio/gio.h>
 #include <stdio.h>
+#include <string.h>
 #include "vnr-tools.h"
 
 void
@@ -87,6 +88,31 @@ vnr_tools_get_list_from_array (gchar **files)
     }
 
     return g_slist_reverse (uri_list);
+}
+
+GSList*
+vnr_tools_parse_uri_string_list_to_file_list (const gchar *uri_list)
+{
+    GSList* file_list = NULL;
+    const char *start, *end;
+    char *uri;
+
+    start = uri_list;
+    end = strchr (uri_list, '\r');
+    uri = g_strndup (start, end - start);
+    file_list = g_slist_prepend (file_list, g_file_get_path (g_file_new_for_uri (uri)));
+    g_free (uri);
+
+    while (strlen (end) > 2)
+    {
+        start = (end + 2);
+        end = strchr (start, '\r');
+        uri = g_strndup (start, end - start);
+        file_list = g_slist_prepend (file_list, g_file_get_path (g_file_new_for_uri (uri)));
+        g_free (uri);
+    }
+
+    return g_slist_reverse (file_list);
 }
 
 #endif /* __VNR_IMAGE_H__ */

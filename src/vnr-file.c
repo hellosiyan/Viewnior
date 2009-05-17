@@ -215,9 +215,12 @@ vnr_file_load_single_uri(char *p_path, GList **file_list, GError **error)
         *file_list = vnr_file_dir_content_to_list(g_file_get_path(parent), TRUE);
 
         g_object_unref(parent);
+        //printf("mylength:%i\n", g_list_length(*file_list));
 
         current_position = g_list_find_custom(*file_list, p_path,
                                   (GCompareFunc)compare_files);
+
+        //printf("myafterlength:%i\n", g_list_length(current_position));
 
         if(current_position != NULL)
         {

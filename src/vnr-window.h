@@ -23,6 +23,7 @@
 #include <glib.h>
 #include <glib-object.h>
 #include <gtk/gtk.h>
+#include <gconf/gconf-client.h>
 #include "vnr-file.h"
 
 G_BEGIN_DECLS
@@ -58,6 +59,8 @@ struct _VnrWindow {
     GtkWidget *scroll_view;
 
     GList *file_list;
+
+    GConfClient* client;
 
     gint max_width;
     gint max_height;

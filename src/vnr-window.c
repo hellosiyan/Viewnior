@@ -24,6 +24,7 @@
 #include <config.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
+#include <gconf/gconf-client.h>
 #include "vnr-window.h"
 #include "uni-scroll-win.h"
 #include "uni-anim-view.h"
@@ -34,6 +35,11 @@ G_DEFINE_TYPE (VnrWindow, vnr_window, GTK_TYPE_WINDOW);
 
 static gint vnr_window_delete (GtkWidget * widget, GdkEventAny * event);
 static gint vnr_window_key_press (GtkWidget *widget, GdkEventKey *event);
+static void vnr_window_drag_data_received (GtkWidget *widget,
+                                           GdkDragContext *context,
+                                           gint x, gint y,
+                                           GtkSelectionData *selection_data,
+                                           guint info, guint time);
 
 
 static void
@@ -42,6 +48,7 @@ vnr_window_class_init (VnrWindowClass * klass)
     GtkWidgetClass *widget_class = (GtkWidgetClass *) klass;
     widget_class->delete_event = vnr_window_delete;
     widget_class->key_press_event = vnr_window_key_press;
+    widget_class->drag_data_received = vnr_window_drag_data_received;
 }
 
 GtkWindow *
@@ -191,6 +198,16 @@ vnr_window_cmd_about (GtkAction *action, gpointer user_data)
     g_free (license_trans);
 }
 
+static void
+vnr_set_wallpaper(GtkAction *action, gpointer user_data)
+{
+    gconf_client_set_string (VNR_WINDOW(user_data)->client,
+                 "/desktop/gnome/background/picture_filename",
+                 VNR_FILE(VNR_WINDOW(user_data)->file_list->data)->uri,
+                 NULL);
+
+}
+
 static const GtkActionEntry action_entries_window[] = {
     { "File",  NULL, N_("_File") },
     { "View",  NULL, N_("_View") },
@@ -207,6 +224,9 @@ static const GtkActionEntry action_entries_window[] = {
 };
 
 static const GtkActionEntry action_entries_image[] = {
+    { "SetAsWallpaper", NULL, N_("Set as _Desktop Background"), NULL,
+      N_("Set the selected image as the desktop background"),
+      G_CALLBACK (vnr_set_wallpaper) },
     { "ViewZoomIn", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>plus",
       N_("Enlarge the image"),
       G_CALLBACK (vnr_window_cmd_zoom_in) },
@@ -244,6 +264,16 @@ static const GtkActionEntry action_entries_collection[] = {
       N_("Go to the last image of the collection"),
       G_CALLBACK (vnr_window_cmd_last) },
 };
+
+static void
+vnr_window_set_drag(VnrWindow *window)
+{
+    gtk_drag_dest_set (GTK_WIDGET (window),
+                       GTK_DEST_DEFAULT_MOTION | GTK_DEST_DEFAULT_DROP,
+                       NULL, 0,
+                       GDK_ACTION_COPY | GDK_ACTION_ASK);
+    gtk_drag_dest_add_uri_targets (GTK_WIDGET (window));
+}
 
 static gint
 vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
@@ -296,6 +326,63 @@ vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
     return result;
 }
 
+static void
+vnr_window_drag_data_received (GtkWidget *widget,
+                               GdkDragContext *context,
+                               gint x, gint y,
+                               GtkSelectionData *selection_data,
+                               guint info, guint time)
+{
+    GSList *uri_list = NULL;
+    GList *file_list = NULL;
+    GError *error = NULL;
+    VnrWindow *window;
+
+    if (!gtk_targets_include_uri (&selection_data->target, 1))
+        return;
+
+    if (context->suggested_action == GDK_ACTION_COPY) {
+        window = VNR_WINDOW (widget);
+
+        uri_list = vnr_tools_parse_uri_string_list_to_file_list ((gchar *) selection_data->data);
+
+        g_return_if_fail(uri_list != NULL);
+
+        if (g_slist_length(uri_list) == 1)
+        {
+            //printf("file: %s\n", (gchar *)uri_list->data);
+            vnr_file_load_single_uri (uri_list->data, &file_list, &error);
+        }
+        else
+        {
+            vnr_file_load_uri_list (uri_list, &file_list, &error);
+        }
+
+        if(error != NULL)
+        {
+            vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
+                                          error->message);
+        }
+        else if(file_list == NULL)
+        {
+            vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
+                                          _("The given locations contain no images."));
+        }
+        else
+        {
+            vnr_window_set_list(window, file_list);
+            vnr_window_open (window, FALSE);
+            //vnr_window_open(VNR_WINDOW(win), TRUE);
+            //g_timeout_add_seconds (2, (GSourceFunc)vnr_window_next, VNR_WINDOW(win));
+        }
+
+
+        /*file_list = eog_util_parse_uri_string_list_to_file_list ((gchar *) selection_data->data);
+
+        eog_window_open_file_list (window, file_list);*/
+    }
+}
+
 
 static void
 menu_bar_allocate_cb (GtkWidget *widget, GtkAllocation *alloc, VnrWindow *window)
@@ -310,6 +397,8 @@ vnr_window_init (VnrWindow * window)
 {
     GError *error = NULL;
     window->file_list = NULL;
+
+    window->client = gconf_client_get_default ();
 
     gtk_window_set_title ((GtkWindow *) window, "Viewnior");
     gtk_window_set_default_icon_name ("viewnior");
@@ -415,6 +504,8 @@ vnr_window_init (VnrWindow * window)
                 gtk_ui_manager_get_accel_group (window->ui_mngr));
 
     gtk_widget_grab_focus(window->view);
+
+    vnr_window_set_drag(window);
 }
 
 static gint
@@ -480,7 +571,10 @@ vnr_window_close(VnrWindow *win)
 void
 vnr_window_set_list (VnrWindow *win, GList *list)
 {
-    if (g_list_length(list) != 1)
+    if (win->file_list != NULL)
+        g_list_free (win->file_list);
+    printf("length: %i\n", g_list_length(list));
+    if (g_list_length(g_list_first(list)) != 1)
         gtk_action_group_set_sensitive(win->actions_collection, TRUE);
     g_assert(list != NULL);
     win->file_list = list;

@@ -9,6 +9,9 @@
       <menuitem action="ViewZoomNormal"/>
       <menuitem action="ViewZoomFit"/>
     </menu>
+    <menu action="Image">
+      <menuitem action="SetAsWallpaper"/>
+    </menu>
     <menu action="Go">
       <menuitem name="GoPrevious" action="GoPrevious"/>
       <menuitem name="GoNext" action="GoNext"/>
