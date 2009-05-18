@@ -28,6 +28,7 @@ ui_DATA = $(UI_FILES)
 
 EXTRA_DIST =            \
     $(DESKTOP_IN_FILES) \
-    $(UI_FILES)
+    viewnior-ui-nowallpaper.xml \
+    viewnior-ui.xml
 
 CLEANFILES = viewnior.desktop.in viewnior.desktop
