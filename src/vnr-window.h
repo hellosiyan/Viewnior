@@ -23,7 +23,9 @@
 #include <glib.h>
 #include <glib-object.h>
 #include <gtk/gtk.h>
+#ifdef HAVE_WALLPAPER
 #include <gconf/gconf-client.h>
+#endif /* HAVE_WALLPAPER */
 #include "vnr-file.h"
 
 G_BEGIN_DECLS
@@ -60,7 +62,9 @@ struct _VnrWindow {
 
     GList *file_list;
 
+#ifdef HAVE_WALLPAPER
     GConfClient* client;
+#endif /* HAVE_WALLPAPER */
 
     gint max_width;
     gint max_height;

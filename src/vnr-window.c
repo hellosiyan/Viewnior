@@ -25,7 +25,9 @@
 #include <glib/gstdio.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
+#ifdef HAVE_WALLPAPER
 #include <gconf/gconf-client.h>
+#endif /* HAVE_WALLPAPER */
 #include <errno.h>
 #include "vnr-window.h"
 #include "uni-scroll-win.h"
@@ -533,7 +535,9 @@ vnr_window_init (VnrWindow * window)
     GError *error = NULL;
     window->file_list = NULL;
 
+#ifdef HAVE_WALLPAPER
     window->client = gconf_client_get_default ();
+#endif /* HAVE_WALLPAPER */
 
     gtk_window_set_title ((GtkWindow *) window, "Viewnior");
     gtk_window_set_default_icon_name ("viewnior");
@@ -591,9 +595,8 @@ vnr_window_init (VnrWindow * window)
     if (!gtk_ui_manager_add_ui_from_file (window->ui_mngr,
                                           VNR_DATA_DIR""UI_FILE_DIR,
                                           &error)) {
-            g_warning ("building menus failed: %s\n", error->message);
+            g_error ("building menus failed: %s\n", error->message);
             g_error_free (error);
-            g_return_if_reached();
     }
 
     gtk_action_group_set_sensitive(window->actions_collection, FALSE);
