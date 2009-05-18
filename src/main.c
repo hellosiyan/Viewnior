@@ -111,8 +111,6 @@ main (int argc, char *argv[])
         else
         {
             vnr_window_set_list(VNR_WINDOW(win), file_list);
-            //vnr_window_open(VNR_WINDOW(win), TRUE);
-            //g_timeout_add_seconds (2, (GSourceFunc)vnr_window_next, VNR_WINDOW(win));
         }
     }
 

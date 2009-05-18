@@ -76,14 +76,15 @@ GType       vnr_window_get_type (void) G_GNUC_CONST;
 GtkWindow*  vnr_window_new      (void);
 
 /* Actions */
-gboolean    vnr_window_open     (VnrWindow *win, gboolean fit_to_screen);
-void        vnr_window_close    (VnrWindow *win);
+gboolean vnr_window_open     (VnrWindow *win, gboolean fit_to_screen);
+void     vnr_window_open_from_list (VnrWindow *window, GSList *uri_list);
+void     vnr_window_close    (VnrWindow *win);
 
-void        vnr_window_set_list (VnrWindow *win, GList *list);
-gboolean    vnr_window_next     (VnrWindow *win);
-gboolean    vnr_window_prev     (VnrWindow *win);
-gboolean    vnr_window_first    (VnrWindow *win);
-gboolean    vnr_window_last     (VnrWindow *win);
+void     vnr_window_set_list (VnrWindow *win, GList *list);
+gboolean vnr_window_next     (VnrWindow *win);
+gboolean vnr_window_prev     (VnrWindow *win);
+gboolean vnr_window_first    (VnrWindow *win);
+gboolean vnr_window_last     (VnrWindow *win);
 
 G_END_DECLS
 #endif /* __VNR_WINDOW_H__ */

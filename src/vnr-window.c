@@ -33,30 +33,6 @@
 
 G_DEFINE_TYPE (VnrWindow, vnr_window, GTK_TYPE_WINDOW);
 
-static gint vnr_window_delete (GtkWidget * widget, GdkEventAny * event);
-static gint vnr_window_key_press (GtkWidget *widget, GdkEventKey *event);
-static void vnr_window_drag_data_received (GtkWidget *widget,
-                                           GdkDragContext *context,
-                                           gint x, gint y,
-                                           GtkSelectionData *selection_data,
-                                           guint info, guint time);
-
-
-static void
-vnr_window_class_init (VnrWindowClass * klass)
-{
-    GtkWidgetClass *widget_class = (GtkWidgetClass *) klass;
-    widget_class->delete_event = vnr_window_delete;
-    widget_class->key_press_event = vnr_window_key_press;
-    widget_class->drag_data_received = vnr_window_drag_data_received;
-}
-
-GtkWindow *
-vnr_window_new ()
-{
-    return (GtkWindow *) g_object_new (VNR_TYPE_WINDOW, NULL);
-}
-
 static gboolean
 scrollbars_visible (VnrWindow *win)
 {
@@ -67,9 +43,45 @@ scrollbars_visible (VnrWindow *win)
     return TRUE;
 }
 
-int dumb(void){
-    printf("Me so dumb!\n");
-    return 0;
+static void
+vnr_window_set_drag(VnrWindow *window)
+{
+    gtk_drag_dest_set (GTK_WIDGET (window),
+                       GTK_DEST_DEFAULT_MOTION | GTK_DEST_DEFAULT_DROP,
+                       NULL, 0,
+                       GDK_ACTION_COPY | GDK_ACTION_ASK);
+    gtk_drag_dest_add_uri_targets (GTK_WIDGET (window));
+}
+
+/*************************************************************/
+/***** Private signal handlers *******************************/
+/*************************************************************/
+
+static void
+vnr_window_drag_data_received (GtkWidget *widget,
+                               GdkDragContext *context,
+                               gint x, gint y,
+                               GtkSelectionData *selection_data,
+                               guint info, guint time)
+{
+    GSList *uri_list = NULL;
+
+    if (!gtk_targets_include_uri (&selection_data->target, 1))
+        return;
+
+    if (context->suggested_action == GDK_ACTION_COPY) {
+        uri_list = vnr_tools_parse_uri_string_list_to_file_list ((gchar *) selection_data->data);
+        g_return_if_fail(uri_list != NULL);
+        vnr_window_open_from_list(VNR_WINDOW (widget), uri_list);
+    }
+}
+
+static void
+menu_bar_allocate_cb (GtkWidget *widget, GtkAllocation *alloc, VnrWindow *window)
+{
+    /* widget is the VnrMenuBar */
+    g_signal_handlers_disconnect_by_func(widget, menu_bar_allocate_cb, window);
+    vnr_window_open(window, TRUE);
 }
 
 static void
@@ -159,42 +171,9 @@ file_open_dialog_response_cb (GtkWidget *dialog,
 {
     if (response_id == GTK_RESPONSE_ACCEPT) {
         GSList *uri_list = NULL;
-        GList *file_list = NULL;
-        GError *error = NULL;
         uri_list = gtk_file_chooser_get_filenames (GTK_FILE_CHOOSER (dialog));
-        if (g_slist_length(uri_list) == 1)
-        {
-            vnr_file_load_single_uri (uri_list->data, &file_list, &error);
-        }
-        else
-        {
-            vnr_file_load_uri_list (uri_list, &file_list, &error);
-        }
-
-        if(error != NULL)
-        {
-            vnr_window_close(window);
-            gtk_action_group_set_sensitive(window->actions_collection, FALSE);
-            vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
-                                          error->message);
-        }
-        else if(file_list == NULL)
-        {
-            vnr_window_close(window);
-            gtk_action_group_set_sensitive(window->actions_collection, FALSE);
-            vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
-                                          _("The given locations contain no images."));
-        }
-        else
-        {
-            vnr_window_set_list(window, file_list);
-            gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_WATCH));
-            gtk_main_iteration_do (FALSE);
-
-            vnr_window_close(window);
-            vnr_window_open(window, FALSE);
-            gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_LEFT_PTR));
-        }
+        g_return_if_fail(uri_list != NULL);
+        vnr_window_open_from_list(window, uri_list);
     }
 
     gtk_widget_destroy (dialog);
@@ -288,6 +267,65 @@ vnr_set_wallpaper(GtkAction *action, gpointer user_data)
 
 }
 
+/* Modified version of eog's eog_window_key_press */
+static gint
+vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
+{
+
+    GtkContainer *tbcontainer = GTK_CONTAINER (VNR_WINDOW (widget)->toolbar);
+    gint result = FALSE;
+
+    switch(event->keyval){
+        case GDK_Left:
+        if (event->state & GDK_MOD1_MASK) {
+            vnr_window_cmd_prev (NULL, VNR_WINDOW (widget));
+            result = TRUE;
+            break;
+        } /* else fall-trough is intended */
+    case GDK_Up:
+        if (scrollbars_visible (VNR_WINDOW (widget))) {
+            /* break to let scrollview handle the key */
+            break;
+        }
+        if (tbcontainer->focus_child != NULL)
+            break;
+
+        vnr_window_cmd_prev (NULL, VNR_WINDOW (widget));
+        result = TRUE;
+        break;
+    case GDK_Right:
+        if (event->state & GDK_MOD1_MASK) {
+            vnr_window_cmd_next (NULL, VNR_WINDOW (widget));
+            result = TRUE;
+            break;
+        } /* else fall-trough is intended */
+    case GDK_Down:
+        if (scrollbars_visible (VNR_WINDOW (widget))) {
+            /* break to let scrollview handle the key */
+            break;
+        }
+        if (tbcontainer->focus_child != NULL)
+            break;
+
+        vnr_window_cmd_next (NULL, VNR_WINDOW (widget));
+        result = TRUE;
+        break;
+    }
+
+    if (result == FALSE && GTK_WIDGET_CLASS (vnr_window_parent_class)->key_press_event) {
+        result = (* GTK_WIDGET_CLASS (vnr_window_parent_class)->key_press_event) (widget, event);
+    }
+
+    return result;
+}
+
+static gint
+vnr_window_delete (GtkWidget * widget, GdkEventAny * event)
+{
+    gtk_widget_destroy (widget);
+    return TRUE;
+}
+
 static const GtkActionEntry action_entries_window[] = {
     { "File",  NULL, N_("_File") },
     { "View",  NULL, N_("_View") },
@@ -348,133 +386,22 @@ static const GtkActionEntry action_entries_collection[] = {
       G_CALLBACK (vnr_window_cmd_last) },
 };
 
+/*************************************************************/
+/***** Stuff that deals with the type ************************/
+/*************************************************************/
 static void
-vnr_window_set_drag(VnrWindow *window)
+vnr_window_class_init (VnrWindowClass * klass)
 {
-    gtk_drag_dest_set (GTK_WIDGET (window),
-                       GTK_DEST_DEFAULT_MOTION | GTK_DEST_DEFAULT_DROP,
-                       NULL, 0,
-                       GDK_ACTION_COPY | GDK_ACTION_ASK);
-    gtk_drag_dest_add_uri_targets (GTK_WIDGET (window));
+    GtkWidgetClass *widget_class = (GtkWidgetClass *) klass;
+    widget_class->delete_event = vnr_window_delete;
+    widget_class->key_press_event = vnr_window_key_press;
+    widget_class->drag_data_received = vnr_window_drag_data_received;
 }
 
-static gint
-vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
+GtkWindow *
+vnr_window_new ()
 {
-
-    GtkContainer *tbcontainer = GTK_CONTAINER (VNR_WINDOW (widget)->toolbar);
-    gint result = FALSE;
-
-    switch(event->keyval){
-        case GDK_Left:
-        if (event->state & GDK_MOD1_MASK) {
-            vnr_window_cmd_prev (NULL, VNR_WINDOW (widget));
-            result = TRUE;
-            break;
-        } /* else fall-trough is intended */
-    case GDK_Up:
-        if (scrollbars_visible (VNR_WINDOW (widget))) {
-            /* break to let scrollview handle the key */
-            break;
-        }
-        if (tbcontainer->focus_child != NULL)
-            break;
-
-        vnr_window_cmd_prev (NULL, VNR_WINDOW (widget));
-        result = TRUE;
-        break;
-    case GDK_Right:
-        if (event->state & GDK_MOD1_MASK) {
-            vnr_window_cmd_next (NULL, VNR_WINDOW (widget));
-            result = TRUE;
-            break;
-        } /* else fall-trough is intended */
-    case GDK_Down:
-        if (scrollbars_visible (VNR_WINDOW (widget))) {
-            /* break to let scrollview handle the key */
-            break;
-        }
-        if (tbcontainer->focus_child != NULL)
-            break;
-
-        vnr_window_cmd_next (NULL, VNR_WINDOW (widget));
-        result = TRUE;
-        break;
-    }
-
-    if (result == FALSE && GTK_WIDGET_CLASS (vnr_window_parent_class)->key_press_event) {
-        result = (* GTK_WIDGET_CLASS (vnr_window_parent_class)->key_press_event) (widget, event);
-    }
-
-    return result;
-}
-
-static void
-vnr_window_drag_data_received (GtkWidget *widget,
-                               GdkDragContext *context,
-                               gint x, gint y,
-                               GtkSelectionData *selection_data,
-                               guint info, guint time)
-{
-    GSList *uri_list = NULL;
-    GList *file_list = NULL;
-    GError *error = NULL;
-    VnrWindow *window;
-
-    if (!gtk_targets_include_uri (&selection_data->target, 1))
-        return;
-
-    if (context->suggested_action == GDK_ACTION_COPY) {
-        window = VNR_WINDOW (widget);
-
-        uri_list = vnr_tools_parse_uri_string_list_to_file_list ((gchar *) selection_data->data);
-
-        g_return_if_fail(uri_list != NULL);
-
-        if (g_slist_length(uri_list) == 1)
-        {
-            vnr_file_load_single_uri (uri_list->data, &file_list, &error);
-        }
-        else
-        {
-            vnr_file_load_uri_list (uri_list, &file_list, &error);
-        }
-
-        if(error != NULL)
-        {
-            vnr_window_close(window);
-            gtk_action_group_set_sensitive(window->actions_collection, FALSE);
-            vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
-                                          error->message);
-        }
-        else if(file_list == NULL)
-        {
-            vnr_window_close(window);
-            gtk_action_group_set_sensitive(window->actions_collection, FALSE);
-            vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
-                                          _("The given locations contain no images."));
-        }
-        else
-        {
-            vnr_window_set_list(window, file_list);
-            gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_WATCH));
-            /* This makes the cursor show NOW */
-            gtk_main_iteration_do (FALSE);
-
-            vnr_window_close(window);
-            vnr_window_open(window, FALSE);
-            gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_LEFT_PTR));
-        }
-    }
-}
-
-
-static void
-menu_bar_allocate_cb (GtkWidget *widget, GtkAllocation *alloc, VnrWindow *window)
-{
-    /* widget is the VnrMenuBar */
-    g_signal_handlers_disconnect_by_func(widget, menu_bar_allocate_cb, window);
-    vnr_window_open(window, TRUE);
+    return (GtkWindow *) g_object_new (VNR_TYPE_WINDOW, NULL);
 }
 
 static void
@@ -593,13 +520,9 @@ vnr_window_init (VnrWindow * window)
     vnr_window_set_drag(window);
 }
 
-static gint
-vnr_window_delete (GtkWidget * widget, GdkEventAny * event)
-{
-    gtk_widget_destroy (widget);
-    return TRUE;
-}
-
+/*************************************************************/
+/***** Actions ***********************************************/
+/*************************************************************/
 gboolean
 vnr_window_open (VnrWindow * win, gboolean fit_to_screen)
 {
@@ -647,6 +570,48 @@ vnr_window_open (VnrWindow * win, gboolean fit_to_screen)
     g_object_unref(pixbuf);
 
     return TRUE;
+}
+
+void
+vnr_window_open_from_list(VnrWindow *window, GSList *uri_list)
+{
+    GList *file_list = NULL;
+    GError *error = NULL;
+
+    if (g_slist_length(uri_list) == 1)
+    {
+        vnr_file_load_single_uri (uri_list->data, &file_list, &error);
+    }
+    else
+    {
+        vnr_file_load_uri_list (uri_list, &file_list, &error);
+    }
+
+    if(error != NULL)
+    {
+        vnr_window_close(window);
+        gtk_action_group_set_sensitive(window->actions_collection, FALSE);
+        vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
+                                      error->message);
+    }
+    else if(file_list == NULL)
+    {
+        vnr_window_close(window);
+        gtk_action_group_set_sensitive(window->actions_collection, FALSE);
+        vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
+                                      _("The given locations contain no images."));
+    }
+    else
+    {
+        vnr_window_set_list(window, file_list);
+        gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_WATCH));
+        /* This makes the cursor show NOW */
+        gtk_main_iteration_do (FALSE);
+
+        vnr_window_close(window);
+        vnr_window_open(window, FALSE);
+        gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_LEFT_PTR));
+    }
 }
 
 void
