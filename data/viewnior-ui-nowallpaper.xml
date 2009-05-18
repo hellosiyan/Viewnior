@@ -3,7 +3,6 @@
     <menu action="File">
       <menuitem action="FileOpen"/>
       <separator/>
-      <menuitem action="SetAsWallpaper"/>
       <menuitem action="FileDelete"/>
       <separator/>
       <menuitem action="FileClose"/>

@@ -63,6 +63,22 @@ PKG_CHECK_MODULES(VNR, $VNR_MODULES)
 AC_SUBST(VNR_CFLAGS)
 AC_SUBST(VNR_LIBS)
 
+# **********
+AC_MSG_CHECKING([whether Wallpaper change functionality is enabled])
+
+AC_ARG_ENABLE([wallpaper],
+    AS_HELP_STRING([--disable-wallpaper],[Disable Wallpaper change functionality]),,
+    [enable_wallpaper=yes])
+
+AM_CONDITIONAL(ENABLE_WALLPAPER, test "x$enable_wallpaper" = xyes)
+
+if test x$enable_wallpaper = xyes ; then
+    AC_DEFINE(HAVE_WALLPAPER, 1, [Define to 1 if wallpaper change functionality is included])
+fi
+
+AC_MSG_RESULT([$enable_wallpaper])
+# **********
+
 AC_CONFIG_FILES([Makefile
                  src/Makefile
                  data/Makefile
@@ -84,9 +100,10 @@ AC_CONFIG_FILES([Makefile
 AC_OUTPUT
 
 echo "
-    Viewnior ......... : Version $VERSION
-    Location ......... : $prefix/bin
-    CFLAGS ........... : $CFLAGS
+    Viewnior ........... : Version $VERSION
+    Location ........... : $prefix/bin
+    CFLAGS ............. : $CFLAGS
+    Wallpaper support .. : $enable_wallpaper
 
     To compile and install:
     1. Become root (using su)

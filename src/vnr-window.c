@@ -32,6 +32,11 @@
 #include "uni-anim-view.h"
 #include "vnr-tools.h"
 #include "vnr-message-area.h"
+#ifdef HAVE_WALLPAPER
+#define UI_FILE_DIR "/viewnior-ui.xml"
+#else
+#define UI_FILE_DIR "/viewnior-ui-nowallpaper.xml"
+#endif /* HAVE_WALLPAPER */
 
 G_DEFINE_TYPE (VnrWindow, vnr_window, GTK_TYPE_WINDOW);
 
@@ -259,6 +264,7 @@ vnr_window_cmd_about (GtkAction *action, gpointer user_data)
     g_free (license_trans);
 }
 
+#ifdef HAVE_WALLPAPER
 static void
 vnr_set_wallpaper(GtkAction *action, gpointer user_data)
 {
@@ -268,6 +274,7 @@ vnr_set_wallpaper(GtkAction *action, gpointer user_data)
                  NULL);
 
 }
+#endif /* HAVE_WALLPAPER */
 
 /* Modified version of eog's eog_window_key_press */
 static gint
@@ -431,9 +438,11 @@ static const GtkActionEntry action_entries_window[] = {
 };
 
 static const GtkActionEntry action_entries_image[] = {
-    { "SetAsWallpaper", NULL, N_("Set as _Desktop Background"), NULL,
+#ifdef HAVE_WALLPAPER
+    { "SetAsWallpaper", NULL, N_("Set as _Wallpaper"), NULL,
       N_("Set the selected image as the desktop background"),
       G_CALLBACK (vnr_set_wallpaper) },
+#endif /* HAVE_WALLPAPER */
     { "FileDelete", GTK_STOCK_DELETE, N_("_Delete"), NULL,
       N_("Delete the current file"),
       G_CALLBACK (vnr_window_cmd_delete) },
@@ -558,7 +567,7 @@ vnr_window_init (VnrWindow * window)
                                         window->actions_collection, 0);
 
     if (!gtk_ui_manager_add_ui_from_file (window->ui_mngr,
-                                          VNR_DATA_DIR"/viewnior-ui.xml",
+                                          VNR_DATA_DIR""UI_FILE_DIR,
                                           &error)) {
             g_warning ("building menus failed: %s\n", error->message);
             g_error_free (error);

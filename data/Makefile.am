@@ -12,8 +12,16 @@ desktopdir = $(datadir)/applications
 desktop_DATA = $(DESKTOP_FILES)
 
 uidir = $(pkgdatadir)
+
+if ENABLE_WALLPAPER
 UI_FILES =          \
     viewnior-ui.xml
+else
+UI_FILES =          \
+    viewnior-ui-nowallpaper.xml
+endif
+
+
 
 ui_DATA = $(UI_FILES)
 
