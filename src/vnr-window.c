@@ -187,6 +187,26 @@ file_open_dialog_response_cb (GtkWidget *dialog,
 }
 
 static void
+vnr_window_cmd_resize (GtkAction *action, gpointer user_data)
+{
+    VnrWindow *win;
+    GdkPixbufAnimation *pixbuf;
+    gint img_h, img_w;          /* Width and Height of the pixbuf */
+
+    g_return_if_fail (VNR_IS_WINDOW (user_data));
+    win = VNR_WINDOW(user_data);
+
+    pixbuf = uni_anim_view_get_anim(UNI_ANIM_VIEW(win->view));
+
+    img_w = gdk_pixbuf_animation_get_width (pixbuf);
+    img_h = gdk_pixbuf_animation_get_height (pixbuf);
+
+    vnr_tools_fit_to_size (&img_w, &img_h, win->max_width, win->max_height);
+
+    gtk_window_resize (GTK_WINDOW (win), img_w, img_h+win->menus->allocation.height);
+}
+
+static void
 vnr_window_cmd_open(GtkAction *action, gpointer user_data)
 {
     g_return_if_fail (VNR_IS_WINDOW (user_data));
@@ -460,6 +480,9 @@ static const GtkActionEntry action_entries_image[] = {
     { "ViewZoomFit", GTK_STOCK_ZOOM_FIT, N_("Best _Fit"), NULL,
       N_("Fit the image to the window"),
       G_CALLBACK (vnr_window_cmd_fit) },
+    { "ViewResizeWindow", NULL, N_("_Resize Window"), NULL,
+      N_("Resize the window to fit the image"),
+      G_CALLBACK (vnr_window_cmd_resize) },
     { "ControlEqual", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>equal",
       N_("Shrink the image"),
       G_CALLBACK (vnr_window_cmd_zoom_in) },

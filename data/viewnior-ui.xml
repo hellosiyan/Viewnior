@@ -13,6 +13,8 @@
       <menuitem action="ViewZoomOut"/>
       <menuitem action="ViewZoomNormal"/>
       <menuitem action="ViewZoomFit"/>
+      <separator/>
+      <menuitem action="ViewResizeWindow"/>
     </menu>
     <menu action="Go">
       <menuitem name="GoPrevious" action="GoPrevious"/>
