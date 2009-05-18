@@ -9,6 +9,11 @@ DISTCLEANFILES = intltool-extract \
 				 intltool-merge \
 				 intltool-update
 
+distclean-local:
+	if test $(srdcir) = .; then :; else \
+		rm -f ChangeLog; \
+	fi
+
 ChangeLog:
 	@echo Creating $@
 	@if test -d "$(srcdir)/.git"; then \
