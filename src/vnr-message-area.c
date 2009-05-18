@@ -70,7 +70,7 @@ vnr_message_area_delete (GtkWidget * widget, GdkEventAny * event)
 }
 
 void
-vnr_message_area_show_warning (VnrMessageArea *msg_area, const char *message)
+vnr_message_area_show_warning (VnrMessageArea *msg_area, const char *message, gboolean close_image)
 {
     char *warning;
     if(!msg_area->initialized)
@@ -83,7 +83,9 @@ vnr_message_area_show_warning (VnrMessageArea *msg_area, const char *message)
     gtk_label_set_markup(GTK_LABEL(msg_area->message), warning);
 
     g_free (warning);
-    vnr_window_close(msg_area->vnr_win);
+    if(close_image == TRUE)
+        vnr_window_close(msg_area->vnr_win);
+
     gtk_widget_show_all(GTK_WIDGET (msg_area->hbox));
 }
 

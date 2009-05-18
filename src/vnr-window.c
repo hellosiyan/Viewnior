@@ -22,9 +22,11 @@
 #define _(String) gettext (String)
 
 #include <config.h>
+#include <glib/gstdio.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 #include <gconf/gconf-client.h>
+#include <errno.h>
 #include "vnr-window.h"
 #include "uni-scroll-win.h"
 #include "uni-anim-view.h"
@@ -319,6 +321,90 @@ vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
     return result;
 }
 
+static void
+vnr_window_cmd_delete(GtkAction *action, gpointer user_data)
+{
+    GtkWidget *dlg;
+    const gchar *file_path;
+    gchar *markup, *prompt, *warning;
+
+    g_return_if_fail (VNR_IS_WINDOW (user_data));
+    g_return_if_fail (VNR_WINDOW(user_data)->file_list != NULL);
+
+    file_path = VNR_FILE(VNR_WINDOW(user_data)->file_list->data)->uri;
+
+    warning = _("If you delete an item, it will be permanently lost.");
+
+    /* I18N: The '%s' is replaced with the name of the file to be deleted. */
+    prompt = g_strdup_printf (_("Are you sure you want to\n"
+                                "permanently delete \"%s\"?"),
+                              g_path_get_basename(file_path));
+    markup = g_strdup_printf ("<span weight=\"bold\" size=\"larger\">%s</span>\n\n%s",
+                              prompt, warning);
+
+
+    dlg = gtk_message_dialog_new(GTK_WINDOW(user_data),
+                                 GTK_DIALOG_MODAL,
+                                 GTK_MESSAGE_WARNING,
+                                 GTK_BUTTONS_NONE,
+                                 NULL);
+
+    gtk_message_dialog_set_markup (GTK_MESSAGE_DIALOG (dlg),
+                                   markup);
+
+    gtk_dialog_add_buttons (GTK_DIALOG (dlg),
+                            GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                            GTK_STOCK_DELETE, GTK_RESPONSE_YES,
+                            NULL);
+
+    if( gtk_dialog_run(GTK_DIALOG(dlg)) == GTK_RESPONSE_YES )
+    {
+        VnrWindow *window = VNR_WINDOW(user_data);
+        if( g_unlink(file_path) != 0 )
+            /* I18N: The '%s' is replaced with error message. */
+            vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
+                                          g_strdup_printf (_("Error deleting image: %s"),g_strerror(errno)),
+                                          FALSE);
+        else
+        {
+            GList *new, *next;
+
+            next = g_list_next(window->file_list);
+            if(next == NULL)
+                next = g_list_first(window->file_list);
+
+            if(g_list_length(g_list_first(window->file_list)) != 1)
+                new = g_list_delete_link (window->file_list, window->file_list);
+            else
+            {
+                g_list_free(window->file_list);
+                next = NULL;
+            }
+
+            if(next == NULL)
+            {
+                vnr_window_close(window);
+                gtk_action_group_set_sensitive(window->actions_collection, FALSE);
+                vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
+                                              _("The given locations contain no images."), TRUE);
+            }
+            else
+            {
+                vnr_window_set_list(window, next, FALSE);
+                gdk_window_set_cursor(GTK_WIDGET(dlg)->window, gdk_cursor_new(GDK_WATCH));
+                gtk_main_iteration_do (FALSE);
+
+                vnr_window_close(window);
+                vnr_window_open(window, FALSE);
+                gdk_window_set_cursor(GTK_WIDGET(dlg)->window, gdk_cursor_new(GDK_LEFT_PTR));
+            }
+        }
+    }
+    g_free(prompt);
+    g_free(markup);
+    gtk_widget_destroy( dlg );
+}
+
 static gint
 vnr_window_delete (GtkWidget * widget, GdkEventAny * event)
 {
@@ -348,6 +434,12 @@ static const GtkActionEntry action_entries_image[] = {
     { "SetAsWallpaper", NULL, N_("Set as _Desktop Background"), NULL,
       N_("Set the selected image as the desktop background"),
       G_CALLBACK (vnr_set_wallpaper) },
+    { "FileDelete", GTK_STOCK_DELETE, N_("_Delete"), NULL,
+      N_("Delete the current file"),
+      G_CALLBACK (vnr_window_cmd_delete) },
+    { "Delete", NULL, N_("_Delete"), "Delete",
+      N_("Delete the current file"),
+      G_CALLBACK (vnr_window_cmd_delete) },
     { "ViewZoomIn", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>plus",
       N_("Enlarge the image"),
       G_CALLBACK (vnr_window_cmd_zoom_in) },
@@ -541,7 +633,7 @@ vnr_window_open (VnrWindow * win, gboolean fit_to_screen)
 
     if (error != NULL)
     {
-        vnr_message_area_show_warning(VNR_MESSAGE_AREA (win->msg_area), error->message);
+        vnr_message_area_show_warning(VNR_MESSAGE_AREA (win->msg_area), error->message, TRUE);
         return FALSE;
     }
     else
@@ -592,18 +684,18 @@ vnr_window_open_from_list(VnrWindow *window, GSList *uri_list)
         vnr_window_close(window);
         gtk_action_group_set_sensitive(window->actions_collection, FALSE);
         vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
-                                      error->message);
+                                      error->message, TRUE);
     }
     else if(file_list == NULL)
     {
         vnr_window_close(window);
         gtk_action_group_set_sensitive(window->actions_collection, FALSE);
         vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
-                                      _("The given locations contain no images."));
+                                      _("The given locations contain no images."), TRUE);
     }
     else
     {
-        vnr_window_set_list(window, file_list);
+        vnr_window_set_list(window, file_list, TRUE);
         gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_WATCH));
         /* This makes the cursor show NOW */
         gtk_main_iteration_do (FALSE);
@@ -623,9 +715,9 @@ vnr_window_close(VnrWindow *win)
 }
 
 void
-vnr_window_set_list (VnrWindow *win, GList *list)
+vnr_window_set_list (VnrWindow *win, GList *list, gboolean free_current)
 {
-    if (win->file_list != NULL)
+    if (free_current == TRUE && win->file_list != NULL)
         g_list_free (win->file_list);
     if (g_list_length(g_list_first(list)) != 1)
     {

@@ -2,6 +2,7 @@
   <menubar name="MainMenu">
     <menu action="File">
       <menuitem action="FileOpen"/>
+      <menuitem action="FileDelete"/>
       <menuitem action="FileClose"/>
     </menu>
     <menu action="View">
@@ -37,4 +38,5 @@
   <accelerator name="ControlEqualAccel" action="ControlEqual"/>
   <accelerator name="ControlKPAddAccel" action="ControlKpAdd"/>
   <accelerator name="ControlKPSubAccel" action="ControlKpSub"/>
+  <accelerator name="DeleteAccel" action="Delete"/>
 </ui>

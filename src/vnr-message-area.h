@@ -57,7 +57,10 @@ GType       vnr_message_area_get_type (void) G_GNUC_CONST;
 
 GtkWidget*  vnr_message_area_new      (void);
 
-void        vnr_message_area_show_warning (VnrMessageArea *msg_area, const char *message);
+void        vnr_message_area_show_warning (VnrMessageArea *msg_area,
+                                           const char *message,
+                                           gboolean close_image);
+
 void        vnr_message_area_hide         (VnrMessageArea *msg_area);
 
 gboolean    vnr_message_area_get_visible  (VnrMessageArea *msg_area);
