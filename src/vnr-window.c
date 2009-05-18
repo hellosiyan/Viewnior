@@ -422,7 +422,6 @@ vnr_window_delete (GtkWidget * widget, GdkEventAny * event)
 static const GtkActionEntry action_entries_window[] = {
     { "File",  NULL, N_("_File") },
     { "View",  NULL, N_("_View") },
-    { "Image", NULL, N_("_Image") },
     { "Go",    NULL, N_("_Go") },
     { "Help",  NULL, N_("_Help") },
 

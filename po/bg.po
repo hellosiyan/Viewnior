@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-17 01:57+0300\n"
+"POT-Creation-Date: 2009-05-18 17:14+0300\n"
 "PO-Revision-Date: 2009-05-02 23:17+0300\n"
 "Last-Translator: Siyan Panayotov <xsisqox@gmail.com>\n"
 "Language-Team: Siyan Panayotov <xsisqox@gmail.com>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:184
+#: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:257
 msgid "Elegant Image Viewer"
 msgstr "Елегантна програма за разглеждане на картинки"
 
@@ -24,7 +24,7 @@ msgstr "Елегантна програма за разглеждане на к�
 msgid "Viewnior"
 msgstr "Viewnior"
 
-#: ../src/main.c:109
+#: ../src/main.c:109 ../src/vnr-window.c:396 ../src/vnr-window.c:702
 msgid "The given locations contain no images."
 msgstr "Не са открити изображения"
 
@@ -32,103 +32,142 @@ msgstr "Не са открити изображения"
 msgid "Open the navigator window"
 msgstr "Отваряне прозореца за навигация"
 
-#: ../src/vnr-window.c:195
-msgid "_File"
-msgstr ""
+#: ../src/vnr-window.c:343
+msgid "If you delete an item, it will be permanently lost."
+msgstr "Ако изтриете файл, той се загубва завинаги."
 
-#: ../src/vnr-window.c:196
+#. I18N: The '%s' is replaced with the name of the file to be deleted.
+#: ../src/vnr-window.c:346
+#, c-format
+msgid ""
+"Are you sure you want to\n"
+"permanently delete \"%s\"?"
+msgstr ""
+"Сигурни ли сте, че искате да\n"
+"изтриете окончателно \"%s\"?"
+
+#: ../src/vnr-window.c:373
+#, c-format
+msgid "Error deleting image: %s"
+msgstr "Грешка при изтриване: %s"
+
+#: ../src/vnr-window.c:423
+msgid "_File"
+msgstr "Файл"
+
+#: ../src/vnr-window.c:424
 msgid "_View"
 msgstr "Изглед"
 
-#: ../src/vnr-window.c:197
-msgid "_Image"
-msgstr "Изображение"
-
-#: ../src/vnr-window.c:198
+#: ../src/vnr-window.c:425
 msgid "_Go"
 msgstr "Начало"
 
-#: ../src/vnr-window.c:199
+#: ../src/vnr-window.c:426
 msgid "_Help"
 msgstr "Помощ"
 
-#: ../src/vnr-window.c:201
+#: ../src/vnr-window.c:428
+msgid "_Open"
+msgstr "Отваряне"
+
+#: ../src/vnr-window.c:429
+msgid "Open a File"
+msgstr "Отваряне на файл"
+
+#: ../src/vnr-window.c:431
 msgid "_Close"
 msgstr "Затваряне"
 
-#: ../src/vnr-window.c:202
+#: ../src/vnr-window.c:432
 msgid "Close window"
 msgstr "Затваряне на прозореца"
 
-#: ../src/vnr-window.c:204
+#: ../src/vnr-window.c:434
 msgid "_About"
 msgstr "Относно"
 
-#: ../src/vnr-window.c:205
+#: ../src/vnr-window.c:435
 msgid "About this application"
 msgstr "Относно това приложение"
 
-#: ../src/vnr-window.c:210 ../src/vnr-window.c:222 ../src/vnr-window.c:225
+#: ../src/vnr-window.c:441
+msgid "Set as _Wallpaper"
+msgstr "Задаване като фон"
+
+#: ../src/vnr-window.c:442
+msgid "Set the selected image as the desktop background"
+msgstr "Задаване на изображението като фон"
+
+#: ../src/vnr-window.c:445 ../src/vnr-window.c:448
+msgid "_Delete"
+msgstr "Изтриване"
+
+#: ../src/vnr-window.c:446 ../src/vnr-window.c:449
+msgid "Delete the current file"
+msgstr "Изтриване на текущия файл"
+
+#: ../src/vnr-window.c:451 ../src/vnr-window.c:463 ../src/vnr-window.c:466
 msgid "_Zoom In"
 msgstr "Увеличаване"
 
-#: ../src/vnr-window.c:211
+#: ../src/vnr-window.c:452
 msgid "Enlarge the image"
 msgstr "Увеличаване на изображението"
 
-#: ../src/vnr-window.c:213 ../src/vnr-window.c:228
+#: ../src/vnr-window.c:454 ../src/vnr-window.c:469
 msgid "Zoom _Out"
 msgstr "Намаляване"
 
-#: ../src/vnr-window.c:214 ../src/vnr-window.c:223 ../src/vnr-window.c:226
-#: ../src/vnr-window.c:229
+#: ../src/vnr-window.c:455 ../src/vnr-window.c:464 ../src/vnr-window.c:467
+#: ../src/vnr-window.c:470
 msgid "Shrink the image"
 msgstr "Смаляване на изображението"
 
-#: ../src/vnr-window.c:216
+#: ../src/vnr-window.c:457
 msgid "_Normal Size"
 msgstr "Нормален размер"
 
-#: ../src/vnr-window.c:217
+#: ../src/vnr-window.c:458
 msgid "Show the image at its normal size"
 msgstr "Показване на изображението в нормалния му размер"
 
-#: ../src/vnr-window.c:219
+#: ../src/vnr-window.c:460
 msgid "Best _Fit"
 msgstr "Най-добро изпълване"
 
-#: ../src/vnr-window.c:220
+#: ../src/vnr-window.c:461
 msgid "Fit the image to the window"
 msgstr "Вместване на изображението съобразно прозореца"
 
-#: ../src/vnr-window.c:234
+#: ../src/vnr-window.c:475
 msgid "_Previous Image"
 msgstr "Предишно изображение"
 
-#: ../src/vnr-window.c:235
+#: ../src/vnr-window.c:476
 msgid "Go to the previous image of the collection"
 msgstr "Отиване на предишното изображение от колекцията"
 
-#: ../src/vnr-window.c:237
+#: ../src/vnr-window.c:478
 msgid "_Next Image"
 msgstr "Следващо изображение"
 
-#: ../src/vnr-window.c:238
+#: ../src/vnr-window.c:479
 msgid "Go to the next image of the collection"
 msgstr "Отиване на следващото изображение от колекцията"
 
-#: ../src/vnr-window.c:240
+#: ../src/vnr-window.c:481
 msgid "_First Image"
 msgstr "Първо изображение"
 
-#: ../src/vnr-window.c:241
+#: ../src/vnr-window.c:482
 msgid "Go to the first image of the collection"
 msgstr "Отиване на първото изображение от колекцията"
 
-#: ../src/vnr-window.c:243
+#: ../src/vnr-window.c:484
 msgid "_Last Image"
 msgstr "Последно изображение"
 
-#: ../src/vnr-window.c:244
+#: ../src/vnr-window.c:485
 msgid "Go to the last image of the collection"
 msgstr "Отиване на последното изображение от колекцията"
