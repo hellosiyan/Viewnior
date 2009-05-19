@@ -42,6 +42,124 @@
 
 G_DEFINE_TYPE (VnrWindow, vnr_window, GTK_TYPE_WINDOW);
 
+static void vnr_window_unfullscreen (VnrWindow *window);
+static void stop_slideshow(VnrWindow *window);
+static void start_slideshow(VnrWindow *window);
+static void restart_slideshow(VnrWindow *window);
+static void allow_slideshow(VnrWindow *window);
+
+/*************************************************************/
+/***** Private actions ***************************************/
+/*************************************************************/
+
+static void
+update_fs_label(VnrWindow *window)
+{
+    if(window->mode == VNR_WINDOW_MODE_NORMAL)
+        return;
+
+    gtk_label_set_text(GTK_LABEL(window->fs_label),
+                       VNR_FILE(window->file_list->data)->display_name);
+}
+
+static void
+leave_fs_cb (GtkButton *button, VnrWindow *window)
+{
+    vnr_window_unfullscreen (window);
+}
+
+static gboolean
+next_image_src(VnrWindow *window)
+{
+    if(g_list_length(g_list_first(window->file_list)) <= 1)
+        return FALSE;
+    else
+        vnr_window_next(window, FALSE);
+
+    window->source_tag = g_timeout_add_seconds (window->timeout,
+                                                (GSourceFunc)next_image_src,
+                                                window);
+
+    return FALSE;
+}
+
+static void
+spin_value_change_cb (GtkSpinButton *spinbutton, VnrWindow *window)
+{
+    window->timeout = gtk_spin_button_get_value_as_int (spinbutton);
+    restart_slideshow(window);
+}
+
+static void
+toggle_show_next_cb (GtkToggleButton *togglebutton, VnrWindow *window)
+{
+    if(!window->slideshow)
+        return;
+
+    if(window->mode == VNR_WINDOW_MODE_FULLSCREEN)
+        start_slideshow(window);
+    else if(window->mode == VNR_WINDOW_MODE_SLIDESHOW)
+        stop_slideshow(window);
+}
+
+static GtkWidget *
+get_fs_controls(VnrWindow *window)
+{
+    if(window->fs_controls != NULL)
+        return window->fs_controls;
+
+    GtkWidget *box;
+    GtkToolItem *item;
+    GtkWidget *widget;
+    GtkAdjustment *spinner_adj;
+
+
+
+    item = gtk_tool_item_new();
+
+    box = gtk_hbox_new(FALSE, 0);
+    gtk_container_add (GTK_CONTAINER (item), box);
+
+    widget = gtk_button_new_from_stock(GTK_STOCK_LEAVE_FULLSCREEN);
+    g_signal_connect(widget, "clicked", G_CALLBACK(leave_fs_cb), window);
+
+    gtk_box_pack_end (GTK_BOX(box), widget, FALSE, FALSE, 0);
+
+    widget = gtk_label_new(NULL);
+    gtk_label_set_ellipsize (GTK_LABEL(widget), PANGO_ELLIPSIZE_END);
+    gtk_label_set_selectable (GTK_LABEL(widget), TRUE);
+    window->fs_label = widget;
+    gtk_box_pack_end (GTK_BOX(box), widget, TRUE, TRUE, 10);
+
+
+    widget = gtk_vseparator_new();
+    gtk_box_pack_start (GTK_BOX(box), widget, FALSE, FALSE, 0);
+
+    widget = gtk_check_button_new_with_label("Show next image after: ");
+    g_signal_connect(widget, "toggled", G_CALLBACK(toggle_show_next_cb), window);
+    gtk_box_pack_start (GTK_BOX(box), widget, FALSE, FALSE, 0);
+    window->toggle_btn = widget;
+
+    spinner_adj = (GtkAdjustment *) gtk_adjustment_new (5, 1.0, 31.0, 1.0, 1.0, 1.0);
+
+    widget = gtk_spin_button_new (spinner_adj, 1.0, 0);
+    gtk_spin_button_set_snap_to_ticks(GTK_SPIN_BUTTON(widget), TRUE);
+    gtk_spin_button_set_update_policy(GTK_SPIN_BUTTON(widget), GTK_UPDATE_ALWAYS);
+    //gtk_widget_set_sensitive (widget, FALSE);
+    g_signal_connect(widget, "value-changed", G_CALLBACK(spin_value_change_cb), window);
+    gtk_box_pack_start (GTK_BOX(box), widget, FALSE, FALSE, 0);
+
+    widget = gtk_label_new(" seconds");
+    gtk_box_pack_start (GTK_BOX(box), widget, FALSE, FALSE, 0);
+
+    gtk_tool_item_set_expand(item, TRUE);
+
+    window->fs_controls = GTK_WIDGET(item);
+
+    gtk_widget_show_all (window->fs_controls);
+    gtk_object_ref((gpointer)window->fs_controls);
+    return window->fs_controls;
+}
 static gboolean
 scrollbars_visible (VnrWindow *win)
 {
@@ -62,6 +180,127 @@ vnr_window_set_drag(VnrWindow *window)
     gtk_drag_dest_add_uri_targets (GTK_WIDGET (window));
 }
 
+static void
+vnr_window_fullscreen(VnrWindow *window)
+{
+    GdkColor color;
+    GtkAction *action;
+
+    gdk_color_parse ("black", &color);
+
+    gtk_widget_hide(window->menu_bar);
+    gtk_window_fullscreen(GTK_WINDOW(window));
+
+    window->mode = VNR_WINDOW_MODE_FULLSCREEN;
+    action = gtk_action_group_get_action (window->actions_image,
+                                          "ViewFullscreen");
+
+    gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), TRUE);
+    gtk_widget_modify_bg(window->view, GTK_STATE_NORMAL, &color);
+
+    update_fs_label(window);
+    gtk_widget_show (get_fs_controls(window));
+
+    stop_slideshow(window);
+}
+
+static void
+vnr_window_unfullscreen(VnrWindow *window)
+{
+    if(window->mode == VNR_WINDOW_MODE_NORMAL)
+        return;
+
+    GtkAction *action;
+
+    stop_slideshow(window);
+    window->mode = VNR_WINDOW_MODE_NORMAL;
+
+    gtk_widget_show(window->menu_bar);
+    gtk_window_unfullscreen(GTK_WINDOW(window));
+    action = gtk_action_group_get_action (window->actions_image,
+                                          "ViewFullscreen");
+
+    gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), FALSE);
+    gtk_widget_modify_bg(window->view, GTK_STATE_NORMAL, NULL);
+
+    gtk_widget_hide (get_fs_controls(window));
+}
+
+static void
+stop_slideshow(VnrWindow *window)
+{
+
+    if(!window->slideshow)
+        return;
+
+    window->slideshow = FALSE;
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(window->toggle_btn), FALSE);
+    window->slideshow = TRUE;
+
+    if(window->mode != VNR_WINDOW_MODE_SLIDESHOW)
+        return;
+
+    window->mode = VNR_WINDOW_MODE_FULLSCREEN;
+
+    g_source_remove (window->source_tag);
+}
+
+static void
+start_slideshow(VnrWindow *window)
+{
+    if(!window->slideshow)
+        return;
+
+    if(window->mode == VNR_WINDOW_MODE_SLIDESHOW)
+        return;
+
+    window->mode = VNR_WINDOW_MODE_SLIDESHOW;
+
+    window->source_tag = g_timeout_add_seconds (window->timeout,
+                                                (GSourceFunc)next_image_src,
+                                                window);
+
+    window->slideshow = FALSE;
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(window->toggle_btn), TRUE);
+    window->slideshow = TRUE;
+}
+
+static void
+restart_slideshow(VnrWindow *window)
+{
+    if(!window->slideshow)
+        return;
+
+    if(window->mode != VNR_WINDOW_MODE_SLIDESHOW)
+        return;
+
+    g_source_remove (window->source_tag);
+    window->source_tag = g_timeout_add_seconds (window->timeout,
+                                                (GSourceFunc)next_image_src,
+                                                window);
+}
+
+static void
+allow_slideshow(VnrWindow *window)
+{
+    if(window->slideshow)
+        return;
+
+    window->slideshow = TRUE;
+
+    gtk_widget_set_sensitive(window->toggle_btn, TRUE);
+}
+
+void
+deny_slideshow(VnrWindow *window)
+{
+    if(!window->slideshow)
+        return;
+
+    window->slideshow = FALSE;
+
+    gtk_widget_set_sensitive(window->toggle_btn, FALSE);
+}
 /*************************************************************/
 /***** Private signal handlers *******************************/
 /*************************************************************/
@@ -78,7 +317,8 @@ vnr_window_drag_data_received (GtkWidget *widget,
     if (!gtk_targets_include_uri (&selection_data->target, 1))
         return;
 
-    if (context->suggested_action == GDK_ACTION_COPY) {
+    if (context->suggested_action == GDK_ACTION_COPY)
+    {
         uri_list = vnr_tools_parse_uri_string_list_to_file_list ((gchar *) selection_data->data);
         g_return_if_fail(uri_list != NULL);
         vnr_window_open_from_list(VNR_WINDOW (widget), uri_list);
@@ -98,9 +338,8 @@ vnr_window_cmd_zoom_in (GtkAction *action, gpointer user_data)
 {
     g_return_if_fail (VNR_IS_WINDOW (user_data));
 
-    if (VNR_WINDOW(user_data)->view) {
+    if (VNR_WINDOW(user_data)->view)
         uni_image_view_zoom_in(UNI_IMAGE_VIEW(VNR_WINDOW(user_data)->view));
-    }
 }
 
 static void
@@ -108,9 +347,8 @@ vnr_window_cmd_zoom_out (GtkAction *action, gpointer user_data)
 {
     g_return_if_fail (VNR_IS_WINDOW (user_data));
 
-    if (VNR_WINDOW(user_data)->view) {
+    if (VNR_WINDOW(user_data)->view)
         uni_image_view_zoom_out(UNI_IMAGE_VIEW(VNR_WINDOW(user_data)->view));
-    }
 }
 
 static void
@@ -118,9 +356,8 @@ vnr_window_cmd_normal_size (GtkAction *action, gpointer user_data)
 {
     g_return_if_fail (VNR_IS_WINDOW (user_data));
 
-    if (VNR_WINDOW(user_data)->view) {
+    if (VNR_WINDOW(user_data)->view)
         uni_image_view_set_zoom(UNI_IMAGE_VIEW(VNR_WINDOW(user_data)->view), 1);
-    }
 }
 
 static void
@@ -128,9 +365,8 @@ vnr_window_cmd_fit (GtkAction *action, gpointer user_data)
 {
     g_return_if_fail (VNR_IS_WINDOW (user_data));
 
-    if (VNR_WINDOW(user_data)->view) {
+    if (VNR_WINDOW(user_data)->view)
         uni_image_view_set_fitting(UNI_IMAGE_VIEW(VNR_WINDOW(user_data)->view), TRUE);
-    }
 }
 
 static void
@@ -138,9 +374,8 @@ vnr_window_cmd_next (GtkAction *action, gpointer user_data)
 {
     g_return_if_fail (VNR_IS_WINDOW (user_data));
 
-    if (VNR_WINDOW(user_data)->view) {
-        vnr_window_next(VNR_WINDOW(user_data));
-    }
+    if (VNR_WINDOW(user_data)->view)
+        vnr_window_next(VNR_WINDOW(user_data), TRUE);
 }
 
 static void
@@ -148,9 +383,8 @@ vnr_window_cmd_first (GtkAction *action, gpointer user_data)
 {
     g_return_if_fail (VNR_IS_WINDOW (user_data));
 
-    if (VNR_WINDOW(user_data)->view) {
+    if (VNR_WINDOW(user_data)->view)
         vnr_window_first(VNR_WINDOW(user_data));
-    }
 }
 
 static void
@@ -158,9 +392,8 @@ vnr_window_cmd_last (GtkAction *action, gpointer user_data)
 {
     g_return_if_fail (VNR_IS_WINDOW (user_data));
 
-    if (VNR_WINDOW(user_data)->view) {
+    if (VNR_WINDOW(user_data)->view)
         vnr_window_last(VNR_WINDOW(user_data));
-    }
 }
 
 static void
@@ -168,17 +401,17 @@ vnr_window_cmd_prev (GtkAction *action, gpointer user_data)
 {
     g_return_if_fail (VNR_IS_WINDOW (user_data));
 
-    if (VNR_WINDOW(user_data)->view) {
+    if (VNR_WINDOW(user_data)->view)
         vnr_window_prev(VNR_WINDOW(user_data));
-    }
 }
 
 static void
 file_open_dialog_response_cb (GtkWidget *dialog,
-                  gint       response_id,
-                  VnrWindow  *window)
+                              gint response_id,
+                              VnrWindow *window)
 {
-    if (response_id == GTK_RESPONSE_ACCEPT) {
+    if (response_id == GTK_RESPONSE_ACCEPT)
+    {
         GSList *uri_list = NULL;
         uri_list = gtk_file_chooser_get_filenames (GTK_FILE_CHOOSER (dialog));
         g_return_if_fail(uri_list != NULL);
@@ -219,6 +452,38 @@ vnr_window_cmd_open(GtkAction *action, gpointer user_data)
     dialog = gtk_file_chooser_dialog_new ("Open File",
                           GTK_WINDOW(user_data),
                           GTK_FILE_CHOOSER_ACTION_OPEN,
+                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                          GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+                          NULL);
+
+    gtk_window_set_modal (GTK_WINDOW(dialog), FALSE);
+    gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
+
+    gchar *filename;
+    if(window->file_list != NULL)
+    {
+        filename = g_path_get_dirname (VNR_FILE(window->file_list->data)->uri);
+        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER(dialog), filename);
+    }
+
+    g_signal_connect (dialog, "response",
+                      G_CALLBACK (file_open_dialog_response_cb),
+                      window);
+
+    gtk_widget_show_all (GTK_WIDGET(dialog));
+}
+
+static void
+vnr_window_cmd_open_dir(GtkAction *action, gpointer user_data)
+{
+    g_return_if_fail (VNR_IS_WINDOW (user_data));
+    VnrWindow *window;
+    window = VNR_WINDOW(user_data);
+
+    GtkWidget *dialog;
+    dialog = gtk_file_chooser_dialog_new ("Open Directory",
+                          GTK_WINDOW(user_data),
+                          GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
                           GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                           GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
                           NULL);
@@ -298,6 +563,23 @@ vnr_set_wallpaper(GtkAction *action, gpointer user_data)
 }
 #endif /* HAVE_WALLPAPER */
 
+static void
+vnr_window_cmd_fullscreen (GtkAction *action, gpointer user_data)
+{
+    VnrWindow *window;
+    gboolean fullscreen;
+
+    g_return_if_fail (VNR_IS_WINDOW (user_data));
+    window = VNR_WINDOW(user_data);
+
+    fullscreen = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
+
+    if (fullscreen)
+        vnr_window_fullscreen (window);
+    else
+        vnr_window_unfullscreen (window);
+}
+
 /* Modified version of eog's eog_window_key_press */
 static gint
 vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
@@ -308,44 +590,64 @@ vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
 
     switch(event->keyval){
         case GDK_Left:
-        if (event->state & GDK_MOD1_MASK) {
+            if (event->state & GDK_MOD1_MASK)
+            {
+                vnr_window_cmd_prev (NULL, VNR_WINDOW (widget));
+                result = TRUE;
+                break;
+            } /* else fall-trough is intended */
+        case GDK_Up:
+            if (scrollbars_visible (VNR_WINDOW (widget)))
+            {
+                /* break to let scrollview handle the key */
+                break;
+            }
+            if (tbcontainer->focus_child != NULL)
+                break;
+
             vnr_window_cmd_prev (NULL, VNR_WINDOW (widget));
             result = TRUE;
             break;
-        } /* else fall-trough is intended */
-    case GDK_Up:
-        if (scrollbars_visible (VNR_WINDOW (widget))) {
-            /* break to let scrollview handle the key */
-            break;
-        }
-        if (tbcontainer->focus_child != NULL)
-            break;
+        case GDK_Right:
+            if (event->state & GDK_MOD1_MASK)
+            {
+                vnr_window_cmd_next (NULL, VNR_WINDOW (widget));
+                result = TRUE;
+                break;
+            } /* else fall-trough is intended */
+        case GDK_Down:
+            if (scrollbars_visible (VNR_WINDOW (widget)))
+            {
+                /* break to let scrollview handle the key */
+                break;
+            }
+            if (tbcontainer->focus_child != NULL)
+                break;
 
-        vnr_window_cmd_prev (NULL, VNR_WINDOW (widget));
-        result = TRUE;
-        break;
-    case GDK_Right:
-        if (event->state & GDK_MOD1_MASK) {
             vnr_window_cmd_next (NULL, VNR_WINDOW (widget));
             result = TRUE;
             break;
-        } /* else fall-trough is intended */
-    case GDK_Down:
-        if (scrollbars_visible (VNR_WINDOW (widget))) {
-            /* break to let scrollview handle the key */
+        case GDK_Escape:
+            if(VNR_WINDOW (widget)->mode != VNR_WINDOW_MODE_NORMAL)
+                vnr_window_unfullscreen(VNR_WINDOW (widget));
             break;
-        }
-        if (tbcontainer->focus_child != NULL)
-            break;
+        case GDK_space:
+            if(VNR_WINDOW (widget)->mode == VNR_WINDOW_MODE_FULLSCREEN)
+            {
+                start_slideshow(VNR_WINDOW (widget));
+                result = TRUE;
+            }
+            else if(VNR_WINDOW (widget)->mode == VNR_WINDOW_MODE_SLIDESHOW)
+            {
+                stop_slideshow(VNR_WINDOW (widget));
+                result = TRUE;
+            }
 
-        vnr_window_cmd_next (NULL, VNR_WINDOW (widget));
-        result = TRUE;
-        break;
+            break;
     }
 
-    if (result == FALSE && GTK_WIDGET_CLASS (vnr_window_parent_class)->key_press_event) {
+    if (result == FALSE && GTK_WIDGET_CLASS (vnr_window_parent_class)->key_press_event)
         result = (* GTK_WIDGET_CLASS (vnr_window_parent_class)->key_press_event) (widget, event);
-    }
 
     return result;
 }
@@ -356,18 +658,27 @@ vnr_window_cmd_delete(GtkAction *action, gpointer user_data)
     GtkWidget *dlg;
     const gchar *file_path;
     gchar *markup, *prompt, *warning;
+    gboolean restart_slideshow = FALSE;
 
     g_return_if_fail (VNR_IS_WINDOW (user_data));
-    g_return_if_fail (VNR_WINDOW(user_data)->file_list != NULL);
+    VnrWindow *window = VNR_WINDOW(user_data);
 
-    file_path = VNR_FILE(VNR_WINDOW(user_data)->file_list->data)->uri;
+    if(window->mode == VNR_WINDOW_MODE_SLIDESHOW)
+    {
+       stop_slideshow(window);
+       restart_slideshow = TRUE;
+    }
+
+    g_return_if_fail (window->file_list != NULL);
+
+    file_path = VNR_FILE(window->file_list->data)->uri;
 
     warning = _("If you delete an item, it will be permanently lost.");
 
     /* I18N: The '%s' is replaced with the name of the file to be deleted. */
     prompt = g_strdup_printf (_("Are you sure you want to\n"
                                 "permanently delete \"%s\"?"),
-                              g_path_get_basename(file_path));
+                              VNR_FILE(window->file_list->data)->display_name);
     markup = g_strdup_printf ("<span weight=\"bold\" size=\"larger\">%s</span>\n\n%s",
                               prompt, warning);
 
@@ -388,12 +699,15 @@ vnr_window_cmd_delete(GtkAction *action, gpointer user_data)
 
     if( gtk_dialog_run(GTK_DIALOG(dlg)) == GTK_RESPONSE_YES )
     {
-        VnrWindow *window = VNR_WINDOW(user_data);
         if( g_unlink(file_path) != 0 )
+        {
             /* I18N: The '%s' is replaced with error message. */
             vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
-                                          g_strdup_printf (_("Error deleting image: %s"),g_strerror(errno)),
+                                          g_strdup_printf (_("Error deleting image: %s"),
+                                           g_strerror(errno)),
                                           FALSE);
+            restart_slideshow = FALSE;
+        }
         else
         {
             GList *new, *next;
@@ -414,8 +728,10 @@ vnr_window_cmd_delete(GtkAction *action, gpointer user_data)
             {
                 vnr_window_close(window);
                 gtk_action_group_set_sensitive(window->actions_collection, FALSE);
+                deny_slideshow(window);
                 vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
                                               _("The given locations contain no images."), TRUE);
+                restart_slideshow = FALSE;
             }
             else
             {
@@ -429,6 +745,9 @@ vnr_window_cmd_delete(GtkAction *action, gpointer user_data)
             }
         }
     }
+    if(restart_slideshow)
+       start_slideshow(window);
+
     g_free(prompt);
     g_free(markup);
     gtk_widget_destroy( dlg );
@@ -447,9 +766,12 @@ static const GtkActionEntry action_entries_window[] = {
     { "Go",    NULL, N_("_Go") },
     { "Help",  NULL, N_("_Help") },
 
-    { "FileOpen", GTK_STOCK_OPEN, N_("_Open"), "<control>O",
-      N_("Open a File"),
+    { "FileOpen", GTK_STOCK_OPEN, N_("_Open Image..."), "<control>O",
+      N_("Open an Image"),
       G_CALLBACK (vnr_window_cmd_open) },
+    { "FileOpenDir", GTK_STOCK_OPEN, N_("_Open Folder..."), "<control>F",
+      N_("Open a Folder"),
+      G_CALLBACK (vnr_window_cmd_open_dir) },
     { "FileClose", GTK_STOCK_CLOSE, N_("_Close"), "<control>W",
       N_("Close window"),
       G_CALLBACK (gtk_main_quit) },
@@ -496,6 +818,12 @@ static const GtkActionEntry action_entries_image[] = {
       G_CALLBACK (vnr_window_cmd_zoom_out) },
 };
 
+static const GtkToggleActionEntry toggle_entries_image[] = {
+    { "ViewFullscreen", GTK_STOCK_FULLSCREEN, N_("_Full Screen"), "F11",
+      N_("Show in fullscreen mode"),
+      G_CALLBACK (vnr_window_cmd_fullscreen) },
+};
+
 static const GtkActionEntry action_entries_collection[] = {
     { "GoPrevious", GTK_STOCK_GO_BACK, N_("_Previous Image"), "<Alt>Left",
       N_("Go to the previous image of the collection"),
@@ -534,10 +862,15 @@ vnr_window_init (VnrWindow * window)
 {
     GError *error = NULL;
     window->file_list = NULL;
+    window->fs_controls = NULL;
+    window->timeout = 5;
+    window->slideshow = TRUE;
 
 #ifdef HAVE_WALLPAPER
     window->client = gconf_client_get_default ();
 #endif /* HAVE_WALLPAPER */
+
+    window->mode = VNR_WINDOW_MODE_NORMAL;
 
     gtk_window_set_title ((GtkWindow *) window, "Viewnior");
     gtk_window_set_default_icon_name ("viewnior");
@@ -573,6 +906,10 @@ vnr_window_init (VnrWindow * window)
                                   action_entries_image,
                                   G_N_ELEMENTS (action_entries_image),
                                   window);
+    gtk_action_group_add_toggle_actions (window->actions_image,
+                                         toggle_entries_image,
+                                         G_N_ELEMENTS (toggle_entries_image),
+                                         window);
 
     gtk_ui_manager_insert_action_group (window->ui_mngr,
                                         window->actions_image, 0);
@@ -618,9 +955,12 @@ vnr_window_init (VnrWindow * window)
     window->toolbar = gtk_ui_manager_get_widget (window->ui_mngr, "/Toolbar");
     g_assert(GTK_IS_WIDGET(window->toolbar));
     gtk_toolbar_set_style(GTK_TOOLBAR(window->toolbar), GTK_TOOLBAR_ICONS);
+    gtk_toolbar_insert (GTK_TOOLBAR (window->toolbar),
+                        GTK_TOOL_ITEM(get_fs_controls(window)), -1);
     gtk_box_pack_start (GTK_BOX (window->menus), window->toolbar, FALSE,FALSE,0);
 
     gtk_widget_show_all(window->menus);
+    gtk_widget_hide(get_fs_controls(window));
 
     window->msg_area = vnr_message_area_new();
     VNR_MESSAGE_AREA(window->msg_area)->vnr_win = window;
@@ -628,9 +968,14 @@ vnr_window_init (VnrWindow * window)
     gtk_widget_show(GTK_WIDGET (window->msg_area));
 
     window->view = uni_anim_view_new ();
+    GTK_WIDGET_SET_FLAGS(window->view, GTK_CAN_FOCUS);
     window->scroll_view = uni_scroll_win_new (UNI_IMAGE_VIEW (window->view));
     gtk_box_pack_end (GTK_BOX (window->layout), window->scroll_view, TRUE,TRUE,0);
     gtk_widget_show_all(GTK_WIDGET (window->scroll_view));
+
+    gtk_widget_grab_focus(window->view);
+
+    vnr_window_set_drag(window);
 
     g_signal_connect (G_OBJECT (window), "destroy",
                       G_CALLBACK (gtk_main_quit), NULL);
@@ -641,9 +986,6 @@ vnr_window_init (VnrWindow * window)
     gtk_window_add_accel_group (GTK_WINDOW (window),
                 gtk_ui_manager_get_accel_group (window->ui_mngr));
 
-    gtk_widget_grab_focus(window->view);
-
-    vnr_window_set_drag(window);
 }
 
 /*************************************************************/
@@ -662,6 +1004,7 @@ vnr_window_open (VnrWindow * win, gboolean fit_to_screen)
     file = VNR_FILE(win->file_list->data);
 
     gtk_window_set_title (GTK_WINDOW (win), file->display_name);
+    update_fs_label(win);
 
     pixbuf = gdk_pixbuf_animation_new_from_file (file->uri, &error);
 
@@ -670,14 +1013,13 @@ vnr_window_open (VnrWindow * win, gboolean fit_to_screen)
         vnr_message_area_show_warning(VNR_MESSAGE_AREA (win->msg_area), error->message, TRUE);
         return FALSE;
     }
-    else
+
+    if(vnr_message_area_get_visible(VNR_MESSAGE_AREA(win->msg_area)))
     {
-        if(vnr_message_area_get_visible(VNR_MESSAGE_AREA(win->msg_area)))
-        {
-            vnr_message_area_hide(VNR_MESSAGE_AREA(win->msg_area));
-        }
-        gtk_action_group_set_sensitive(win->actions_image, TRUE);
+        vnr_message_area_hide(VNR_MESSAGE_AREA(win->msg_area));
     }
+
+    gtk_action_group_set_sensitive(win->actions_image, TRUE);
 
     if(fit_to_screen)
     {
@@ -717,6 +1059,7 @@ vnr_window_open_from_list(VnrWindow *window, GSList *uri_list)
     {
         vnr_window_close(window);
         gtk_action_group_set_sensitive(window->actions_collection, FALSE);
+        deny_slideshow(window);
         vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
                                       error->message, TRUE);
     }
@@ -724,6 +1067,7 @@ vnr_window_open_from_list(VnrWindow *window, GSList *uri_list)
     {
         vnr_window_close(window);
         gtk_action_group_set_sensitive(window->actions_collection, FALSE);
+        deny_slideshow(window);
         vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
                                       _("The given locations contain no images."), TRUE);
     }
@@ -756,18 +1100,22 @@ vnr_window_set_list (VnrWindow *win, GList *list, gboolean free_current)
     if (g_list_length(g_list_first(list)) != 1)
     {
         gtk_action_group_set_sensitive(win->actions_collection, TRUE);
+        allow_slideshow(win);
     }
     else
     {
         gtk_action_group_set_sensitive(win->actions_collection, FALSE);
+        deny_slideshow(win);
     }
     g_assert(list != NULL);
     win->file_list = list;
 }
 
 gboolean
-vnr_window_next (VnrWindow *win){
+vnr_window_next (VnrWindow *win, gboolean rem_timeout){
     GList *next;
+    if(win->mode == VNR_WINDOW_MODE_SLIDESHOW && rem_timeout)
+        g_source_remove (win->source_tag);
 
     next = g_list_next(win->file_list);
     if(next == NULL)
@@ -783,12 +1131,21 @@ vnr_window_next (VnrWindow *win){
 
     vnr_window_open(win, FALSE);
     gdk_window_set_cursor(GTK_WIDGET(win)->window, gdk_cursor_new(GDK_LEFT_PTR));
+
+    if(win->mode == VNR_WINDOW_MODE_SLIDESHOW && rem_timeout)
+        win->source_tag = g_timeout_add_seconds (win->timeout,
+                                                 (GSourceFunc)next_image_src,
+                                                 win);
+
     return TRUE;
 }
 
 gboolean
 vnr_window_prev (VnrWindow *win){
     GList *prev;
+
+    if(win->mode == VNR_WINDOW_MODE_SLIDESHOW)
+        g_source_remove (win->source_tag);
 
     prev = g_list_previous(win->file_list);
     if(prev == NULL)
@@ -804,6 +1161,12 @@ vnr_window_prev (VnrWindow *win){
 
     vnr_window_open(win, FALSE);
     gdk_window_set_cursor(GTK_WIDGET(win)->window, gdk_cursor_new(GDK_LEFT_PTR));
+
+    if(win->mode == VNR_WINDOW_MODE_SLIDESHOW)
+        win->source_tag = g_timeout_add_seconds (win->timeout,
+                                                 (GSourceFunc)next_image_src,
+                                                 win);
+
     return TRUE;
 }
 

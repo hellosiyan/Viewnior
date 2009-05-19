@@ -552,6 +552,7 @@ uni_image_view_expose (GtkWidget * widget, GdkEventExpose * ev)
 static int
 uni_image_view_button_press (GtkWidget * widget, GdkEventButton * ev)
 {
+    gtk_widget_grab_focus(widget);
     UniImageView *view = UNI_IMAGE_VIEW (widget);
     if (ev->type == GDK_BUTTON_PRESS && ev->button == 1)
     {

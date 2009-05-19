@@ -40,6 +40,12 @@ typedef struct _VnrWindowClass VnrWindowClass;
 #define VNR_IS_WINDOW_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass),  VNR_TYPE_WINDOW))
 #define VNR_WINDOW_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj),  VNR_TYPE_WINDOW, VnrWindowClass))
 
+typedef enum {
+    VNR_WINDOW_MODE_NORMAL,
+    VNR_WINDOW_MODE_FULLSCREEN,
+    VNR_WINDOW_MODE_SLIDESHOW,
+} VnrWindowMode;
+
 struct _VnrWindow {
     GtkWindow win;
 
@@ -68,6 +74,15 @@ struct _VnrWindow {
 
     gint max_width;
     gint max_height;
+
+    VnrWindowMode mode;
+
+    GtkWidget *fs_controls;
+    GtkWidget *toggle_btn;
+    gboolean slideshow;
+    GtkWidget *fs_label;
+    guint source_tag;
+    gint timeout;
 };
 
 struct _VnrWindowClass {
@@ -85,10 +100,11 @@ void     vnr_window_open_from_list (VnrWindow *window, GSList *uri_list);
 void     vnr_window_close    (VnrWindow *win);
 
 void     vnr_window_set_list (VnrWindow *win, GList *list, gboolean free_current);
-gboolean vnr_window_next     (VnrWindow *win);
+gboolean vnr_window_next     (VnrWindow *win, gboolean rem_timeout);
 gboolean vnr_window_prev     (VnrWindow *win);
 gboolean vnr_window_first    (VnrWindow *win);
 gboolean vnr_window_last     (VnrWindow *win);
+void deny_slideshow(VnrWindow *window);
 
 G_END_DECLS
 #endif /* __VNR_WINDOW_H__ */

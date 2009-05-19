@@ -42,12 +42,6 @@ static GOptionEntry opt_entries[] = {
     {NULL}
 };
 
-void
-print_list(gpointer * data, gpointer user_data)
-{
-    printf("%s\n", VNR_FILE(data)->display_name);
-}
-
 int
 main (int argc, char *argv[])
 {
@@ -100,11 +94,13 @@ main (int argc, char *argv[])
 
         if(error != NULL)
         {
+            deny_slideshow(VNR_WINDOW(win));
             vnr_message_area_show_warning(VNR_MESSAGE_AREA (VNR_WINDOW(win)->msg_area),
                                           error->message, TRUE);
         }
         else if(file_list == NULL)
         {
+            deny_slideshow(VNR_WINDOW(win));
             vnr_message_area_show_warning(VNR_MESSAGE_AREA (VNR_WINDOW(win)->msg_area),
                                           _("The given locations contain no images."), TRUE);
         }

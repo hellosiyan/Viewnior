@@ -39,15 +39,10 @@ compare_quarks (gconstpointer a, gconstpointer b)
 static gint
 compare_files(VnrFile *file, char *uri)
 {
-    //printf("%s\t%s\n", uri, file->uri);
     if(g_strcmp0(uri, file->uri) == 0)
-    {
         return 0;
-    }
     else
-    {
         return 1;
-    }
 }
 
 static GList *
@@ -195,10 +190,7 @@ vnr_file_load_single_uri(char *p_path, GList **file_list, GError **error)
                                   0, NULL, error);
 
     if (fileinfo == NULL)
-    {
-        //printf("No fileinfo for:%s\n",p_path);
         return;
-    }
 
     temp = g_file_info_get_file_type(fileinfo);
 
@@ -215,26 +207,16 @@ vnr_file_load_single_uri(char *p_path, GList **file_list, GError **error)
         *file_list = vnr_file_dir_content_to_list(g_file_get_path(parent), TRUE);
 
         g_object_unref(parent);
-        //printf("mylength:%i\n", g_list_length(*file_list));
 
         current_position = g_list_find_custom(*file_list, p_path,
                                   (GCompareFunc)compare_files);
 
-        //printf("myafterlength:%i\n", g_list_length(current_position));
-
         if(current_position != NULL)
-        {
-            //printf("FOUND: %s\n",VNR_FILE(current_position->data)->uri);
             *file_list = current_position;
-        }
         else if(*file_list == NULL)
-        {
             return;
-        }
         else
-        {
             g_warn_if_reached();
-        }
     }
     g_object_unref (file);
     g_object_unref(fileinfo);
@@ -259,7 +241,6 @@ vnr_file_load_uri_list (GSList *uri_list, GList **file_list, GError **error)
 
         if (fileinfo == NULL)
         {
-            //printf("No fileinfo for:%s\n",p_path);
             g_clear_error (error);
             g_object_unref (file);
 
