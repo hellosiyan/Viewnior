@@ -135,7 +135,7 @@ get_fs_controls(VnrWindow *window)
     widget = gtk_vseparator_new();
     gtk_box_pack_start (GTK_BOX(box), widget, FALSE, FALSE, 0);
 
-    widget = gtk_check_button_new_with_label("Show next image after: ");
+    widget = gtk_check_button_new_with_label(_("Show next image after: "));
     g_signal_connect(widget, "toggled", G_CALLBACK(toggle_show_next_cb), window);
     gtk_box_pack_start (GTK_BOX(box), widget, FALSE, FALSE, 0);
     window->toggle_btn = widget;
@@ -149,7 +149,7 @@ get_fs_controls(VnrWindow *window)
     g_signal_connect(widget, "value-changed", G_CALLBACK(spin_value_change_cb), window);
     gtk_box_pack_start (GTK_BOX(box), widget, FALSE, FALSE, 0);
 
-    widget = gtk_label_new(" seconds");
+    widget = gtk_label_new(_(" seconds"));
     gtk_box_pack_start (GTK_BOX(box), widget, FALSE, FALSE, 0);
 
     gtk_tool_item_set_expand(item, TRUE);
@@ -766,10 +766,10 @@ static const GtkActionEntry action_entries_window[] = {
     { "Go",    NULL, N_("_Go") },
     { "Help",  NULL, N_("_Help") },
 
-    { "FileOpen", GTK_STOCK_OPEN, N_("_Open Image..."), "<control>O",
+    { "FileOpen", GTK_STOCK_OPEN, N_("Open _Image..."), "<control>O",
       N_("Open an Image"),
       G_CALLBACK (vnr_window_cmd_open) },
-    { "FileOpenDir", GTK_STOCK_OPEN, N_("_Open Folder..."), "<control>F",
+    { "FileOpenDir", GTK_STOCK_OPEN, N_("Open _Folder..."), "<control>F",
       N_("Open a Folder"),
       G_CALLBACK (vnr_window_cmd_open_dir) },
     { "FileClose", GTK_STOCK_CLOSE, N_("_Close"), "<control>W",
@@ -819,7 +819,7 @@ static const GtkActionEntry action_entries_image[] = {
 };
 
 static const GtkToggleActionEntry toggle_entries_image[] = {
-    { "ViewFullscreen", GTK_STOCK_FULLSCREEN, N_("_Full Screen"), "F11",
+    { "ViewFullscreen", GTK_STOCK_FULLSCREEN, N_("Full _Screen"), "F11",
       N_("Show in fullscreen mode"),
       G_CALLBACK (vnr_window_cmd_fullscreen) },
 };

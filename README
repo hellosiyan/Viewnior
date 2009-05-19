@@ -12,6 +12,7 @@ your images. Among its features are:
 * Mouse and keyboard zooming
 * Scrolling and dragging
 * GIF animation support
+* FullScreen and SlideShow
 
 Most of the Viewnior's sources handling image viewing are adopted from
 the GtkImageView library by Björn Lindqvist. The files were cleaned up
@@ -24,6 +25,7 @@ Requirements
 
 This package requires the following modules to be installed: glib,
 GTK+, gio, gdk-pixbuf, gnome-icon-theme, shared-mime-info.
+Optional: for SetAsWallpaper - gconf.
 
 You can get these packages from your favourite GNOME FTP mirror or at
 http://download.gnome.org/sources or from other sources where GNOME
@@ -45,4 +47,4 @@ GNU Indent Program with the following arguments:
 -nut -i4 -bli0 -cli0 -brs
 
 
-Last Edited - 17 May 2009
+Last Edited - 19 May 2009

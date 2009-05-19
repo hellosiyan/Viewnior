@@ -1,3 +1,18 @@
+Viewnior 0.4
+------------
+
+New features included:
+ - Drag'n'Drop
+ - SetAsWallpaper 
+   (optional / only for Gnome)
+ - Add "Open Image" and "Open Folder" 
+   to the File menu
+ - Add "Delete" to the File menu
+ - Fullscreen and Slideshow
+
+Fixed:
+ - Multiple little code fixes
+
 Viewnior 0.3
 ------------
 
