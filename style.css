@@ -23,6 +23,12 @@ font-weight:bold;
 font-style:normal;
 }
 
+h4{
+font-size:26px;
+font-weight:bold;
+font-style:normal;
+}
+
 h6{
 font-size:17px;
 font-weight:normal;
@@ -42,6 +48,10 @@ margin-top:10px;
 margin-left:40px;
 }
 
+img{
+margin:5px;
+}
+
 #page{
 border-left:1px solid black;
 border-right:1px solid black;
@@ -56,6 +66,20 @@ background-position:top center;
 background-repeat:no-repeat;
 background-attachment:scroll;
 }
+
+#special{
+margin-left:0px;
+text-align:center;
+background-color:#B3D47F;
+padding:20px;
+color:black;
+}
+
+#special:hover{
+background-color:#BCDC88;
+color:#586F2E;
+}
+
 #logo{
 display:none;
 }
@@ -85,8 +109,13 @@ padding:5px;
 background-color:#e13f3f;
 }
 
-#scrshot{
+.scrshot{
 float:right;
+}
+
+.scrshot_a{
+float:right;
+margin-right:20px;
 }
 
 #contacts, #downloads{
@@ -104,7 +133,23 @@ color:#585858;
 border-bottom:1px dashed red;
 }
 
+.release{
+border-bottom:1px solid black;
+margin-right:20px;
+}
+
 .section p{
 margin-left:20px;
 margin-top:10px;
+}
+
+.clean{
+clear:both;
+}
+
+.bold{
+font-weight:bold;
+}
+.large{
+font-size:19px;
 }
