@@ -1,0 +1,207 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Peter Polonkai <polesz@nedudu.hu>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Viewnior 0.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-05-20 22:29+0300\n"
+"PO-Revision-Date: 2009-05-20 21:00+0200\n"
+"Last-Translator: Peter Polonkai <polesz@nedudu.hu>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:546
+msgid "Elegant Image Viewer"
+msgstr "Elegáns Képnéző"
+
+#: ../data/viewnior.desktop.in.in.h:2
+msgid "Viewnior"
+msgstr "Viewnior"
+
+#: ../src/main.c:105 ../src/vnr-window.c:735 ../src/vnr-window.c:1074
+msgid "The given locations contain no images."
+msgstr "A megadott könyvtár nem tartalmaz képeket."
+
+#: ../src/uni-scroll-win.c:290
+msgid "Open the navigator window"
+msgstr "Navigációs ablak megnyitása"
+
+#: ../src/vnr-window.c:138
+msgid "Show next image after: "
+msgstr "Következő kép mutatása: "
+
+#: ../src/vnr-window.c:152
+msgid " seconds"
+msgstr " másodperc múlva"
+
+#: ../src/vnr-window.c:678
+msgid "If you delete an item, it will be permanently lost."
+msgstr "Ha törli a képet az véglegesen el fog veszni."
+
+#. I18N: The '%s' is replaced with the name of the file to be deleted.
+#: ../src/vnr-window.c:681
+#, c-format
+msgid ""
+"Are you sure you want to\n"
+"permanently delete \"%s\"?"
+msgstr ""
+"Valóban törli a képet\n"
+"véglegesen \"%s\"?"
+
+#: ../src/vnr-window.c:708
+#, c-format
+msgid "Error deleting image: %s"
+msgstr "Hiba a kép törlésekor: %s"
+
+#: ../src/vnr-window.c:766
+msgid "_File"
+msgstr "_Fájl"
+
+#: ../src/vnr-window.c:767
+msgid "_View"
+msgstr "_Nézet"
+
+#: ../src/vnr-window.c:768
+msgid "_Go"
+msgstr "U_grás"
+
+#: ../src/vnr-window.c:769
+msgid "_Help"
+msgstr "_Súgó"
+
+#: ../src/vnr-window.c:771
+msgid "Open _Image..."
+msgstr "Kép megny_itása..."
+
+#: ../src/vnr-window.c:772
+msgid "Open an Image"
+msgstr "Kép megnyitása"
+
+#: ../src/vnr-window.c:774
+msgid "Open _Folder..."
+msgstr "_Könyvtár megnyitása..."
+
+#: ../src/vnr-window.c:775
+msgid "Open a Folder"
+msgstr "Könyvtár megnyitása"
+
+#: ../src/vnr-window.c:777
+msgid "_Close"
+msgstr "_Bezárás"
+
+#: ../src/vnr-window.c:778
+msgid "Close window"
+msgstr "Ablak bezárása"
+
+#: ../src/vnr-window.c:780
+msgid "_About"
+msgstr "_Névjegy"
+
+#: ../src/vnr-window.c:781
+msgid "About this application"
+msgstr "A program névjegye"
+
+#: ../src/vnr-window.c:787
+msgid "Set as _Wallpaper"
+msgstr "Beállítás _háttérképként"
+
+#: ../src/vnr-window.c:788
+msgid "Set the selected image as the desktop background"
+msgstr "A kiválasztott kép beállítása az asztal háttérképeként"
+
+#: ../src/vnr-window.c:791 ../src/vnr-window.c:794
+msgid "_Delete"
+msgstr "_Törlés"
+
+#: ../src/vnr-window.c:792 ../src/vnr-window.c:795
+msgid "Delete the current file"
+msgstr "Aktuális fájl törlése"
+
+#: ../src/vnr-window.c:797 ../src/vnr-window.c:812 ../src/vnr-window.c:815
+msgid "_Zoom In"
+msgstr "_Nagyítás"
+
+#: ../src/vnr-window.c:798
+msgid "Enlarge the image"
+msgstr "Kép nagyítása"
+
+#: ../src/vnr-window.c:800 ../src/vnr-window.c:818
+msgid "Zoom _Out"
+msgstr "_Kicsinyítés"
+
+#: ../src/vnr-window.c:801 ../src/vnr-window.c:813 ../src/vnr-window.c:816
+#: ../src/vnr-window.c:819
+msgid "Shrink the image"
+msgstr "Kép kicsinyítése"
+
+#: ../src/vnr-window.c:803
+msgid "_Normal Size"
+msgstr "_Eredeti méret"
+
+#: ../src/vnr-window.c:804
+msgid "Show the image at its normal size"
+msgstr "Kép mutatása eredeti méretben"
+
+#: ../src/vnr-window.c:806
+msgid "Best _Fit"
+msgstr "_Legjobb nézet"
+
+#: ../src/vnr-window.c:807
+msgid "Fit the image to the window"
+msgstr "Kép kitöltése az aktuális ablakban"
+
+#: ../src/vnr-window.c:809
+msgid "_Adjust window size"
+msgstr ""
+
+#: ../src/vnr-window.c:810
+msgid "Adjust window size to fit the image"
+msgstr ""
+
+#: ../src/vnr-window.c:824
+msgid "Full _Screen"
+msgstr "_Teljes képernyő"
+
+#: ../src/vnr-window.c:825
+msgid "Show in fullscreen mode"
+msgstr "Kép mutatása teljes képernyős módban"
+
+#: ../src/vnr-window.c:830
+msgid "_Previous Image"
+msgstr "_Előző kép"
+
+#: ../src/vnr-window.c:831
+msgid "Go to the previous image of the collection"
+msgstr "Ugrás az előző képre a gyűjteményben"
+
+#: ../src/vnr-window.c:833
+msgid "_Next Image"
+msgstr "_Következő kép"
+
+#: ../src/vnr-window.c:834
+msgid "Go to the next image of the collection"
+msgstr "Ugrás a következő képre a gyűjteményben"
+
+#: ../src/vnr-window.c:836
+msgid "_First Image"
+msgstr "E_lső kép"
+
+#: ../src/vnr-window.c:837
+msgid "Go to the first image of the collection"
+msgstr "Ugrás a legelső képre a gyűjteményben"
+
+#: ../src/vnr-window.c:839
+msgid "_Last Image"
+msgstr "_Utolsó kép"
+
+#: ../src/vnr-window.c:840
+msgid "Go to the last image of the collection"
+msgstr "Ugrás az utolsó képre a gyűjteményben"
+
+#~ msgid "_Resize Window"
+#~ msgstr "_Ablak átméretezése"
