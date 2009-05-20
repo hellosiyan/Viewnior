@@ -1,0 +1,205 @@
+# Spanish translation for viewnior
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the viewnior package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: viewnior\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-05-20 11:24+0300\n"
+"PO-Revision-Date: 2009-05-19 05:05+0000\n"
+"Last-Translator: Xoan Sampaiño <xoansampainho@gmail.com>\n"
+"Language-Team: Spanish <es@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-20 08:04+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:544
+msgid "Elegant Image Viewer"
+msgstr "Un visor de imágenes elegante"
+
+#: ../data/viewnior.desktop.in.in.h:2
+msgid "Viewnior"
+msgstr "Viewnior"
+
+#: ../src/main.c:105 ../src/vnr-window.c:733 ../src/vnr-window.c:1072
+msgid "The given locations contain no images."
+msgstr "Las ubicaciones especificadas no contienen imágenes."
+
+#: ../src/uni-scroll-win.c:290
+msgid "Open the navigator window"
+msgstr "Abrir la ventana del explorador"
+
+#: ../src/vnr-window.c:138
+msgid "Show next image after: "
+msgstr ""
+
+#: ../src/vnr-window.c:152
+msgid " seconds"
+msgstr ""
+
+#: ../src/vnr-window.c:676
+msgid "If you delete an item, it will be permanently lost."
+msgstr ""
+
+#. I18N: The '%s' is replaced with the name of the file to be deleted.
+#: ../src/vnr-window.c:679
+#, c-format
+msgid ""
+"Are you sure you want to\n"
+"permanently delete \"%s\"?"
+msgstr ""
+
+#: ../src/vnr-window.c:706
+#, c-format
+msgid "Error deleting image: %s"
+msgstr ""
+
+#: ../src/vnr-window.c:764
+msgid "_File"
+msgstr "_Archivo"
+
+#: ../src/vnr-window.c:765
+msgid "_View"
+msgstr "_Ver"
+
+#: ../src/vnr-window.c:766
+msgid "_Go"
+msgstr "_Ir"
+
+#: ../src/vnr-window.c:767
+msgid "_Help"
+msgstr "Ay_uda"
+
+#: ../src/vnr-window.c:769
+msgid "Open _Image..."
+msgstr ""
+
+#: ../src/vnr-window.c:770
+msgid "Open an Image"
+msgstr ""
+
+#: ../src/vnr-window.c:772
+msgid "Open _Folder..."
+msgstr ""
+
+#: ../src/vnr-window.c:773
+msgid "Open a Folder"
+msgstr ""
+
+#: ../src/vnr-window.c:775
+msgid "_Close"
+msgstr "_Cerrar"
+
+#: ../src/vnr-window.c:776
+msgid "Close window"
+msgstr "Cierra la ventana de la aplicación"
+
+#: ../src/vnr-window.c:778
+msgid "_About"
+msgstr "Acerca _de"
+
+#: ../src/vnr-window.c:779
+msgid "About this application"
+msgstr "Acerca de esta aplicación"
+
+#: ../src/vnr-window.c:785
+msgid "Set as _Wallpaper"
+msgstr "Establecer como fondo del _escritorio"
+
+#: ../src/vnr-window.c:786
+msgid "Set the selected image as the desktop background"
+msgstr "Establece la imagen seleccionada como fondo del escritorio"
+
+#: ../src/vnr-window.c:789 ../src/vnr-window.c:792
+msgid "_Delete"
+msgstr "_Eliminar"
+
+#: ../src/vnr-window.c:790 ../src/vnr-window.c:793
+msgid "Delete the current file"
+msgstr "Elimina la imagen seleccionada"
+
+#: ../src/vnr-window.c:795 ../src/vnr-window.c:810 ../src/vnr-window.c:813
+msgid "_Zoom In"
+msgstr "_Ampliar"
+
+#: ../src/vnr-window.c:796
+msgid "Enlarge the image"
+msgstr "Aumenta la vista de la imagen"
+
+#: ../src/vnr-window.c:798 ../src/vnr-window.c:816
+msgid "Zoom _Out"
+msgstr "Re_ducir"
+
+#: ../src/vnr-window.c:799 ../src/vnr-window.c:811 ../src/vnr-window.c:814
+#: ../src/vnr-window.c:817
+msgid "Shrink the image"
+msgstr "Disminuye la vista de la imagen"
+
+#: ../src/vnr-window.c:801
+msgid "_Normal Size"
+msgstr "Tamaño _normal"
+
+#: ../src/vnr-window.c:802
+msgid "Show the image at its normal size"
+msgstr "Muestra la vista de la imagen con su tamaño original"
+
+#: ../src/vnr-window.c:804
+msgid "Best _Fit"
+msgstr "Ajoste _óptimo"
+
+#: ../src/vnr-window.c:805
+msgid "Fit the image to the window"
+msgstr "Ajusta la vista de la imagen a la ventana"
+
+#: ../src/vnr-window.c:807
+msgid "_Resize Window"
+msgstr ""
+
+#: ../src/vnr-window.c:808
+msgid "Resize the window to fit the image"
+msgstr ""
+
+#: ../src/vnr-window.c:822
+msgid "Full _Screen"
+msgstr ""
+
+#: ../src/vnr-window.c:823
+msgid "Show in fullscreen mode"
+msgstr ""
+
+#: ../src/vnr-window.c:828
+msgid "_Previous Image"
+msgstr "Imagen _anterior"
+
+#: ../src/vnr-window.c:829
+msgid "Go to the previous image of the collection"
+msgstr "Ir a la imagen anterior de la colección"
+
+#: ../src/vnr-window.c:831
+msgid "_Next Image"
+msgstr "_Siguiente imagen"
+
+#: ../src/vnr-window.c:832
+msgid "Go to the next image of the collection"
+msgstr "Ir a la siguiente imagen de la colección"
+
+#: ../src/vnr-window.c:834
+msgid "_First Image"
+msgstr "_Primera imagen"
+
+#: ../src/vnr-window.c:835
+msgid "Go to the first image of the collection"
+msgstr "Ir a la primera imagen de la colección"
+
+#: ../src/vnr-window.c:837
+msgid "_Last Image"
+msgstr "_Última imagen"
+
+#: ../src/vnr-window.c:838
+msgid "Go to the last image of the collection"
+msgstr "Ir a la última imagen de la colección"
+
