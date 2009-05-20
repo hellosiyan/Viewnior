@@ -140,7 +140,7 @@ get_fs_controls(VnrWindow *window)
     gtk_box_pack_start (GTK_BOX(box), widget, FALSE, FALSE, 0);
     window->toggle_btn = widget;
 
-    spinner_adj = (GtkAdjustment *) gtk_adjustment_new (5, 1.0, 31.0, 1.0, 1.0, 1.0);
+    spinner_adj = (GtkAdjustment *) gtk_adjustment_new (5, 1.0, 31.0, 1.0, 1.0, 0);
 
     widget = gtk_spin_button_new (spinner_adj, 1.0, 0);
     gtk_spin_button_set_snap_to_ticks(GTK_SPIN_BUTTON(widget), TRUE);
@@ -768,10 +768,10 @@ static const GtkActionEntry action_entries_window[] = {
     { "Go",    NULL, N_("_Go") },
     { "Help",  NULL, N_("_Help") },
 
-    { "FileOpen", GTK_STOCK_OPEN, N_("Open _Image..."), "<control>O",
+    { "FileOpen", GTK_STOCK_FILE, N_("Open _Image..."), "<control>O",
       N_("Open an Image"),
       G_CALLBACK (vnr_window_cmd_open) },
-    { "FileOpenDir", GTK_STOCK_OPEN, N_("Open _Folder..."), "<control>F",
+    { "FileOpenDir", GTK_STOCK_DIRECTORY, N_("Open _Folder..."), "<control>F",
       N_("Open a Folder"),
       G_CALLBACK (vnr_window_cmd_open_dir) },
     { "FileClose", GTK_STOCK_CLOSE, N_("_Close"), "<control>W",
