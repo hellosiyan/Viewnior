@@ -50,6 +50,8 @@ your images. Among its features are:</p>
 and by <a onclick="window.open(this.href); return false;" href="http://lxde.sourceforge.net/gpicview/">GPicView</a>, because of it's lightweight design and minimal interface. So here comes
 Viewnior - small and light, with no compromise with the quality of it's functions.
 The program is made with better integration in mind (follows <a onclick="window.open(this.href); return false;" href="http://library.gnome.org/devel/hig-book/stable/">Gnome HIG2</a>)</p>
+<p>Viewnior uses modified version of the <a onclick="window.open(this.href); return false;" href="http://trac.bjourne.webfactional.com/">GtkImageView</a>
+library by Bjourn Lindqvist. Without it, Viewnior would be nothing.</p>
 <p>You can always file a bug, make a blueprint or ask a question at
 <a onclick="window.open(this.href); return false;" href="http://launchpad.net/viewnior">Launchpad</a></p>
 </div>
@@ -64,6 +66,7 @@ The program is made with better integration in mind (follows <a onclick="window.
 <li><a href="#faq5">Is Viewnior suitable for default image viewer?</a></li>
 <li><a href="#faq6">How can I translate Viewnior?</a></li>
 <li><a href="#faq7">How can I zoom only using the mouse?</a></li>
+<li><a href="#faq7">What is that "Set As Wallpaper support" you are talking about?</a></li>
 </ul>
 <p id="faq1"><h6>What do i need to compile Viewnior?</h6>Viewnior depends only on gtk+-2.0 (it contains everything needed).</p>
 <p id="faq2"><h6>Is Viewnior available for Windows/MacOSX?</h6>No, at this time, no. Viewnior is made with portabilty in mind and is tested only under GNU/Linux.
@@ -72,8 +75,11 @@ If you'd like to test/compile it under other platforms, you are welcome. In case
 Developers wishing to give a helping hand can <a href="#contacts">contact me.</a></p>
 <p id="faq4"><h6>I have an idea/suggestion. How can I share it with you?</h6>You can always file a bug, make a blueprint or ask a question at <a onclick="window.open(this.href); return false;" href="http://launchpad.net/viewnior">Launchpad</a></p>
 <p id="faq5"><h6>Is Viewnior suitable for default image viewer?</h6>Yes, it is. It has all the basic features for a everyday use. See <a href="#todo">To Do</a>.</p>
-<p id="faq6"><h6>How can I translate Viewnior?</h6>The best way to do it is at <a onclick="window.open(this.href); return false;" href="http://launchpad.net/viewnior">Launchpad</a></p>
-<p id="faq6"><h6>How can I zoom only using the mouse?</h6>Use the scroll to zoom in/out. To toggle Best Fit/Normal Size just double click on the image! After some practice, this becomes Addictive!</p>
+<p id="faq6"><h6>How can I translate Viewnior?</h6>You can do it at <a onclick="window.open(this.href); return false;" href="http://launchpad.net/viewnior">Launchpad</a></p>
+<p id="faq7"><h6>How can I zoom only using the mouse?</h6>Use the scroll to zoom in/out. To toggle Best Fit/Normal Size just double click on the image! After some practice, this becomes Addictive!</p>
+<p id="faq8"><h6>What is that "Set As Wallpaper support" you are talking about?</h6>This is an optional feature. If enabled (at compile time), it puts
+an option in the File menu, which allows you to change your existing background image with the one, you are viewing. Note, that this feature is
+made to work only under Gnome! So, if you use Gnome, make sure to pass "--enable-wallpaper" argument to the configure script!</p>
 </div>
 
 <div id="todo" class="section">
