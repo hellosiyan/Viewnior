@@ -45,17 +45,11 @@ AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 GTK_REQUIRED=2.12
 GLIB_REQUIRED=2.15.3
 GCONF_REQUIRED=2.22.0
-GDKPIXBUF_REQUIRED=2.4.0
-GNOME_ICON_THEME_REQUIRED=2.19.1
-SHARED_MIME_INFO_REQUIRED=0.20
 
 
 VNR_MODULES="gtk+-2.0 >= $GTK_REQUIRED \
              glib-2.0 >= $GLIB_REQUIRED \
-             gio-2.0 >= $GLIB_REQUIRED \
-             gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED \
-             gnome-icon-theme >= $GNOME_ICON_THEME_REQUIRED \
-             shared-mime-info >= $SHARED_MIME_INFO_REQUIRED"
+             gio-2.0 >= $GLIB_REQUIRED"
 
 # ******
 # Wallpaper support
@@ -63,8 +57,8 @@ VNR_MODULES="gtk+-2.0 >= $GTK_REQUIRED \
 AC_MSG_CHECKING([whether Wallpaper change functionality is enabled])
 
 AC_ARG_ENABLE([wallpaper],
-    AS_HELP_STRING([--disable-wallpaper],[Disable Wallpaper change functionality]),,
-    [enable_wallpaper=yes])
+    AS_HELP_STRING([--enable-wallpaper],[Enable Wallpaper change functionality]),
+                   ,[enable_wallpaper=no])
 
 AM_CONDITIONAL(ENABLE_WALLPAPER, test "x$enable_wallpaper" = xyes)
 
@@ -108,7 +102,16 @@ echo "
     Location ........... : $prefix/bin
     CFLAGS ............. : $CFLAGS
     Wallpaper support .. : $enable_wallpaper
+"
+if test x$enable_wallpaper = xyes ; then
+    echo "Note: If you don't use GNOME, Wallpaper functionality
+will not work. Please read INSTALL file."
+else
+    echo "Note: If you use GNOME, you may wish to enable
+Wallpaper support. Please read INSTALL file."
+fi
 
+echo "
     To compile and install:
     1. Become root (using su)
     2. Type 'make install'

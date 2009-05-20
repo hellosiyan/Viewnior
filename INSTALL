@@ -1,3 +1,16 @@
+For basic instruction how to install software from source, please read
+"Installation Instructions" below!
+
+Optional features:
+
+ * Setting image as wallpaper
+This feature is working only under GNOME! It uses GConf, so you'll have
+to install GConf's dev files (the configure script will notice if
+something is missing). This feature is turned off by default. to enable
+it, please run configure with --enable-wallpaper:
+"./configure --enable-wallpaper"
+
+
 Installation Instructions
 *************************
 

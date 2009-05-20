@@ -513,7 +513,9 @@ vnr_window_cmd_about (GtkAction *action, gpointer user_data)
     g_return_if_fail (VNR_IS_WINDOW (user_data));
 
     static const char *authors[] = {
-        "Siyan Panayotov <xsisqox@gmail.com>",
+        "Programming & icon design",
+        "\tSiyan Panayotov <xsisqox@gmail.com>",
+        "\nRefer to source code from GtkImageView",
         NULL
     };
 
@@ -804,8 +806,8 @@ static const GtkActionEntry action_entries_image[] = {
     { "ViewZoomFit", GTK_STOCK_ZOOM_FIT, N_("Best _Fit"), NULL,
       N_("Fit the image to the window"),
       G_CALLBACK (vnr_window_cmd_fit) },
-    { "ViewResizeWindow", NULL, N_("_Resize Window"), NULL,
-      N_("Resize the window to fit the image"),
+    { "ViewResizeWindow", NULL, N_("_Adjust window size"), NULL,
+      N_("Adjust window size to fit the image"),
       G_CALLBACK (vnr_window_cmd_resize) },
     { "ControlEqual", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>equal",
       N_("Shrink the image"),
