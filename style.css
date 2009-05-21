@@ -141,10 +141,12 @@ margin-right:20px;
 .section p{
 margin-left:20px;
 margin-top:10px;
+margin-bottom:10px;
 }
 
 .clean{
 clear:both;
+border-bottom:1px solid #BFBFBF;
 }
 
 .bold{
