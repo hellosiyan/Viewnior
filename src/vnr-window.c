@@ -48,6 +48,54 @@ static void start_slideshow(VnrWindow *window);
 static void restart_slideshow(VnrWindow *window);
 static void allow_slideshow(VnrWindow *window);
 
+const gchar *ui_definition = "<ui>"
+  "<menubar name=\"MainMenu\">"
+    "<menu action=\"File\">"
+      "<menuitem action=\"FileOpen\"/>"
+      "<menuitem action=\"FileOpenDir\"/>"
+      "<separator/>"
+#ifdef HAVE_WALLPAPER
+      "<menuitem action=\"SetAsWallpaper\"/>"
+#endif /* HAVE_WALLPAPER */
+      "<menuitem action=\"FileDelete\"/>"
+      "<separator/>"
+      "<menuitem action=\"FileClose\"/>"
+    "</menu>"
+    "<menu action=\"View\">"
+      "<menuitem action=\"ViewZoomIn\"/>"
+      "<menuitem action=\"ViewZoomOut\"/>"
+      "<menuitem action=\"ViewZoomNormal\"/>"
+      "<menuitem action=\"ViewZoomFit\"/>"
+      "<separator/>"
+      "<menuitem name=\"Fullscreen\" action=\"ViewFullscreen\"/>"
+      "<menuitem action=\"ViewResizeWindow\"/>"
+    "</menu>"
+    "<menu action=\"Go\">"
+      "<menuitem name=\"GoPrevious\" action=\"GoPrevious\"/>"
+      "<menuitem name=\"GoNext\" action=\"GoNext\"/>"
+      "<separator/>"
+      "<menuitem name=\"GoFirst\" action=\"GoFirst\"/>"
+      "<menuitem name=\"GoLast\" action=\"GoLast\"/>"
+    "</menu>"
+    "<menu action=\"Help\">"
+      "<menuitem action=\"HelpAbout\"/>"
+    "</menu>"
+  "</menubar>"
+  "<toolbar name=\"Toolbar\">"
+    "<toolitem action=\"GoPrevious\"/>"
+    "<toolitem action=\"GoNext\"/>"
+    "<separator/>"
+    "<toolitem action=\"ViewZoomIn\"/>"
+    "<toolitem action=\"ViewZoomOut\"/>"
+    "<toolitem action=\"ViewZoomNormal\"/>"
+    "<toolitem action=\"ViewZoomFit\"/>"
+  "</toolbar>"
+  "<accelerator name=\"ControlEqualAccel\" action=\"ControlEqual\"/>"
+  "<accelerator name=\"ControlKPAddAccel\" action=\"ControlKpAdd\"/>"
+  "<accelerator name=\"ControlKPSubAccel\" action=\"ControlKpSub\"/>"
+  "<accelerator name=\"DeleteAccel\" action=\"Delete\"/>"
+"</ui>";
+
 /*************************************************************/
 /***** Private actions ***************************************/
 /*************************************************************/
@@ -931,9 +979,9 @@ vnr_window_init (VnrWindow * window)
     gtk_ui_manager_insert_action_group (window->ui_mngr,
                                         window->actions_collection, 0);
 
-    if (!gtk_ui_manager_add_ui_from_file (window->ui_mngr,
-                                          VNR_DATA_DIR""UI_FILE_DIR,
-                                          &error)) {
+    if (!gtk_ui_manager_add_ui_from_string (window->ui_mngr,
+                                            ui_definition, -1,
+                                            &error)) {
             g_error ("building menus failed: %s\n", error->message);
             g_error_free (error);
     }

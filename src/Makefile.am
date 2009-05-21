@@ -39,8 +39,7 @@ viewnior_SOURCES =      \
 viewnior_CFLAGS =       \
     $(VNR_CFLAGS)       \
     $(VNR_WARNINGS)     \
-    -DPACKAGE_LOCALE_DIR=\""$(datadir)/locale"\" \
-    -DVNR_DATA_DIR=\""$(pkgdatadir)"\"
+    -DPACKAGE_LOCALE_DIR=\""$(datadir)/locale"\"
 
 viewnior_LDADD = $(VNR_LIBS)
 
