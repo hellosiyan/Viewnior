@@ -34,11 +34,6 @@
 #include "uni-anim-view.h"
 #include "vnr-tools.h"
 #include "vnr-message-area.h"
-#ifdef HAVE_WALLPAPER
-#define UI_FILE_DIR "/viewnior-ui.xml"
-#else
-#define UI_FILE_DIR "/viewnior-ui-nowallpaper.xml"
-#endif /* HAVE_WALLPAPER */
 
 G_DEFINE_TYPE (VnrWindow, vnr_window, GTK_TYPE_WINDOW);
 
@@ -70,6 +65,13 @@ const gchar *ui_definition = "<ui>"
       "<menuitem name=\"Fullscreen\" action=\"ViewFullscreen\"/>"
       "<menuitem action=\"ViewResizeWindow\"/>"
     "</menu>"
+    "<menu action=\"Image\">"
+      "<menuitem action=\"ImageFlipVertical\"/>"
+      "<menuitem action=\"ImageFlipHorizontal\"/>"
+      "<separator/>"
+      "<menuitem action=\"ImageRotateCW\"/>"
+      "<menuitem action=\"ImageRotateCCW\"/>"
+    "</menu>"
     "<menu action=\"Go\">"
       "<menuitem name=\"GoPrevious\" action=\"GoPrevious\"/>"
       "<menuitem name=\"GoNext\" action=\"GoNext\"/>"
@@ -89,6 +91,9 @@ const gchar *ui_definition = "<ui>"
     "<toolitem action=\"ViewZoomOut\"/>"
     "<toolitem action=\"ViewZoomNormal\"/>"
     "<toolitem action=\"ViewZoomFit\"/>"
+    "<separator/>"
+    "<toolitem action=\"ImageRotateCCW\"/>"
+    "<toolitem action=\"ImageRotateCW\"/>"
   "</toolbar>"
   "<accelerator name=\"ControlEqualAccel\" action=\"ControlEqual\"/>"
   "<accelerator name=\"ControlKPAddAccel\" action=\"ControlKpAdd\"/>"
@@ -99,6 +104,12 @@ const gchar *ui_definition = "<ui>"
 /*************************************************************/
 /***** Private actions ***************************************/
 /*************************************************************/
+
+static void
+dumb (GtkAction *action, gpointer user_data)
+{
+    printf("Dumb!\n");
+}
 
 static void
 update_fs_label(VnrWindow *window)
@@ -188,12 +199,12 @@ get_fs_controls(VnrWindow *window)
     gtk_box_pack_start (GTK_BOX(box), widget, FALSE, FALSE, 0);
     window->toggle_btn = widget;
 
-    spinner_adj = (GtkAdjustment *) gtk_adjustment_new (5, 1.0, 31.0, 1.0, 1.0, 0);
+    spinner_adj = (GtkAdjustment *) gtk_adjustment_new (5, 1.0, 30.0, 1.0, 1.0, 0);
 
     widget = gtk_spin_button_new (spinner_adj, 1.0, 0);
     gtk_spin_button_set_snap_to_ticks(GTK_SPIN_BUTTON(widget), TRUE);
     gtk_spin_button_set_update_policy(GTK_SPIN_BUTTON(widget), GTK_UPDATE_ALWAYS);
-    //gtk_widget_set_sensitive (widget, FALSE);
+
     g_signal_connect(widget, "value-changed", G_CALLBACK(spin_value_change_cb), window);
     gtk_box_pack_start (GTK_BOX(box), widget, FALSE, FALSE, 0);
 
@@ -208,6 +219,7 @@ get_fs_controls(VnrWindow *window)
     gtk_object_ref((gpointer)window->fs_controls);
     return window->fs_controls;
 }
+
 static gboolean
 scrollbars_visible (VnrWindow *win)
 {
@@ -349,6 +361,59 @@ deny_slideshow(VnrWindow *window)
 
     gtk_widget_set_sensitive(window->toggle_btn, FALSE);
 }
+
+static void
+rotate_pixbuf(VnrWindow *window, GdkPixbufRotation angle)
+{
+    GdkPixbuf *result;
+
+    gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_WATCH));
+    /* This makes the cursor show NOW */
+    gtk_main_iteration_do (FALSE);
+
+    result = gdk_pixbuf_rotate_simple(UNI_IMAGE_VIEW(window->view)->pixbuf,
+                                      angle);
+
+    if(result == NULL)
+    {
+        vnr_message_area_show_warning(VNR_MESSAGE_AREA(window->msg_area),
+                                      _("Not enough virtual memory."),
+                                      FALSE);
+        return;
+    }
+
+    uni_anim_view_set_static(UNI_ANIM_VIEW(window->view), result);
+
+    gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_LEFT_PTR));
+    g_object_unref(result);
+}
+
+static void
+flip_pixbuf(VnrWindow *window, gboolean horizontal)
+{
+    GdkPixbuf *result;
+
+    gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_WATCH));
+    /* This makes the cursor show NOW */
+    gtk_main_iteration_do (FALSE);
+
+    result = gdk_pixbuf_flip(UNI_IMAGE_VIEW(window->view)->pixbuf,
+                             horizontal);
+
+    if(result == NULL)
+    {
+        vnr_message_area_show_warning(VNR_MESSAGE_AREA(window->msg_area),
+                                      _("Not enough virtual memory."),
+                                      FALSE);
+        return;
+    }
+
+    uni_anim_view_set_static(UNI_ANIM_VIEW(window->view), result);
+
+    gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_LEFT_PTR));
+    g_object_unref(result);
+}
+
 /*************************************************************/
 /***** Private signal handlers *******************************/
 /*************************************************************/
@@ -379,6 +444,30 @@ menu_bar_allocate_cb (GtkWidget *widget, GtkAllocation *alloc, VnrWindow *window
     /* widget is the VnrMenuBar */
     g_signal_handlers_disconnect_by_func(widget, menu_bar_allocate_cb, window);
     vnr_window_open(window, TRUE);
+}
+
+static void
+vnr_window_cmd_flip_horizontal(GtkAction *action, gpointer user_data)
+{
+    flip_pixbuf(VNR_WINDOW(user_data), TRUE);
+}
+
+static void
+vnr_window_cmd_flip_vertical(GtkAction *action, gpointer user_data)
+{
+    flip_pixbuf(VNR_WINDOW(user_data), FALSE);
+}
+
+static void
+vnr_window_cmd_rotate_cw(GtkAction *action, gpointer user_data)
+{
+    rotate_pixbuf(VNR_WINDOW(user_data), GDK_PIXBUF_ROTATE_CLOCKWISE);
+}
+
+static void
+vnr_window_cmd_rotate_ccw(GtkAction *action, gpointer user_data)
+{
+    rotate_pixbuf(VNR_WINDOW(user_data), GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE);
 }
 
 static void
@@ -813,6 +902,7 @@ vnr_window_delete (GtkWidget * widget, GdkEventAny * event)
 static const GtkActionEntry action_entries_window[] = {
     { "File",  NULL, N_("_File") },
     { "View",  NULL, N_("_View") },
+    { "Image",  NULL, N_("_Image") },
     { "Go",    NULL, N_("_Go") },
     { "Help",  NULL, N_("_Help") },
 
@@ -866,6 +956,21 @@ static const GtkActionEntry action_entries_image[] = {
     { "ControlKpSub", GTK_STOCK_ZOOM_OUT, N_("Zoom _Out"), "<control>KP_Subtract",
       N_("Shrink the image"),
       G_CALLBACK (vnr_window_cmd_zoom_out) },
+};
+
+static const GtkActionEntry action_entries_static_image[] = {
+    { "ImageRotateCW", "object-rotate-right", N_("Rotate _Clockwise"), "<control>R",
+      N_("Rotate image clockwise"),
+      G_CALLBACK (vnr_window_cmd_rotate_cw) },
+    { "ImageRotateCCW", "object-rotate-left", N_("Rotate _Anti-clockwise"), "<control><shift>R",
+      N_("Rotate image anti-clockwise"),
+      G_CALLBACK (vnr_window_cmd_rotate_ccw) },
+    { "ImageFlipVertical", "object-flip-vertical", N_("Flip _Vertical"), NULL,
+      N_("Flip image vertically"),
+      G_CALLBACK (vnr_window_cmd_flip_vertical) },
+    { "ImageFlipHorizontal", "object-flip-horizontal", N_("Flip _Horizontal"), NULL,
+      N_("Flip image horizontally"),
+      G_CALLBACK (vnr_window_cmd_flip_horizontal) },
 };
 
 static const GtkToggleActionEntry toggle_entries_image[] = {
@@ -945,6 +1050,20 @@ vnr_window_init (VnrWindow * window)
     gtk_ui_manager_insert_action_group (window->ui_mngr,
                                         window->actions_window, 0);
 
+    window->actions_static_image = gtk_action_group_new("MenuActionsStaticImage");
+
+
+    gtk_action_group_set_translation_domain (window->actions_static_image,
+                                             GETTEXT_PACKAGE);
+
+    gtk_action_group_add_actions (window->actions_static_image,
+                                  action_entries_static_image,
+                                  G_N_ELEMENTS (action_entries_static_image),
+                                  window);
+
+    gtk_ui_manager_insert_action_group (window->ui_mngr,
+                                        window->actions_static_image, 0);
+
 
     window->actions_image = gtk_action_group_new("MenuActionsImage");
 
@@ -988,6 +1107,7 @@ vnr_window_init (VnrWindow * window)
 
     gtk_action_group_set_sensitive(window->actions_collection, FALSE);
     gtk_action_group_set_sensitive(window->actions_image, FALSE);
+    gtk_action_group_set_sensitive(window->actions_static_image, FALSE);
 
     /* Continue with layout */
 
@@ -1009,7 +1129,9 @@ vnr_window_init (VnrWindow * window)
                         GTK_TOOL_ITEM(get_fs_controls(window)), -1);
     gtk_box_pack_start (GTK_BOX (window->menus), window->toolbar, FALSE,FALSE,0);
 
+    gtk_ui_manager_ensure_update (window->ui_mngr);
     gtk_widget_show_all(window->menus);
+
     gtk_widget_hide(get_fs_controls(window));
 
     window->msg_area = vnr_message_area_new();
@@ -1083,10 +1205,13 @@ vnr_window_open (VnrWindow * win, gboolean fit_to_screen)
         gtk_window_resize (GTK_WINDOW (win), img_w, img_h+win->menus->allocation.height);
     }
 
-    uni_anim_view_set_anim (UNI_ANIM_VIEW (win->view), pixbuf);
+    /* Return TRUE if the image is static */
+    if ( uni_anim_view_set_anim (UNI_ANIM_VIEW (win->view), pixbuf) )
+        gtk_action_group_set_sensitive(win->actions_static_image, TRUE);
+    else
+        gtk_action_group_set_sensitive(win->actions_static_image, FALSE);
 
     g_object_unref(pixbuf);
-
     return TRUE;
 }
 
@@ -1140,6 +1265,7 @@ vnr_window_close(VnrWindow *win)
     gtk_window_set_title (GTK_WINDOW (win), "Viewnior");
     uni_anim_view_set_anim (UNI_ANIM_VIEW (win->view), NULL);
     gtk_action_group_set_sensitive(win->actions_image, FALSE);
+    gtk_action_group_set_sensitive(win->actions_static_image, FALSE);
 }
 
 void

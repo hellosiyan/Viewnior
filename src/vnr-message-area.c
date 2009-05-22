@@ -49,6 +49,7 @@ vnr_message_area_initialize(VnrMessageArea * msg_area)
 
     msg_area->message = gtk_label_new (NULL);
     gtk_label_set_line_wrap(GTK_LABEL (msg_area->message), TRUE);
+    gtk_label_set_selectable(GTK_LABEL(msg_area->message), TRUE);
     gtk_box_pack_start(GTK_BOX (msg_area->hbox), msg_area->message, FALSE, FALSE, 0);
 
     gtk_widget_hide_all(msg_area->hbox);

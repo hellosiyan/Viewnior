@@ -85,31 +85,6 @@ uni_anim_view_toggle_running (UniAnimView * aview)
     uni_anim_view_set_is_playing (aview, !aview->timer_id);
 }
 
-
-/* static gboolean
-uni_anim_view_on_query_tooltip_cb   (GtkWidget  *widget,
-                                     gint        x,
-                                     gint        y,
-                                     gboolean    keyboard_mode,
-                                     GtkTooltip *tooltip,
-                                     gpointer    user_data)
-{
-    gchar * tooltip_string;
-    GdkPixbufAnimation *anim = UNI_ANIM_VIEW(widget)->anim;
-
-    tooltip_string = g_markup_printf_escaped("<b>Information</b>\n"
-                                             "%ix%i pixels\n"
-                                             "%.2f%% zoom",
-                                             gdk_pixbuf_animation_get_width(anim),
-                                             gdk_pixbuf_animation_get_height(anim),
-                                             UNI_IMAGE_VIEW(widget)->zoom*100);
-
-    gtk_tooltip_set_markup(tooltip, tooltip_string);
-
-    return TRUE;
-} */
-
-
 /*************************************************************/
 /***** Stuff that deals with the type ************************/
 /*************************************************************/
@@ -119,13 +94,6 @@ uni_anim_view_init (UniAnimView * aview)
     aview->anim = NULL;
     aview->iter = NULL;
     aview->timer_id = 0;
-
-    /* g_object_set (aview, "has-tooltip", TRUE, NULL);
-
-       g_signal_connect (aview,
-       "query-tooltip",
-       G_CALLBACK (uni_anim_view_on_query_tooltip_cb),
-       NULL); */
 }
 
 static void
@@ -247,20 +215,24 @@ uni_anim_view_get_anim (UniAnimView * aview)
  *
  * The default pixbuf animation is %NULL.
  **/
-void
+
+/* Return TRUE if anim is a static image */
+gboolean
 uni_anim_view_set_anim (UniAnimView * aview, GdkPixbufAnimation * anim)
 {
+    gboolean is_static;
+
     if (aview->anim)
-    {
         g_object_unref (aview->anim);
-    }
     aview->anim = anim;
-    if (!aview->anim)
+
+    if (!anim)
     {
         uni_anim_view_set_is_playing (aview, FALSE);
         uni_image_view_set_pixbuf (UNI_IMAGE_VIEW (aview), NULL, TRUE);
-        return;
+        return TRUE;
     }
+
     g_object_ref (aview->anim);
     if (aview->iter)
         g_object_unref (aview->iter);
@@ -270,7 +242,9 @@ uni_anim_view_set_anim (UniAnimView * aview, GdkPixbufAnimation * anim)
 
     GdkPixbuf *pixbuf;
 
-    if (gdk_pixbuf_animation_is_static_image (anim))
+    is_static = gdk_pixbuf_animation_is_static_image (anim);
+
+    if (is_static)
     {
         pixbuf = gdk_pixbuf_animation_get_static_image (anim);
     }
@@ -283,9 +257,44 @@ uni_anim_view_set_anim (UniAnimView * aview, GdkPixbufAnimation * anim)
 
     uni_anim_view_set_is_playing (aview, FALSE);
     aview->delay = gdk_pixbuf_animation_iter_get_delay_time (aview->iter);
+
     aview->timer_id = g_timeout_add (aview->delay,
                                      uni_anim_view_updator, aview);
+    return is_static;
 }
+
+
+/* No conversion from GdkPixbuf to GdkPixbufAnim can be made
+ * directly using the current API, so this makes a static
+ * GdkPixbufAnimation and updates the UniAnimView */
+void
+uni_anim_view_set_static (UniAnimView * aview, GdkPixbuf * pixbuf)
+{
+    GdkPixbufSimpleAnim *s_anim;
+
+    s_anim = gdk_pixbuf_simple_anim_new (gdk_pixbuf_get_width(pixbuf),
+                                         gdk_pixbuf_get_height(pixbuf),
+                                         -1);
+    gdk_pixbuf_simple_anim_add_frame(s_anim, pixbuf);
+
+    /* Simple version of uni_anim_view_set_anim */
+    if (aview->anim)
+        g_object_unref (aview->anim);
+
+    aview->anim = (GdkPixbufAnimation*)s_anim;
+
+    g_object_ref (aview->anim);
+    if (aview->iter)
+        g_object_unref (aview->iter);
+
+    uni_image_view_set_pixbuf (UNI_IMAGE_VIEW (aview), pixbuf, TRUE);
+    uni_anim_view_set_is_playing (aview, FALSE);
+    aview->delay = -1;
+    aview->iter = NULL;
+
+    g_object_unref(pixbuf);
+}
+
 
 /**
  * uni_anim_view_set_is_playing:

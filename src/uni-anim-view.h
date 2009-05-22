@@ -74,8 +74,11 @@ GtkWidget *uni_anim_view_new (void);
 
 /* Read-write properties */
 GdkPixbufAnimation* uni_anim_view_get_anim  (UniAnimView * aview);
-void        uni_anim_view_set_anim          (UniAnimView * aview,
+gboolean    uni_anim_view_set_anim          (UniAnimView * aview,
                                              GdkPixbufAnimation * anim);
+
+void        uni_anim_view_set_static        (UniAnimView * aview,
+                                             GdkPixbuf *anim);
 
 void        uni_anim_view_set_is_playing    (UniAnimView * aview,
                                              gboolean playing);

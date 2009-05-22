@@ -154,7 +154,6 @@ uni_image_view_set_zoom_with_center (UniImageView * view,
     uni_image_view_clamp_offset (view, &offset_x, &offset_y);
     view->offset_x = offset_x;
     view->offset_y = offset_y;
-    //uni_image_view_update_cursor (view);
 
     if (!is_allocating && zoom_ratio != 1.0)
     {
@@ -368,8 +367,8 @@ uni_image_view_fast_scroll (UniImageView * view, int delta_x, int delta_y)
     };
     uni_image_view_repaint_area (view, &vert_strip);
 
-    // Here is where we fix the weirdness mentioned above. I do not
-    // really know why it works, but it does!
+    /* Here is where we fix the weirdness mentioned above. I do not
+     * really know why it works, but it does! */
     GdkEvent *ev;
     while ((ev = gdk_event_get_graphics_expose (drawable)) != NULL)
     {
@@ -417,7 +416,6 @@ uni_image_view_scroll_to (UniImageView * view,
 
     view->offset_x = offset_x;
     view->offset_y = offset_y;
-    //uni_image_view_update_cursor (view);
 
     if (GTK_WIDGET (view)->window)
     {
@@ -502,8 +500,6 @@ uni_image_view_realize (GtkWidget * widget)
                               GTK_STATE_NORMAL);
 
     view->void_cursor = gdk_cursor_new (GDK_ARROW);
-
-    //uni_image_view_update_cursor (view);
 }
 
 static void
@@ -587,7 +583,6 @@ uni_image_view_motion_notify (GtkWidget * widget, GdkEventMotion * ev)
     UniImageView *view = UNI_IMAGE_VIEW (widget);
     if (view->is_rendering)
         return FALSE;
-    //uni_image_view_update_cursor (view);
     return uni_dragger_motion_notify (UNI_DRAGGER(view->tool), ev);
 }
 
@@ -615,9 +610,9 @@ uni_image_view_scroll_event (GtkWidget * widget, GdkEventScroll * ev)
     gdouble zoom;
     UniImageView *view = UNI_IMAGE_VIEW (widget);
 
-    // Horizontal scroll left is equivalent to scroll up and right is
-    // like scroll down. No idea if that is correct -- I have no input
-    // device that can do horizontal scrolls.
+    /* Horizontal scroll left is equivalent to scroll up and right is
+     * like scroll down. No idea if that is correct -- I have no input
+     * device that can do horizontal scrolls. */
     if (ev->direction == GDK_SCROLL_UP || ev->direction == GDK_SCROLL_LEFT)
     {
         zoom = CLAMP (view->zoom * UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);

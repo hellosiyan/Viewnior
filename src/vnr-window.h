@@ -53,6 +53,7 @@ struct _VnrWindow {
 
     GtkActionGroup *actions_window;
     GtkActionGroup *actions_image;
+    GtkActionGroup *actions_static_image;
     GtkActionGroup *actions_collection;
 
     GtkWidget *layout;
@@ -79,8 +80,8 @@ struct _VnrWindow {
 
     GtkWidget *fs_controls;
     GtkWidget *toggle_btn;
-    gboolean slideshow;
     GtkWidget *fs_label;
+    gboolean slideshow;
     guint source_tag;
     gint timeout;
 };
