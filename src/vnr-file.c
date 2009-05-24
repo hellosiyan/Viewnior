@@ -17,6 +17,10 @@
  * along with Viewnior.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <libintl.h>
+#include <glib/gi18n.h>
+#define _(String) gettext (String)
+
 #include <gtk/gtk.h>
 #include <gio/gio.h>
 #include <gdk/gdkpixbuf.h>
@@ -218,8 +222,8 @@ vnr_file_load_single_uri(char *p_path, GList **file_list, GError **error)
         else
         {
             *error = g_error_new(1, 0,
-                                 "Couldn't recognise the image file\n"
-                                 "format for file '%s'",
+                                 _("Couldn't recognise the image file\n"
+                                 "format for file '%s'"),
                                  g_file_info_get_display_name (fileinfo));
         }
     }

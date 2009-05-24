@@ -588,7 +588,7 @@ vnr_window_cmd_open(GtkAction *action, gpointer user_data)
     window = VNR_WINDOW(user_data);
 
     GtkWidget *dialog;
-    dialog = gtk_file_chooser_dialog_new ("Open File",
+    dialog = gtk_file_chooser_dialog_new (_("Open Image"),
                           GTK_WINDOW(user_data),
                           GTK_FILE_CHOOSER_ACTION_OPEN,
                           GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
@@ -620,7 +620,7 @@ vnr_window_cmd_open_dir(GtkAction *action, gpointer user_data)
     window = VNR_WINDOW(user_data);
 
     GtkWidget *dialog;
-    dialog = gtk_file_chooser_dialog_new ("Open Directory",
+    dialog = gtk_file_chooser_dialog_new (_("Open Folder"),
                           GTK_WINDOW(user_data),
                           GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
                           GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
