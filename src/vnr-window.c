@@ -49,9 +49,6 @@ const gchar *ui_definition = "<ui>"
       "<menuitem action=\"FileOpen\"/>"
       "<menuitem action=\"FileOpenDir\"/>"
       "<separator/>"
-#ifdef HAVE_WALLPAPER
-      "<menuitem action=\"SetAsWallpaper\"/>"
-#endif /* HAVE_WALLPAPER */
       "<menuitem action=\"FileDelete\"/>"
       "<separator/>"
       "<menuitem action=\"FileClose\"/>"
@@ -71,6 +68,10 @@ const gchar *ui_definition = "<ui>"
       "<separator/>"
       "<menuitem action=\"ImageRotateCW\"/>"
       "<menuitem action=\"ImageRotateCCW\"/>"
+#ifdef HAVE_WALLPAPER
+      "<separator/>"
+      "<menuitem action=\"SetAsWallpaper\"/>"
+#endif /* HAVE_WALLPAPER */
     "</menu>"
     "<menu action=\"Go\">"
       "<menuitem name=\"GoPrevious\" action=\"GoPrevious\"/>"
@@ -105,7 +106,7 @@ const gchar *ui_definition = "<ui>"
 /***** Private actions ***************************************/
 /*************************************************************/
 
-static void
+G_GNUC_UNUSED static void
 dumb (GtkAction *action, gpointer user_data)
 {
     printf("Dumb!\n");
@@ -923,7 +924,7 @@ static const GtkActionEntry action_entries_window[] = {
 
 static const GtkActionEntry action_entries_image[] = {
 #ifdef HAVE_WALLPAPER
-    { "SetAsWallpaper", NULL, N_("Set as _Wallpaper"), NULL,
+    { "SetAsWallpaper", NULL, N_("Set as _Wallpaper"), "<control>F8",
       N_("Set the selected image as the desktop background"),
       G_CALLBACK (vnr_set_wallpaper) },
 #endif /* HAVE_WALLPAPER */
