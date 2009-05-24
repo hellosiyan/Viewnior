@@ -216,7 +216,12 @@ vnr_file_load_single_uri(char *p_path, GList **file_list, GError **error)
         else if(*file_list == NULL)
             return;
         else
-            g_warn_if_reached();
+        {
+            *error = g_error_new(1, 0,
+                                 "Couldn't recognise the image file\n"
+                                 "format for file '%s'",
+                                 g_file_info_get_display_name (fileinfo));
+        }
     }
     g_object_unref (file);
     g_object_unref(fileinfo);
@@ -263,7 +268,8 @@ vnr_file_load_uri_list (GSList *uri_list, GList **file_list, GError **error)
 
             mimetype = g_file_info_get_content_type(fileinfo);
 
-            if(vnr_file_is_supported_mime_type(mimetype)){
+            if(vnr_file_is_supported_mime_type(mimetype))
+            {
                 vnr_file_set_display_name(new_vnrfile, (char*)g_file_info_get_display_name (fileinfo));
 
                 new_vnrfile->uri = p_path;

@@ -60,13 +60,6 @@ typedef enum {
     GTK_IMAGE_TRANSP_GRID
 } GtkImageTransp;
 
-/**
- * UniImageView:
- *
- * UniImageView is the main class in the library. All of its fields
- * are private, they are only shown here for completeness. Use
- * uni_image_view_new() to instantiate UniImageView objects.
- **/
 struct _UniImageView {
     GtkWidget parent;
 

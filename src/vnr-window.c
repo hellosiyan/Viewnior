@@ -443,7 +443,8 @@ menu_bar_allocate_cb (GtkWidget *widget, GtkAllocation *alloc, VnrWindow *window
 {
     /* widget is the VnrMenuBar */
     g_signal_handlers_disconnect_by_func(widget, menu_bar_allocate_cb, window);
-    vnr_window_open(window, TRUE);
+    if(!vnr_message_area_get_visible(VNR_MESSAGE_AREA(window->msg_area)))
+        vnr_window_open(window, TRUE);
 }
 
 static void
@@ -1230,10 +1231,19 @@ vnr_window_open_from_list(VnrWindow *window, GSList *uri_list)
         vnr_file_load_uri_list (uri_list, &file_list, &error);
     }
 
-    if(error != NULL)
+    if(error != NULL && file_list != NULL)
     {
         vnr_window_close(window);
         gtk_action_group_set_sensitive(window->actions_collection, FALSE);
+        deny_slideshow(window);
+        vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
+                                      error->message, TRUE);
+
+        vnr_window_set_list(window, file_list, TRUE);
+    }
+    else if(error != NULL)
+    {
+        vnr_window_close(window);
         deny_slideshow(window);
         vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
                                       error->message, TRUE);

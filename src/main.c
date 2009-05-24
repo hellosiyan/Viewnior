@@ -92,7 +92,14 @@ main (int argc, char *argv[])
             vnr_file_load_uri_list (uri_list, &file_list, &error);
         }
 
-        if(error != NULL)
+        if(error != NULL && file_list != NULL)
+        {
+            deny_slideshow(VNR_WINDOW(win));
+            vnr_message_area_show_warning(VNR_MESSAGE_AREA (VNR_WINDOW(win)->msg_area),
+                                          error->message, TRUE);
+            vnr_window_set_list(VNR_WINDOW(win), file_list, TRUE);
+        }
+        else if(error != NULL)
         {
             deny_slideshow(VNR_WINDOW(win));
             vnr_message_area_show_warning(VNR_MESSAGE_AREA (VNR_WINDOW(win)->msg_area),
