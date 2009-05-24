@@ -90,28 +90,23 @@ vnr_tools_get_list_from_array (gchar **files)
     return g_slist_reverse (uri_list);
 }
 
+/* modified version of eog's
+ * eog_util_parse_uri_string_list_to_file_list */
 GSList*
 vnr_tools_parse_uri_string_list_to_file_list (const gchar *uri_list)
 {
     GSList* file_list = NULL;
-    const char *start, *end;
-    char *uri;
+    gsize i = 0;
+    gchar **uris;
 
-    start = uri_list;
-    end = strchr (uri_list, '\r');
-    uri = g_strndup (start, end - start);
-    file_list = g_slist_prepend (file_list, g_file_get_path (g_file_new_for_uri (uri)));
-    g_free (uri);
+    uris = g_uri_list_extract_uris (uri_list);
 
-    while (strlen (end) > 2)
-    {
-        start = (end + 2);
-        end = strchr (start, '\r');
-        uri = g_strndup (start, end - start);
-        file_list = g_slist_prepend (file_list, g_file_get_path (g_file_new_for_uri (uri)));
-        g_free (uri);
+    while (uris[i] != NULL) {
+        file_list = g_slist_append (file_list,g_file_get_path (g_file_new_for_uri(uris[i])));
+        i++;
     }
 
+    g_strfreev (uris);
     return g_slist_reverse (file_list);
 }
 
