@@ -76,6 +76,9 @@ struct _VnrWindow {
     gint max_width;
     gint max_height;
 
+    gint current_image_height;
+    gint current_image_width;
+
     VnrWindowMode mode;
 
     GtkWidget *fs_controls;

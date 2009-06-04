@@ -107,7 +107,7 @@ const gchar *ui_definition = "<ui>"
 /*************************************************************/
 
 G_GNUC_UNUSED static void
-dumb (GtkAction *action, gpointer user_data)
+dumb (GtkAction *action, VnrWindow *window)
 {
     printf("Dumb!\n");
 }
@@ -449,6 +449,26 @@ menu_bar_allocate_cb (GtkWidget *widget, GtkAllocation *alloc, VnrWindow *window
 }
 
 static void
+zoom_changed_cb (UniImageView *view, VnrWindow *win)
+{
+    char *buf = NULL;
+
+    /* Change the info, only if there is an image
+     * (vnr_window_close isn't called on the current image) */
+    if(gtk_action_group_get_sensitive (win->actions_image))
+    {
+        buf = g_strdup_printf ("%s - %ix%i - %i%%",
+                               VNR_FILE(win->file_list->data)->display_name,
+                               win->current_image_width,
+                               win->current_image_height,
+                               (int)(view->zoom*100.));
+
+        gtk_window_set_title (GTK_WINDOW(win), buf);
+        g_free(buf);
+    }
+}
+
+static void
 vnr_window_cmd_flip_horizontal(GtkAction *action, gpointer user_data)
 {
     flip_pixbuf(VNR_WINDOW(user_data), TRUE);
@@ -561,19 +581,12 @@ file_open_dialog_response_cb (GtkWidget *dialog,
 }
 
 static void
-vnr_window_cmd_resize (GtkAction *action, gpointer user_data)
+vnr_window_cmd_resize (GtkAction *action, VnrWindow *win)
 {
-    VnrWindow *win;
-    GdkPixbufAnimation *pixbuf;
     gint img_h, img_w;          /* Width and Height of the pixbuf */
 
-    g_return_if_fail (VNR_IS_WINDOW (user_data));
-    win = VNR_WINDOW(user_data);
-
-    pixbuf = uni_anim_view_get_anim(UNI_ANIM_VIEW(win->view));
-
-    img_w = gdk_pixbuf_animation_get_width (pixbuf);
-    img_h = gdk_pixbuf_animation_get_height (pixbuf);
+    img_w = win->current_image_width;
+    img_h = win->current_image_height;
 
     vnr_tools_fit_to_size (&img_w, &img_h, win->max_width, win->max_height);
 
@@ -581,15 +594,11 @@ vnr_window_cmd_resize (GtkAction *action, gpointer user_data)
 }
 
 static void
-vnr_window_cmd_open(GtkAction *action, gpointer user_data)
+vnr_window_cmd_open(GtkAction *action, VnrWindow *window)
 {
-    g_return_if_fail (VNR_IS_WINDOW (user_data));
-    VnrWindow *window;
-    window = VNR_WINDOW(user_data);
-
     GtkWidget *dialog;
     dialog = gtk_file_chooser_dialog_new (_("Open Image"),
-                          GTK_WINDOW(user_data),
+                          GTK_WINDOW(window),
                           GTK_FILE_CHOOSER_ACTION_OPEN,
                           GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                           GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
@@ -613,15 +622,11 @@ vnr_window_cmd_open(GtkAction *action, gpointer user_data)
 }
 
 static void
-vnr_window_cmd_open_dir(GtkAction *action, gpointer user_data)
+vnr_window_cmd_open_dir(GtkAction *action, VnrWindow *window)
 {
-    g_return_if_fail (VNR_IS_WINDOW (user_data));
-    VnrWindow *window;
-    window = VNR_WINDOW(user_data);
-
     GtkWidget *dialog;
     dialog = gtk_file_chooser_dialog_new (_("Open Folder"),
-                          GTK_WINDOW(user_data),
+                          GTK_WINDOW(window),
                           GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
                           GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                           GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
@@ -645,12 +650,8 @@ vnr_window_cmd_open_dir(GtkAction *action, gpointer user_data)
 }
 
 static void
-vnr_window_cmd_about (GtkAction *action, gpointer user_data)
+vnr_window_cmd_about (GtkAction *action, VnrWindow *window)
 {
-    VnrWindow *window;
-
-    g_return_if_fail (VNR_IS_WINDOW (user_data));
-
     static const char *authors[] = {
         "Programming & icon design",
         "\tSiyan Panayotov <xsisqox@gmail.com>",
@@ -676,8 +677,6 @@ vnr_window_cmd_about (GtkAction *action, gpointer user_data)
     license_trans = g_strconcat (_(license[0]), "\n", _(license[1]), "\n",
                      _(license[2]), "\n", NULL);
 
-    window = VNR_WINDOW (user_data);
-
     gtk_show_about_dialog (GTK_WINDOW (window),
                    "program-name", "Viewnior",
                    "version", VERSION,
@@ -694,24 +693,20 @@ vnr_window_cmd_about (GtkAction *action, gpointer user_data)
 
 #ifdef HAVE_WALLPAPER
 static void
-vnr_set_wallpaper(GtkAction *action, gpointer user_data)
+vnr_set_wallpaper(GtkAction *action, VnrWindow *win)
 {
-    gconf_client_set_string (VNR_WINDOW(user_data)->client,
+    gconf_client_set_string (win->client,
                  "/desktop/gnome/background/picture_filename",
-                 VNR_FILE(VNR_WINDOW(user_data)->file_list->data)->uri,
+                 VNR_FILE(win->file_list->data)->uri,
                  NULL);
 
 }
 #endif /* HAVE_WALLPAPER */
 
 static void
-vnr_window_cmd_fullscreen (GtkAction *action, gpointer user_data)
+vnr_window_cmd_fullscreen (GtkAction *action, VnrWindow *window)
 {
-    VnrWindow *window;
     gboolean fullscreen;
-
-    g_return_if_fail (VNR_IS_WINDOW (user_data));
-    window = VNR_WINDOW(user_data);
 
     fullscreen = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
 
@@ -794,15 +789,12 @@ vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
 }
 
 static void
-vnr_window_cmd_delete(GtkAction *action, gpointer user_data)
+vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
 {
     GtkWidget *dlg;
     const gchar *file_path;
     gchar *markup, *prompt, *warning;
     gboolean restart_slideshow = FALSE;
-
-    g_return_if_fail (VNR_IS_WINDOW (user_data));
-    VnrWindow *window = VNR_WINDOW(user_data);
 
     if(window->mode == VNR_WINDOW_MODE_SLIDESHOW)
     {
@@ -824,7 +816,7 @@ vnr_window_cmd_delete(GtkAction *action, gpointer user_data)
                               prompt, warning);
 
 
-    dlg = gtk_message_dialog_new(GTK_WINDOW(user_data),
+    dlg = gtk_message_dialog_new(GTK_WINDOW(window),
                                  GTK_DIALOG_MODAL,
                                  GTK_MESSAGE_WARNING,
                                  GTK_BUTTONS_NONE,
@@ -1157,6 +1149,9 @@ vnr_window_init (VnrWindow * window)
     g_signal_connect (G_OBJECT (window->menus), "size-allocate",
                       G_CALLBACK (menu_bar_allocate_cb), window);
 
+    g_signal_connect (G_OBJECT (window->view), "zoom_changed",
+                      G_CALLBACK (zoom_changed_cb), window);
+
     gtk_window_add_accel_group (GTK_WINDOW (window),
                 gtk_ui_manager_get_accel_group (window->ui_mngr));
 
@@ -1177,7 +1172,7 @@ vnr_window_open (VnrWindow * win, gboolean fit_to_screen)
 
     file = VNR_FILE(win->file_list->data);
 
-    gtk_window_set_title (GTK_WINDOW (win), file->display_name);
+    //gtk_window_set_title (GTK_WINDOW (win), file->display_name);
     update_fs_label(win);
 
     pixbuf = gdk_pixbuf_animation_new_from_file (file->uri, &error);
@@ -1195,12 +1190,16 @@ vnr_window_open (VnrWindow * win, gboolean fit_to_screen)
 
     gtk_action_group_set_sensitive(win->actions_image, TRUE);
 
+
+    win->current_image_width = gdk_pixbuf_animation_get_width (pixbuf);
+    win->current_image_height = gdk_pixbuf_animation_get_height (pixbuf);
+
     if(fit_to_screen)
     {
         gint img_h, img_w;          /* Width and Height of the pixbuf */
 
-        img_w = gdk_pixbuf_animation_get_width (pixbuf);
-        img_h = gdk_pixbuf_animation_get_height (pixbuf);
+        img_w = win->current_image_width;
+        img_h = win->current_image_height;
 
         vnr_tools_fit_to_size (&img_w, &img_h, win->max_width, win->max_height);
 

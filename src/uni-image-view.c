@@ -161,12 +161,9 @@ uni_image_view_set_zoom_with_center (UniImageView * view,
         uni_image_view_update_adjustments (view);
         gtk_widget_queue_draw (GTK_WIDGET (view));
     }
-    if (zoom_ratio != 1.0)
-    {
-        /* zoom_ratio == 1.0 means zoom was not changed. */
-        g_signal_emit (G_OBJECT (view),
-                       uni_image_view_signals[ZOOM_CHANGED], 0);
-    }
+
+    g_signal_emit (G_OBJECT (view),
+                   uni_image_view_signals[ZOOM_CHANGED], 0);
 }
 
 static void
@@ -663,8 +660,6 @@ uni_image_view_init (UniImageView * view)
     view->void_cursor = NULL;
     view->tool = G_OBJECT (uni_dragger_new ((GtkWidget *) view));
 
-    /*view->transp = GTK_IMAGE_TRANSP_GRID;*/
-
     view->hadj = GTK_ADJUSTMENT (gtk_adjustment_new (0.0, 1.0, 0.0,
                                                      1.0, 1.0, 1.0));
     view->vadj = GTK_ADJUSTMENT (gtk_adjustment_new (0.0, 1.0, 0.0,
@@ -751,7 +746,7 @@ uni_image_view_init_signals (UniImageViewClass * klass)
         g_signal_new ("zoom_changed",
                       G_TYPE_FROM_CLASS (klass),
                       G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (UniImageViewClass, zoom_changed),
+                      0,
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
     /**
@@ -796,7 +791,6 @@ uni_image_view_class_init (UniImageViewClass * klass)
     klass->zoom_out = uni_image_view_zoom_out;
     klass->set_fitting = uni_image_view_set_fitting;
     klass->scroll = uni_image_view_scroll;
-    klass->zoom_changed = NULL;
     klass->pixbuf_changed = NULL;
 
     /**

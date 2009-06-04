@@ -82,7 +82,7 @@ struct _UniImageViewClass {
                                     GtkAdjustment * hadj,
                                     GtkAdjustment * vadj);
 
-    void (*zoom_changed)            (UniImageView * view);
+//    void (*zoom_changed)            (UniImageView * view);
     void (*pixbuf_changed)          (UniImageView * view);
 };
 
