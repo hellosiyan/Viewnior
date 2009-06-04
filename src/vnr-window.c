@@ -505,7 +505,7 @@ vnr_window_cmd_fit (GtkAction *action, gpointer user_data)
     g_return_if_fail (VNR_IS_WINDOW (user_data));
 
     if (VNR_WINDOW(user_data)->view)
-        uni_image_view_set_fitting(UNI_IMAGE_VIEW(VNR_WINDOW(user_data)->view), TRUE);
+        uni_image_view_set_fitting(UNI_IMAGE_VIEW(VNR_WINDOW(user_data)->view), UNI_FITTING_FULL);
 }
 
 static void

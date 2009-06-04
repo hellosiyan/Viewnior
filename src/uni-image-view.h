@@ -39,16 +39,22 @@ G_BEGIN_DECLS
 typedef struct _UniImageView UniImageView;
 typedef struct _UniImageViewClass UniImageViewClass;
 
+typedef enum {
+    UNI_FITTING_NONE, /* Fitting disabled */
+    UNI_FITTING_NORMAL, /* Fitting enabled. Max zoom: 1x */
+    UNI_FITTING_FULL, /* Fitting enabled. Max zoom: UNI_ZOOM_MAX */
+} UniFittingMode;
+
 struct _UniImageView {
     GtkWidget parent;
 
     gboolean is_rendering;
     GdkInterpType interp;
-    gboolean fitting;
+    UniFittingMode fitting;
     GdkPixbuf *pixbuf;
     gdouble zoom;
     /* Offset in zoom space coordinates of the image area in the
-       widget. */
+     * widget. */
     gdouble offset_x;
     gdouble offset_y;
     gboolean show_cursor;
@@ -67,7 +73,7 @@ struct _UniImageViewClass {
     void (*zoom_in)     (UniImageView * view);
     void (*zoom_out)    (UniImageView * view);
 
-    void (*set_fitting) (UniImageView * view, gboolean fitting);
+    void (*set_fitting) (UniImageView * view, UniFittingMode fitting);
     void (*scroll)      (UniImageView * view,
                          GtkScrollType xscroll, GtkScrollType yscroll);
 
@@ -98,9 +104,8 @@ void        uni_image_view_set_offset       (UniImageView * view,
                                              gboolean invalidate);
 
 /* Read-write properties */
-gboolean    uni_image_view_get_fitting  (UniImageView * view);
 void        uni_image_view_set_fitting  (UniImageView * view,
-                                         gboolean fitting);
+                                         UniFittingMode fitting);
 
 GdkPixbuf*  uni_image_view_get_pixbuf   (UniImageView * view);
 void        uni_image_view_set_pixbuf   (UniImageView * view,

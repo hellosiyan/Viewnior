@@ -157,7 +157,7 @@ uni_image_view_set_zoom_with_center (UniImageView * view,
 
     if (!is_allocating && zoom_ratio != 1.0)
     {
-        view->fitting = FALSE;
+        view->fitting = UNI_FITTING_NONE;
         uni_image_view_update_adjustments (view);
         gtk_widget_queue_draw (GTK_WIDGET (view));
     }
@@ -191,7 +191,10 @@ uni_image_view_zoom_to_fit (UniImageView * view, gboolean is_allocating)
 
     gdouble zoom = MIN (ratio_y, ratio_x);
 
-    zoom = CLAMP (zoom, UNI_ZOOM_MIN, 1.0);
+    if (view->fitting == UNI_FITTING_NORMAL)
+        zoom = CLAMP (zoom, UNI_ZOOM_MIN, 1.0);
+    else if (view->fitting == UNI_FITTING_FULL)
+        zoom = CLAMP (zoom, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
 
     uni_image_view_set_zoom_no_center (view, zoom, is_allocating);
 }
@@ -514,7 +517,7 @@ uni_image_view_size_allocate (GtkWidget * widget, GtkAllocation * alloc)
     UniImageView *view = UNI_IMAGE_VIEW (widget);
     widget->allocation = *alloc;
 
-    if (view->pixbuf && view->fitting)
+    if (view->pixbuf && view->fitting != UNI_FITTING_NONE)
         uni_image_view_zoom_to_fit (view, TRUE);
 
     uni_image_view_clamp_offset (view, &view->offset_x, &view->offset_y);
@@ -544,15 +547,12 @@ uni_image_view_button_press (GtkWidget * widget, GdkEventButton * ev)
     }
     else if (ev->type == GDK_2BUTTON_PRESS && ev->button == 1)
     {
-        if (uni_image_view_get_fitting (view))
-        {
+        if (view->fitting == UNI_FITTING_FULL ||
+            (view->fitting == UNI_FITTING_NORMAL && view->zoom != 1.0))
             uni_image_view_set_zoom_with_center (view, 1., ev->x, ev->y,
                                                  FALSE);
-        }
         else
-        {
-            uni_image_view_set_fitting (view, TRUE);
-        }
+            uni_image_view_set_fitting (view, UNI_FITTING_FULL);
         return 1;
     }
     return 0;
@@ -653,7 +653,7 @@ uni_image_view_init (UniImageView * view)
     GTK_WIDGET_SET_FLAGS (view, GTK_CAN_FOCUS);
 
     view->interp = GDK_INTERP_BILINEAR;
-    view->fitting = TRUE;
+    view->fitting = UNI_FITTING_NORMAL;
     view->pixbuf = NULL;
     view->zoom = 1.0;
     view->offset_x = 0.0;
@@ -736,7 +736,7 @@ uni_image_view_init_signals (UniImageViewClass * klass)
                       G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
                       G_STRUCT_OFFSET (UniImageViewClass, set_fitting),
                       NULL, NULL,
-                      g_cclosure_marshal_VOID__BOOLEAN,
+                      g_cclosure_marshal_VOID__ENUM,
                       G_TYPE_NONE, 1, G_TYPE_INT);
     uni_image_view_signals[SCROLL] =
         g_signal_new ("scroll",
@@ -846,9 +846,9 @@ uni_image_view_class_init (UniImageViewClass * klass)
 
     /* Set fitting */
     gtk_binding_entry_add_signal (binding_set, GDK_f, 0,
-                                  "set_fitting", 1, G_TYPE_BOOLEAN, TRUE);
+                                  "set_fitting", 1, G_TYPE_ENUM, UNI_FITTING_FULL);
     gtk_binding_entry_add_signal (binding_set, GDK_KP_0, 0,
-                                  "set_fitting", 1, G_TYPE_BOOLEAN, TRUE);
+                                  "set_fitting", 1, G_TYPE_ENUM, UNI_FITTING_FULL);
 
     /* Unmodified scrolling */
     gtk_binding_entry_add_signal (binding_set, GDK_Right, 0,
@@ -1031,34 +1031,8 @@ uni_image_view_set_offset (UniImageView * view,
 /*************************************************************/
 /***** Read-write properties *********************************/
 /*************************************************************/
-/**
- * uni_image_view_get_fitting:
- * @view: a #UniImageView
- * @returns: %TRUE if the view is fitting the image, %FALSE otherwise.
- *
- * Returns the fitting setting of the view.
- **/
-gboolean
-uni_image_view_get_fitting (UniImageView * view)
-{
-    return view->fitting;
-}
-
-/**
- * uni_image_view_set_fitting:
- * @view: a #UniImageView.
- * @fitting: whether to fit the image or not
- *
- * Sets whether to fit or not. If %TRUE, then the view will adapt the
- * zoom so that the whole pixbuf is visible.
- *
- * Setting the fitting causes the widget to immediately repaint
- * itself.
- *
- * Fitting is by default %TRUE.
- **/
 void
-uni_image_view_set_fitting (UniImageView * view, gboolean fitting)
+uni_image_view_set_fitting (UniImageView * view, UniFittingMode fitting)
 {
     g_return_if_fail (UNI_IS_IMAGE_VIEW (view));
     view->fitting = fitting;
@@ -1116,7 +1090,7 @@ uni_image_view_set_pixbuf (UniImageView * view,
     }
 
     if (reset_fit)
-        uni_image_view_set_fitting (view, TRUE);
+        uni_image_view_set_fitting (view, UNI_FITTING_NORMAL);
     else
     {
         /*
