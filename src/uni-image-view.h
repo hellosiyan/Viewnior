@@ -39,27 +39,6 @@ G_BEGIN_DECLS
 typedef struct _UniImageView UniImageView;
 typedef struct _UniImageViewClass UniImageViewClass;
 
-/**
- * GtkImageTransp:
- *
- * This enum defines the valid transparency settings for how the image
- * view should draw transparent parts of alpha images. Their primary
- * use is as a value for the first parameter to the
- * uni_image_view_set_transp() method.
- *
- * Their interpretation is as follows:
- *
- *
- * GTK_IMAGE_TRANSP_COLOR : Use a single color.
- * GTK_IMAGE_TRANSP_BACKGROUND : Use the background color of the widget
- * GTK_IMAGE_TRANSP_GRID : Use light and dark gray checkerboard pattern.
- **/
-typedef enum {
-    GTK_IMAGE_TRANSP_COLOR = 0,
-    GTK_IMAGE_TRANSP_BACKGROUND,
-    GTK_IMAGE_TRANSP_GRID
-} GtkImageTransp;
-
 struct _UniImageView {
     GtkWidget parent;
 
@@ -78,8 +57,6 @@ struct _UniImageView {
     GtkAdjustment *vadj;
 
     GObject *tool;
-
-    GtkImageTransp transp;
 };
 
 struct _UniImageViewClass {

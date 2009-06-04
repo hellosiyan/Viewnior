@@ -191,8 +191,6 @@ uni_image_view_zoom_to_fit (UniImageView * view, gboolean is_allocating)
 
     gdouble zoom = MIN (ratio_y, ratio_x);
 
-    // Disallow to small zoom factors, they eat up all memory because
-    // the filter matrices becomes to large. See #80925.
     zoom = CLAMP (zoom, UNI_ZOOM_MIN, 1.0);
 
     uni_image_view_set_zoom_no_center (view, zoom, is_allocating);
@@ -529,16 +527,6 @@ uni_image_view_size_allocate (GtkWidget * widget, GtkAllocation * alloc)
                                 alloc->width, alloc->height);
 }
 
-static void
-uni_image_view_style_set (GtkWidget * widget, GtkStyle * prev)
-{
-    UniImageView *view = UNI_IMAGE_VIEW (widget);
-    GTK_WIDGET_CLASS (uni_image_view_parent_class)->style_set (widget, prev);
-
-    if (view->transp != GTK_IMAGE_TRANSP_BACKGROUND)
-        return;
-}
-
 static int
 uni_image_view_expose (GtkWidget * widget, GdkEventExpose * ev)
 {
@@ -675,7 +663,7 @@ uni_image_view_init (UniImageView * view)
     view->void_cursor = NULL;
     view->tool = G_OBJECT (uni_dragger_new ((GtkWidget *) view));
 
-    view->transp = GTK_IMAGE_TRANSP_GRID;
+    /*view->transp = GTK_IMAGE_TRANSP_GRID;*/
 
     view->hadj = GTK_ADJUSTMENT (gtk_adjustment_new (0.0, 1.0, 0.0,
                                                      1.0, 1.0, 1.0));
@@ -801,7 +789,6 @@ uni_image_view_class_init (UniImageViewClass * klass)
     widget_class->realize = uni_image_view_realize;
     widget_class->scroll_event = uni_image_view_scroll_event;
     widget_class->size_allocate = uni_image_view_size_allocate;
-    widget_class->style_set = uni_image_view_style_set;
     widget_class->unrealize = uni_image_view_unrealize;
 
     klass->set_zoom = uni_image_view_set_zoom;

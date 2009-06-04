@@ -258,8 +258,9 @@ uni_anim_view_set_anim (UniAnimView * aview, GdkPixbufAnimation * anim)
     uni_anim_view_set_is_playing (aview, FALSE);
     aview->delay = gdk_pixbuf_animation_iter_get_delay_time (aview->iter);
 
-    aview->timer_id = g_timeout_add (aview->delay,
-                                     uni_anim_view_updator, aview);
+    if(!is_static)
+        aview->timer_id = g_timeout_add (aview->delay,
+                                         uni_anim_view_updator, aview);
     return is_static;
 }
 
