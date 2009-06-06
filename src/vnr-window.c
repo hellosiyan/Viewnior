@@ -440,12 +440,27 @@ vnr_window_drag_data_received (GtkWidget *widget,
 }
 
 static void
-menu_bar_allocate_cb (GtkWidget *widget, GtkAllocation *alloc, VnrWindow *window)
+window_realize_cb(GtkWidget *widget, gpointer user_data)
 {
-    /* widget is the VnrMenuBar */
-    g_signal_handlers_disconnect_by_func(widget, menu_bar_allocate_cb, window);
-    if(!vnr_message_area_get_visible(VNR_MESSAGE_AREA(window->msg_area)))
-        vnr_window_open(window, TRUE);
+    g_signal_handlers_disconnect_by_func(widget, window_realize_cb, user_data);
+
+    /* Message area visibility is sure sign
+     * that an error occured (and a message is displayed). */
+    if(!vnr_message_area_get_visible(VNR_MESSAGE_AREA(VNR_WINDOW(widget)->msg_area)))
+    {
+        GdkScreen *screen;
+        GdkRectangle monitor;
+        screen = gtk_window_get_screen (GTK_WINDOW (widget));
+        gdk_screen_get_monitor_geometry (screen,
+                                         gdk_screen_get_monitor_at_window (screen,
+                                            widget->window),
+                                         &monitor);
+
+        VNR_WINDOW(widget)->max_width = monitor.width * 0.7;
+        VNR_WINDOW(widget)->max_height = monitor.height * 0.7;
+
+        vnr_window_open(VNR_WINDOW(widget), TRUE);
+    }
 }
 
 static void
@@ -1010,8 +1025,6 @@ static void
 vnr_window_init (VnrWindow * window)
 {
     GError *error = NULL;
-    GdkRectangle monitor;
-    GdkScreen *screen;
 
     window->file_list = NULL;
     window->fs_controls = NULL;
@@ -1026,15 +1039,6 @@ vnr_window_init (VnrWindow * window)
 
     gtk_window_set_title ((GtkWindow *) window, "Viewnior");
     gtk_window_set_default_icon_name ("viewnior");
-
-    screen = gtk_window_get_screen (GTK_WINDOW (window));
-    gdk_screen_get_monitor_geometry (screen,
-                                     gdk_screen_get_monitor_at_window (screen,
-                                        GTK_WIDGET (window)->window),
-                                     &monitor);
-
-    window->max_width = monitor.width * 0.7;
-    window->max_height = monitor.height * 0.7;
 
     /* Build MENUBAR and TOOLBAR */
     window->ui_mngr = gtk_ui_manager_new();
@@ -1155,15 +1159,14 @@ vnr_window_init (VnrWindow * window)
     g_signal_connect (G_OBJECT (window), "destroy",
                       G_CALLBACK (gtk_main_quit), NULL);
 
-    g_signal_connect (G_OBJECT (window->menus), "size-allocate",
-                      G_CALLBACK (menu_bar_allocate_cb), window);
+    g_signal_connect (G_OBJECT (window), "realize",
+                      G_CALLBACK (window_realize_cb), NULL);
 
     g_signal_connect (G_OBJECT (window->view), "zoom_changed",
                       G_CALLBACK (zoom_changed_cb), window);
 
     gtk_window_add_accel_group (GTK_WINDOW (window),
                 gtk_ui_manager_get_accel_group (window->ui_mngr));
-
 }
 
 /*************************************************************/
