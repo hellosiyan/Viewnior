@@ -53,7 +53,7 @@ vnr_tools_fit_to_size (gint * width, gint * height, gint max_width, gint max_hei
     }
     else
     {
-        *width = max_height;
+        *width = max_width;
         *height = max_height;
     }
 
