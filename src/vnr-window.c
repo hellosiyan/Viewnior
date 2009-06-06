@@ -1010,6 +1010,9 @@ static void
 vnr_window_init (VnrWindow * window)
 {
     GError *error = NULL;
+    GdkRectangle monitor;
+    GdkScreen *screen;
+
     window->file_list = NULL;
     window->fs_controls = NULL;
     window->timeout = 5;
@@ -1024,8 +1027,14 @@ vnr_window_init (VnrWindow * window)
     gtk_window_set_title ((GtkWindow *) window, "Viewnior");
     gtk_window_set_default_icon_name ("viewnior");
 
-    window->max_width = gdk_screen_width () * 0.7;
-    window->max_height = gdk_screen_height () * 0.7;
+    screen = gtk_window_get_screen (GTK_WINDOW (window));
+    gdk_screen_get_monitor_geometry (screen,
+                                     gdk_screen_get_monitor_at_window (screen,
+                                        GTK_WIDGET (window)->window),
+                                     &monitor);
+
+    window->max_width = monitor.width * 0.7;
+    window->max_height = monitor.height * 0.7;
 
     /* Build MENUBAR and TOOLBAR */
     window->ui_mngr = gtk_ui_manager_new();
