@@ -128,6 +128,15 @@ leave_fs_cb (GtkButton *button, VnrWindow *window)
     vnr_window_unfullscreen (window);
 }
 
+/* Example code, using the new VnrMessageArea:
+
+static void
+save_image_cb (GtkWidget *widget, VnrMessageArea *msg_area)
+{
+    printf("Savind ...\n");
+    vnr_message_area_hide(msg_area);
+}*/
+
 static gboolean
 next_image_src(VnrWindow *window)
 {
@@ -196,17 +205,20 @@ get_fs_controls(VnrWindow *window)
     gtk_box_pack_start (GTK_BOX(box), widget, FALSE, FALSE, 0);
 
     widget = gtk_check_button_new_with_label(_("Show next image after: "));
-    g_signal_connect(widget, "toggled", G_CALLBACK(toggle_show_next_cb), window);
+    g_signal_connect (widget, "toggled", G_CALLBACK(toggle_show_next_cb),
+                      window);
     gtk_box_pack_start (GTK_BOX(box), widget, FALSE, FALSE, 0);
     window->toggle_btn = widget;
 
     spinner_adj = (GtkAdjustment *) gtk_adjustment_new (5, 1.0, 30.0, 1.0, 1.0, 0);
 
     widget = gtk_spin_button_new (spinner_adj, 1.0, 0);
-    gtk_spin_button_set_snap_to_ticks(GTK_SPIN_BUTTON(widget), TRUE);
-    gtk_spin_button_set_update_policy(GTK_SPIN_BUTTON(widget), GTK_UPDATE_ALWAYS);
+    gtk_spin_button_set_snap_to_ticks (GTK_SPIN_BUTTON(widget), TRUE);
+    gtk_spin_button_set_update_policy (GTK_SPIN_BUTTON(widget),
+                                       GTK_UPDATE_ALWAYS);
 
-    g_signal_connect(widget, "value-changed", G_CALLBACK(spin_value_change_cb), window);
+    g_signal_connect (widget, "value-changed",
+                      G_CALLBACK(spin_value_change_cb), window);
     gtk_box_pack_start (GTK_BOX(box), widget, FALSE, FALSE, 0);
 
     widget = gtk_label_new(_(" seconds"));
@@ -377,9 +389,9 @@ rotate_pixbuf(VnrWindow *window, GdkPixbufRotation angle)
 
     if(result == NULL)
     {
-        vnr_message_area_show_warning(VNR_MESSAGE_AREA(window->msg_area),
-                                      _("Not enough virtual memory."),
-                                      FALSE);
+        vnr_message_area_show(VNR_MESSAGE_AREA(window->msg_area),
+                              TRUE, _("Not enough virtual memory."),
+                              FALSE);
         return;
     }
 
@@ -387,6 +399,14 @@ rotate_pixbuf(VnrWindow *window, GdkPixbufRotation angle)
 
     gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_LEFT_PTR));
     g_object_unref(result);
+
+    /* Example code, using the new VnrMessageArea:
+
+    vnr_message_area_show_with_button(VNR_MESSAGE_AREA(window->msg_area),
+                                      FALSE,
+                                      "Do you want to save?",
+                                      FALSE, GTK_STOCK_SAVE,
+                                      G_CALLBACK(save_image_cb));*/
 }
 
 static void
@@ -394,7 +414,8 @@ flip_pixbuf(VnrWindow *window, gboolean horizontal)
 {
     GdkPixbuf *result;
 
-    gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_WATCH));
+    gdk_window_set_cursor (GTK_WIDGET(window)->window,
+                           gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
     gtk_main_iteration_do (FALSE);
 
@@ -403,15 +424,16 @@ flip_pixbuf(VnrWindow *window, gboolean horizontal)
 
     if(result == NULL)
     {
-        vnr_message_area_show_warning(VNR_MESSAGE_AREA(window->msg_area),
-                                      _("Not enough virtual memory."),
-                                      FALSE);
+        vnr_message_area_show(VNR_MESSAGE_AREA(window->msg_area),
+                              TRUE, _("Not enough virtual memory."),
+                              FALSE);
         return;
     }
 
     uni_anim_view_set_static(UNI_ANIM_VIEW(window->view), result);
 
-    gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_LEFT_PTR));
+    gdk_window_set_cursor (GTK_WIDGET(window)->window,
+                           gdk_cursor_new(GDK_LEFT_PTR));
     g_object_unref(result);
 }
 
@@ -444,9 +466,7 @@ window_realize_cb(GtkWidget *widget, gpointer user_data)
 {
     g_signal_handlers_disconnect_by_func(widget, window_realize_cb, user_data);
 
-    /* Message area visibility is sure sign
-     * that an error occured (and a message is displayed). */
-    if(!vnr_message_area_get_visible(VNR_MESSAGE_AREA(VNR_WINDOW(widget)->msg_area)))
+    if(!vnr_message_area_is_critical(VNR_MESSAGE_AREA(VNR_WINDOW(widget)->msg_area)))
     {
         GdkScreen *screen;
         GdkRectangle monitor;
@@ -850,10 +870,9 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
         if( g_unlink(file_path) != 0 )
         {
             /* I18N: The '%s' is replaced with error message. */
-            vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
-                                          g_strdup_printf (_("Error deleting image: %s"),
-                                           g_strerror(errno)),
-                                          FALSE);
+            vnr_message_area_show(VNR_MESSAGE_AREA (window->msg_area), TRUE,
+                                  g_strdup_printf (_("Error deleting image: %s"),
+                                   g_strerror(errno)), FALSE);
             restart_slideshow = FALSE;
         }
         else
@@ -877,8 +896,9 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
                 vnr_window_close(window);
                 gtk_action_group_set_sensitive(window->actions_collection, FALSE);
                 deny_slideshow(window);
-                vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
-                                              _("The given locations contain no images."), TRUE);
+                vnr_message_area_show(VNR_MESSAGE_AREA (window->msg_area), TRUE,
+                                      _("The given locations contain no images."),
+                                      TRUE);
                 restart_slideshow = FALSE;
             }
             else
@@ -1191,11 +1211,12 @@ vnr_window_open (VnrWindow * win, gboolean fit_to_screen)
 
     if (error != NULL)
     {
-        vnr_message_area_show_warning(VNR_MESSAGE_AREA (win->msg_area), error->message, TRUE);
+        vnr_message_area_show(VNR_MESSAGE_AREA (win->msg_area),
+                              TRUE, error->message, TRUE);
         return FALSE;
     }
 
-    if(vnr_message_area_get_visible(VNR_MESSAGE_AREA(win->msg_area)))
+    if(vnr_message_area_is_visible(VNR_MESSAGE_AREA(win->msg_area)))
     {
         vnr_message_area_hide(VNR_MESSAGE_AREA(win->msg_area));
     }
@@ -1248,8 +1269,8 @@ vnr_window_open_from_list(VnrWindow *window, GSList *uri_list)
         vnr_window_close(window);
         gtk_action_group_set_sensitive(window->actions_collection, FALSE);
         deny_slideshow(window);
-        vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
-                                      error->message, TRUE);
+        vnr_message_area_show(VNR_MESSAGE_AREA (window->msg_area),
+                              TRUE, error->message, TRUE);
 
         vnr_window_set_list(window, file_list, TRUE);
     }
@@ -1257,16 +1278,17 @@ vnr_window_open_from_list(VnrWindow *window, GSList *uri_list)
     {
         vnr_window_close(window);
         deny_slideshow(window);
-        vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
-                                      error->message, TRUE);
+        vnr_message_area_show(VNR_MESSAGE_AREA (window->msg_area),
+                              TRUE, error->message, TRUE);
     }
     else if(file_list == NULL)
     {
         vnr_window_close(window);
         gtk_action_group_set_sensitive(window->actions_collection, FALSE);
         deny_slideshow(window);
-        vnr_message_area_show_warning(VNR_MESSAGE_AREA (window->msg_area),
-                                      _("The given locations contain no images."), TRUE);
+        vnr_message_area_show(VNR_MESSAGE_AREA (window->msg_area), TRUE,
+                              _("The given locations contain no images."),
+                              TRUE);
     }
     else
     {
@@ -1374,7 +1396,7 @@ vnr_window_first (VnrWindow *win){
 
     prev = g_list_first(win->file_list);
 
-    if(vnr_message_area_get_visible(VNR_MESSAGE_AREA(win->msg_area)))
+    if(vnr_message_area_is_critical(VNR_MESSAGE_AREA(win->msg_area)))
     {
         vnr_message_area_hide(VNR_MESSAGE_AREA(win->msg_area));
     }
@@ -1396,7 +1418,7 @@ vnr_window_last (VnrWindow *win){
 
     prev = g_list_last(win->file_list);
 
-    if(vnr_message_area_get_visible(VNR_MESSAGE_AREA(win->msg_area)))
+    if(vnr_message_area_is_critical(VNR_MESSAGE_AREA(win->msg_area)))
     {
         vnr_message_area_hide(VNR_MESSAGE_AREA(win->msg_area));
     }

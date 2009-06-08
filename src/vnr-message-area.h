@@ -46,7 +46,14 @@ struct _VnrMessageArea {
     GtkWidget *image;
     GtkWidget *message;
 
+    GtkWidget *button_box;
+    GtkWidget *user_button;
+    GtkWidget *cancel_button;
+    GCallback c_handler;
+    gboolean with_button;
+
     gboolean initialized;
+    gboolean is_critical;
 };
 
 struct _VnrMessageAreaClass {
@@ -57,13 +64,22 @@ GType       vnr_message_area_get_type (void) G_GNUC_CONST;
 
 GtkWidget*  vnr_message_area_new      (void);
 
-void        vnr_message_area_show_warning (VnrMessageArea *msg_area,
-                                           const char *message,
-                                           gboolean close_image);
+void        vnr_message_area_show (VnrMessageArea *msg_area,
+                                   gboolean critical,
+                                   const char *message,
+                                   gboolean close_image);
+
+void        vnr_message_area_show_with_button (VnrMessageArea *msg_area,
+                                               gboolean critical,
+                                               const char *message,
+                                               gboolean close_image,
+                                               const gchar *button_stock_id,
+                                               GCallback c_handler);
 
 void        vnr_message_area_hide         (VnrMessageArea *msg_area);
 
-gboolean    vnr_message_area_get_visible  (VnrMessageArea *msg_area);
+gboolean    vnr_message_area_is_critical  (VnrMessageArea *msg_area);
+gboolean    vnr_message_area_is_visible  (VnrMessageArea *msg_area);
 
 G_END_DECLS
 #endif /* __VNR_MESSAGE_AREA_H__ */

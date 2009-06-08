@@ -95,21 +95,22 @@ main (int argc, char *argv[])
         if(error != NULL && file_list != NULL)
         {
             deny_slideshow(VNR_WINDOW(win));
-            vnr_message_area_show_warning(VNR_MESSAGE_AREA (VNR_WINDOW(win)->msg_area),
-                                          error->message, TRUE);
+            vnr_message_area_show(VNR_MESSAGE_AREA (VNR_WINDOW(win)->msg_area),
+                                  TRUE, error->message, TRUE);
             vnr_window_set_list(VNR_WINDOW(win), file_list, TRUE);
         }
         else if(error != NULL)
         {
             deny_slideshow(VNR_WINDOW(win));
-            vnr_message_area_show_warning(VNR_MESSAGE_AREA (VNR_WINDOW(win)->msg_area),
-                                          error->message, TRUE);
+            vnr_message_area_show(VNR_MESSAGE_AREA (VNR_WINDOW(win)->msg_area),
+                                  TRUE, error->message, TRUE);
         }
         else if(file_list == NULL)
         {
             deny_slideshow(VNR_WINDOW(win));
-            vnr_message_area_show_warning(VNR_MESSAGE_AREA (VNR_WINDOW(win)->msg_area),
-                                          _("The given locations contain no images."), TRUE);
+            vnr_message_area_show(VNR_MESSAGE_AREA (VNR_WINDOW(win)->msg_area),
+                                  TRUE, _("The given locations contain no images."),
+                                  TRUE);
         }
         else
         {
