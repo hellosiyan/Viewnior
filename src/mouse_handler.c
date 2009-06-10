@@ -46,20 +46,13 @@ mouse_handler_new ()
     return mh;
 }
 
-static gboolean
+static void
 mouse_handler_grab_pointer (MouseHandler * mh,
                             GdkWindow * window, guint32 time)
 {
     int mask = (GDK_POINTER_MOTION_MASK
                 | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_RELEASE_MASK);
-    int retval = gdk_pointer_grab (window,
-                                   FALSE,
-                                   mask,
-                                   NULL,
-                                   mh->grab_cursor,
-                                   time);
-    return retval == GDK_GRAB_SUCCESS;
-
+    gdk_pointer_grab (window, FALSE, mask, NULL, mh->grab_cursor, time);
 }
 
 /**
