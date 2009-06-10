@@ -155,7 +155,10 @@ next_image_src(VnrWindow *window)
 static void
 spin_value_change_cb (GtkSpinButton *spinbutton, VnrWindow *window)
 {
-    window->timeout = gtk_spin_button_get_value_as_int (spinbutton);
+    int new_value = gtk_spin_button_get_value_as_int (spinbutton);
+    gtk_label_set_text (GTK_LABEL(window->fs_seconds_label),
+                        ngettext(" second", " seconds", new_value));
+    window->timeout = new_value;
     restart_slideshow(window);
 }
 
@@ -221,8 +224,8 @@ get_fs_controls(VnrWindow *window)
                       G_CALLBACK(spin_value_change_cb), window);
     gtk_box_pack_start (GTK_BOX(box), widget, FALSE, FALSE, 0);
 
-    widget = gtk_label_new(_(" seconds"));
-    gtk_box_pack_start (GTK_BOX(box), widget, FALSE, FALSE, 0);
+    window->fs_seconds_label = gtk_label_new(ngettext(" second", " seconds", 5));
+    gtk_box_pack_start (GTK_BOX(box), window->fs_seconds_label, FALSE, FALSE, 0);
 
     gtk_tool_item_set_expand(item, TRUE);
 

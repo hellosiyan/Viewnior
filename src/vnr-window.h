@@ -83,6 +83,7 @@ struct _VnrWindow {
 
     GtkWidget *fs_controls;
     GtkWidget *toggle_btn;
+    GtkWidget *fs_seconds_label;
     GtkWidget *fs_label;
     gboolean slideshow;
     guint source_tag;
