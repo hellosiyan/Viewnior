@@ -108,7 +108,7 @@ gboolean vnr_window_next     (VnrWindow *win, gboolean rem_timeout);
 gboolean vnr_window_prev     (VnrWindow *win);
 gboolean vnr_window_first    (VnrWindow *win);
 gboolean vnr_window_last     (VnrWindow *win);
-void deny_slideshow(VnrWindow *window);
+void     deny_slideshow      (VnrWindow *window);
 
 G_END_DECLS
 #endif /* __VNR_WINDOW_H__ */

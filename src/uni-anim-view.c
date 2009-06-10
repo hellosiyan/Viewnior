@@ -85,6 +85,39 @@ uni_anim_view_toggle_running (UniAnimView * aview)
     uni_anim_view_set_is_playing (aview, !aview->timer_id);
 }
 
+/* Steps the animation one frame forward. If the animation is playing
+ * it will be stopped. Will it wrap around if the animation is at its
+ * last frame?
+ **/
+static void
+uni_anim_view_step (UniAnimView * aview)
+{
+    if (aview->anim)
+    {
+        /* Part of workaround for #437791. uni_anim_view_updator()
+         * might not always immidiately step to the next frame, so we
+         * loop until the frame is changed.
+         *
+         * If we are on the last frame, it will not wrap around so the
+         * frame will never change. So we risk an infinite loop.
+         * Unfortunately but expectedly, GdkPixbufAnimationIter
+         * doesn't provide a way to check if we
+         * are on the last frame because the API is totally brain
+         * damaged. The work-around is to give uni_anim_view_updator
+         * exactly 10 chances to advance the frame before bailing out.
+         * */
+        int n = 0;
+        GdkPixbuf *old = gdk_pixbuf_animation_iter_get_pixbuf (aview->iter);
+        while ((gdk_pixbuf_animation_iter_get_pixbuf (aview->iter) == old)
+               && (n < 10))
+        {
+            uni_anim_view_updator (aview);
+            n++;
+        }
+    }
+    uni_anim_view_set_is_playing (aview, FALSE);
+}
+
 /*************************************************************/
 /***** Stuff that deals with the type ************************/
 /*************************************************************/
@@ -180,19 +213,6 @@ uni_anim_view_new (void)
 /*************************************************************/
 /***** Read-write properties *********************************/
 /*************************************************************/
-/**
- * uni_anim_view_get_anim:
- * @aview: a #UniAnimView.
- * @returns: the current animation
- *
- * Returns the current animation of the view.
- **/
-GdkPixbufAnimation *
-uni_anim_view_get_anim (UniAnimView * aview)
-{
-    return aview->anim;
-}
-
 /**
  * uni_anim_view_set_anim:
  * @aview: A #UniAnimView.
@@ -330,43 +350,4 @@ gboolean
 uni_anim_view_get_is_playing (UniAnimView * aview)
 {
     return aview->timer_id && aview->anim;
-}
-
-/*************************************************************/
-/***** Actions ***********************************************/
-/*************************************************************/
-/**
- * uni_anim_view_step:
- * @aview: A #UniImageView.
- *
- * Steps the animation one frame forward. If the animation is playing
- * it will be stopped. Will it wrap around if the animation is at its
- * last frame?
- **/
-void
-uni_anim_view_step (UniAnimView * aview)
-{
-    if (aview->anim)
-    {
-        // Part of workaround for #437791. uni_anim_view_updator()
-        // might not always immidiately step to the next frame, so we
-        // loop until the frame is changed.
-        //
-        // If we are on the last frame, it will not wrap around so the
-        // frame will never change. So we risk an infinite loop.
-        // Unfortunately but expectedly, GdkPixbufAnimationIter
-        // doesn't provide a way to check if we
-        // are on the last frame because the API is totally brain
-        // damaged. The work-around is to give uni_anim_view_updator
-        // exactly 10 chances to advance the frame before bailing out.
-        int n = 0;
-        GdkPixbuf *old = gdk_pixbuf_animation_iter_get_pixbuf (aview->iter);
-        while ((gdk_pixbuf_animation_iter_get_pixbuf (aview->iter) == old)
-               && (n < 10))
-        {
-            uni_anim_view_updator (aview);
-            n++;
-        }
-    }
-    uni_anim_view_set_is_playing (aview, FALSE);
 }

@@ -73,7 +73,6 @@ GType uni_anim_view_get_type (void) G_GNUC_CONST;
 GtkWidget *uni_anim_view_new (void);
 
 /* Read-write properties */
-GdkPixbufAnimation* uni_anim_view_get_anim  (UniAnimView * aview);
 gboolean    uni_anim_view_set_anim          (UniAnimView * aview,
                                              GdkPixbufAnimation * anim);
 
@@ -84,9 +83,6 @@ void        uni_anim_view_set_is_playing    (UniAnimView * aview,
                                              gboolean playing);
 
 gboolean    uni_anim_view_get_is_playing    (UniAnimView * aview);
-
-/* Actions */
-void        uni_anim_view_step      (UniAnimView * aview);
 
 G_END_DECLS
 #endif /* __UNI_ANIM_VIEW_H__ */

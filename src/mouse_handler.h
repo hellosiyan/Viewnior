@@ -44,7 +44,7 @@ struct _MouseHandler {
     GdkCursor *grab_cursor;
 };
 
-MouseHandler*   mouse_handler_new   (GdkCursor * grab_cursor);
+MouseHandler*   mouse_handler_new   ();
 gboolean        mouse_handler_button_press      (MouseHandler * mh,
                                                  GdkEventButton * ev);
 

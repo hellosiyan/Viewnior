@@ -530,8 +530,6 @@ vnr_window_cmd_rotate_ccw(GtkAction *action, gpointer user_data)
 static void
 vnr_window_cmd_zoom_in (GtkAction *action, gpointer user_data)
 {
-    g_return_if_fail (VNR_IS_WINDOW (user_data));
-
     if (VNR_WINDOW(user_data)->view)
         uni_image_view_zoom_in(UNI_IMAGE_VIEW(VNR_WINDOW(user_data)->view));
 }
@@ -539,8 +537,6 @@ vnr_window_cmd_zoom_in (GtkAction *action, gpointer user_data)
 static void
 vnr_window_cmd_zoom_out (GtkAction *action, gpointer user_data)
 {
-    g_return_if_fail (VNR_IS_WINDOW (user_data));
-
     if (VNR_WINDOW(user_data)->view)
         uni_image_view_zoom_out(UNI_IMAGE_VIEW(VNR_WINDOW(user_data)->view));
 }
@@ -548,8 +544,6 @@ vnr_window_cmd_zoom_out (GtkAction *action, gpointer user_data)
 static void
 vnr_window_cmd_normal_size (GtkAction *action, gpointer user_data)
 {
-    g_return_if_fail (VNR_IS_WINDOW (user_data));
-
     if (VNR_WINDOW(user_data)->view)
         uni_image_view_set_zoom(UNI_IMAGE_VIEW(VNR_WINDOW(user_data)->view), 1);
 }
@@ -557,8 +551,6 @@ vnr_window_cmd_normal_size (GtkAction *action, gpointer user_data)
 static void
 vnr_window_cmd_fit (GtkAction *action, gpointer user_data)
 {
-    g_return_if_fail (VNR_IS_WINDOW (user_data));
-
     if (VNR_WINDOW(user_data)->view)
         uni_image_view_set_fitting(UNI_IMAGE_VIEW(VNR_WINDOW(user_data)->view), UNI_FITTING_FULL);
 }
@@ -566,8 +558,6 @@ vnr_window_cmd_fit (GtkAction *action, gpointer user_data)
 static void
 vnr_window_cmd_next (GtkAction *action, gpointer user_data)
 {
-    g_return_if_fail (VNR_IS_WINDOW (user_data));
-
     if (VNR_WINDOW(user_data)->view)
         vnr_window_next(VNR_WINDOW(user_data), TRUE);
 }
@@ -575,8 +565,6 @@ vnr_window_cmd_next (GtkAction *action, gpointer user_data)
 static void
 vnr_window_cmd_first (GtkAction *action, gpointer user_data)
 {
-    g_return_if_fail (VNR_IS_WINDOW (user_data));
-
     if (VNR_WINDOW(user_data)->view)
         vnr_window_first(VNR_WINDOW(user_data));
 }
@@ -584,8 +572,6 @@ vnr_window_cmd_first (GtkAction *action, gpointer user_data)
 static void
 vnr_window_cmd_last (GtkAction *action, gpointer user_data)
 {
-    g_return_if_fail (VNR_IS_WINDOW (user_data));
-
     if (VNR_WINDOW(user_data)->view)
         vnr_window_last(VNR_WINDOW(user_data));
 }
@@ -593,8 +579,6 @@ vnr_window_cmd_last (GtkAction *action, gpointer user_data)
 static void
 vnr_window_cmd_prev (GtkAction *action, gpointer user_data)
 {
-    g_return_if_fail (VNR_IS_WINDOW (user_data));
-
     if (VNR_WINDOW(user_data)->view)
         vnr_window_prev(VNR_WINDOW(user_data));
 }
@@ -921,13 +905,6 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
     gtk_widget_destroy( dlg );
 }
 
-static gint
-vnr_window_delete (GtkWidget * widget, GdkEventAny * event)
-{
-    gtk_widget_destroy (widget);
-    return TRUE;
-}
-
 static const GtkActionEntry action_entries_window[] = {
     { "File",  NULL, N_("_File") },
     { "View",  NULL, N_("_View") },
@@ -1030,7 +1007,6 @@ static void
 vnr_window_class_init (VnrWindowClass * klass)
 {
     GtkWidgetClass *widget_class = (GtkWidgetClass *) klass;
-    widget_class->delete_event = vnr_window_delete;
     widget_class->key_press_event = vnr_window_key_press;
     widget_class->drag_data_received = vnr_window_drag_data_received;
 }
@@ -1204,7 +1180,6 @@ vnr_window_open (VnrWindow * win, gboolean fit_to_screen)
 
     file = VNR_FILE(win->file_list->data);
 
-    //gtk_window_set_title (GTK_WINDOW (win), file->display_name);
     update_fs_label(win);
 
     pixbuf = gdk_pixbuf_animation_new_from_file (file->uri, &error);

@@ -57,7 +57,6 @@ struct _UniScrollWin {
 
     /* The normal and the highlighted nav_button pixbuf. */
     GdkPixbuf *nav_button;
-    GdkPixbuf *nav_button_hc;
 };
 
 struct _UniScrollWinClass {

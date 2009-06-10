@@ -1105,20 +1105,6 @@ uni_image_view_set_pixbuf (UniImageView * view,
 }
 
 /**
- * uni_image_view_get_zoom:
- * @view: a #UniImageView
- * @returns: the current zoom factor
- *
- * Get the current zoom factor of the view.
- **/
-gdouble
-uni_image_view_get_zoom (UniImageView * view)
-{
-    g_return_val_if_fail (UNI_IS_IMAGE_VIEW (view), 1.0);
-    return view->zoom;
-}
-
-/**
  * uni_image_view_set_zoom:
  * @view: a #UniImageView
  * @zoom: the new zoom factor

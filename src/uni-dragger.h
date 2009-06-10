@@ -41,8 +41,6 @@ typedef struct _UniDraggerClass UniDraggerClass;
 
 struct _UniDragger {
     GObject parent;
-    GdkCursor *open_hand;
-    GdkCursor *closed_hand;
     MouseHandler *mouse_handler;
     GtkWidget *view;
     UniPixbufDrawCache *cache;

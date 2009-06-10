@@ -71,7 +71,7 @@ static gdouble
 uni_nav_get_zoom2nav_factor (UniNav * nav)
 {
     gdouble nav_zoom = uni_nav_get_zoom (nav);
-    gdouble view_zoom = uni_image_view_get_zoom (nav->view);
+    gdouble view_zoom = nav->view->zoom;
     return view_zoom / nav_zoom;
 }
 
@@ -323,17 +323,11 @@ uni_nav_init (UniNav * nav)
     gtk_frame_set_shadow_type (GTK_FRAME (out_frame), GTK_SHADOW_OUT);
     gtk_container_add (GTK_CONTAINER (nav), out_frame);
 
-    /*GtkWidget *in_frame = gtk_frame_new (NULL);
-       gtk_frame_set_shadow_type (GTK_FRAME (in_frame), GTK_SHADOW_IN);
-       gtk_container_add (GTK_CONTAINER (out_frame), in_frame); */
-
     nav->preview = gtk_drawing_area_new ();
     gtk_container_add (GTK_CONTAINER (out_frame), nav->preview);
     g_signal_connect (G_OBJECT (nav->preview),
                       "expose_event",
                       G_CALLBACK (uni_nav_expose_drawing_area), nav);
-
-    /* gtk_window_set_wmclass (GTK_WINDOW (nav), "", "gtkimagenav"); */
 }
 
 static void

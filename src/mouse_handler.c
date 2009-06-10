@@ -33,7 +33,7 @@
  * yourself.
  **/
 MouseHandler *
-mouse_handler_new (GdkCursor * grab_cursor)
+mouse_handler_new ()
 {
     MouseHandler *mh = g_new0 (MouseHandler, 1);
     mh->pressed = FALSE;
@@ -42,7 +42,7 @@ mouse_handler_new (GdkCursor * grab_cursor)
     mh->drag_base_y = 0;
     mh->drag_ofs_x = 0;
     mh->drag_ofs_y = 0;
-    mh->grab_cursor = grab_cursor;
+    mh->grab_cursor = gdk_cursor_new (GDK_FLEUR);
     return mh;
 }
 
@@ -69,8 +69,7 @@ mouse_handler_grab_pointer (MouseHandler * mh,
  * @returns: %TRUE if the event was handled (left mouse button was
  *      pressed), %FALSE otherwise.
  *
- * Handles a button press event. If left mouse button is pressed an
- * attempt to grab the pointer is made. The drag base and drag offset
+ * Handles a button press event. The drag base and drag offset
  * is reset to the coordinate for the button event.
  **/
 gboolean
@@ -83,44 +82,6 @@ mouse_handler_button_press (MouseHandler * mh, GdkEventButton * ev)
     mh->drag_base_y = ev->y;
     mh->drag_ofs_x = ev->x;
     mh->drag_ofs_y = ev->y;
-
-    /*if(ev->type == GDK_2BUTTON_PRESS && ev->button == 1){
-       printf("ZOOM!\n");
-       }else if(ev->type == GDK_BUTTON_PRESS){
-       if(ev->button == 1){
-       mouse_handler_grab_pointer (mh, ev->window, ev->time);
-       mh->pressed = TRUE;
-       mh->drag_base_x = ev->x;
-       mh->drag_base_y = ev->y;
-       mh->drag_ofs_x = ev->x;
-       mh->drag_ofs_y = ev->y;
-       }else if(ev->button == 3){
-       printf("Menu here!\n");
-       }
-       } */
-
-
-    /*switch(ev->button){
-       case 1:
-       mouse_handler_grab_pointer (mh, ev->window, ev->time);
-       mh->pressed = TRUE;
-       mh->drag_base_x = ev->x;
-       mh->drag_base_y = ev->y;
-       mh->drag_ofs_x = ev->x;
-       mh->drag_ofs_y = ev->y;
-       break;
-       case 2:
-       break;
-       case 3:
-       printf("Menu here!\n");
-       } */
-
-    /* if (ev->type==GDK_2BUTTON_PRESS ||
-       ev->type==GDK_3BUTTON_PRESS ) {
-       printf("I feel %s clicked with button %d\n",
-       ev->type==GDK_2BUTTON_PRESS ? "double" : "triple",
-       ev->button);
-       } */
 
     return TRUE;
 }

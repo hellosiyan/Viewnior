@@ -77,50 +77,6 @@ static const guint8 nav_button[] =
         "\0\0\0\0\0"
 };
 
-#ifdef __GNUC__
-static const guint8 nav_button_hc[] __attribute__ ((__aligned__ (4))) =
-#else
-static const guint8 nav_button_hc[] =
-#endif
-{
-    ""
-        /* Pixbuf magic (0x47646b50) */
-        "GdkP"
-        /* length: header (24) + pixel_data (784) */
-        "\0\0\3("
-        /* pixdata_type (0x1010002) */
-        "\1\1\0\2"
-        /* rowstride (56) */
-        "\0\0\0" "8"
-        /* width (14) */
-        "\0\0\0\16"
-        /* height (14) */
-        "\0\0\0\16"
-        /* pixel_data: */
-    "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0>>>\377>>>\377\0\0\0"
-        "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
-        "\0\0\0\0\0\0\0>>>\377>>>\377>>>\377>>>\377\0\0\0\0\0\0\0\0\0\0\0\0\0"
-        "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0>>>\377>>>\377>>>\377>"
-        ">>\377>>>\377>>>\377\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
-        "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0>>>\377>>>\377\0\0\0\0\0\0\0\0\0\0\0"
-        "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0>>>\377\0\0\0\0\0\0\0\0\0\0"
-        "\0\0>>>\377>>>\377\0\0\0\0\0\0\0\0\0\0\0\0>>>\377\0\0\0\0\0\0\0\0\0\0"
-        "\0\0>>>\377>>>\377\0\0\0\0\0\0\0\0\0\0\0\0>>>\377>>>\377\0\0\0\0\0\0"
-        "\0\0\0\0\0\0>>>\377>>>\377\0\0\0\0>>>\377>>>\377>>>\377>>>\377>>>\377"
-        ">>>\377>>>\377>>>\377>>>\377>>>\377>>>\377>>>\377>>>\377>>>\377>>>\377"
-        ">>>\377>>>\377>>>\377>>>\377>>>\377>>>\377>>>\377>>>\377>>>\377>>>\377"
-        ">>>\377>>>\377>>>\377\0\0\0\0>>>\377>>>\377\0\0\0\0\0\0\0\0\0\0\0\0>"
-        ">>\377>>>\377\0\0\0\0\0\0\0\0\0\0\0\0>>>\377>>>\377\0\0\0\0\0\0\0\0\0"
-        "\0\0\0>>>\377\0\0\0\0\0\0\0\0\0\0\0\0>>>\377>>>\377\0\0\0\0\0\0\0\0\0"
-        "\0\0\0>>>\377\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
-        "\0\0\0\0>>>\377>>>\377\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
-        "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0>>>\377>>>\377>>>\377>>>\377>>>\377"
-        ">>>\377\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
-        "\0\0\0\0\0>>>\377>>>\377>>>\377>>>\377\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
-        "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0>>>\377>>>"
-        "\377\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
-};
-
 G_DEFINE_TYPE (UniScrollWin, uni_scroll_win, GTK_TYPE_TABLE);
 
 /*************************************************************/
@@ -165,20 +121,6 @@ static void
 uni_scroll_win_nav_btn_clicked (UniScrollWin * window, GdkEventButton * ev)
 {
     uni_nav_show_and_grab (UNI_NAV (window->nav), ev->x_root, ev->y_root);
-}
-
-static void
-uni_scroll_win_enter_notify (UniScrollWin * window, GdkEventCrossing * ev)
-{
-    gtk_image_set_from_pixbuf (GTK_IMAGE (window->nav_image),
-                               window->nav_button_hc);
-}
-
-static void
-uni_scroll_win_leave_notify (UniScrollWin * window, GdkEventCrossing * ev)
-{
-    gtk_image_set_from_pixbuf (GTK_IMAGE (window->nav_image),
-                               window->nav_button);
 }
 
 static void
@@ -267,8 +209,6 @@ uni_scroll_win_init (UniScrollWin * window)
     // Setup the navigator button.
     window->nav_button =
         gdk_pixbuf_new_from_inline (-1, nav_button, FALSE, NULL);
-    window->nav_button_hc =
-        gdk_pixbuf_new_from_inline (-1, nav_button_hc, FALSE, NULL);
     window->nav_image = gtk_image_new_from_pixbuf (window->nav_button);
 
     window->nav_box = gtk_event_box_new ();
@@ -276,14 +216,6 @@ uni_scroll_win_init (UniScrollWin * window)
     g_signal_connect_swapped (G_OBJECT (window->nav_box),
                               "button_press_event",
                               G_CALLBACK (uni_scroll_win_nav_btn_clicked),
-                              window);
-    g_signal_connect_swapped (G_OBJECT (window->nav_box),
-                              "enter_notify_event",
-                              G_CALLBACK (uni_scroll_win_enter_notify),
-                              window);
-    g_signal_connect_swapped (G_OBJECT (window->nav_box),
-                              "leave_notify_event",
-                              G_CALLBACK (uni_scroll_win_leave_notify),
                               window);
 
     gtk_widget_set_tooltip_text (window->nav_box,
@@ -295,7 +227,6 @@ uni_scroll_win_finalize (GObject * object)
 {
     UniScrollWin *window = UNI_SCROLL_WIN (object);
     g_object_unref (window->nav_button);
-    g_object_unref (window->nav_button_hc);
     /* Maybe window->nav should be unreferenced here.. But uh I don't
        know how. */
     gtk_widget_destroy (window->nav);

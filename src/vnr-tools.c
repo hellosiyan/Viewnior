@@ -73,11 +73,9 @@ vnr_tools_get_list_from_array (gchar **files)
 
         GFile *file;
 
-        //printf("IN:%s\n",files[i]);
         file = g_file_new_for_commandline_arg (files[i]);
 
         uri_string = g_file_get_path (file);
-        //printf("OUT:%s\n",uri_string);
 
         g_object_unref (file);
 

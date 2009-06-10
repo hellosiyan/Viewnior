@@ -32,8 +32,6 @@ G_DEFINE_TYPE (UniDragger, uni_dragger, G_TYPE_OBJECT);
 gboolean
 uni_dragger_button_press (UniDragger * tool, GdkEventButton * ev)
 {
-    /*if (!uni_dragger_is_draggable (dragger, ev->x, ev->y))
-       return FALSE; */
     return mouse_handler_button_press (tool->mouse_handler, ev);
 }
 
@@ -94,8 +92,6 @@ static void
 uni_dragger_finalize (GObject * object)
 {
     UniDragger *dragger = UNI_DRAGGER (object);
-    gdk_cursor_unref (dragger->open_hand);
-    gdk_cursor_unref (dragger->closed_hand);
     g_free (dragger->mouse_handler);
     uni_pixbuf_draw_cache_free (dragger->cache);
 
@@ -138,9 +134,7 @@ uni_dragger_class_init (UniDraggerClass * klass)
 static void
 uni_dragger_init (UniDragger * tool)
 {
-    tool->open_hand = gdk_cursor_new (GDK_ARROW);
-    tool->closed_hand = gdk_cursor_new (GDK_FLEUR);
-    tool->mouse_handler = mouse_handler_new (tool->closed_hand);
+    tool->mouse_handler = mouse_handler_new ();
     tool->view = NULL;
     tool->cache = uni_pixbuf_draw_cache_new ();
 }
