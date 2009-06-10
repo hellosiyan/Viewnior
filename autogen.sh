@@ -18,4 +18,5 @@ which gnome-autogen.sh || {
 }
 
 REQUIRED_AUTOMAKE_VERSION=1.7
-REQUIRED_INTLTOOL_VERSION=0.35.0 . gnome-autogen.sh
+REQUIRED_INTLTOOL_VERSION=0.35.0
+NOCONFIGURE=1 . gnome-autogen.sh
