@@ -400,6 +400,9 @@ rotate_pixbuf(VnrWindow *window, GdkPixbufRotation angle)
     gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_LEFT_PTR));
     g_object_unref(result);
 
+    window->current_image_width = gdk_pixbuf_get_width (result);
+    window->current_image_height = gdk_pixbuf_get_height (result);
+
     /* Example code, using the new VnrMessageArea:
 
     vnr_message_area_show_with_button(VNR_MESSAGE_AREA(window->msg_area),
