@@ -160,7 +160,8 @@ vnr_file_dir_content_to_list(gchar *path, gboolean sort)
         if(vnr_file_is_supported_mime_type(mimetype)){
             vnr_file_set_display_name(curr_vnr_file, (char*)g_file_info_get_display_name (curr_file_info));
 
-            curr_vnr_file->uri =g_strjoin("/", path, curr_vnr_file->display_name, NULL);
+            curr_vnr_file->uri =g_strjoin(G_DIR_SEPARATOR, path,
+                                          curr_vnr_file->display_name, NULL);
 
             file_list = g_list_prepend(file_list, curr_vnr_file);
         }
