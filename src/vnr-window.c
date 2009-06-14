@@ -35,6 +35,8 @@
 #include "vnr-tools.h"
 #include "vnr-message-area.h"
 
+#define FULLSCREEN_TIMEOUT 3000
+
 G_DEFINE_TYPE (VnrWindow, vnr_window, GTK_TYPE_WINDOW);
 
 static void vnr_window_unfullscreen (VnrWindow *window);
@@ -145,9 +147,9 @@ next_image_src(VnrWindow *window)
     else
         vnr_window_next(window, FALSE);
 
-    window->source_tag = g_timeout_add_seconds (window->timeout,
-                                                (GSourceFunc)next_image_src,
-                                                window);
+    window->ss_source_tag = g_timeout_add_seconds (window->ss_timeout,
+                                                   (GSourceFunc)next_image_src,
+                                                   window);
 
     return FALSE;
 }
@@ -158,7 +160,7 @@ spin_value_change_cb (GtkSpinButton *spinbutton, VnrWindow *window)
     int new_value = gtk_spin_button_get_value_as_int (spinbutton);
     gtk_label_set_text (GTK_LABEL(window->fs_seconds_label),
                         ngettext(" second", " seconds", new_value));
-    window->timeout = new_value;
+    window->ss_timeout = new_value;
     restart_slideshow(window);
 }
 
@@ -172,6 +174,57 @@ toggle_show_next_cb (GtkToggleButton *togglebutton, VnrWindow *window)
         start_slideshow(window);
     else if(window->mode == VNR_WINDOW_MODE_SLIDESHOW)
         stop_slideshow(window);
+}
+
+static void
+fullscreen_unset_timeout(VnrWindow *window)
+{
+    if(window->fs_source != NULL)
+    {
+        g_source_unref (window->fs_source);
+        g_source_destroy (window->fs_source);
+        window->fs_source = NULL;
+    }
+}
+
+static gboolean
+fullscreen_timeout_cb (VnrWindow *window)
+{
+    fullscreen_unset_timeout (window);
+    gtk_widget_hide_all(window->toolbar);
+    return FALSE;
+}
+
+static void
+fullscreen_set_timeout(VnrWindow *window)
+{
+    fullscreen_unset_timeout(window);
+
+    window->fs_source = g_timeout_source_new (FULLSCREEN_TIMEOUT);
+    g_source_set_callback (window->fs_source,
+                           (GSourceFunc)fullscreen_timeout_cb,
+                           window, NULL);
+
+    g_source_attach (window->fs_source, NULL);
+}
+
+static gboolean
+fullscreen_leave_cb(GtkWidget * widget, GdkEventCrossing * ev, VnrWindow *window)
+{
+    fullscreen_unset_timeout (window);
+    return FALSE;
+}
+
+static gboolean
+fullscreen_motion_cb(GtkWidget * widget, GdkEventMotion * ev, VnrWindow *window)
+{
+    /* Show the toolbar only when the moves moves to the top
+     * of the UniImageView */
+    if (ev->y < 20 && !GTK_WIDGET_VISIBLE (window->toolbar))
+        gtk_widget_show_all (GTK_WIDGET (window->toolbar));
+
+    fullscreen_set_timeout(window);
+    return FALSE;
 }
 
 static GtkWidget *
@@ -278,6 +331,23 @@ vnr_window_fullscreen(VnrWindow *window)
     gtk_widget_show (get_fs_controls(window));
 
     stop_slideshow(window);
+
+    /* Reset timeouts for the toolbar autohide when the mouse
+     * moves over the UniImageviewer.
+     * "after" because it must be called after the uniImageView's
+     * callback (when the image is dragged).*/
+    g_signal_connect_after (window->view,
+                            "motion-notify-event",
+                            G_CALLBACK (fullscreen_motion_cb),
+                            window);
+
+    /* Never hide the toolbar, while the mouse is over it */
+    g_signal_connect (window->toolbar,
+                      "enter-notify-event",
+                      G_CALLBACK (fullscreen_leave_cb),
+                      window);
+
+    fullscreen_set_timeout(window);
 }
 
 static void
@@ -299,7 +369,20 @@ vnr_window_unfullscreen(VnrWindow *window)
     gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), FALSE);
     gtk_widget_modify_bg(window->view, GTK_STATE_NORMAL, NULL);
 
+    /* First show everything (the toolbar might be hided)
+     * and then hide only the fullscreen controls */
+    gtk_widget_show_all(window->toolbar);
     gtk_widget_hide (get_fs_controls(window));
+
+    g_signal_handlers_disconnect_by_func(window->view,
+                                         G_CALLBACK(fullscreen_motion_cb),
+                                         window);
+
+    g_signal_handlers_disconnect_by_func(window->toolbar,
+                                         G_CALLBACK(fullscreen_leave_cb),
+                                         window);
+
+    fullscreen_unset_timeout(window);
 }
 
 static void
@@ -318,7 +401,7 @@ stop_slideshow(VnrWindow *window)
 
     window->mode = VNR_WINDOW_MODE_FULLSCREEN;
 
-    g_source_remove (window->source_tag);
+    g_source_remove (window->ss_source_tag);
 }
 
 static void
@@ -332,9 +415,9 @@ start_slideshow(VnrWindow *window)
 
     window->mode = VNR_WINDOW_MODE_SLIDESHOW;
 
-    window->source_tag = g_timeout_add_seconds (window->timeout,
-                                                (GSourceFunc)next_image_src,
-                                                window);
+    window->ss_source_tag = g_timeout_add_seconds (window->ss_timeout,
+                                                   (GSourceFunc)next_image_src,
+                                                   window);
 
     window->slideshow = FALSE;
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(window->toggle_btn), TRUE);
@@ -350,10 +433,10 @@ restart_slideshow(VnrWindow *window)
     if(window->mode != VNR_WINDOW_MODE_SLIDESHOW)
         return;
 
-    g_source_remove (window->source_tag);
-    window->source_tag = g_timeout_add_seconds (window->timeout,
-                                                (GSourceFunc)next_image_src,
-                                                window);
+    g_source_remove (window->ss_source_tag);
+    window->ss_source_tag = g_timeout_add_seconds (window->ss_timeout,
+                                                   (GSourceFunc)next_image_src,
+                                                   window);
 }
 
 static void
@@ -1030,7 +1113,8 @@ vnr_window_init (VnrWindow * window)
 
     window->file_list = NULL;
     window->fs_controls = NULL;
-    window->timeout = 5;
+    window->fs_source = NULL;
+    window->ss_timeout = 5;
     window->slideshow = TRUE;
 
 #ifdef HAVE_WALLPAPER
@@ -1316,7 +1400,7 @@ gboolean
 vnr_window_next (VnrWindow *win, gboolean rem_timeout){
     GList *next;
     if(win->mode == VNR_WINDOW_MODE_SLIDESHOW && rem_timeout)
-        g_source_remove (win->source_tag);
+        g_source_remove (win->ss_source_tag);
 
     next = g_list_next(win->file_list);
     if(next == NULL)
@@ -1334,9 +1418,9 @@ vnr_window_next (VnrWindow *win, gboolean rem_timeout){
     gdk_window_set_cursor(GTK_WIDGET(win)->window, gdk_cursor_new(GDK_LEFT_PTR));
 
     if(win->mode == VNR_WINDOW_MODE_SLIDESHOW && rem_timeout)
-        win->source_tag = g_timeout_add_seconds (win->timeout,
-                                                 (GSourceFunc)next_image_src,
-                                                 win);
+        win->ss_source_tag = g_timeout_add_seconds (win->ss_timeout,
+                                                    (GSourceFunc)next_image_src,
+                                                    win);
 
     return TRUE;
 }
@@ -1346,7 +1430,7 @@ vnr_window_prev (VnrWindow *win){
     GList *prev;
 
     if(win->mode == VNR_WINDOW_MODE_SLIDESHOW)
-        g_source_remove (win->source_tag);
+        g_source_remove (win->ss_source_tag);
 
     prev = g_list_previous(win->file_list);
     if(prev == NULL)
@@ -1364,9 +1448,9 @@ vnr_window_prev (VnrWindow *win){
     gdk_window_set_cursor(GTK_WIDGET(win)->window, gdk_cursor_new(GDK_LEFT_PTR));
 
     if(win->mode == VNR_WINDOW_MODE_SLIDESHOW)
-        win->source_tag = g_timeout_add_seconds (win->timeout,
-                                                 (GSourceFunc)next_image_src,
-                                                 win);
+        win->ss_source_tag = g_timeout_add_seconds (win->ss_timeout,
+                                                    (GSourceFunc)next_image_src,
+                                                    win);
 
     return TRUE;
 }

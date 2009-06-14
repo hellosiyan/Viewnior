@@ -81,13 +81,16 @@ struct _VnrWindow {
 
     VnrWindowMode mode;
 
+    /* Fullscreen (fs) variables */
     GtkWidget *fs_controls;
     GtkWidget *toggle_btn;
     GtkWidget *fs_seconds_label;
     GtkWidget *fs_label;
+    GSource *fs_source;
+    /* Slideshow (ss) variables */
     gboolean slideshow;
-    guint source_tag;
-    gint timeout;
+    guint ss_source_tag;
+    gint ss_timeout;
 };
 
 struct _VnrWindowClass {
