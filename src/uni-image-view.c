@@ -841,6 +841,8 @@ uni_image_view_class_init (UniImageViewClass * klass)
     /* Set fitting */
     gtk_binding_entry_add_signal (binding_set, GDK_f, 0,
                                   "set_fitting", 1, G_TYPE_ENUM, UNI_FITTING_FULL);
+    gtk_binding_entry_add_signal (binding_set, GDK_0, 0,
+                                  "set_fitting", 1, G_TYPE_ENUM, UNI_FITTING_FULL);
     gtk_binding_entry_add_signal (binding_set, GDK_KP_0, 0,
                                   "set_fitting", 1, G_TYPE_ENUM, UNI_FITTING_FULL);
 
