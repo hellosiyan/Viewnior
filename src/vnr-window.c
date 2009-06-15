@@ -721,57 +721,49 @@ vnr_window_cmd_rotate_ccw(GtkAction *action, gpointer user_data)
 static void
 vnr_window_cmd_zoom_in (GtkAction *action, gpointer user_data)
 {
-    if (VNR_WINDOW(user_data)->view)
-        uni_image_view_zoom_in(UNI_IMAGE_VIEW(VNR_WINDOW(user_data)->view));
+    uni_image_view_zoom_in(UNI_IMAGE_VIEW(VNR_WINDOW(user_data)->view));
 }
 
 static void
 vnr_window_cmd_zoom_out (GtkAction *action, gpointer user_data)
 {
-    if (VNR_WINDOW(user_data)->view)
-        uni_image_view_zoom_out(UNI_IMAGE_VIEW(VNR_WINDOW(user_data)->view));
+    uni_image_view_zoom_out(UNI_IMAGE_VIEW(VNR_WINDOW(user_data)->view));
 }
 
 static void
 vnr_window_cmd_normal_size (GtkAction *action, gpointer user_data)
 {
-    if (VNR_WINDOW(user_data)->view)
-        uni_image_view_set_zoom(UNI_IMAGE_VIEW(VNR_WINDOW(user_data)->view), 1);
+    uni_image_view_set_zoom(UNI_IMAGE_VIEW(VNR_WINDOW(user_data)->view), 1);
 }
 
 static void
 vnr_window_cmd_fit (GtkAction *action, gpointer user_data)
 {
-    if (VNR_WINDOW(user_data)->view)
-        uni_image_view_set_fitting(UNI_IMAGE_VIEW(VNR_WINDOW(user_data)->view), UNI_FITTING_FULL);
+    uni_image_view_set_fitting(UNI_IMAGE_VIEW(VNR_WINDOW(user_data)->view), UNI_FITTING_FULL);
 }
 
 static void
 vnr_window_cmd_next (GtkAction *action, gpointer user_data)
 {
-    if (VNR_WINDOW(user_data)->view)
-        vnr_window_next(VNR_WINDOW(user_data), TRUE);
+    vnr_window_next(VNR_WINDOW(user_data), TRUE);
 }
 
 static void
 vnr_window_cmd_first (GtkAction *action, gpointer user_data)
 {
-    if (VNR_WINDOW(user_data)->view)
-        vnr_window_first(VNR_WINDOW(user_data));
+    vnr_window_first(VNR_WINDOW(user_data));
 }
 
 static void
 vnr_window_cmd_last (GtkAction *action, gpointer user_data)
 {
-    if (VNR_WINDOW(user_data)->view)
-        vnr_window_last(VNR_WINDOW(user_data));
+    vnr_window_last(VNR_WINDOW(user_data));
 }
 
 static void
 vnr_window_cmd_prev (GtkAction *action, gpointer user_data)
 {
-    if (VNR_WINDOW(user_data)->view)
-        vnr_window_prev(VNR_WINDOW(user_data));
+    vnr_window_prev(VNR_WINDOW(user_data));
 }
 
 static void
@@ -1512,6 +1504,12 @@ vnr_window_set_list (VnrWindow *win, GList *list, gboolean free_current)
 gboolean
 vnr_window_next (VnrWindow *win, gboolean rem_timeout){
     GList *next;
+
+    /* Don't reload current image
+     * if the list contains only one (or no) image */
+    if (g_list_length(g_list_first(win->file_list)) <2)
+        return FALSE;
+
     if(win->mode == VNR_WINDOW_MODE_SLIDESHOW && rem_timeout)
         g_source_remove (win->ss_source_tag);
 
@@ -1541,6 +1539,11 @@ vnr_window_next (VnrWindow *win, gboolean rem_timeout){
 gboolean
 vnr_window_prev (VnrWindow *win){
     GList *prev;
+
+    /* Don't reload current image
+     * if the list contains only one (or no) image */
+    if (g_list_length(g_list_first(win->file_list)) <2)
+        return FALSE;
 
     if(win->mode == VNR_WINDOW_MODE_SLIDESHOW)
         g_source_remove (win->ss_source_tag);
