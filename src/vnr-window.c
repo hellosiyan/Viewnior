@@ -114,6 +114,13 @@ dumb (GtkAction *action, VnrWindow *window)
     printf("Dumb!\n");
 }
 
+static gboolean
+image_not_modified(VnrWindow *window)
+{
+    return (window->current_image_flip == 0 &&
+            window->current_image_rotation == 0);
+}
+
 static void
 update_fs_label(VnrWindow *window)
 {
@@ -130,14 +137,47 @@ leave_fs_cb (GtkButton *button, VnrWindow *window)
     vnr_window_unfullscreen (window);
 }
 
-/* Example code, using the new VnrMessageArea:
-
 static void
-save_image_cb (GtkWidget *widget, VnrMessageArea *msg_area)
+save_image_cb (GtkWidget *widget, VnrWindow *window)
 {
-    printf("Savind ...\n");
-    vnr_message_area_hide(msg_area);
-}*/
+    GError *error = NULL;
+
+    gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_WATCH));
+    /* This makes the cursor show NOW */
+    gtk_main_iteration_do (FALSE);
+
+    vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
+
+    if(strcmp(window->format_name, "jpeg" ) == 0)
+    {
+        gdk_pixbuf_save (uni_image_view_get_pixbuf(UNI_IMAGE_VIEW(window->view)),
+                         VNR_FILE(window->file_list->data)->uri, "jpeg",
+                         &error, "quality", "90", NULL);
+    }
+    else if(strcmp(window->format_name, "png" ) == 0)
+    {
+        gdk_pixbuf_save (uni_image_view_get_pixbuf(UNI_IMAGE_VIEW(window->view)),
+                         VNR_FILE(window->file_list->data)->uri, "png",
+                         &error, "compression", "9", NULL);
+    }
+    else
+    {
+        gdk_pixbuf_save (uni_image_view_get_pixbuf(UNI_IMAGE_VIEW(window->view)),
+                         VNR_FILE(window->file_list->data)->uri,
+                         window->format_name, &error, NULL);
+    }
+
+    gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_LEFT_PTR));
+
+    if(error != NULL)
+    {
+        vnr_message_area_show(VNR_MESSAGE_AREA(window->msg_area), TRUE,
+                                               error->message, FALSE);
+        return;
+    }
+    window->current_image_rotation = 0;
+    window->current_image_flip = 0;
+}
 
 static gboolean
 next_image_src(VnrWindow *window)
@@ -347,6 +387,11 @@ vnr_window_fullscreen(VnrWindow *window)
                       G_CALLBACK (fullscreen_leave_cb),
                       window);
 
+    g_signal_connect (window->msg_area,
+                      "enter-notify-event",
+                      G_CALLBACK (fullscreen_leave_cb),
+                      window);
+
     fullscreen_set_timeout(window);
 }
 
@@ -379,6 +424,10 @@ vnr_window_unfullscreen(VnrWindow *window)
                                          window);
 
     g_signal_handlers_disconnect_by_func(window->toolbar,
+                                         G_CALLBACK(fullscreen_leave_cb),
+                                         window);
+
+    g_signal_handlers_disconnect_by_func(window->msg_area,
                                          G_CALLBACK(fullscreen_leave_cb),
                                          window);
 
@@ -489,13 +538,39 @@ rotate_pixbuf(VnrWindow *window, GdkPixbufRotation angle)
     window->current_image_width = gdk_pixbuf_get_width (result);
     window->current_image_height = gdk_pixbuf_get_height (result);
 
-    /* Example code, using the new VnrMessageArea:
+    switch(angle){
+        case GDK_PIXBUF_ROTATE_CLOCKWISE:
+            window->current_image_rotation += 1;
+            break;
+        case GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE:
+            window->current_image_rotation -= 1;
+            break;
+        default:
+            break;
+    }
 
-    vnr_message_area_show_with_button(VNR_MESSAGE_AREA(window->msg_area),
-                                      FALSE,
-                                      "Do you want to save?",
-                                      FALSE, GTK_STOCK_SAVE,
-                                      G_CALLBACK(save_image_cb));*/
+    if(window->current_image_rotation < 0)
+        window->current_image_rotation = 3;
+    else if(window->current_image_rotation > 3)
+        window->current_image_rotation = 0;
+
+    if(image_not_modified(window))
+    {
+        vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
+        return;
+    }
+
+    if(window->format_name == NULL)
+        vnr_message_area_show(VNR_MESSAGE_AREA(window->msg_area),
+                              TRUE,
+                              "Image modifications cannot be saved.\nWriting in this format is not supported.",
+                              FALSE);
+    else
+        vnr_message_area_show_with_button(VNR_MESSAGE_AREA(window->msg_area),
+                                          FALSE,
+                                          "Save modifications?\nThis will overwrite the image and may reduce it's quality!",
+                                          FALSE, GTK_STOCK_SAVE,
+                                          G_CALLBACK(save_image_cb));
 }
 
 static void
@@ -524,6 +599,33 @@ flip_pixbuf(VnrWindow *window, gboolean horizontal)
     gdk_window_set_cursor (GTK_WIDGET(window)->window,
                            gdk_cursor_new(GDK_LEFT_PTR));
     g_object_unref(result);
+
+    window->current_image_flip ^= 1<<0;
+
+    if ( ( horizontal && window->current_image_rotation%2 == 1) ||
+         (!horizontal && window->current_image_rotation%2 == 0) )
+            window->current_image_rotation += 2;
+
+    if(window->current_image_rotation > 3)
+       window->current_image_rotation = window->current_image_rotation - 4;
+
+    if(image_not_modified(window))
+    {
+        vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
+        return;
+    }
+
+    if(window->format_name == NULL)
+        vnr_message_area_show(VNR_MESSAGE_AREA(window->msg_area),
+                              TRUE,
+                              "Image modifications cannot be saved.\nWriting in this format is not supported.",
+                              FALSE);
+    else
+        vnr_message_area_show_with_button(VNR_MESSAGE_AREA(window->msg_area),
+                                          FALSE,
+                                          "Save modifications?\nThis will overwrite the image and may reduce it's quality!",
+                                          FALSE, GTK_STOCK_SAVE,
+                                          G_CALLBACK(save_image_cb));
 }
 
 /*************************************************************/
@@ -828,8 +930,6 @@ vnr_window_cmd_fullscreen (GtkAction *action, VnrWindow *window)
 static gint
 vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
 {
-
-    GtkContainer *tbcontainer = GTK_CONTAINER (VNR_WINDOW (widget)->toolbar);
     gint result = FALSE;
 
     switch(event->keyval){
@@ -846,7 +946,8 @@ vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
                 /* break to let scrollview handle the key */
                 break;
             }
-            if (tbcontainer->focus_child != NULL)
+            if (GTK_CONTAINER(VNR_WINDOW (widget)->toolbar)->focus_child != NULL ||
+                GTK_CONTAINER(VNR_WINDOW (widget)->msg_area)->focus_child != NULL)
                 break;
 
             vnr_window_cmd_prev (NULL, VNR_WINDOW (widget));
@@ -865,7 +966,8 @@ vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
                 /* break to let scrollview handle the key */
                 break;
             }
-            if (tbcontainer->focus_child != NULL)
+            if (GTK_CONTAINER(VNR_WINDOW (widget)->toolbar)->focus_child != NULL ||
+                GTK_CONTAINER(VNR_WINDOW (widget)->msg_area)->focus_child != NULL)
                 break;
 
             vnr_window_cmd_next (NULL, VNR_WINDOW (widget));
@@ -1111,6 +1213,7 @@ vnr_window_init (VnrWindow * window)
 {
     GError *error = NULL;
 
+    window->format_name = NULL;
     window->file_list = NULL;
     window->fs_controls = NULL;
     window->fs_source = NULL;
@@ -1263,6 +1366,7 @@ vnr_window_open (VnrWindow * win, gboolean fit_to_screen)
 {
     VnrFile *file;
     GdkPixbufAnimation *pixbuf;
+    GdkPixbufFormat *format;
     GError *error = NULL;
 
     if(win->file_list == NULL)
@@ -1288,9 +1392,18 @@ vnr_window_open (VnrWindow * win, gboolean fit_to_screen)
 
     gtk_action_group_set_sensitive(win->actions_image, TRUE);
 
+    format = gdk_pixbuf_get_file_info (file->uri, NULL, NULL);
+
+    g_free(win->format_name);
+    if(gdk_pixbuf_format_is_writable (format))
+        win->format_name = gdk_pixbuf_format_get_name (format);
+    else
+        win->format_name = NULL;
 
     win->current_image_width = gdk_pixbuf_animation_get_width (pixbuf);
     win->current_image_height = gdk_pixbuf_animation_get_height (pixbuf);
+    win->current_image_rotation = 0;
+    win->current_image_flip = 0;
 
     if(fit_to_screen)
     {

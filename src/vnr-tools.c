@@ -108,4 +108,14 @@ vnr_tools_parse_uri_string_list_to_file_list (const gchar *uri_list)
     return g_slist_reverse (file_list);
 }
 
+gint
+compare_quarks (gconstpointer a, gconstpointer b)
+{
+    GQuark quark;
+
+    quark = g_quark_from_string ((const gchar *) a);
+
+    return quark - GPOINTER_TO_INT (b);
+}
+
 #endif /* __VNR_IMAGE_H__ */

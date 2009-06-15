@@ -25,20 +25,11 @@
 #include <gio/gio.h>
 #include <gdk/gdkpixbuf.h>
 #include "vnr-file.h"
+#include "vnr-tools.h"
 
 G_DEFINE_TYPE (VnrFile, vnr_file, G_TYPE_OBJECT);
 
 GList * supported_mime_types;
-
-static gint
-compare_quarks (gconstpointer a, gconstpointer b)
-{
-    GQuark quark;
-
-    quark = g_quark_from_string ((const gchar *) a);
-
-    return quark - GPOINTER_TO_INT (b);
-}
 
 static gint
 compare_files(VnrFile *file, char *uri)

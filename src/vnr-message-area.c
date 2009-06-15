@@ -55,7 +55,7 @@ vnr_message_area_initialize(VnrMessageArea * msg_area)
     gtk_box_pack_start (GTK_BOX (msg_area->hbox), msg_area->message,
                         FALSE, FALSE, 0);
 
-    msg_area->button_box = gtk_hbutton_box_new();
+    msg_area->button_box = gtk_vbutton_box_new();
     gtk_box_pack_end(GTK_BOX (msg_area->hbox), msg_area->button_box,
                      FALSE, FALSE, 0);
 
@@ -151,12 +151,12 @@ vnr_message_area_show_with_button (VnrMessageArea *msg_area,
     if(msg_area->with_button)
         g_signal_handlers_disconnect_by_func (msg_area->user_button,
                                               msg_area->c_handler,
-                                              msg_area);
+                                              msg_area->vnr_win);
     else
         msg_area->with_button = TRUE;
 
     msg_area->c_handler = c_handler;
-    g_signal_connect(msg_area->user_button, "clicked", c_handler, msg_area);
+    g_signal_connect(msg_area->user_button, "clicked", c_handler, msg_area->vnr_win);
 
     gtk_widget_show_all(GTK_WIDGET (msg_area->hbox));
 }
@@ -169,7 +169,7 @@ vnr_message_area_hide (VnrMessageArea *msg_area)
     {
         g_signal_handlers_disconnect_by_func (msg_area->user_button,
                                               msg_area->c_handler,
-                                              msg_area);
+                                              msg_area->vnr_win);
         msg_area->with_button = FALSE;
     }
 }
