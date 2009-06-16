@@ -76,13 +76,12 @@ struct _VnrWindow {
     gint max_width;
     gint max_height;
     gchar *format_name;
-    gint current_image_rotation;
-    gint current_image_flip;
 
     gint current_image_height;
     gint current_image_width;
 
     VnrWindowMode mode;
+    guint8 modifications;
 
     gboolean cursor_is_hidden;
 

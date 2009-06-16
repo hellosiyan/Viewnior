@@ -138,13 +138,6 @@ vnr_window_show_cursor(VnrWindow *window)
     gdk_flush();
 }
 
-static gboolean
-image_not_modified(VnrWindow *window)
-{
-    return (window->current_image_flip == 0 &&
-            window->current_image_rotation == 0);
-}
-
 static void
 update_fs_label(VnrWindow *window)
 {
@@ -199,8 +192,7 @@ save_image_cb (GtkWidget *widget, VnrWindow *window)
                                                error->message, FALSE);
         return;
     }
-    window->current_image_rotation = 0;
-    window->current_image_flip = 0;
+    window->modifications = 0;
 }
 
 static gboolean
@@ -566,23 +558,12 @@ rotate_pixbuf(VnrWindow *window, GdkPixbufRotation angle)
     window->current_image_width = gdk_pixbuf_get_width (result);
     window->current_image_height = gdk_pixbuf_get_height (result);
 
-    switch(angle){
-        case GDK_PIXBUF_ROTATE_CLOCKWISE:
-            window->current_image_rotation += 1;
-            break;
-        case GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE:
-            window->current_image_rotation -= 1;
-            break;
-        default:
-            break;
-    }
+    if((window->modifications & (4))^((angle==GDK_PIXBUF_ROTATE_CLOCKWISE)<<2))
+        window->modifications ^= 3;
 
-    if(window->current_image_rotation < 0)
-        window->current_image_rotation = 3;
-    else if(window->current_image_rotation > 3)
-        window->current_image_rotation = 0;
+    window->modifications ^= 4;
 
-    if(image_not_modified(window))
+    if(window->modifications == 0)
     {
         vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
         return;
@@ -628,16 +609,9 @@ flip_pixbuf(VnrWindow *window, gboolean horizontal)
                            gdk_cursor_new(GDK_LEFT_PTR));
     g_object_unref(result);
 
-    window->current_image_flip ^= 1<<0;
+    window->modifications ^= (window->modifications&4)?1+horizontal:2-horizontal;
 
-    if ( ( horizontal && window->current_image_rotation%2 == 1) ||
-         (!horizontal && window->current_image_rotation%2 == 0) )
-            window->current_image_rotation += 2;
-
-    if(window->current_image_rotation > 3)
-       window->current_image_rotation = window->current_image_rotation - 4;
-
-    if(image_not_modified(window))
+    if(window->modifications == 0)
     {
         vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
         return;
@@ -1423,8 +1397,7 @@ vnr_window_open (VnrWindow * win, gboolean fit_to_screen)
 
     win->current_image_width = gdk_pixbuf_animation_get_width (pixbuf);
     win->current_image_height = gdk_pixbuf_animation_get_height (pixbuf);
-    win->current_image_rotation = 0;
-    win->current_image_flip = 0;
+    win->modifications = 0;
 
     if(fit_to_screen)
     {
