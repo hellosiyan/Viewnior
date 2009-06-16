@@ -40,6 +40,7 @@ compare_files(VnrFile *file, char *uri)
         return 1;
 }
 
+/* Modified version of eog's eog_image_get_supported_mime_types */
 static GList *
 vnr_file_get_supported_mime_types (void)
 {
@@ -63,6 +64,9 @@ vnr_file_get_supported_mime_types (void)
             g_strfreev (mime_types);
         }
 
+        supported_mime_types = g_list_prepend(supported_mime_types,
+                                              "image/vnd.microsoft.icon");
+
         supported_mime_types = g_list_sort (supported_mime_types,
                             (GCompareFunc) compare_quarks);
 
@@ -75,7 +79,7 @@ vnr_file_get_supported_mime_types (void)
 static gboolean
 vnr_file_is_supported_mime_type (const char *mime_type)
 {
-    GList *supported_mime_types, *result;
+    GList *result;
     GQuark quark;
 
     if (mime_type == NULL) {
