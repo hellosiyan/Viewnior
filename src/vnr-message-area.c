@@ -41,9 +41,9 @@ static void
 vnr_message_area_initialize(VnrMessageArea * msg_area)
 {
     msg_area->with_button = FALSE;
-    msg_area->hbox = gtk_hbox_new(FALSE, 12);
+    msg_area->hbox = gtk_hbox_new(FALSE, 7);
     gtk_container_add(GTK_CONTAINER (msg_area), msg_area->hbox);
-    gtk_container_set_border_width(GTK_CONTAINER (msg_area->hbox), 12);
+    gtk_container_set_border_width(GTK_CONTAINER (msg_area->hbox), 7);
 
     msg_area->image = gtk_image_new();
     gtk_box_pack_start (GTK_BOX (msg_area->hbox), msg_area->image,
