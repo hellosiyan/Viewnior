@@ -84,6 +84,8 @@ struct _VnrWindow {
 
     VnrWindowMode mode;
 
+    gboolean cursor_is_hidden;
+
     /* Fullscreen (fs) variables */
     GtkWidget *fs_controls;
     GtkWidget *toggle_btn;

@@ -114,6 +114,30 @@ dumb (GtkAction *action, VnrWindow *window)
     printf("Dumb!\n");
 }
 
+static void
+vnr_window_hide_cursor(VnrWindow *window)
+{
+   GdkBitmap *empty;
+   GdkColor black = { 0, 0, 0, 0 };
+   static char bits[] = { 0x00 };
+
+   empty = gdk_bitmap_create_from_data (NULL, bits, 1, 1);
+
+    gdk_window_set_cursor (GTK_WIDGET(window)->window,
+                           gdk_cursor_new_from_pixmap (empty, empty, &black,
+                                                       &black, 0, 0));
+    window->cursor_is_hidden = TRUE;
+    gdk_flush();
+}
+
+static void
+vnr_window_show_cursor(VnrWindow *window)
+{
+    gdk_window_set_cursor (GTK_WIDGET(window)->window, gdk_cursor_new(GDK_LEFT_PTR));
+    window->cursor_is_hidden = FALSE;
+    gdk_flush();
+}
+
 static gboolean
 image_not_modified(VnrWindow *window)
 {
@@ -232,6 +256,7 @@ fullscreen_timeout_cb (VnrWindow *window)
 {
     fullscreen_unset_timeout (window);
     gtk_widget_hide_all(window->toolbar);
+    vnr_window_hide_cursor(window);
     return FALSE;
 }
 
@@ -262,6 +287,9 @@ fullscreen_motion_cb(GtkWidget * widget, GdkEventMotion * ev, VnrWindow *window)
      * of the UniImageView */
     if (ev->y < 20 && !GTK_WIDGET_VISIBLE (window->toolbar))
         gtk_widget_show_all (GTK_WIDGET (window->toolbar));
+
+    if(window->cursor_is_hidden)
+        vnr_window_show_cursor(window);
 
     fullscreen_set_timeout(window);
     return FALSE;
@@ -1211,6 +1239,7 @@ vnr_window_init (VnrWindow * window)
     window->fs_source = NULL;
     window->ss_timeout = 5;
     window->slideshow = TRUE;
+    window->cursor_is_hidden = FALSE;
 
 #ifdef HAVE_WALLPAPER
     window->client = gconf_client_get_default ();
