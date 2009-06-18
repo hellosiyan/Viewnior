@@ -158,8 +158,8 @@ static void
 save_image_cb (GtkWidget *widget, VnrWindow *window)
 {
     GError *error = NULL;
-
-    gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_WATCH));
+    if(!window->cursor_is_hidden)
+        gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
     gtk_main_iteration_do (FALSE);
 
@@ -184,7 +184,8 @@ save_image_cb (GtkWidget *widget, VnrWindow *window)
                          window->format_name, &error, NULL);
     }
 
-    gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_LEFT_PTR));
+    if(!window->cursor_is_hidden)
+        gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_LEFT_PTR));
 
     if(error != NULL)
     {
@@ -452,6 +453,7 @@ vnr_window_unfullscreen(VnrWindow *window)
                                          window);
 
     fullscreen_unset_timeout(window);
+    vnr_window_show_cursor(window);
 }
 
 static void
@@ -535,7 +537,9 @@ rotate_pixbuf(VnrWindow *window, GdkPixbufRotation angle)
 {
     GdkPixbuf *result;
 
-    gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_WATCH));
+    if(!window->cursor_is_hidden)
+        gdk_window_set_cursor(GTK_WIDGET(window)->window,
+                              gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
     gtk_main_iteration_do (FALSE);
 
@@ -552,7 +556,9 @@ rotate_pixbuf(VnrWindow *window, GdkPixbufRotation angle)
 
     uni_anim_view_set_static(UNI_ANIM_VIEW(window->view), result);
 
-    gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_LEFT_PTR));
+    if(!window->cursor_is_hidden)
+        gdk_window_set_cursor(GTK_WIDGET(window)->window,
+                              gdk_cursor_new(GDK_LEFT_PTR));
     g_object_unref(result);
 
     window->current_image_width = gdk_pixbuf_get_width (result);
@@ -587,8 +593,9 @@ flip_pixbuf(VnrWindow *window, gboolean horizontal)
 {
     GdkPixbuf *result;
 
-    gdk_window_set_cursor (GTK_WIDGET(window)->window,
-                           gdk_cursor_new(GDK_WATCH));
+    if(!window->cursor_is_hidden)
+        gdk_window_set_cursor (GTK_WIDGET(window)->window,
+                               gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
     gtk_main_iteration_do (FALSE);
 
@@ -605,8 +612,9 @@ flip_pixbuf(VnrWindow *window, gboolean horizontal)
 
     uni_anim_view_set_static(UNI_ANIM_VIEW(window->view), result);
 
-    gdk_window_set_cursor (GTK_WIDGET(window)->window,
-                           gdk_cursor_new(GDK_LEFT_PTR));
+    if(!window->cursor_is_hidden)
+        gdk_window_set_cursor (GTK_WIDGET(window)->window,
+                               gdk_cursor_new(GDK_LEFT_PTR));
     g_object_unref(result);
 
     window->modifications ^= (window->modifications&4)?1+horizontal:2-horizontal;
@@ -1073,12 +1081,16 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
             else
             {
                 vnr_window_set_list(window, next, FALSE);
-                gdk_window_set_cursor(GTK_WIDGET(dlg)->window, gdk_cursor_new(GDK_WATCH));
+                if(!window->cursor_is_hidden)
+                    gdk_window_set_cursor(GTK_WIDGET(dlg)->window,
+                                          gdk_cursor_new(GDK_WATCH));
                 gtk_main_iteration_do (FALSE);
 
                 vnr_window_close(window);
                 vnr_window_open(window, FALSE);
-                gdk_window_set_cursor(GTK_WIDGET(dlg)->window, gdk_cursor_new(GDK_LEFT_PTR));
+                if(!window->cursor_is_hidden)
+                    gdk_window_set_cursor(GTK_WIDGET(dlg)->window,
+                                          gdk_cursor_new(GDK_LEFT_PTR));
             }
         }
     }
@@ -1465,13 +1477,17 @@ vnr_window_open_from_list(VnrWindow *window, GSList *uri_list)
     else
     {
         vnr_window_set_list(window, file_list, TRUE);
-        gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_WATCH));
+        if(!window->cursor_is_hidden)
+            gdk_window_set_cursor(GTK_WIDGET(window)->window,
+                                  gdk_cursor_new(GDK_WATCH));
         /* This makes the cursor show NOW */
         gtk_main_iteration_do (FALSE);
 
         vnr_window_close(window);
         vnr_window_open(window, FALSE);
-        gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_LEFT_PTR));
+        if(!window->cursor_is_hidden)
+            gdk_window_set_cursor(GTK_WIDGET(window)->window,
+                                  gdk_cursor_new(GDK_LEFT_PTR));
     }
 }
 
@@ -1523,12 +1539,16 @@ vnr_window_next (VnrWindow *win, gboolean rem_timeout){
 
     win->file_list = next;
 
-    gdk_window_set_cursor(GTK_WIDGET(win)->window, gdk_cursor_new(GDK_WATCH));
+    if(!win->cursor_is_hidden)
+        gdk_window_set_cursor(GTK_WIDGET(win)->window,
+                              gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
     gtk_main_iteration_do (FALSE);
 
     vnr_window_open(win, FALSE);
-    gdk_window_set_cursor(GTK_WIDGET(win)->window, gdk_cursor_new(GDK_LEFT_PTR));
+    if(!win->cursor_is_hidden)
+        gdk_window_set_cursor(GTK_WIDGET(win)->window,
+                              gdk_cursor_new(GDK_LEFT_PTR));
 
     if(win->mode == VNR_WINDOW_MODE_SLIDESHOW && rem_timeout)
         win->ss_source_tag = g_timeout_add_seconds (win->ss_timeout,
@@ -1558,12 +1578,16 @@ vnr_window_prev (VnrWindow *win){
 
     win->file_list = prev;
 
-    gdk_window_set_cursor(GTK_WIDGET(win)->window, gdk_cursor_new(GDK_WATCH));
+    if(!win->cursor_is_hidden)
+        gdk_window_set_cursor(GTK_WIDGET(win)->window,
+                              gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
     gtk_main_iteration_do (FALSE);
 
     vnr_window_open(win, FALSE);
-    gdk_window_set_cursor(GTK_WIDGET(win)->window, gdk_cursor_new(GDK_LEFT_PTR));
+    if(!win->cursor_is_hidden)
+        gdk_window_set_cursor(GTK_WIDGET(win)->window,
+                              gdk_cursor_new(GDK_LEFT_PTR));
 
     if(win->mode == VNR_WINDOW_MODE_SLIDESHOW)
         win->ss_source_tag = g_timeout_add_seconds (win->ss_timeout,
@@ -1586,12 +1610,16 @@ vnr_window_first (VnrWindow *win){
 
     win->file_list = prev;
 
-    gdk_window_set_cursor(GTK_WIDGET(win)->window, gdk_cursor_new(GDK_WATCH));
+    if(!win->cursor_is_hidden)
+        gdk_window_set_cursor(GTK_WIDGET(win)->window,
+                              gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
     gtk_main_iteration_do (FALSE);
 
     vnr_window_open(win, FALSE);
-    gdk_window_set_cursor(GTK_WIDGET(win)->window, gdk_cursor_new(GDK_LEFT_PTR));
+    if(!win->cursor_is_hidden)
+        gdk_window_set_cursor(GTK_WIDGET(win)->window,
+                              gdk_cursor_new(GDK_LEFT_PTR));
     return TRUE;
 }
 
@@ -1608,11 +1636,15 @@ vnr_window_last (VnrWindow *win){
 
     win->file_list = prev;
 
-    gdk_window_set_cursor(GTK_WIDGET(win)->window, gdk_cursor_new(GDK_WATCH));
+    if(!win->cursor_is_hidden)
+        gdk_window_set_cursor(GTK_WIDGET(win)->window,
+                              gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
     gtk_main_iteration_do (FALSE);
 
     vnr_window_open(win, FALSE);
-    gdk_window_set_cursor(GTK_WIDGET(win)->window, gdk_cursor_new(GDK_LEFT_PTR));
+    if(!win->cursor_is_hidden)
+        gdk_window_set_cursor(GTK_WIDGET(win)->window,
+                              gdk_cursor_new(GDK_LEFT_PTR));
     return TRUE;
 }
