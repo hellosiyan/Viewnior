@@ -31,6 +31,7 @@
 #include "uni-marshal.h"
 #include "uni-zoom.h"
 #include "uni-utils.h"
+#include "vnr-window.h"
 
 #define g_signal_handlers_disconnect_by_data(instance, data) \
     g_signal_handlers_disconnect_matched ((instance), G_SIGNAL_MATCH_DATA, \
@@ -540,7 +541,11 @@ uni_image_view_button_press (GtkWidget * widget, GdkEventButton * ev)
     UniImageView *view = UNI_IMAGE_VIEW (widget);
     if (ev->type == GDK_BUTTON_PRESS && ev->button == 1)
     {
-        return uni_dragger_button_press (UNI_DRAGGER(view->tool), ev);
+        if(view->vadj->upper > view->vadj->page_size ||
+           view->hadj->upper > view->hadj->page_size)
+            return uni_dragger_button_press (UNI_DRAGGER(view->tool), ev);
+        /* else
+         *     //drag out image */
     }
     else if (ev->type == GDK_2BUTTON_PRESS && ev->button == 1)
     {
@@ -551,6 +556,13 @@ uni_image_view_button_press (GtkWidget * widget, GdkEventButton * ev)
         else
             uni_image_view_set_fitting (view, UNI_FITTING_FULL);
         return 1;
+    }
+    else if(ev->type == GDK_BUTTON_PRESS && ev->button == 3)
+    {
+        gtk_menu_popup(GTK_MENU(VNR_WINDOW(gtk_widget_get_toplevel (widget))->popup_menu),
+                NULL, NULL, NULL, NULL, ev->button,
+                gtk_get_current_event_time());
+
     }
     return 0;
 }

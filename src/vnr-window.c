@@ -98,6 +98,21 @@ const gchar *ui_definition = "<ui>"
     "<toolitem action=\"ImageRotateCCW\"/>"
     "<toolitem action=\"ImageRotateCW\"/>"
   "</toolbar>"
+  "<popup name=\"PopupMenu\">"
+    "<menuitem name=\"GoPrevious\" action=\"GoPrevious\"/>"
+    "<menuitem name=\"GoNext\" action=\"GoNext\"/>"
+    "<separator/>"
+    "<menuitem action=\"ViewZoomIn\"/>"
+    "<menuitem action=\"ViewZoomOut\"/>"
+    "<menuitem action=\"ViewZoomNormal\"/>"
+    "<menuitem action=\"ViewZoomFit\"/>"
+#ifdef HAVE_WALLPAPER
+    "<separator/>"
+    "<menuitem action=\"SetAsWallpaper\"/>"
+#endif /* HAVE_WALLPAPER */
+    "<separator/>"
+    "<menuitem name=\"Fullscreen\" action=\"ViewFullscreen\"/>"
+  "</popup>"
   "<accelerator name=\"ControlEqualAccel\" action=\"ControlEqual\"/>"
   "<accelerator name=\"ControlKPAddAccel\" action=\"ControlKpAdd\"/>"
   "<accelerator name=\"ControlKPSubAccel\" action=\"ControlKpSub\"/>"
@@ -1331,6 +1346,9 @@ vnr_window_init (VnrWindow * window)
     gtk_toolbar_insert (GTK_TOOLBAR (window->toolbar),
                         GTK_TOOL_ITEM(get_fs_controls(window)), -1);
     gtk_box_pack_start (GTK_BOX (window->menus), window->toolbar, FALSE,FALSE,0);
+
+    window->popup_menu = gtk_ui_manager_get_widget (window->ui_mngr, "/PopupMenu");
+    g_assert(GTK_IS_WIDGET(window->popup_menu));
 
     gtk_ui_manager_ensure_update (window->ui_mngr);
     gtk_widget_show_all(window->menus);

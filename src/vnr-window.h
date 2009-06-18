@@ -61,6 +61,7 @@ struct _VnrWindow {
 
     GtkWidget *menu_bar;
     GtkWidget *toolbar;
+    GtkWidget *popup_menu;
 
     GtkWidget *msg_area;
 
