@@ -176,7 +176,7 @@ save_image_cb (GtkWidget *widget, VnrWindow *window)
     if(!window->cursor_is_hidden)
         gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
-    gtk_main_iteration_do (FALSE);
+    gdk_flush();
 
     vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
 
@@ -556,7 +556,7 @@ rotate_pixbuf(VnrWindow *window, GdkPixbufRotation angle)
         gdk_window_set_cursor(GTK_WIDGET(window)->window,
                               gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
-    gtk_main_iteration_do (FALSE);
+    gdk_flush();
 
     result = gdk_pixbuf_rotate_simple(UNI_IMAGE_VIEW(window->view)->pixbuf,
                                       angle);
@@ -612,7 +612,7 @@ flip_pixbuf(VnrWindow *window, gboolean horizontal)
         gdk_window_set_cursor (GTK_WIDGET(window)->window,
                                gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
-    gtk_main_iteration_do (FALSE);
+    gdk_flush();
 
     result = gdk_pixbuf_flip(UNI_IMAGE_VIEW(window->view)->pixbuf,
                              horizontal);
@@ -1099,7 +1099,7 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
                 if(!window->cursor_is_hidden)
                     gdk_window_set_cursor(GTK_WIDGET(dlg)->window,
                                           gdk_cursor_new(GDK_WATCH));
-                gtk_main_iteration_do (FALSE);
+                gdk_flush();
 
                 vnr_window_close(window);
                 vnr_window_open(window, FALSE);
@@ -1499,7 +1499,7 @@ vnr_window_open_from_list(VnrWindow *window, GSList *uri_list)
             gdk_window_set_cursor(GTK_WIDGET(window)->window,
                                   gdk_cursor_new(GDK_WATCH));
         /* This makes the cursor show NOW */
-        gtk_main_iteration_do (FALSE);
+        gdk_flush();
 
         vnr_window_close(window);
         vnr_window_open(window, FALSE);
@@ -1561,7 +1561,7 @@ vnr_window_next (VnrWindow *win, gboolean rem_timeout){
         gdk_window_set_cursor(GTK_WIDGET(win)->window,
                               gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
-    gtk_main_iteration_do (FALSE);
+    gdk_flush();
 
     vnr_window_open(win, FALSE);
     if(!win->cursor_is_hidden)
@@ -1600,7 +1600,7 @@ vnr_window_prev (VnrWindow *win){
         gdk_window_set_cursor(GTK_WIDGET(win)->window,
                               gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
-    gtk_main_iteration_do (FALSE);
+    gdk_flush();
 
     vnr_window_open(win, FALSE);
     if(!win->cursor_is_hidden)
@@ -1632,7 +1632,7 @@ vnr_window_first (VnrWindow *win){
         gdk_window_set_cursor(GTK_WIDGET(win)->window,
                               gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
-    gtk_main_iteration_do (FALSE);
+    gdk_flush();
 
     vnr_window_open(win, FALSE);
     if(!win->cursor_is_hidden)
@@ -1658,7 +1658,7 @@ vnr_window_last (VnrWindow *win){
         gdk_window_set_cursor(GTK_WIDGET(win)->window,
                               gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
-    gtk_main_iteration_do (FALSE);
+    gdk_flush();
 
     vnr_window_open(win, FALSE);
     if(!win->cursor_is_hidden)
