@@ -31,6 +31,8 @@
 #include "vnr-file.h"
 #include "vnr-tools.h"
 
+#define PIXMAP_DIR        PACKAGE_DATA_DIR"/viewnior/pixmaps/"
+
 static gchar **files = NULL;     //array of files specified to be opened
 static gboolean version = FALSE;
 
@@ -74,6 +76,8 @@ main (int argc, char *argv[])
         printf("%s\n", PACKAGE_STRING);
         return 0;
     }
+
+    gtk_icon_theme_append_search_path(gtk_icon_theme_get_default(), PIXMAP_DIR);
 
     win = vnr_window_new ();
     gtk_window_set_default_size (win, 480, 300);

@@ -11,6 +11,15 @@ desktopdir = $(datadir)/applications
 
 desktop_DATA = $(DESKTOP_FILES)
 
-EXTRA_DIST = $(DESKTOP_IN_FILES)
+PIXMAPS_FILES = \
+	pixmaps/object-rotate-right.png \
+	pixmaps/object-rotate-left.png \
+	pixmaps/object-flip-horizontal.png \
+	pixmaps/object-flip-vertical.png
+
+pixmaps_DATA = $(PIXMAPS_FILES)
+pixmapsdir = $(datadir)/viewnior/pixmaps
+
+EXTRA_DIST = $(DESKTOP_IN_FILES) $(pixmaps_DATA)
 
 CLEANFILES = viewnior.desktop.in viewnior.desktop
