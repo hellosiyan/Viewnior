@@ -38,6 +38,11 @@ License
 This program is released under the terms of the GNU General Public
 License.  Please see the file COPYING for details.
 
+object-rotate-left.png, object-rotate-right.png are taken from
+Elementary icon theme by ~DanRabbit.
+object-flip-horizontal.png, object-flip-vertical.png are taken from
+Gnome icon theme.
+
 Coding Style
 ------------
 
