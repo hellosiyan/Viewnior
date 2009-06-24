@@ -593,12 +593,12 @@ rotate_pixbuf(VnrWindow *window, GdkPixbufRotation angle)
     if(window->format_name == NULL)
         vnr_message_area_show(VNR_MESSAGE_AREA(window->msg_area),
                               TRUE,
-                              "Image modifications cannot be saved.\nWriting in this format is not supported.",
+                              _("Image modifications cannot be saved.\nWriting in this format is not supported."),
                               FALSE);
     else
         vnr_message_area_show_with_button(VNR_MESSAGE_AREA(window->msg_area),
                                           FALSE,
-                                          "Save modifications?\nThis will overwrite the image and may reduce it's quality!",
+                                          _("Save modifications?\nThis will overwrite the image and may reduce it's quality!"),
                                           FALSE, GTK_STOCK_SAVE,
                                           G_CALLBACK(save_image_cb));
 }

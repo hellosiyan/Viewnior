@@ -5,3 +5,4 @@ data/viewnior.desktop.in.in
 src/main.c
 src/uni-scroll-win.c
 src/vnr-window.c
+src/vnr-file.c
