@@ -8,11 +8,13 @@ This is Viewnior, an image viewer program. Created to be simple, fast
 and elegant. It's minimalistic interface provides more screenspace for
 your images. Among its features are:
 
-* Opening only selected files and/or directories
-* Mouse and keyboard zooming
-* Scrolling and dragging
-* GIF animation support
-* FullScreen and SlideShow
+  * Fullscreen & Slideshow
+  * Rotate, flip, save, delete images
+  * Animation support   * Browse only selected images
+  * Navigation window
+  * Set image as wallpaper (only under GNOME, see INSTALL file)
+  * Simple interface
+
 
 Most of the Viewnior's sources handling image viewing are adopted from
 the GtkImageView library by Björn Lindqvist. The files were cleaned up
@@ -24,7 +26,7 @@ Requirements
 ------------
 
 This package requires the following modules to be installed: glib,
-GTK+, gio, gdk-pixbuf, gnome-icon-theme, shared-mime-info.
+GTK+, gio, gnome-icon-theme, shared-mime-info.
 Optional: for SetAsWallpaper - gconf.
 
 You can get these packages from your favourite GNOME FTP mirror or at
@@ -43,13 +45,4 @@ Elementary icon theme by ~DanRabbit.
 object-flip-horizontal.png, object-flip-vertical.png are taken from
 Gnome icon theme.
 
-Coding Style
-------------
-
-(Outdated)
-The coding style is kept consistent in all files, using
-GNU Indent Program with the following arguments:
--nut -i4 -bli0 -cli0 -brs
-
-
-Last Edited - 19 May 2009
+Last Edited - 26 June 2009

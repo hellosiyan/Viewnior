@@ -1,11 +1,22 @@
+Viewnior 0.5
+------------
+
+New features included:
+ - Rotate and flip images
+ - Autohide toolbar and cursor in fullscreen mode
+ - Popup (right-click) menu
+
+Fixed:
+ - "Fit to window" really works (scales above than 1:1)
+
 Viewnior 0.4
 ------------
 
 New features included:
  - Drag'n'Drop
- - SetAsWallpaper 
+ - SetAsWallpaper
    (optional / only for Gnome)
- - Add "Open Image" and "Open Folder" 
+ - Add "Open Image" and "Open Folder"
    to the File menu
  - Add "Delete" to the File menu
  - Fullscreen and Slideshow
