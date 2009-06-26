@@ -1,4 +1,4 @@
-# Spanish translation for viewnior
+# Russian translation for viewnior
 # Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the viewnior package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
@@ -8,31 +8,32 @@ msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-06-26 09:39+0300\n"
-"PO-Revision-Date: 2009-05-21 16:01+0000\n"
-"Last-Translator: Xoan Sampaiño <xoansampainho@gmail.com>\n"
-"Language-Team: Spanish <es@li.org>\n"
+"PO-Revision-Date: 2009-06-10 10:06+0000\n"
+"Last-Translator: stroncium <yanis.benson@gmail.com>\n"
+"Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Launchpad-Export-Date: 2009-06-26 06:28+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:911
 msgid "Elegant Image Viewer"
-msgstr "Un visor de imágenes elegante"
+msgstr "Элегантная смотрелка картинок"
 
 #: ../data/viewnior.desktop.in.in.h:2
 msgid "Viewnior"
-msgstr ""
+msgstr "Viewnior"
 
 #: ../src/main.c:116 ../src/vnr-window.c:1092 ../src/vnr-window.c:1492
 msgid "The given locations contain no images."
-msgstr "Las ubicaciones especificadas no contienen imágenes."
+msgstr "Эта папка не содержит картинок."
 
 #: ../src/uni-scroll-win.c:222
 msgid "Open the navigator window"
-msgstr "Abrir la ventana del explorador"
+msgstr "Открыть окно навигации"
 
 #: ../src/vnr-window.c:234 ../src/vnr-window.c:356
 msgid " second"
@@ -42,7 +43,7 @@ msgstr[1] ""
 
 #: ../src/vnr-window.c:339
 msgid "Show next image after: "
-msgstr "Mostrar la siguiente imagen tras: "
+msgstr "Показать следующее изображение через "
 
 #: ../src/vnr-window.c:567 ../src/vnr-window.c:623
 msgid "Not enough virtual memory."
@@ -70,7 +71,7 @@ msgstr ""
 
 #: ../src/vnr-window.c:1036
 msgid "If you delete an item, it will be permanently lost."
-msgstr ""
+msgstr "Картинка будет удалена(совсем удалена)."
 
 #. I18N: The '%s' is replaced with the name of the file to be deleted.
 #: ../src/vnr-window.c:1039
@@ -79,19 +80,21 @@ msgid ""
 "Are you sure you want to\n"
 "permanently delete \"%s\"?"
 msgstr ""
+"Вы уверены, что хотите\n"
+"удалить \"%s\"?"
 
 #: ../src/vnr-window.c:1066
 #, c-format
 msgid "Error deleting image: %s"
-msgstr ""
+msgstr "Ошибка при удалении изображения: %s"
 
 #: ../src/vnr-window.c:1121
 msgid "_File"
-msgstr "_Archivo"
+msgstr "Файл"
 
 #: ../src/vnr-window.c:1122
 msgid "_View"
-msgstr "_Ver"
+msgstr "Отображение"
 
 #: ../src/vnr-window.c:1123
 msgid "_Image"
@@ -99,92 +102,92 @@ msgstr ""
 
 #: ../src/vnr-window.c:1124
 msgid "_Go"
-msgstr "_Ir"
+msgstr "Перейти"
 
 #: ../src/vnr-window.c:1125
 msgid "_Help"
-msgstr "Ay_uda"
+msgstr "Помощь"
 
 #: ../src/vnr-window.c:1127
 msgid "Open _Image..."
-msgstr "Abrir _imagen"
+msgstr "Открыть картинку..."
 
 #: ../src/vnr-window.c:1128
 msgid "Open an Image"
-msgstr "Abre una imagen"
+msgstr "Просто открыть картинку"
 
 #: ../src/vnr-window.c:1130
 msgid "Open _Folder..."
-msgstr "Abrir _directorio..."
+msgstr "Открыть папку..."
 
 #: ../src/vnr-window.c:1131
 msgid "Open a Folder"
-msgstr "Abre un directorio"
+msgstr "Просто открыть папку"
 
 #: ../src/vnr-window.c:1133
 msgid "_Close"
-msgstr "_Cerrar"
+msgstr "Закрыть"
 
 #: ../src/vnr-window.c:1134
 msgid "Close window"
-msgstr "Cierra la ventana de la aplicación"
+msgstr "Закрыть окно"
 
 #: ../src/vnr-window.c:1136
 msgid "_About"
-msgstr "Acerca _de"
+msgstr "Что это?"
 
 #: ../src/vnr-window.c:1137
 msgid "About this application"
-msgstr "Acerca de esta aplicación"
+msgstr "Описание программы"
 
 #: ../src/vnr-window.c:1143
 msgid "Set as _Wallpaper"
-msgstr "Establecer como fondo del _escritorio"
+msgstr "Поставить обои"
 
 #: ../src/vnr-window.c:1144
 msgid "Set the selected image as the desktop background"
-msgstr "Establece la imagen seleccionada como fondo del escritorio"
+msgstr "Установить текущую картинку как обои на рабочий стол"
 
 #: ../src/vnr-window.c:1147 ../src/vnr-window.c:1150
 msgid "_Delete"
-msgstr "_Eliminar"
+msgstr "Удалить"
 
 #: ../src/vnr-window.c:1148 ../src/vnr-window.c:1151
 msgid "Delete the current file"
-msgstr "Elimina la imagen seleccionada"
+msgstr "Удалить файл"
 
 #: ../src/vnr-window.c:1153 ../src/vnr-window.c:1168 ../src/vnr-window.c:1171
 msgid "_Zoom In"
-msgstr "_Ampliar"
+msgstr "Крупнее"
 
 #: ../src/vnr-window.c:1154
 msgid "Enlarge the image"
-msgstr "Aumenta la vista de la imagen"
+msgstr "Увеличить картинку"
 
 #: ../src/vnr-window.c:1156 ../src/vnr-window.c:1174
 msgid "Zoom _Out"
-msgstr "Re_ducir"
+msgstr "Мельче"
 
 #: ../src/vnr-window.c:1157 ../src/vnr-window.c:1169 ../src/vnr-window.c:1172
 #: ../src/vnr-window.c:1175
 msgid "Shrink the image"
-msgstr "Disminuye la vista de la imagen"
+msgstr "Уменьшить картинку"
 
 #: ../src/vnr-window.c:1159
 msgid "_Normal Size"
-msgstr "Tamaño _normal"
+msgstr "1 : 1"
 
 #: ../src/vnr-window.c:1160
 msgid "Show the image at its normal size"
-msgstr "Muestra la vista de la imagen con su tamaño original"
+msgstr "Показать картинкув  нормальном масштабе"
 
 #: ../src/vnr-window.c:1162
 msgid "Best _Fit"
-msgstr "Ajuste _óptimo"
+msgstr "Утрамбовать"
 
 #: ../src/vnr-window.c:1163
 msgid "Fit the image to the window"
-msgstr "Ajusta la vista de la imagen a la ventana"
+msgstr "Масштабировать картинку под размер окна"
 
 #: ../src/vnr-window.c:1165
 msgid "_Adjust window size"
@@ -228,43 +231,43 @@ msgstr ""
 
 #: ../src/vnr-window.c:1195
 msgid "Full _Screen"
-msgstr "Pantalla _completa"
+msgstr "Во весь экран"
 
 #: ../src/vnr-window.c:1196
 msgid "Show in fullscreen mode"
-msgstr "Muestra la imagen a pantall completa"
+msgstr "Перейти в полноэкранный режим"
 
 #: ../src/vnr-window.c:1201
 msgid "_Previous Image"
-msgstr "Imagen _anterior"
+msgstr "Предыдущая"
 
 #: ../src/vnr-window.c:1202
 msgid "Go to the previous image of the collection"
-msgstr "Ir a la imagen anterior de la colección"
+msgstr "К предыдущей картинке"
 
 #: ../src/vnr-window.c:1204
 msgid "_Next Image"
-msgstr "_Siguiente imagen"
+msgstr "Следующая"
 
 #: ../src/vnr-window.c:1205
 msgid "Go to the next image of the collection"
-msgstr "Ir a la siguiente imagen de la colección"
+msgstr "Перейти к следующей картинке"
 
 #: ../src/vnr-window.c:1207
 msgid "_First Image"
-msgstr "_Primera imagen"
+msgstr "Первая"
 
 #: ../src/vnr-window.c:1208
 msgid "Go to the first image of the collection"
-msgstr "Ir a la primera imagen de la colección"
+msgstr "Перейти к первой картинке"
 
 #: ../src/vnr-window.c:1210
 msgid "_Last Image"
-msgstr "_Última imagen"
+msgstr "Последняя"
 
 #: ../src/vnr-window.c:1211
 msgid "Go to the last image of the collection"
-msgstr "Ir a la última imagen de la colección"
+msgstr "Перейти к последней картинке"
 
 #: ../src/vnr-file.c:221
 #, c-format

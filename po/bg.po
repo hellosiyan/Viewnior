@@ -1,22 +1,24 @@
-# Bulgarian translation of viewnior po-file.
-# Copyright (C) 2009 Free Software Foundation, Inc.
-# Siyan Panayotov <xsisqox@gmail.com>, 2009.
-#
+# Bulgarian translation for viewnior
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the viewnior package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: viewnior trunk\n"
+"Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-20 15:13+0300\n"
-"PO-Revision-Date: 2009-05-02 23:17+0300\n"
+"POT-Creation-Date: 2009-06-26 09:39+0300\n"
+"PO-Revision-Date: 2009-06-24 18:27+0000\n"
 "Last-Translator: Siyan Panayotov <xsisqox@gmail.com>\n"
-"Language-Team: Siyan Panayotov <xsisqox@gmail.com>\n"
+"Language-Team: Bulgarian <bg@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2009-06-26 06:28+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
-#: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:546
+#: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:911
 msgid "Elegant Image Viewer"
 msgstr "Елегантна програма за разглеждане на картинки"
 
@@ -24,182 +26,257 @@ msgstr "Елегантна програма за разглеждане на к�
 msgid "Viewnior"
 msgstr "Viewnior"
 
-#: ../src/main.c:105 ../src/vnr-window.c:735 ../src/vnr-window.c:1074
+#: ../src/main.c:116 ../src/vnr-window.c:1092 ../src/vnr-window.c:1492
 msgid "The given locations contain no images."
-msgstr "Не са открити изображения"
+msgstr "Указаното местоположение не съдържа изображения."
 
-#: ../src/uni-scroll-win.c:290
+#: ../src/uni-scroll-win.c:222
 msgid "Open the navigator window"
 msgstr "Отваряне прозореца за навигация"
 
-#: ../src/vnr-window.c:138
+#: ../src/vnr-window.c:234 ../src/vnr-window.c:356
+msgid " second"
+msgid_plural " seconds"
+msgstr[0] " секунда"
+msgstr[1] " секунди"
+
+#: ../src/vnr-window.c:339
 msgid "Show next image after: "
 msgstr "Смяна на изображението след: "
 
-#: ../src/vnr-window.c:152
-msgid " seconds"
-msgstr " секунди"
+#: ../src/vnr-window.c:567 ../src/vnr-window.c:623
+msgid "Not enough virtual memory."
+msgstr "Оперативната памет е недостатъчна"
 
-#: ../src/vnr-window.c:678
+#: ../src/vnr-window.c:596
+msgid ""
+"Image modifications cannot be saved.\n"
+"Writing in this format is not supported."
+msgstr ""
+"Промените не могат да бъдат запазени.\n"
+"Записа в този файлов формат не се поддържа."
+
+#: ../src/vnr-window.c:601
+msgid ""
+"Save modifications?\n"
+"This will overwrite the image and may reduce it's quality!"
+msgstr ""
+"Запазване на промените?\n"
+"Това ще замени изображението и може да намали качеството му!"
+
+#: ../src/vnr-window.c:827
+msgid "Open Image"
+msgstr "Отваряне на изображение"
+
+#: ../src/vnr-window.c:855
+msgid "Open Folder"
+msgstr "Отваряне на папка"
+
+#: ../src/vnr-window.c:1036
 msgid "If you delete an item, it will be permanently lost."
-msgstr "Ако изтриете файл, той се загубва завинаги."
+msgstr "Ако изтриете обект, той изчезва окончателно."
 
 #. I18N: The '%s' is replaced with the name of the file to be deleted.
-#: ../src/vnr-window.c:681
+#: ../src/vnr-window.c:1039
 #, c-format
 msgid ""
 "Are you sure you want to\n"
 "permanently delete \"%s\"?"
 msgstr ""
-"Сигурни ли сте, че искате да\n"
-"изтриете окончателно \"%s\"?"
+"Сигурни ли сте, че искате\n"
+"окончателно да изтриете \"%s\"?"
 
-#: ../src/vnr-window.c:708
+#: ../src/vnr-window.c:1066
 #, c-format
 msgid "Error deleting image: %s"
-msgstr "Грешка при изтриване: %s"
+msgstr "Грешка при изтриването: %s"
 
-#: ../src/vnr-window.c:766
+#: ../src/vnr-window.c:1121
 msgid "_File"
-msgstr "Файл"
+msgstr "_Файл"
 
-#: ../src/vnr-window.c:767
+#: ../src/vnr-window.c:1122
 msgid "_View"
-msgstr "Изглед"
+msgstr "Пре_глед"
 
-#: ../src/vnr-window.c:768
+#: ../src/vnr-window.c:1123
+msgid "_Image"
+msgstr "_Изображение"
+
+#: ../src/vnr-window.c:1124
 msgid "_Go"
-msgstr "Начало"
+msgstr "О_тиване"
 
-#: ../src/vnr-window.c:769
+#: ../src/vnr-window.c:1125
 msgid "_Help"
-msgstr "Помощ"
+msgstr "_Помощ"
 
-#: ../src/vnr-window.c:771
+#: ../src/vnr-window.c:1127
 msgid "Open _Image..."
-msgstr "Отваряне на изображение"
+msgstr "Отваряне на изображение..."
 
-#: ../src/vnr-window.c:772
+#: ../src/vnr-window.c:1128
 msgid "Open an Image"
 msgstr "Отваряне на изображение"
 
-#: ../src/vnr-window.c:774
+#: ../src/vnr-window.c:1130
 msgid "Open _Folder..."
-msgstr "Отваряне на папка"
+msgstr "Отваряне на папка..."
 
-#: ../src/vnr-window.c:775
+#: ../src/vnr-window.c:1131
 msgid "Open a Folder"
 msgstr "Отваряне на папка"
 
-#: ../src/vnr-window.c:777
+#: ../src/vnr-window.c:1133
 msgid "_Close"
 msgstr "Затваряне"
 
-#: ../src/vnr-window.c:778
+#: ../src/vnr-window.c:1134
 msgid "Close window"
 msgstr "Затваряне на прозореца"
 
-#: ../src/vnr-window.c:780
+#: ../src/vnr-window.c:1136
 msgid "_About"
 msgstr "Относно"
 
-#: ../src/vnr-window.c:781
+#: ../src/vnr-window.c:1137
 msgid "About this application"
-msgstr "Относно това приложение"
+msgstr "Относно програмата"
 
-#: ../src/vnr-window.c:787
+#: ../src/vnr-window.c:1143
 msgid "Set as _Wallpaper"
 msgstr "Задаване като фон"
 
-#: ../src/vnr-window.c:788
+#: ../src/vnr-window.c:1144
 msgid "Set the selected image as the desktop background"
 msgstr "Задаване на изображението като фон"
 
-#: ../src/vnr-window.c:791 ../src/vnr-window.c:794
+#: ../src/vnr-window.c:1147 ../src/vnr-window.c:1150
 msgid "_Delete"
 msgstr "Изтриване"
 
-#: ../src/vnr-window.c:792 ../src/vnr-window.c:795
+#: ../src/vnr-window.c:1148 ../src/vnr-window.c:1151
 msgid "Delete the current file"
 msgstr "Изтриване на текущия файл"
 
-#: ../src/vnr-window.c:797 ../src/vnr-window.c:812 ../src/vnr-window.c:815
+#: ../src/vnr-window.c:1153 ../src/vnr-window.c:1168 ../src/vnr-window.c:1171
 msgid "_Zoom In"
 msgstr "Увеличаване"
 
-#: ../src/vnr-window.c:798
+#: ../src/vnr-window.c:1154
 msgid "Enlarge the image"
 msgstr "Увеличаване на изображението"
 
-#: ../src/vnr-window.c:800 ../src/vnr-window.c:818
+#: ../src/vnr-window.c:1156 ../src/vnr-window.c:1174
 msgid "Zoom _Out"
 msgstr "Намаляване"
 
-#: ../src/vnr-window.c:801 ../src/vnr-window.c:813 ../src/vnr-window.c:816
-#: ../src/vnr-window.c:819
+#: ../src/vnr-window.c:1157 ../src/vnr-window.c:1169 ../src/vnr-window.c:1172
+#: ../src/vnr-window.c:1175
 msgid "Shrink the image"
 msgstr "Смаляване на изображението"
 
-#: ../src/vnr-window.c:803
+#: ../src/vnr-window.c:1159
 msgid "_Normal Size"
 msgstr "Нормален размер"
 
-#: ../src/vnr-window.c:804
+#: ../src/vnr-window.c:1160
 msgid "Show the image at its normal size"
 msgstr "Показване на изображението в нормалния му размер"
 
-#: ../src/vnr-window.c:806
+#: ../src/vnr-window.c:1162
 msgid "Best _Fit"
 msgstr "Най-добро изпълване"
 
-#: ../src/vnr-window.c:807
+#: ../src/vnr-window.c:1163
 msgid "Fit the image to the window"
 msgstr "Вместване на изображението съобразно прозореца"
 
-#: ../src/vnr-window.c:809
+#: ../src/vnr-window.c:1165
 msgid "_Adjust window size"
 msgstr "Преоразмеряване на прозореца"
 
-#: ../src/vnr-window.c:810
+#: ../src/vnr-window.c:1166
 msgid "Adjust window size to fit the image"
 msgstr "Оразмеряване на прозореца спрямо изображението"
 
-#: ../src/vnr-window.c:824
+#: ../src/vnr-window.c:1180
+msgid "Rotate _Clockwise"
+msgstr "Завъртане надясно"
+
+#: ../src/vnr-window.c:1181
+msgid "Rotate image clockwise"
+msgstr "Завъртане изображението надясно"
+
+#: ../src/vnr-window.c:1183
+msgid "Rotate _Anti-clockwise"
+msgstr "Завъртане наляво"
+
+#: ../src/vnr-window.c:1184
+msgid "Rotate image anti-clockwise"
+msgstr "Завъртане изображението наляво"
+
+#: ../src/vnr-window.c:1186
+msgid "Flip _Vertical"
+msgstr "Обръщане по вертикал"
+
+#: ../src/vnr-window.c:1187
+msgid "Flip image vertically"
+msgstr "Вертикално обръщане"
+
+#: ../src/vnr-window.c:1189
+msgid "Flip _Horizontal"
+msgstr "Обръщане по хоризонтал"
+
+#: ../src/vnr-window.c:1190
+msgid "Flip image horizontally"
+msgstr "Хоризонтално обръщане"
+
+#: ../src/vnr-window.c:1195
 msgid "Full _Screen"
 msgstr "Цял Екран"
 
-#: ../src/vnr-window.c:825
+#: ../src/vnr-window.c:1196
 msgid "Show in fullscreen mode"
 msgstr "Показване на Цял Екран"
 
-#: ../src/vnr-window.c:830
+#: ../src/vnr-window.c:1201
 msgid "_Previous Image"
 msgstr "Предишно изображение"
 
-#: ../src/vnr-window.c:831
+#: ../src/vnr-window.c:1202
 msgid "Go to the previous image of the collection"
 msgstr "Отиване на предишното изображение от колекцията"
 
-#: ../src/vnr-window.c:833
+#: ../src/vnr-window.c:1204
 msgid "_Next Image"
 msgstr "Следващо изображение"
 
-#: ../src/vnr-window.c:834
+#: ../src/vnr-window.c:1205
 msgid "Go to the next image of the collection"
 msgstr "Отиване на следващото изображение от колекцията"
 
-#: ../src/vnr-window.c:836
+#: ../src/vnr-window.c:1207
 msgid "_First Image"
 msgstr "Първо изображение"
 
-#: ../src/vnr-window.c:837
+#: ../src/vnr-window.c:1208
 msgid "Go to the first image of the collection"
 msgstr "Отиване на първото изображение от колекцията"
 
-#: ../src/vnr-window.c:839
+#: ../src/vnr-window.c:1210
 msgid "_Last Image"
 msgstr "Последно изображение"
 
-#: ../src/vnr-window.c:840
+#: ../src/vnr-window.c:1211
 msgid "Go to the last image of the collection"
 msgstr "Отиване на последното изображение от колекцията"
+
+#: ../src/vnr-file.c:221
+#, c-format
+msgid ""
+"Couldn't recognise the image file\n"
+"format for file '%s'"
+msgstr ""
+"Непознат файлов формат \n"
+"'%s'"

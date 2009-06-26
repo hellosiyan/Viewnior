@@ -1,4 +1,4 @@
-# Spanish translation for viewnior
+# Greek translation for viewnior
 # Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the viewnior package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-06-26 09:39+0300\n"
-"PO-Revision-Date: 2009-05-21 16:01+0000\n"
-"Last-Translator: Xoan Sampaiño <xoansampainho@gmail.com>\n"
-"Language-Team: Spanish <es@li.org>\n"
+"PO-Revision-Date: 2009-05-22 01:27+0000\n"
+"Last-Translator: Γεώργιος Γεωργάς <Unknown>\n"
+"Language-Team: Greek <el@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,19 +20,19 @@ msgstr ""
 
 #: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:911
 msgid "Elegant Image Viewer"
-msgstr "Un visor de imágenes elegante"
+msgstr "Καλαίσθητος Προβολέας Εικόνων"
 
 #: ../data/viewnior.desktop.in.in.h:2
 msgid "Viewnior"
-msgstr ""
+msgstr "Viewnior"
 
 #: ../src/main.c:116 ../src/vnr-window.c:1092 ../src/vnr-window.c:1492
 msgid "The given locations contain no images."
-msgstr "Las ubicaciones especificadas no contienen imágenes."
+msgstr "Οι εισαγόμενες τοποθεσίες δεν περιέχουν εικόνες"
 
 #: ../src/uni-scroll-win.c:222
 msgid "Open the navigator window"
-msgstr "Abrir la ventana del explorador"
+msgstr "Άνοιγμα του παραθύρου πλοήγησης"
 
 #: ../src/vnr-window.c:234 ../src/vnr-window.c:356
 msgid " second"
@@ -42,7 +42,7 @@ msgstr[1] ""
 
 #: ../src/vnr-window.c:339
 msgid "Show next image after: "
-msgstr "Mostrar la siguiente imagen tras: "
+msgstr "Προβολή επομένης φωτογραφίας μετά από: "
 
 #: ../src/vnr-window.c:567 ../src/vnr-window.c:623
 msgid "Not enough virtual memory."
@@ -70,7 +70,7 @@ msgstr ""
 
 #: ../src/vnr-window.c:1036
 msgid "If you delete an item, it will be permanently lost."
-msgstr ""
+msgstr "Αν διαγράψετε ένα αντικείμενο θα χαθεί μόνιμα"
 
 #. I18N: The '%s' is replaced with the name of the file to be deleted.
 #: ../src/vnr-window.c:1039
@@ -79,19 +79,21 @@ msgid ""
 "Are you sure you want to\n"
 "permanently delete \"%s\"?"
 msgstr ""
+"Είστε σίγουρος ότι θέλετε\n"
+"να διαγράψετε μόνιμα το \"%s\";"
 
 #: ../src/vnr-window.c:1066
 #, c-format
 msgid "Error deleting image: %s"
-msgstr ""
+msgstr "Σφάλμα κατά τη διαγραφή της εικόνας: %s"
 
 #: ../src/vnr-window.c:1121
 msgid "_File"
-msgstr "_Archivo"
+msgstr "Αρχείο"
 
 #: ../src/vnr-window.c:1122
 msgid "_View"
-msgstr "_Ver"
+msgstr "Προβολή"
 
 #: ../src/vnr-window.c:1123
 msgid "_Image"
@@ -99,92 +101,92 @@ msgstr ""
 
 #: ../src/vnr-window.c:1124
 msgid "_Go"
-msgstr "_Ir"
+msgstr "Μεταφορά"
 
 #: ../src/vnr-window.c:1125
 msgid "_Help"
-msgstr "Ay_uda"
+msgstr "Βοήθεια"
 
 #: ../src/vnr-window.c:1127
 msgid "Open _Image..."
-msgstr "Abrir _imagen"
+msgstr "Άνοιγμα Εικόνας..."
 
 #: ../src/vnr-window.c:1128
 msgid "Open an Image"
-msgstr "Abre una imagen"
+msgstr "Ανοίξτε μία Εικόνα"
 
 #: ../src/vnr-window.c:1130
 msgid "Open _Folder..."
-msgstr "Abrir _directorio..."
+msgstr "Άνοιγμα Φακέλου"
 
 #: ../src/vnr-window.c:1131
 msgid "Open a Folder"
-msgstr "Abre un directorio"
+msgstr "Ανοίξτε ένα Φάκελο"
 
 #: ../src/vnr-window.c:1133
 msgid "_Close"
-msgstr "_Cerrar"
+msgstr "Κλείσιμο"
 
 #: ../src/vnr-window.c:1134
 msgid "Close window"
-msgstr "Cierra la ventana de la aplicación"
+msgstr "Κλείσιμο Παραθύρου"
 
 #: ../src/vnr-window.c:1136
 msgid "_About"
-msgstr "Acerca _de"
+msgstr "Περί"
 
 #: ../src/vnr-window.c:1137
 msgid "About this application"
-msgstr "Acerca de esta aplicación"
+msgstr "Πληροφορίες Εφαρμογής"
 
 #: ../src/vnr-window.c:1143
 msgid "Set as _Wallpaper"
-msgstr "Establecer como fondo del _escritorio"
+msgstr "Τοποθέτηση ως Παρασκήνιο Επιφάνειας Εργασίας"
 
 #: ../src/vnr-window.c:1144
 msgid "Set the selected image as the desktop background"
-msgstr "Establece la imagen seleccionada como fondo del escritorio"
+msgstr "Τοποθέτηση της επιλεγμένης εικόνας ως Παρασκήνιο Επιφάνειας Εργασίας"
 
 #: ../src/vnr-window.c:1147 ../src/vnr-window.c:1150
 msgid "_Delete"
-msgstr "_Eliminar"
+msgstr "Διαγραφή"
 
 #: ../src/vnr-window.c:1148 ../src/vnr-window.c:1151
 msgid "Delete the current file"
-msgstr "Elimina la imagen seleccionada"
+msgstr "Διαγραφή παρόντος αρχείου"
 
 #: ../src/vnr-window.c:1153 ../src/vnr-window.c:1168 ../src/vnr-window.c:1171
 msgid "_Zoom In"
-msgstr "_Ampliar"
+msgstr "Εστίαση"
 
 #: ../src/vnr-window.c:1154
 msgid "Enlarge the image"
-msgstr "Aumenta la vista de la imagen"
+msgstr "Μεγέθυνση Εικόνας"
 
 #: ../src/vnr-window.c:1156 ../src/vnr-window.c:1174
 msgid "Zoom _Out"
-msgstr "Re_ducir"
+msgstr "Σμίκρυνση"
 
 #: ../src/vnr-window.c:1157 ../src/vnr-window.c:1169 ../src/vnr-window.c:1172
 #: ../src/vnr-window.c:1175
 msgid "Shrink the image"
-msgstr "Disminuye la vista de la imagen"
+msgstr "Συρρίκνωση Εικόνας"
 
 #: ../src/vnr-window.c:1159
 msgid "_Normal Size"
-msgstr "Tamaño _normal"
+msgstr "Κανονικό Μέγεθος"
 
 #: ../src/vnr-window.c:1160
 msgid "Show the image at its normal size"
-msgstr "Muestra la vista de la imagen con su tamaño original"
+msgstr "Προβολή κανονικού μεγέθους εικόνας"
 
 #: ../src/vnr-window.c:1162
 msgid "Best _Fit"
-msgstr "Ajuste _óptimo"
+msgstr "Καλύτερο Ταίριασμα"
 
 #: ../src/vnr-window.c:1163
 msgid "Fit the image to the window"
-msgstr "Ajusta la vista de la imagen a la ventana"
+msgstr "Ταίριασμα στο Παράθυρο"
 
 #: ../src/vnr-window.c:1165
 msgid "_Adjust window size"
@@ -228,43 +230,43 @@ msgstr ""
 
 #: ../src/vnr-window.c:1195
 msgid "Full _Screen"
-msgstr "Pantalla _completa"
+msgstr "Πλήρης Οθόνη"
 
 #: ../src/vnr-window.c:1196
 msgid "Show in fullscreen mode"
-msgstr "Muestra la imagen a pantall completa"
+msgstr "Προβολή σε κατάσταση πλήρους οθόνης"
 
 #: ../src/vnr-window.c:1201
 msgid "_Previous Image"
-msgstr "Imagen _anterior"
+msgstr "Προηγούμενη Εικόνα"
 
 #: ../src/vnr-window.c:1202
 msgid "Go to the previous image of the collection"
-msgstr "Ir a la imagen anterior de la colección"
+msgstr "Μεταφορά στην προηγούμενη εικόνα της συλλογής"
 
 #: ../src/vnr-window.c:1204
 msgid "_Next Image"
-msgstr "_Siguiente imagen"
+msgstr "Επόμενη εικόνα"
 
 #: ../src/vnr-window.c:1205
 msgid "Go to the next image of the collection"
-msgstr "Ir a la siguiente imagen de la colección"
+msgstr "Μεταφορά στην επόμενη εικόνα της συλλογής"
 
 #: ../src/vnr-window.c:1207
 msgid "_First Image"
-msgstr "_Primera imagen"
+msgstr "Αρχική Εικόνα"
 
 #: ../src/vnr-window.c:1208
 msgid "Go to the first image of the collection"
-msgstr "Ir a la primera imagen de la colección"
+msgstr "Μεταφορά στην αρχική εικόνα της συλλογής"
 
 #: ../src/vnr-window.c:1210
 msgid "_Last Image"
-msgstr "_Última imagen"
+msgstr "Τελευταία Εικόνα"
 
 #: ../src/vnr-window.c:1211
 msgid "Go to the last image of the collection"
-msgstr "Ir a la última imagen de la colección"
+msgstr "Μεταφορά στην τελευταία εικόνα της συλλογής"
 
 #: ../src/vnr-file.c:221
 #, c-format
