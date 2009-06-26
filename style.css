@@ -3,100 +3,85 @@ margin:0px;
 padding:0px;
 }
 
-body{
-cursor:default;
-text-align:center;
-text-indent:10px;
-background-color:#EFEFEF;
-font-size:17px;
-font-weight:normal;
-font-family:"Times New Roman", Times, serif;
-background-image:url('vnr_logo_back.png');
-background-position:top left;
-background-repeat:repeat-x;
-background-attachment:scroll;
-}
-
-h2{
-font-size:20px;
-font-weight:bold;
-font-style:normal;
-}
-
-h4{
-font-size:26px;
-font-weight:bold;
-font-style:normal;
-}
-
-h6{
-font-size:17px;
-font-weight:normal;
-font-style:normal;
-text-decoration:underline;
-}
-
 a{
 font-family:inherit;
 text-decoration:none;
-color:white;
 }
 
-ul{
-list-style-image:url('bullet.png');
-margin-top:10px;
-margin-left:40px;
+body{
+cursor:default;
+text-align:center;
+color:white;
+background-color:#585858;
+font-size:14px;
+font-weight:normal;
+font-family:'lucida grande','myriad pro',sans-serif,verdana,'helvetica neue',helvetica,arial;
+}
+
+h2{
+font-size:inherit;
+font-weight:inherit;
+font-style:normal;
+}
+h4{
+font-size:inherit;
+font-weight:bold;
+font-style:normal;
+}
+
+h3{
+font-size:16px;
+font-weight:bold;
+font-style:normal;
+padding:0px;
+margin:0px;
+}
+
+hr{
+visibility:hidden;
 }
 
 img{
-margin:5px;
+border:none;
+margin-top:5px;
+}
+
+ul{
+padding-left:20px;
 }
 
 #page{
-border-left:1px solid black;
-border-right:1px solid black;
+background-color:black;
+border-left:5px solid white;
+border-right:5px solid white;
+border-bottom:5px solid white;
 margin:0 auto;
 width:950px;
-padding-bottom:30px;
+margin-bottom:50px;
 }
+
 #header{
-height:215px;
-background-image:url('vnr_logo.png');
+height:150px;
+background-image:url('viewnior.png');
 background-position:top center;
 background-repeat:no-repeat;
 background-attachment:scroll;
 }
-
-#special{
-margin-left:0px;
-text-align:center;
-background-color:#B3D47F;
-padding:20px;
-color:black;
-}
-
-#special:hover{
-background-color:#BCDC88;
-color:#586F2E;
-}
-
 #logo{
 display:none;
-}
-#nav{
-background-color:#585858;
-font-size:18px;
-font-weight:bold;
 }
 
 #navigation{
 margin-left:0px;
 background-color:#585858;
 color:white;
-font-size:18px;
+font-size:16px;
 font-weight:bold;
+padding:5px;
 }
-
+#navigation a{
+color:white;
+}
 #navigation li{
 display:inline;
 padding:5px;
@@ -104,54 +89,125 @@ padding:5px;
 #navigation li a{
 padding:5px;
 }
-
 #navigation li a:hover{
 background-color:#e13f3f;
 }
 
-.scrshot{
-float:right;
-}
-
-.scrshot_a{
-float:right;
-margin-right:20px;
-}
-
-#contacts, #downloads{
-text-indent:0px;
-}
-
-.section{
-margin-top:10px;
-margin-left:20px;
+#footer{
 text-align:left;
+padding-left:150px;
+padding-top:20px;
+padding-bottom:20px;
+background-image:url('bite.png');
+background-position:bottom left;
+background-repeat:no-repeat;
+background-attachment:scroll;
 }
 
-.section a{
-color:#585858;
-border-bottom:1px dashed red;
+#content{
+border-top:2px solid #e13f3f;
+border-bottom:2px solid #e13f3f;
+text-align:left;
+color:black;
+background-color:#EDEDED;
+padding-top:20px;
+padding-bottom:20px;
+padding-left:30px;
 }
-
-.release{
-border-bottom:1px solid black;
-margin-right:20px;
-}
-
-.section p{
-margin-left:20px;
+#content p{
 margin-top:10px;
 margin-bottom:10px;
 }
-
-.clean{
-clear:both;
-border-bottom:1px solid #BFBFBF;
+#content a{
+color:black;
+border-bottom:1px solid black;
+}
+#content a:hover{
+color:#e13f3f;
+border-bottom:none;
 }
 
-.bold{
+#sidebar{
+float:right;
+width:200px;
+color:white;
 font-weight:bold;
+padding-top:40px;
 }
-.large{
-font-size:19px;
+#sidebar a{
+color:white;
+border-bottom:none;
+border-bottom:1px solid white;
+}
+#sidebar a:hover{
+color:white;
+border-bottom:none;
+}
+.sidebar_post_content{
+margin-left:20px;
+}
+.sidebar_post{
+padding-top:10px;
+padding-bottom:10px;
+padding-left:10px;
+}
+
+#faqs a{
+border:none;
+}
+
+.bitten{
+background-color:#e13f3f;
+background-image:url('bite_red.png');
+background-position:top left;
+background-repeat:no-repeat;
+background-attachment:scroll;
+}
+
+.post{
+padding-left:10px;
+padding-right:10px;
+margin-bottom:10px;
+}
+.post h3{
+padding-left:25px;
+background-image:url('vnrbullet16x16.png');
+background-position:top left;
+background-repeat:no-repeat;
+background-attachment:scroll;
+}
+.date{
+color:#4F4F4F;
+font-size:13px;
+}
+
+.screenshot{
+width:180px;
+}
+.screenshot2{
+height:210px;
+}
+
+.clear{
+clear:both;
+}
+
+#latest_download{
+padding-left:50px;
+padding-top:20px;
+padding-bottom:20px;
+color:white;
+}
+#latest_download a{
+color:white;
+border-bottom:none;
+border-bottom:1px solid white;
+}
+#latest_download h3{
+background:none;
+padding:0px;
+}
+#latest_download a:hover{
+color:white;
+border-bottom:none;
 }

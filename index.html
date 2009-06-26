@@ -18,128 +18,102 @@
 <div id ="page">
 
 <div id="header"><span id="logo"><h1>Viewnior - The Elegant Image Viewer</h1></span></div>
+
 <ul id="navigation">
-<li><a href="#about">About</a></li>
-<li><a href="#faq">FAQ</a></li>
-<li><a href="#todo">To Do</a></li>
-<li><a href="#downloads">Downloads</a></li>
-<li><a href="#contacts">Contacts</a></li>
+<li><a href="index.html">Home</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="faq.html">FAQ</a></li>
+<li><a href="download.html">Download</a></li>
+<li><a href="feedback.html">Feedback</a></li>
 </ul>
 
-<a href="new.html">
-<div id="special" class="section">
-<h4>Cool new things you didn't knew about Viewnior 0.4</h4>
+<div id="content">
+<div id="sidebar" class="bitten">
+<div class="sidebar_post">
+Download
+<div class="sidebar_post_content"><span class="date">26 June 2009</span>
+<br/><a href="#">Viewnior 0.5</a></div>
 </div>
+<div class="sidebar_post">
+Screenshots
+<a onclick="window.open(this.href); return false;" href="vnr_normal_mode.png">
+<img src="vnr_normal_mode.png" alt="Screenshot of Viewnior in use" class="screenshot"/>
 </a>
-
-<div id="about" class="section">
-<img src="vnr.png" alt="Screenshot of Viewnior in use" class="scrshot"/>
-<h2>About</h2>
-<p>This is Viewnior, an image viewer program. Developed by <a href="#contacts">Siyan Panayotov</a>. Created to be simple, fast
-and elegant. It's minimalistic interface provides more screenspace for
-your images. Among its features are:</p>
-<ul>
-<li>Opening only selected files and/or directories</li>
-<li>Mouse and keyboard zooming</li>
-<li>Scrolling and dragging</li>
-<li>GIF Animation support</li>
-<li><a href="#faq7">Easy zoom</a></li>
-<li>Fullscreen &amp; Slideshow</li>
-</ul>
-<p>Viewnior is insipred by big projects like <a onclick="window.open(this.href); return false;" href="http://projects.gnome.org/eog/">Eye of Gnome</a>, because of it's usability and richness,
-and by <a onclick="window.open(this.href); return false;" href="http://lxde.sourceforge.net/gpicview/">GPicView</a>, because of it's lightweight design and minimal interface. So here comes
-Viewnior - small and light, with no compromise with the quality of it's functions.
-The program is made with better integration in mind (follows <a onclick="window.open(this.href); return false;" href="http://library.gnome.org/devel/hig-book/stable/">Gnome HIG2</a>)</p>
-<p>Viewnior uses modified version of the <a onclick="window.open(this.href); return false;" href="http://trac.bjourne.webfactional.com/">GtkImageView</a>
-library by Bjourn Lindqvist. Without it, Viewnior would be nothing.</p>
-<p>You can always file a bug, make a blueprint or ask a question at
-<a onclick="window.open(this.href); return false;" href="http://launchpad.net/viewnior">Launchpad</a></p>
+<div class="sidebar_post_content">
+<a href="about.html#screenshots">See more &raquo;</a>
+</div>
+</div>
 </div>
 
-<div id="faq" class="section">
-<h2>FAQ</h2>
-<ul id="faqs">
-<li><a href="#faq1">What do i need to <span class="bold">compile Viewnior</span>?</a></li>
-<li><a href="#faq2">Is Viewnior available for <span class="bold">Windows/MacOSX</span>?</a></li>
-<li><a href="#faq3">How can I <span class="bold">help</span>?</a></li>
-<li><a href="#faq4">I have an <span class="bold">idea/suggestion</span>. How can I share it with you?</a></li>
-<li><a href="#faq5">Is Viewnior suitable for <span class="bold">default image viewer</span>?</a></li>
-<li><a href="#faq6">How can I <span class="bold">translate Viewnior</span>?</a></li>
-<li><a href="#faq7">How can I zoom only using the mouse?</a></li>
-<li><a href="#faq7">What is that "<span class="bold">Set As Wallpaper</span> support" you are talking about?</a></li>
+<h2 class="post">Viewnior is a fast, easy and lightweight image viewer for GNU/Linux. <a href="about.html">Learn more &raquo;</a></h2>
+
+<div class="post">
+<h3>Viewnior 0.5 released</h3>
+<span class="date">26 June 2009</span><br/>
+New features:
+<ul>
+<li>Rotate and flip images</li>
+<li>Autohide toolbar and cursor in fullscreen mode</li>
+<li>Popup (right-click) menu</li>
 </ul>
-<p id="faq1"><h6>What do i need to compile Viewnior?</h6>Viewnior depends only on gtk+-2.0 (it contains everything needed).</p>
-<p id="faq2"><h6>Is Viewnior available for Windows/MacOSX?</h6>No, at this time, no. Viewnior is made with portabilty in mind and is tested only under GNU/Linux.
-I'd like it to be tested under BSD. If you'd like to test/compile it under other platforms, you are welcome. In case of succesful porting - tell me, we can come up with something.</p>
-<p id="faq3"><h6>How can I help?</h6>As on open-source software, Viewnior is nothing without You. So YES, you can help much - test, comment, tell everyone about us.
-Developers wishing to give a helping hand can <a href="#contacts">contact me.</a></p>
-<p id="faq4"><h6>I have an idea/suggestion. How can I share it with you?</h6>You can always file a bug, make a blueprint or ask a question at <a onclick="window.open(this.href); return false;" href="http://launchpad.net/viewnior">Launchpad</a></p>
-<p id="faq5"><h6>Is Viewnior suitable for default image viewer?</h6>Yes, it is. It has all the basic features for a everyday use. See <a href="#todo">To Do</a>.</p>
-<p id="faq6"><h6>How can I translate Viewnior?</h6>You can do it at <a onclick="window.open(this.href); return false;" href="http://launchpad.net/viewnior">Launchpad</a></p>
-<p id="faq7"><h6>How can I zoom only using the mouse?</h6>Use the scroll to zoom in/out. To toggle Best Fit/Normal Size just double click on the image! After some practice, this becomes Addictive!</p>
-<p id="faq8"><h6>What is that "Set As Wallpaper support" you are talking about?</h6>This is an optional feature. If enabled (at compile time), it puts
-an option in the File menu, which allows you to change your existing background image with the one, you are viewing. Note, that this feature is
-made to work only under Gnome! So, if you use Gnome, make sure to pass "--enable-wallpaper" argument to the configure script!</p>
+<br/>Fixes:
+<ul>
+<li>"Fit to window" really works (scales above than 1:1)</li>
+</ul>
 </div>
 
-<div id="todo" class="section">
-<h2>To Do</h2>
-<p>In the future, I would like to see Viewnior able to:</p>
-<ul>
-<li>Rotate images (ready for the next release!)</li>
-<li>Information about current image</li>
-<li>Folder monitoring (for added/modified/deleted images)</li>
-</ul>
-<p>If you can/want to help, first contact me, because I'm already working on some of this features. For more information, browse the <a onclick="window.open(this.href); return false;" href="http://github.com/xsisqox/Viewnior">git repo</a></p>
-<p>All things marked as "ready for the next release!" are available in the master branch in the <a onclick="window.open(this.href); return false;" href="http://github.com/xsisqox/Viewnior">git repo</a>.
-If you can't wait - just download the code from there!</p>
+<div class="post">
+<h3>Site redisign</h3>
+<span class="date">26 June 2009</span><br/>
+Cool, huh?
 </div>
 
-<div id="downloads" class="section">
-<h2>Downloads</h2>
-<p>Complete list of downloads: <a onclick="window.open(this.href); return false;" href="http://github.com/xsisqox/Viewnior/downloads">here</a></p>
-<p class="release">VIEWNIOR 0.4</p>
-<p>What's new?</p>
+<div class="post">
+<h3>Viewnior 0.4 released</h3>
+<span class="date">19 May 2009</span><br/>
+New features:
 <ul>
-<li>Fullscreen &amp; Slideshow</li>
 <li>Drag'n'Drop</li>
-<li>Set Image As Wallpaper (optional / only under Gnome)</li>
-<li>"Open Image" and "Open Folder" entries in the File menu</li>
-<li>"Delete Image" functionality</li>
+<li>Set Wallpaper (optional / only for Gnome)</li>
+<li>Fullscreen and Slideshow</li>
+<li>Add "Open Image" and "Open Folder" to the File menu</li>
+<li>Add "Delete" to the File menu</li>
 </ul>
-<p>Translations</p>
+<br/>Fixes:
 <ul>
-<li>Bulgarian</li>
-<li>Polish</li>
+<li>Multiple code fixes</li>
 </ul>
-<p>Download here: <a href="http://cloud.github.com/downloads/xsisqox/Viewnior/viewnior-0.4.tar.gz">viewnior-0.4.tar.gz</a></p>
-<p class="release">VIEWNIOR 0.3</p>
-<p>What's new?</p>
+</div>
+
+<div class="post">
+<h3>Viewnior 0.3 released</h3>
+<span class="date">17 May 2009</span><br/>
+New features:
 <ul>
-<li>Viewnior got translated! To add your language, see <a href="#faq6">here</a>.</li>
-<li>File navigation added!</li>
-<li>Better interface! New Menubar and Toolbar.</li>
+<li>Translations</li>
+<li>File Navigation</li>
+<li>UI - Add menu and toolbar</li>
 </ul>
-<p>Download here: <a href="http://cloud.github.com/downloads/xsisqox/Viewnior/viewnior-0.3.tar.gz">viewnior-0.3.tar.gz</a></p>
+<br/>Fixes:
+<ul>
+<li>Message area is now complete</li>
+<li>Improved small size icons</li>
+</ul>
 </div>
 
-<div id="contacts" class="section">
-<h2>Contacts</h2>
-<p>e-mail: <a href="mailto:xsisqox@gmail.com">xsisqox@gmail.com</a><br/>skype: xsisqox
-<br/>Bug tracking: <a onclick="window.open(this.href); return false;" href="http://launchpad.net/viewnior">Launchpad</a></p>
-</div>
-<br/><br/>
-<p>Design by Siyan Panayotov</p>
+<div class="post">
+<h3>Site launched</h3>
+<span class="date">17 May 2009</span><br/>
+Welcome to Viewnior's homepage.
 </div>
 
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-8883232-1");
-pageTracker._trackPageview();
-} catch(err) {}</script>
+<div class="clear"><hr/></div>
+</div>
 
+
+<div id="footer">
+<p>Designed by Siyan Panayotov</p>
+</div>
+
+</div>
 </body></html>
