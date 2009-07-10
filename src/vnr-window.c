@@ -25,9 +25,6 @@
 #include <glib/gstdio.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
-#ifdef HAVE_WALLPAPER
-#include <gconf/gconf-client.h>
-#endif /* HAVE_WALLPAPER */
 #include <errno.h>
 #include "vnr-window.h"
 #include "uni-scroll-win.h"
@@ -70,10 +67,6 @@ const gchar *ui_definition = "<ui>"
       "<separator/>"
       "<menuitem action=\"ImageRotateCW\"/>"
       "<menuitem action=\"ImageRotateCCW\"/>"
-#ifdef HAVE_WALLPAPER
-      "<separator/>"
-      "<menuitem action=\"SetAsWallpaper\"/>"
-#endif /* HAVE_WALLPAPER */
     "</menu>"
     "<menu action=\"Go\">"
       "<menuitem name=\"GoPrevious\" action=\"GoPrevious\"/>"
@@ -106,10 +99,6 @@ const gchar *ui_definition = "<ui>"
     "<menuitem action=\"ViewZoomOut\"/>"
     "<menuitem action=\"ViewZoomNormal\"/>"
     "<menuitem action=\"ViewZoomFit\"/>"
-#ifdef HAVE_WALLPAPER
-    "<separator/>"
-    "<menuitem action=\"SetAsWallpaper\"/>"
-#endif /* HAVE_WALLPAPER */
     "<separator/>"
     "<menuitem name=\"Fullscreen\" action=\"ViewFullscreen\"/>"
   "</popup>"
@@ -918,18 +907,6 @@ vnr_window_cmd_about (GtkAction *action, VnrWindow *window)
     g_free (license_trans);
 }
 
-#ifdef HAVE_WALLPAPER
-static void
-vnr_set_wallpaper(GtkAction *action, VnrWindow *win)
-{
-    gconf_client_set_string (win->client,
-                 "/desktop/gnome/background/picture_filename",
-                 VNR_FILE(win->file_list->data)->uri,
-                 NULL);
-
-}
-#endif /* HAVE_WALLPAPER */
-
 static void
 vnr_window_cmd_fullscreen (GtkAction *action, VnrWindow *window)
 {
@@ -1139,11 +1116,6 @@ static const GtkActionEntry action_entries_window[] = {
 };
 
 static const GtkActionEntry action_entries_image[] = {
-#ifdef HAVE_WALLPAPER
-    { "SetAsWallpaper", NULL, N_("Set as _Wallpaper"), "<control>F8",
-      N_("Set the selected image as the desktop background"),
-      G_CALLBACK (vnr_set_wallpaper) },
-#endif /* HAVE_WALLPAPER */
     { "FileDelete", GTK_STOCK_DELETE, N_("_Delete"), NULL,
       N_("Delete the current file"),
       G_CALLBACK (vnr_window_cmd_delete) },
@@ -1241,10 +1213,6 @@ vnr_window_init (VnrWindow * window)
     window->ss_timeout = 5;
     window->slideshow = TRUE;
     window->cursor_is_hidden = FALSE;
-
-#ifdef HAVE_WALLPAPER
-    window->client = gconf_client_get_default ();
-#endif /* HAVE_WALLPAPER */
 
     window->mode = VNR_WINDOW_MODE_NORMAL;
 
