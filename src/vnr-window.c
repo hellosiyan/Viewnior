@@ -395,7 +395,7 @@ vnr_window_fullscreen(VnrWindow *window)
     gtk_widget_modify_bg(window->view, GTK_STATE_NORMAL, &color);
 
     update_fs_label(window);
-    gtk_widget_show (get_fs_controls(window));
+    gtk_widget_hide_all (window->toolbar);
 
     stop_slideshow(window);
 
