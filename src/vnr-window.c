@@ -1014,17 +1014,15 @@ vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
                 vnr_window_unfullscreen(VNR_WINDOW (widget));
             break;
         case GDK_space:
-            if(VNR_WINDOW (widget)->mode == VNR_WINDOW_MODE_FULLSCREEN)
-            {
-                start_slideshow(VNR_WINDOW (widget));
-                result = TRUE;
-            }
-            else if(VNR_WINDOW (widget)->mode == VNR_WINDOW_MODE_SLIDESHOW)
-            {
-                stop_slideshow(VNR_WINDOW (widget));
-                result = TRUE;
-            }
-
+            if (GTK_CONTAINER(VNR_WINDOW (widget)->toolbar)->focus_child != NULL ||
+                GTK_CONTAINER(VNR_WINDOW (widget)->msg_area)->focus_child != NULL)
+                break;
+            vnr_window_next(VNR_WINDOW (widget), TRUE);
+            result = TRUE;
+            break;
+        case GDK_BackSpace:
+            vnr_window_prev(VNR_WINDOW (widget));
+            result = TRUE;
             break;
     }
 
