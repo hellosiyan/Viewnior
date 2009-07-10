@@ -59,6 +59,8 @@ const gchar *ui_definition = "<ui>"
       "<menuitem action=\"ViewZoomFit\"/>"
       "<separator/>"
       "<menuitem name=\"Fullscreen\" action=\"ViewFullscreen\"/>"
+      "<menuitem name=\"Slideshow\" action=\"ViewSlideshow\"/>"
+      "<separator/>"
       "<menuitem action=\"ViewResizeWindow\"/>"
     "</menu>"
     "<menu action=\"Image\">"
@@ -463,16 +465,21 @@ vnr_window_unfullscreen(VnrWindow *window)
 static void
 stop_slideshow(VnrWindow *window)
 {
-
     if(!window->slideshow)
         return;
 
-    window->slideshow = FALSE;
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(window->toggle_btn), FALSE);
-    window->slideshow = TRUE;
-
     if(window->mode != VNR_WINDOW_MODE_SLIDESHOW)
         return;
+
+    GtkAction *action;
+
+    action = gtk_action_group_get_action (window->actions_collection,
+                                          "ViewSlideshow");
+
+    window->slideshow = FALSE;
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(window->toggle_btn), FALSE);
+    gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), FALSE);
+    window->slideshow = TRUE;
 
     window->mode = VNR_WINDOW_MODE_FULLSCREEN;
 
@@ -494,8 +501,14 @@ start_slideshow(VnrWindow *window)
                                                    (GSourceFunc)next_image_src,
                                                    window);
 
+    GtkAction *action;
+
+    action = gtk_action_group_get_action (window->actions_collection,
+                                          "ViewSlideshow");
+
     window->slideshow = FALSE;
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(window->toggle_btn), TRUE);
+    gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), TRUE);
     window->slideshow = TRUE;
 }
 
@@ -920,6 +933,35 @@ vnr_window_cmd_fullscreen (GtkAction *action, VnrWindow *window)
         vnr_window_unfullscreen (window);
 }
 
+static void
+vnr_window_cmd_slideshow (GtkAction *action, VnrWindow *window)
+{
+    if(!window->slideshow)
+        return;
+
+    g_assert(window != NULL && VNR_IS_WINDOW(window));
+
+    gboolean slideshow;
+
+    slideshow = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
+
+    if (slideshow && window->mode != VNR_WINDOW_MODE_SLIDESHOW)
+    {
+        /* ! Uncomment to force Fullscreen along with Slideshow */
+        if(window->mode == VNR_WINDOW_MODE_NORMAL)
+        {
+            vnr_window_fullscreen (window);
+        }
+        start_slideshow(window);
+    }
+    else if(window->mode == VNR_WINDOW_MODE_SLIDESHOW)
+    {
+        /* ! Uncomment to force Fullscreen along with Slideshow */
+        vnr_window_unfullscreen (window);
+        stop_slideshow(window);
+    }
+}
+
 /* Modified version of eog's eog_window_key_press */
 static gint
 vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
@@ -1169,6 +1211,12 @@ static const GtkToggleActionEntry toggle_entries_image[] = {
       G_CALLBACK (vnr_window_cmd_fullscreen) },
 };
 
+static const GtkToggleActionEntry toggle_entries_collection[] = {
+    { "ViewSlideshow", GTK_STOCK_NETWORK, N_("Sli_deshow"), "F5",
+      N_("Show in slideshow mode"),
+      G_CALLBACK (vnr_window_cmd_slideshow) },
+};
+
 static const GtkActionEntry action_entries_collection[] = {
     { "GoPrevious", GTK_STOCK_GO_BACK, N_("_Previous Image"), "<Alt>Left",
       N_("Go to the previous image of the collection"),
@@ -1280,6 +1328,10 @@ vnr_window_init (VnrWindow * window)
                                   action_entries_collection,
                                   G_N_ELEMENTS (action_entries_collection),
                                   window);
+    gtk_action_group_add_toggle_actions (window->actions_collection,
+                                         toggle_entries_collection,
+                                         G_N_ELEMENTS (toggle_entries_collection),
+                                         window);
 
     gtk_ui_manager_insert_action_group (window->ui_mngr,
                                         window->actions_collection, 0);
