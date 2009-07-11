@@ -96,11 +96,14 @@ vnr_tools_parse_uri_string_list_to_file_list (const gchar *uri_list)
     GSList* file_list = NULL;
     gsize i = 0;
     gchar **uris;
+    gchar* current_path;
 
     uris = g_uri_list_extract_uris (uri_list);
 
     while (uris[i] != NULL) {
-        file_list = g_slist_append (file_list,g_file_get_path (g_file_new_for_uri(uris[i])));
+        current_path = g_file_get_path (g_file_new_for_uri(uris[i]));
+        if(current_path != NULL)
+            file_list = g_slist_append (file_list, current_path);
         i++;
     }
 

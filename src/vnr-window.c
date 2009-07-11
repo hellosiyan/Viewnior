@@ -674,7 +674,18 @@ vnr_window_drag_data_received (GtkWidget *widget,
     if (context->suggested_action == GDK_ACTION_COPY)
     {
         uri_list = vnr_tools_parse_uri_string_list_to_file_list ((gchar *) selection_data->data);
-        g_return_if_fail(uri_list != NULL);
+
+        if(uri_list == NULL)
+        {
+            vnr_window_close(VNR_WINDOW (widget));
+            gtk_action_group_set_sensitive(VNR_WINDOW (widget)->actions_collection, FALSE);
+            deny_slideshow(VNR_WINDOW (widget));
+            vnr_message_area_show(VNR_MESSAGE_AREA (VNR_WINDOW (widget)->msg_area), TRUE,
+                                  _("The given locations contain no images."),
+                                  TRUE);
+            return;
+        }
+
         vnr_window_open_from_list(VNR_WINDOW (widget), uri_list);
     }
 }
