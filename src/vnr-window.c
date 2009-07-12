@@ -573,6 +573,9 @@ leave_image_area_cb(GtkWidget * widget, GdkEventCrossing * ev, VnrWindow *window
 static gboolean
 fullscreen_motion_cb(GtkWidget * widget, GdkEventMotion * ev, VnrWindow *window)
 {
+    if(window->disable_autohide)
+        return FALSE;
+
     /* Show the toolbar only when the moves moves to the top
      * of the UniImageView */
     if (ev->y < 20 && !GTK_WIDGET_VISIBLE (window->toolbar))
@@ -590,6 +593,10 @@ static gboolean
 fullscreen_timeout_cb (VnrWindow *window)
 {
     fullscreen_unset_timeout (window);
+
+    if(window->disable_autohide)
+        return FALSE;
+
     gtk_widget_hide_all(window->toolbar);
     vnr_window_hide_cursor(window);
     return FALSE;
@@ -955,12 +962,24 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
     const gchar *file_path;
     gchar *markup, *prompt, *warning;
     gboolean restart_slideshow = FALSE;
+    gboolean restart_autohide_timeout = FALSE;
+    gboolean cursor_was_hidden = FALSE;
 
     if(window->mode == VNR_WINDOW_MODE_SLIDESHOW)
     {
        stop_slideshow(window);
        restart_slideshow = TRUE;
     }
+
+    if(window->cursor_is_hidden)
+    {
+        cursor_was_hidden = TRUE;
+        vnr_window_show_cursor(window);
+    }
+    window->disable_autohide = TRUE;
+
+    if(window->fs_source != NULL)
+        restart_autohide_timeout = TRUE;
 
     g_return_if_fail (window->file_list != NULL);
 
@@ -1042,8 +1061,15 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
             }
         }
     }
+
+    window->disable_autohide = FALSE;
+
     if(restart_slideshow)
        start_slideshow(window);
+    if(cursor_was_hidden)
+        vnr_window_hide_cursor(window);
+    if(restart_autohide_timeout)
+        fullscreen_set_timeout(window);
 
     g_free(prompt);
     g_free(markup);
@@ -1277,6 +1303,7 @@ vnr_window_init (VnrWindow * window)
     window->ss_timeout = 5;
     window->slideshow = TRUE;
     window->cursor_is_hidden = FALSE;
+    window->disable_autohide = FALSE;
 
     window->mode = VNR_WINDOW_MODE_NORMAL;
 

@@ -85,6 +85,7 @@ struct _VnrWindow {
     GtkWidget *fs_seconds_label;
     GtkWidget *fs_label;
     GSource *fs_source;
+    gboolean disable_autohide;
     /* Slideshow (ss) variables */
     gboolean slideshow;
     guint ss_source_tag;
