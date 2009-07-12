@@ -1,5 +1,7 @@
 bin_PROGRAMS = viewnior
 
+QUIET_GEN = $(Q:@=@echo ' GEN '$@;)
+
 BUILT_SOURCES =         \
     uni-marshal.c       \
     uni-marshal.h
@@ -45,9 +47,9 @@ viewnior_CFLAGS =       \
 viewnior_LDADD = $(VNR_LIBS)
 
 uni-marshal.h: uni-marshal.list $(GLIB_GENMARSHAL)
-	$(GLIB_GENMARSHAL) $< --header --prefix=uni_marshal > $@
+	$(QUIET_GEN)$(GLIB_GENMARSHAL) $< --header --prefix=uni_marshal > $@
 uni-marshal.c: uni-marshal.list $(GLIB_GENMARSHAL)
-	echo "#include \"uni-marshal.h\"" > $@ && \
+	$(QUIET_GEN)echo "#include \"uni-marshal.h\"" > $@ && \
 	$(GLIB_GENMARSHAL) $< --body --prefix=uni_marshal >> $@
 
 CLEANFILES = $(BUILT_SOURCES)

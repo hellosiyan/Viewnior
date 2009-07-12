@@ -6,9 +6,11 @@ AC_INIT([viewnior], [0.6], [xsisqox@gmail.com])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/main.c])
 AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_MACRO_DIR([m4])
 
 
 # Checks for programs.
+AC_PROG_LIBTOOL
 AC_ISC_POSIX
 AC_PROG_CC
 AM_PROG_CC_STDC
@@ -63,6 +65,8 @@ PKG_CHECK_MODULES(VNR, $VNR_MODULES)
 AC_SUBST(VNR_CFLAGS)
 AC_SUBST(VNR_LIBS)
 
+SHAVE_INIT([], [enable])
+
 AC_CONFIG_FILES([Makefile
                  src/Makefile
                  data/Makefile
@@ -80,7 +84,9 @@ AC_CONFIG_FILES([Makefile
                  data/icons/48x48/apps/Makefile
                  data/icons/scalable/Makefile
                  data/icons/scalable/apps/Makefile
-                 po/Makefile.in])
+                 po/Makefile.in
+                 shave
+                 shave-libtool])
 AC_OUTPUT
 
 echo "
