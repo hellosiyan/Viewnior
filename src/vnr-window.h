@@ -69,7 +69,7 @@ struct _VnrWindow {
 
     gint max_width;
     gint max_height;
-    gchar *format_name;
+    gchar *writable_format_name;
 
     gint current_image_height;
     gint current_image_width;
