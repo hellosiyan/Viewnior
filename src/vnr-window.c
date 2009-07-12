@@ -705,8 +705,8 @@ window_realize_cb(GtkWidget *widget, gpointer user_data)
                                             widget->window),
                                          &monitor);
 
-        VNR_WINDOW(widget)->max_width = monitor.width * 0.7;
-        VNR_WINDOW(widget)->max_height = monitor.height * 0.7;
+        VNR_WINDOW(widget)->max_width = monitor.width * 0.9 - 100;
+        VNR_WINDOW(widget)->max_height = monitor.height * 0.9 - 100;
 
         vnr_window_open(VNR_WINDOW(widget), TRUE);
     }
