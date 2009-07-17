@@ -49,7 +49,7 @@ main (int argc, char *argv[])
 {
     GError *error = NULL;
     GOptionContext *opt_context;
-    GtkWindow *win;
+    GtkWindow *window;
 
     GSList *uri_list = NULL;
     GList *file_list = NULL;
@@ -79,9 +79,9 @@ main (int argc, char *argv[])
 
     gtk_icon_theme_append_search_path(gtk_icon_theme_get_default(), PIXMAP_DIR);
 
-    win = vnr_window_new ();
-    gtk_window_set_default_size (win, 480, 300);
-    gtk_window_set_position (win, GTK_WIN_POS_CENTER);
+    window = vnr_window_new ();
+    gtk_window_set_default_size (window, 480, 300);
+    gtk_window_set_position (window, GTK_WIN_POS_CENTER);
 
     uri_list = vnr_tools_get_list_from_array (files);
 
@@ -98,31 +98,31 @@ main (int argc, char *argv[])
 
         if(error != NULL && file_list != NULL)
         {
-            deny_slideshow(VNR_WINDOW(win));
-            vnr_message_area_show(VNR_MESSAGE_AREA (VNR_WINDOW(win)->msg_area),
+            deny_slideshow(VNR_WINDOW(window));
+            vnr_message_area_show(VNR_MESSAGE_AREA (VNR_WINDOW(window)->msg_area),
                                   TRUE, error->message, TRUE);
-            vnr_window_set_list(VNR_WINDOW(win), file_list, TRUE);
+            vnr_window_set_list(VNR_WINDOW(window), file_list, TRUE);
         }
         else if(error != NULL)
         {
-            deny_slideshow(VNR_WINDOW(win));
-            vnr_message_area_show(VNR_MESSAGE_AREA (VNR_WINDOW(win)->msg_area),
+            deny_slideshow(VNR_WINDOW(window));
+            vnr_message_area_show(VNR_MESSAGE_AREA (VNR_WINDOW(window)->msg_area),
                                   TRUE, error->message, TRUE);
         }
         else if(file_list == NULL)
         {
-            deny_slideshow(VNR_WINDOW(win));
-            vnr_message_area_show(VNR_MESSAGE_AREA (VNR_WINDOW(win)->msg_area),
+            deny_slideshow(VNR_WINDOW(window));
+            vnr_message_area_show(VNR_MESSAGE_AREA (VNR_WINDOW(window)->msg_area),
                                   TRUE, _("The given locations contain no images."),
                                   TRUE);
         }
         else
         {
-            vnr_window_set_list(VNR_WINDOW(win), file_list, TRUE);
+            vnr_window_set_list(VNR_WINDOW(window), file_list, TRUE);
         }
     }
 
-    gtk_widget_show (GTK_WIDGET (win));
+    gtk_widget_show (GTK_WIDGET (window));
     gtk_main ();
 
     return 0;

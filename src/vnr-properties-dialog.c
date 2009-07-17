@@ -241,7 +241,7 @@ vnr_properties_dialog_update(VnrPropertiesDialog *dialog)
 
     vnr_properties_dialog_update_image(dialog);
 
-    get_file_info ((gchar*)VNR_FILE(dialog->vnr_win->file_list->data)->uri,
+    get_file_info ((gchar*)VNR_FILE(dialog->vnr_win->file_list->data)->path,
                    &filesize, &filetype);
 
     if(filetype == NULL && filesize == 0)
@@ -259,7 +259,7 @@ vnr_properties_dialog_update(VnrPropertiesDialog *dialog)
                        (gchar*)VNR_FILE(dialog->vnr_win->file_list->data)->display_name);
 
     gtk_label_set_text(GTK_LABEL(dialog->location_label),
-                       (gchar*)VNR_FILE(dialog->vnr_win->file_list->data)->uri);
+                       (gchar*)VNR_FILE(dialog->vnr_win->file_list->data)->path);
 
     gtk_label_set_text(GTK_LABEL(dialog->type_label), filetype_desc);
     gtk_label_set_text(GTK_LABEL(dialog->size_label), filesize_str);

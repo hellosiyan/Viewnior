@@ -84,7 +84,7 @@ struct _VnrWindow {
     GtkWidget *fs_controls;
     GtkWidget *toggle_btn;
     GtkWidget *fs_seconds_label;
-    GtkWidget *fs_label;
+    GtkWidget *fs_filename_label;
     GSource *fs_source;
     gboolean disable_autohide;
     /* Slideshow (ss) variables */

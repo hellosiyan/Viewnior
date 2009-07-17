@@ -153,12 +153,12 @@ vnr_window_show_cursor(VnrWindow *window)
 }
 
 static void
-update_fs_label(VnrWindow *window)
+update_fs_filename_label(VnrWindow *window)
 {
     if(window->mode == VNR_WINDOW_MODE_NORMAL)
         return;
 
-    gtk_label_set_text(GTK_LABEL(window->fs_label),
+    gtk_label_set_text(GTK_LABEL(window->fs_filename_label),
                        VNR_FILE(window->file_list->data)->display_name);
 }
 
@@ -212,23 +212,22 @@ get_fs_controls(VnrWindow *window)
     GtkWidget *widget;
     GtkAdjustment *spinner_adj;
 
-
-
+    /* Tool item, that contains the hbox */
     item = gtk_tool_item_new();
+    gtk_tool_item_set_expand(item, TRUE);
 
     box = gtk_hbox_new(FALSE, 0);
     gtk_container_add (GTK_CONTAINER (item), box);
 
     widget = gtk_button_new_from_stock(GTK_STOCK_LEAVE_FULLSCREEN);
     g_signal_connect(widget, "clicked", G_CALLBACK(leave_fs_cb), window);
-
     gtk_box_pack_end (GTK_BOX(box), widget, FALSE, FALSE, 0);
 
     /* Create label for the current image's filename */
     widget = gtk_label_new(NULL);
     gtk_label_set_ellipsize (GTK_LABEL(widget), PANGO_ELLIPSIZE_END);
     gtk_label_set_selectable (GTK_LABEL(widget), TRUE);
-    window->fs_label = widget;
+    window->fs_filename_label = widget;
     gtk_box_pack_end (GTK_BOX(box), widget, TRUE, TRUE, 10);
 
 
@@ -241,14 +240,12 @@ get_fs_controls(VnrWindow *window)
     gtk_box_pack_start (GTK_BOX(box), widget, FALSE, FALSE, 0);
     window->toggle_btn = widget;
 
-    spinner_adj = (GtkAdjustment *) gtk_adjustment_new (5, 1.0, 30.0, 1.0, 1.0, 0);
-
     /* Create spin button to adjust slideshow's timeout */
+    spinner_adj = (GtkAdjustment *) gtk_adjustment_new (5, 1.0, 30.0, 1.0, 1.0, 0);
     widget = gtk_spin_button_new (spinner_adj, 1.0, 0);
     gtk_spin_button_set_snap_to_ticks (GTK_SPIN_BUTTON(widget), TRUE);
     gtk_spin_button_set_update_policy (GTK_SPIN_BUTTON(widget),
                                        GTK_UPDATE_ALWAYS);
-
     g_signal_connect (widget, "value-changed",
                       G_CALLBACK(spin_value_change_cb), window);
     gtk_box_pack_start (GTK_BOX(box), widget, FALSE, FALSE, 0);
@@ -256,20 +253,17 @@ get_fs_controls(VnrWindow *window)
     window->fs_seconds_label = gtk_label_new(ngettext(" second", " seconds", 5));
     gtk_box_pack_start (GTK_BOX(box), window->fs_seconds_label, FALSE, FALSE, 0);
 
-    gtk_tool_item_set_expand(item, TRUE);
-
     window->fs_controls = GTK_WIDGET(item);
 
     gtk_widget_show_all (window->fs_controls);
-    gtk_object_ref((gpointer)window->fs_controls);
     return window->fs_controls;
 }
 
 static gboolean
-scrollbars_visible (VnrWindow *win)
+scrollbars_visible (VnrWindow *window)
 {
-    if (!GTK_WIDGET_VISIBLE (GTK_WIDGET (UNI_SCROLL_WIN(win->scroll_view)->hscroll)) &&
-        !GTK_WIDGET_VISIBLE (GTK_WIDGET (UNI_SCROLL_WIN(win->scroll_view)->vscroll)))
+    if (!GTK_WIDGET_VISIBLE (GTK_WIDGET (UNI_SCROLL_WIN(window->scroll_view)->hscroll)) &&
+        !GTK_WIDGET_VISIBLE (GTK_WIDGET (UNI_SCROLL_WIN(window->scroll_view)->vscroll)))
         return FALSE;
 
     return TRUE;
@@ -303,7 +297,7 @@ vnr_window_fullscreen(VnrWindow *window)
     gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), TRUE);
     gtk_widget_modify_bg(window->view, GTK_STATE_NORMAL, &color);
 
-    update_fs_label(window);
+    update_fs_filename_label(window);
     gtk_widget_hide_all (window->toolbar);
 
     stop_slideshow(window);
@@ -493,6 +487,7 @@ rotate_pixbuf(VnrWindow *window, GdkPixbufRotation angle)
     if(GTK_WIDGET_VISIBLE(window->props_dlg))
         vnr_properties_dialog_update_image(VNR_PROPERTIES_DIALOG(window->props_dlg));
 
+    /* Extra conditions. Rotating 180 degrees is also flipping horizontal and vertical */
     if((window->modifications & (4))^((angle==GDK_PIXBUF_ROTATE_CLOCKWISE)<<2))
         window->modifications ^= 3;
 
@@ -549,6 +544,7 @@ flip_pixbuf(VnrWindow *window, gboolean horizontal)
                                gdk_cursor_new(GDK_LEFT_PTR));
     g_object_unref(result);
 
+    /* Extra conditions. Rotating 180 degrees is also flipping horizontal and vertical */
     window->modifications ^= (window->modifications&4)?1+horizontal:2-horizontal;
 
     if(window->modifications == 0)
@@ -649,19 +645,19 @@ save_image_cb (GtkWidget *widget, VnrWindow *window)
     if(strcmp(window->writable_format_name, "jpeg" ) == 0)
     {
         gdk_pixbuf_save (uni_image_view_get_pixbuf(UNI_IMAGE_VIEW(window->view)),
-                         VNR_FILE(window->file_list->data)->uri, "jpeg",
+                         VNR_FILE(window->file_list->data)->path, "jpeg",
                          &error, "quality", "90", NULL);
     }
     else if(strcmp(window->writable_format_name, "png" ) == 0)
     {
         gdk_pixbuf_save (uni_image_view_get_pixbuf(UNI_IMAGE_VIEW(window->view)),
-                         VNR_FILE(window->file_list->data)->uri, "png",
+                         VNR_FILE(window->file_list->data)->path, "png",
                          &error, "compression", "9", NULL);
     }
     else
     {
         gdk_pixbuf_save (uni_image_view_get_pixbuf(UNI_IMAGE_VIEW(window->view)),
-                         VNR_FILE(window->file_list->data)->uri,
+                         VNR_FILE(window->file_list->data)->path,
                          window->writable_format_name, &error, NULL);
     }
 
@@ -709,21 +705,21 @@ window_realize_cb(GtkWidget *widget, gpointer user_data)
 }
 
 static void
-zoom_changed_cb (UniImageView *view, VnrWindow *win)
+zoom_changed_cb (UniImageView *view, VnrWindow *window)
 {
     char *buf = NULL;
 
     /* Change the info, only if there is an image
      * (vnr_window_close isn't called on the current image) */
-    if(gtk_action_group_get_sensitive (win->actions_image))
+    if(gtk_action_group_get_sensitive (window->actions_image))
     {
         buf = g_strdup_printf ("%s - %ix%i - %i%%",
-                               VNR_FILE(win->file_list->data)->display_name,
-                               win->current_image_width,
-                               win->current_image_height,
+                               VNR_FILE(window->file_list->data)->display_name,
+                               window->current_image_width,
+                               window->current_image_height,
                                (int)(view->zoom*100.));
 
-        gtk_window_set_title (GTK_WINDOW(win), buf);
+        gtk_window_set_title (GTK_WINDOW(window), buf);
         g_free(buf);
     }
 }
@@ -817,16 +813,16 @@ vnr_window_cmd_prev (GtkAction *action, gpointer user_data)
 }
 
 static void
-vnr_window_cmd_resize (GtkAction *action, VnrWindow *win)
+vnr_window_cmd_resize (GtkAction *action, VnrWindow *window)
 {
     gint img_h, img_w;          /* Width and Height of the pixbuf */
 
-    img_w = win->current_image_width;
-    img_h = win->current_image_height;
+    img_w = window->current_image_width;
+    img_h = window->current_image_height;
 
-    vnr_tools_fit_to_size (&img_w, &img_h, win->max_width, win->max_height);
+    vnr_tools_fit_to_size (&img_w, &img_h, window->max_width, window->max_height);
 
-    gtk_window_resize (GTK_WINDOW (win), img_w, img_h+win->menus->allocation.height);
+    gtk_window_resize (GTK_WINDOW (window), img_w, img_h + window->menus->allocation.height);
 }
 
 static void
@@ -849,11 +845,12 @@ vnr_window_cmd_open(GtkAction *action, VnrWindow *window)
     gtk_window_set_modal (GTK_WINDOW(dialog), FALSE);
     gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
 
-    gchar *filename;
+    gchar *dirname;
     if(window->file_list != NULL)
     {
-        filename = g_path_get_dirname (VNR_FILE(window->file_list->data)->uri);
-        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER(dialog), filename);
+        dirname = g_path_get_dirname (VNR_FILE(window->file_list->data)->path);
+        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER(dialog), dirname);
+        g_free(dirname);
     }
 
     g_signal_connect (dialog, "response",
@@ -877,11 +874,12 @@ vnr_window_cmd_open_dir(GtkAction *action, VnrWindow *window)
     gtk_window_set_modal (GTK_WINDOW(dialog), FALSE);
     gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
 
-    gchar *filename;
+    gchar *dirname;
     if(window->file_list != NULL)
     {
-        filename = g_path_get_dirname (VNR_FILE(window->file_list->data)->uri);
-        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER(dialog), filename);
+        dirname = g_path_get_dirname (VNR_FILE(window->file_list->data)->path);
+        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER(dialog), dirname);
+        g_free(dirname);
     }
 
     g_signal_connect (dialog, "response",
@@ -1003,7 +1001,7 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
 
     g_return_if_fail (window->file_list != NULL);
 
-    file_path = VNR_FILE(window->file_list->data)->uri;
+    file_path = VNR_FILE(window->file_list->data)->path;
 
     warning = _("If you delete an item, it will be permanently lost.");
 
@@ -1485,71 +1483,71 @@ vnr_window_init (VnrWindow * window)
 /***** Actions ***********************************************/
 /*************************************************************/
 gboolean
-vnr_window_open (VnrWindow * win, gboolean fit_to_screen)
+vnr_window_open (VnrWindow * window, gboolean fit_to_screen)
 {
     VnrFile *file;
     GdkPixbufAnimation *pixbuf;
     GdkPixbufFormat *format;
     GError *error = NULL;
 
-    if(win->file_list == NULL)
+    if(window->file_list == NULL)
         return FALSE;
 
-    file = VNR_FILE(win->file_list->data);
+    file = VNR_FILE(window->file_list->data);
 
-    update_fs_label(win);
+    update_fs_filename_label(window);
 
-    pixbuf = gdk_pixbuf_animation_new_from_file (file->uri, &error);
+    pixbuf = gdk_pixbuf_animation_new_from_file (file->path, &error);
 
     if (error != NULL)
     {
-        vnr_message_area_show(VNR_MESSAGE_AREA (win->msg_area),
+        vnr_message_area_show(VNR_MESSAGE_AREA (window->msg_area),
                               TRUE, error->message, TRUE);
 
-        if(GTK_WIDGET_VISIBLE(win->props_dlg))
-            vnr_properties_dialog_clear(VNR_PROPERTIES_DIALOG(win->props_dlg));
+        if(GTK_WIDGET_VISIBLE(window->props_dlg))
+            vnr_properties_dialog_clear(VNR_PROPERTIES_DIALOG(window->props_dlg));
         return FALSE;
     }
 
-    if(vnr_message_area_is_visible(VNR_MESSAGE_AREA(win->msg_area)))
+    if(vnr_message_area_is_visible(VNR_MESSAGE_AREA(window->msg_area)))
     {
-        vnr_message_area_hide(VNR_MESSAGE_AREA(win->msg_area));
+        vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
     }
 
-    gtk_action_group_set_sensitive(win->actions_image, TRUE);
+    gtk_action_group_set_sensitive(window->actions_image, TRUE);
 
-    format = gdk_pixbuf_get_file_info (file->uri, NULL, NULL);
+    format = gdk_pixbuf_get_file_info (file->path, NULL, NULL);
 
-    g_free(win->writable_format_name);
+    g_free(window->writable_format_name);
     if(gdk_pixbuf_format_is_writable (format))
-        win->writable_format_name = gdk_pixbuf_format_get_name (format);
+        window->writable_format_name = gdk_pixbuf_format_get_name (format);
     else
-        win->writable_format_name = NULL;
+        window->writable_format_name = NULL;
 
-    win->current_image_width = gdk_pixbuf_animation_get_width (pixbuf);
-    win->current_image_height = gdk_pixbuf_animation_get_height (pixbuf);
-    win->modifications = 0;
+    window->current_image_width = gdk_pixbuf_animation_get_width (pixbuf);
+    window->current_image_height = gdk_pixbuf_animation_get_height (pixbuf);
+    window->modifications = 0;
 
     if(fit_to_screen)
     {
         gint img_h, img_w;          /* Width and Height of the pixbuf */
 
-        img_w = win->current_image_width;
-        img_h = win->current_image_height;
+        img_w = window->current_image_width;
+        img_h = window->current_image_height;
 
-        vnr_tools_fit_to_size (&img_w, &img_h, win->max_width, win->max_height);
+        vnr_tools_fit_to_size (&img_w, &img_h, window->max_width, window->max_height);
 
-        gtk_window_resize (GTK_WINDOW (win), img_w, img_h+win->menus->allocation.height);
+        gtk_window_resize (GTK_WINDOW (window), img_w, img_h + window->menus->allocation.height);
     }
 
     /* Return TRUE if the image is static */
-    if ( uni_anim_view_set_anim (UNI_ANIM_VIEW (win->view), pixbuf) )
-        gtk_action_group_set_sensitive(win->actions_static_image, TRUE);
+    if ( uni_anim_view_set_anim (UNI_ANIM_VIEW (window->view), pixbuf) )
+        gtk_action_group_set_sensitive(window->actions_static_image, TRUE);
     else
-        gtk_action_group_set_sensitive(win->actions_static_image, FALSE);
+        gtk_action_group_set_sensitive(window->actions_static_image, FALSE);
 
-    if(GTK_WIDGET_VISIBLE(win->props_dlg))
-        vnr_properties_dialog_update(VNR_PROPERTIES_DIALOG(win->props_dlg));
+    if(GTK_WIDGET_VISIBLE(window->props_dlg))
+        vnr_properties_dialog_update(VNR_PROPERTIES_DIALOG(window->props_dlg));
 
     g_object_unref(pixbuf);
     return TRUE;
@@ -1614,159 +1612,159 @@ vnr_window_open_from_list(VnrWindow *window, GSList *uri_list)
 }
 
 void
-vnr_window_close(VnrWindow *win)
+vnr_window_close(VnrWindow *window)
 {
-    gtk_window_set_title (GTK_WINDOW (win), "Viewnior");
-    uni_anim_view_set_anim (UNI_ANIM_VIEW (win->view), NULL);
-    gtk_action_group_set_sensitive(win->actions_image, FALSE);
-    gtk_action_group_set_sensitive(win->actions_static_image, FALSE);
+    gtk_window_set_title (GTK_WINDOW (window), "Viewnior");
+    uni_anim_view_set_anim (UNI_ANIM_VIEW (window->view), NULL);
+    gtk_action_group_set_sensitive(window->actions_image, FALSE);
+    gtk_action_group_set_sensitive(window->actions_static_image, FALSE);
 }
 
 void
-vnr_window_set_list (VnrWindow *win, GList *list, gboolean free_current)
+vnr_window_set_list (VnrWindow *window, GList *list, gboolean free_current)
 {
-    if (free_current == TRUE && win->file_list != NULL)
-        g_list_free (win->file_list);
+    if (free_current == TRUE && window->file_list != NULL)
+        g_list_free (window->file_list);
     if (g_list_length(g_list_first(list)) != 1)
     {
-        gtk_action_group_set_sensitive(win->actions_collection, TRUE);
-        allow_slideshow(win);
+        gtk_action_group_set_sensitive(window->actions_collection, TRUE);
+        allow_slideshow(window);
     }
     else
     {
-        gtk_action_group_set_sensitive(win->actions_collection, FALSE);
-        deny_slideshow(win);
+        gtk_action_group_set_sensitive(window->actions_collection, FALSE);
+        deny_slideshow(window);
     }
     g_assert(list != NULL);
-    win->file_list = list;
+    window->file_list = list;
 }
 
 gboolean
-vnr_window_next (VnrWindow *win, gboolean rem_timeout){
+vnr_window_next (VnrWindow *window, gboolean rem_timeout){
     GList *next;
 
     /* Don't reload current image
      * if the list contains only one (or no) image */
-    if (g_list_length(g_list_first(win->file_list)) <2)
+    if (g_list_length(g_list_first(window->file_list)) <2)
         return FALSE;
 
-    if(win->mode == VNR_WINDOW_MODE_SLIDESHOW && rem_timeout)
-        g_source_remove (win->ss_source_tag);
+    if(window->mode == VNR_WINDOW_MODE_SLIDESHOW && rem_timeout)
+        g_source_remove (window->ss_source_tag);
 
-    next = g_list_next(win->file_list);
+    next = g_list_next(window->file_list);
     if(next == NULL)
     {
-        next = g_list_first(win->file_list);
+        next = g_list_first(window->file_list);
     }
 
-    win->file_list = next;
+    window->file_list = next;
 
-    if(!win->cursor_is_hidden)
-        gdk_window_set_cursor(GTK_WIDGET(win)->window,
+    if(!window->cursor_is_hidden)
+        gdk_window_set_cursor(GTK_WIDGET(window)->window,
                               gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
     gdk_flush();
 
-    vnr_window_open(win, FALSE);
-    if(!win->cursor_is_hidden)
-        gdk_window_set_cursor(GTK_WIDGET(win)->window,
+    vnr_window_open(window, FALSE);
+    if(!window->cursor_is_hidden)
+        gdk_window_set_cursor(GTK_WIDGET(window)->window,
                               gdk_cursor_new(GDK_LEFT_PTR));
 
-    if(win->mode == VNR_WINDOW_MODE_SLIDESHOW && rem_timeout)
-        win->ss_source_tag = g_timeout_add_seconds (win->ss_timeout,
-                                                    (GSourceFunc)next_image_src,
-                                                    win);
+    if(window->mode == VNR_WINDOW_MODE_SLIDESHOW && rem_timeout)
+        window->ss_source_tag = g_timeout_add_seconds (window->ss_timeout,
+                                                       (GSourceFunc)next_image_src,
+                                                       window);
 
     return TRUE;
 }
 
 gboolean
-vnr_window_prev (VnrWindow *win){
+vnr_window_prev (VnrWindow *window){
     GList *prev;
 
     /* Don't reload current image
      * if the list contains only one (or no) image */
-    if (g_list_length(g_list_first(win->file_list)) <2)
+    if (g_list_length(g_list_first(window->file_list)) <2)
         return FALSE;
 
-    if(win->mode == VNR_WINDOW_MODE_SLIDESHOW)
-        g_source_remove (win->ss_source_tag);
+    if(window->mode == VNR_WINDOW_MODE_SLIDESHOW)
+        g_source_remove (window->ss_source_tag);
 
-    prev = g_list_previous(win->file_list);
+    prev = g_list_previous(window->file_list);
     if(prev == NULL)
     {
-        prev = g_list_last(win->file_list);
+        prev = g_list_last(window->file_list);
     }
 
-    win->file_list = prev;
+    window->file_list = prev;
 
-    if(!win->cursor_is_hidden)
-        gdk_window_set_cursor(GTK_WIDGET(win)->window,
+    if(!window->cursor_is_hidden)
+        gdk_window_set_cursor(GTK_WIDGET(window)->window,
                               gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
     gdk_flush();
 
-    vnr_window_open(win, FALSE);
-    if(!win->cursor_is_hidden)
-        gdk_window_set_cursor(GTK_WIDGET(win)->window,
+    vnr_window_open(window, FALSE);
+    if(!window->cursor_is_hidden)
+        gdk_window_set_cursor(GTK_WIDGET(window)->window,
                               gdk_cursor_new(GDK_LEFT_PTR));
 
-    if(win->mode == VNR_WINDOW_MODE_SLIDESHOW)
-        win->ss_source_tag = g_timeout_add_seconds (win->ss_timeout,
-                                                    (GSourceFunc)next_image_src,
-                                                    win);
+    if(window->mode == VNR_WINDOW_MODE_SLIDESHOW)
+        window->ss_source_tag = g_timeout_add_seconds (window->ss_timeout,
+                                                       (GSourceFunc)next_image_src,
+                                                       window);
 
     return TRUE;
 }
 
 gboolean
-vnr_window_first (VnrWindow *win){
+vnr_window_first (VnrWindow *window){
     GList *prev;
 
-    prev = g_list_first(win->file_list);
+    prev = g_list_first(window->file_list);
 
-    if(vnr_message_area_is_critical(VNR_MESSAGE_AREA(win->msg_area)))
+    if(vnr_message_area_is_critical(VNR_MESSAGE_AREA(window->msg_area)))
     {
-        vnr_message_area_hide(VNR_MESSAGE_AREA(win->msg_area));
+        vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
     }
 
-    win->file_list = prev;
+    window->file_list = prev;
 
-    if(!win->cursor_is_hidden)
-        gdk_window_set_cursor(GTK_WIDGET(win)->window,
+    if(!window->cursor_is_hidden)
+        gdk_window_set_cursor(GTK_WIDGET(window)->window,
                               gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
     gdk_flush();
 
-    vnr_window_open(win, FALSE);
-    if(!win->cursor_is_hidden)
-        gdk_window_set_cursor(GTK_WIDGET(win)->window,
+    vnr_window_open(window, FALSE);
+    if(!window->cursor_is_hidden)
+        gdk_window_set_cursor(GTK_WIDGET(window)->window,
                               gdk_cursor_new(GDK_LEFT_PTR));
     return TRUE;
 }
 
 gboolean
-vnr_window_last (VnrWindow *win){
+vnr_window_last (VnrWindow *window){
     GList *prev;
 
-    prev = g_list_last(win->file_list);
+    prev = g_list_last(window->file_list);
 
-    if(vnr_message_area_is_critical(VNR_MESSAGE_AREA(win->msg_area)))
+    if(vnr_message_area_is_critical(VNR_MESSAGE_AREA(window->msg_area)))
     {
-        vnr_message_area_hide(VNR_MESSAGE_AREA(win->msg_area));
+        vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
     }
 
-    win->file_list = prev;
+    window->file_list = prev;
 
-    if(!win->cursor_is_hidden)
-        gdk_window_set_cursor(GTK_WIDGET(win)->window,
+    if(!window->cursor_is_hidden)
+        gdk_window_set_cursor(GTK_WIDGET(window)->window,
                               gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
     gdk_flush();
 
-    vnr_window_open(win, FALSE);
-    if(!win->cursor_is_hidden)
-        gdk_window_set_cursor(GTK_WIDGET(win)->window,
+    vnr_window_open(window, FALSE);
+    if(!window->cursor_is_hidden)
+        gdk_window_set_cursor(GTK_WIDGET(window)->window,
                               gdk_cursor_new(GDK_LEFT_PTR));
     return TRUE;
 }

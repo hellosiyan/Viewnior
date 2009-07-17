@@ -34,7 +34,7 @@ GList * supported_mime_types;
 static gint
 compare_files(VnrFile *file, char *uri)
 {
-    if(g_strcmp0(uri, file->uri) == 0)
+    if(g_strcmp0(uri, file->path) == 0)
         return 0;
     else
         return 1;
@@ -134,8 +134,8 @@ vnr_file_dir_content_to_list(gchar *path, gboolean sort)
     GList *file_list = NULL;
     GFile *file;
     GFileEnumerator *f_enum ;
-    GFileInfo *curr_file_info;
-    VnrFile *curr_vnr_file;
+    GFileInfo *file_info;
+    VnrFile *vnr_file;
     const char *mimetype;
 
     file = g_file_new_for_path(path);
@@ -144,25 +144,25 @@ vnr_file_dir_content_to_list(gchar *path, gboolean sort)
                                        G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
                                        G_FILE_QUERY_INFO_NONE,
                                        NULL, NULL);
-    curr_file_info = g_file_enumerator_next_file(f_enum,NULL,NULL);
+    file_info = g_file_enumerator_next_file(f_enum,NULL,NULL);
 
 
-    while(curr_file_info != NULL){
-        curr_vnr_file = vnr_file_new();
+    while(file_info != NULL){
+        vnr_file = vnr_file_new();
 
-        mimetype =g_file_info_get_content_type(curr_file_info);
+        mimetype =g_file_info_get_content_type(file_info);
 
         if(vnr_file_is_supported_mime_type(mimetype)){
-            vnr_file_set_display_name(curr_vnr_file, (char*)g_file_info_get_display_name (curr_file_info));
+            vnr_file_set_display_name(vnr_file, (char*)g_file_info_get_display_name (file_info));
 
-            curr_vnr_file->uri =g_strjoin(G_DIR_SEPARATOR_S, path,
-                                          curr_vnr_file->display_name, NULL);
+            vnr_file->path =g_strjoin(G_DIR_SEPARATOR_S, path,
+                                      vnr_file->display_name, NULL);
 
-            file_list = g_list_prepend(file_list, curr_vnr_file);
+            file_list = g_list_prepend(file_list, vnr_file);
         }
 
-        g_object_unref(curr_file_info);
-        curr_file_info = g_file_enumerator_next_file(f_enum,NULL,NULL);
+        g_object_unref(file_info);
+        file_info = g_file_enumerator_next_file(f_enum,NULL,NULL);
     }
 
     g_object_unref (file);
@@ -182,7 +182,7 @@ vnr_file_load_single_uri(char *p_path, GList **file_list, GError **error)
 {
     GFile *file;
     GFileInfo *fileinfo;
-    GFileAttributeType temp;
+    GFileAttributeType filetype;
 
     file = g_file_new_for_path(p_path);
     fileinfo = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_TYPE","
@@ -192,9 +192,9 @@ vnr_file_load_single_uri(char *p_path, GList **file_list, GError **error)
     if (fileinfo == NULL)
         return;
 
-    temp = g_file_info_get_file_type(fileinfo);
+    filetype = g_file_info_get_file_type(fileinfo);
 
-    if (temp == G_FILE_TYPE_DIRECTORY)
+    if (filetype == G_FILE_TYPE_DIRECTORY)
     {
         *file_list = vnr_file_dir_content_to_list(p_path, TRUE);
     }
@@ -232,7 +232,7 @@ vnr_file_load_uri_list (GSList *uri_list, GList **file_list, GError **error)
 {
     GFile *file;
     GFileInfo *fileinfo;
-    GFileAttributeType temp;
+    GFileAttributeType filetype;
     gchar *p_path;
 
     while(uri_list != NULL)
@@ -253,9 +253,9 @@ vnr_file_load_uri_list (GSList *uri_list, GList **file_list, GError **error)
             continue;
         }
 
-        temp = g_file_info_get_file_type(fileinfo);
+        filetype = g_file_info_get_file_type(fileinfo);
 
-        if (temp == G_FILE_TYPE_DIRECTORY)
+        if (filetype == G_FILE_TYPE_DIRECTORY)
         {
             *file_list = g_list_concat (*file_list, vnr_file_dir_content_to_list(p_path, FALSE));
         }
@@ -272,7 +272,7 @@ vnr_file_load_uri_list (GSList *uri_list, GList **file_list, GError **error)
             {
                 vnr_file_set_display_name(new_vnrfile, (char*)g_file_info_get_display_name (fileinfo));
 
-                new_vnrfile->uri = p_path;
+                new_vnrfile->path = p_path;
 
                 *file_list = g_list_prepend(*file_list, new_vnrfile);
             }
