@@ -4,7 +4,26 @@
          xmlns="http://usefulinc.com/ns/doap#">
 
   <name xml:lang="en">Viewnior</name>
+  <homepage rdf:resource="http://xsisqox.github.com/Viewnior" />
+  <created>2009-04-16</created>
   <shortdesc xml:lang="en">Elegant Image Viewer</shortdesc>
+
+  <description xml:lang="en">
+    Viewnior is an image viewer with a minimalistic interface that is fast,
+    simple, and light. It supports GIF animations, fullscreen and slideshow
+    mode, rotation and flipping. It is  written in C (GTK+) and designed
+    with usability in mind.
+  </decription>
+
+  <release>
+    <Version>
+      <name>stable</name>
+      <created>2009-06-26</created>
+      <revision>0.5</revision>
+    </Version>
+  </release>
+
+  <download-page rdf:resource="http://xsisqox.github.com/Viewnior/download.html" />
 
   <maintainer>
     <foaf:Person>
