@@ -31,6 +31,7 @@
 #include "uni-anim-view.h"
 #include "vnr-tools.h"
 #include "vnr-message-area.h"
+#include "vnr-properties-dialog.h"
 
 /* Timeout to hide the toolbar in fullscreen mode */
 #define FULLSCREEN_TIMEOUT 3000
@@ -58,6 +59,8 @@ const gchar *ui_definition = "<ui>"
       "<menuitem action=\"FileOpenDir\"/>"
       "<separator/>"
       "<menuitem action=\"FileDelete\"/>"
+      "<separator/>"
+      "<menuitem action=\"FileProperties\"/>"
       "<separator/>"
       "<menuitem action=\"FileClose\"/>"
     "</menu>"
@@ -112,6 +115,8 @@ const gchar *ui_definition = "<ui>"
     "<menuitem action=\"ViewZoomFit\"/>"
     "<separator/>"
     "<menuitem name=\"Fullscreen\" action=\"ViewFullscreen\"/>"
+    "<separator/>"
+    "<menuitem action=\"FileProperties\"/>"
   "</popup>"
   "<accelerator name=\"ControlEqualAccel\" action=\"ControlEqual\"/>"
   "<accelerator name=\"ControlKPAddAccel\" action=\"ControlKpAdd\"/>"
@@ -485,6 +490,9 @@ rotate_pixbuf(VnrWindow *window, GdkPixbufRotation angle)
     window->current_image_width = gdk_pixbuf_get_width (result);
     window->current_image_height = gdk_pixbuf_get_height (result);
 
+    if(GTK_WIDGET_VISIBLE(window->props_dlg))
+        vnr_properties_dialog_update_image(VNR_PROPERTIES_DIALOG(window->props_dlg));
+
     if((window->modifications & (4))^((angle==GDK_PIXBUF_ROTATE_CLOCKWISE)<<2))
         window->modifications ^= 3;
 
@@ -532,6 +540,9 @@ flip_pixbuf(VnrWindow *window, gboolean horizontal)
     }
 
     uni_anim_view_set_static(UNI_ANIM_VIEW(window->view), result);
+
+    if(GTK_WIDGET_VISIBLE(window->props_dlg))
+        vnr_properties_dialog_update_image(VNR_PROPERTIES_DIALOG(window->props_dlg));
 
     if(!window->cursor_is_hidden)
         gdk_window_set_cursor (GTK_WIDGET(window)->window,
@@ -664,6 +675,9 @@ save_image_cb (GtkWidget *widget, VnrWindow *window)
         return;
     }
     window->modifications = 0;
+
+    if(GTK_WIDGET_VISIBLE(window->props_dlg))
+        vnr_properties_dialog_update(VNR_PROPERTIES_DIALOG(window->props_dlg));
 }
 
 static void
@@ -813,6 +827,12 @@ vnr_window_cmd_resize (GtkAction *action, VnrWindow *win)
     vnr_tools_fit_to_size (&img_w, &img_h, win->max_width, win->max_height);
 
     gtk_window_resize (GTK_WINDOW (win), img_w, img_h+win->menus->allocation.height);
+}
+
+static void
+vnr_window_cmd_properties (GtkAction *action, VnrWindow *window)
+{
+    vnr_properties_dialog_show(VNR_PROPERTIES_DIALOG (window->props_dlg));
 }
 
 static void
@@ -1044,6 +1064,10 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
                                       _("The given locations contain no images."),
                                       TRUE);
                 restart_slideshow = FALSE;
+
+
+                if(GTK_WIDGET_VISIBLE(window->props_dlg))
+                    vnr_properties_dialog_clear(VNR_PROPERTIES_DIALOG(window->props_dlg));
             }
             else
             {
@@ -1101,6 +1125,9 @@ static const GtkActionEntry action_entries_image[] = {
     { "FileDelete", GTK_STOCK_DELETE, N_("_Delete"), NULL,
       N_("Delete the current file"),
       G_CALLBACK (vnr_window_cmd_delete) },
+    { "FileProperties", GTK_STOCK_PROPERTIES, N_("_Properties..."), "<Alt>Return",
+      N_("Show information about the current file"),
+      G_CALLBACK (vnr_window_cmd_properties) },
     { "Delete", NULL, N_("_Delete"), "Delete",
       N_("Delete the current file"),
       G_CALLBACK (vnr_window_cmd_delete) },
@@ -1431,6 +1458,14 @@ vnr_window_init (VnrWindow * window)
 
     gtk_widget_grab_focus(window->view);
 
+    /* Care for Properties dialog */
+    window->props_dlg = vnr_properties_dialog_new(window,
+                             gtk_action_group_get_action (window->actions_collection,
+                                                          "GoNext"),
+                             gtk_action_group_get_action (window->actions_collection,
+                                                          "GoPrevious"));
+
+
     vnr_window_set_drag(window);
 
     g_signal_connect (G_OBJECT (window), "destroy",
@@ -1470,6 +1505,9 @@ vnr_window_open (VnrWindow * win, gboolean fit_to_screen)
     {
         vnr_message_area_show(VNR_MESSAGE_AREA (win->msg_area),
                               TRUE, error->message, TRUE);
+
+        if(GTK_WIDGET_VISIBLE(win->props_dlg))
+            vnr_properties_dialog_clear(VNR_PROPERTIES_DIALOG(win->props_dlg));
         return FALSE;
     }
 
@@ -1509,6 +1547,9 @@ vnr_window_open (VnrWindow * win, gboolean fit_to_screen)
         gtk_action_group_set_sensitive(win->actions_static_image, TRUE);
     else
         gtk_action_group_set_sensitive(win->actions_static_image, FALSE);
+
+    if(GTK_WIDGET_VISIBLE(win->props_dlg))
+        vnr_properties_dialog_update(VNR_PROPERTIES_DIALOG(win->props_dlg));
 
     g_object_unref(pixbuf);
     return TRUE;
