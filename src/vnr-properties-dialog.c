@@ -292,12 +292,12 @@ vnr_properties_dialog_clear(VnrPropertiesDialog *dialog)
 {
     set_new_pixbuf(dialog, NULL);
 
-    gtk_label_set_text(GTK_LABEL(dialog->name_label), NULL);
-    gtk_label_set_text(GTK_LABEL(dialog->location_label), "No data");
-    gtk_label_set_text(GTK_LABEL(dialog->type_label), NULL);
-    gtk_label_set_text(GTK_LABEL(dialog->size_label), NULL);
-    gtk_label_set_text(GTK_LABEL(dialog->width_label), NULL);
-    gtk_label_set_text(GTK_LABEL(dialog->height_label), NULL);
+    gtk_label_set_text(GTK_LABEL(dialog->name_label), "None");
+    gtk_label_set_text(GTK_LABEL(dialog->location_label), "None");
+    gtk_label_set_text(GTK_LABEL(dialog->type_label), "None");
+    gtk_label_set_text(GTK_LABEL(dialog->size_label), "None");
+    gtk_label_set_text(GTK_LABEL(dialog->width_label), "None");
+    gtk_label_set_text(GTK_LABEL(dialog->height_label), "None");
 }
 
 void
