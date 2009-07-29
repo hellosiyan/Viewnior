@@ -52,8 +52,8 @@ GType   vnr_file_get_type   (void) G_GNUC_CONST;
 VnrFile *vnr_file_new ();
 
 /* Actions */
-void    vnr_file_load_uri_list      (GSList *uri_list, GList **file_list, GError **error);
-void    vnr_file_load_single_uri    (char *p_uri, GList **file_list, GError **error);
+void    vnr_file_load_uri_list      (GSList *uri_list, GList **file_list, gboolean include_hidden, GError **error);
+void    vnr_file_load_single_uri    (char *p_uri, GList **file_list, gboolean include_hidden, GError **error);
 
 
 G_END_DECLS

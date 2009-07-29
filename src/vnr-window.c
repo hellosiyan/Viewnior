@@ -58,11 +58,14 @@ const gchar *ui_definition = "<ui>"
       "<menuitem action=\"FileOpen\"/>"
       "<menuitem action=\"FileOpenDir\"/>"
       "<separator/>"
-      "<menuitem action=\"FileDelete\"/>"
-      "<separator/>"
       "<menuitem action=\"FileProperties\"/>"
       "<separator/>"
       "<menuitem action=\"FileClose\"/>"
+    "</menu>"
+    "<menu action=\"Edit\">"
+      "<menuitem action=\"FileDelete\"/>"
+      "<separator/>"
+      "<menuitem action=\"EditPreferences\"/>"
     "</menu>"
     "<menu action=\"View\">"
       "<menuitem action=\"ViewZoomIn\"/>"
@@ -241,7 +244,8 @@ get_fs_controls(VnrWindow *window)
     window->toggle_btn = widget;
 
     /* Create spin button to adjust slideshow's timeout */
-    spinner_adj = (GtkAdjustment *) gtk_adjustment_new (5, 1.0, 30.0, 1.0, 1.0, 0);
+    //spinner_adj = (GtkAdjustment *) gtk_adjustment_new (5, 1.0, 30.0, 1.0, 1.0, 0);
+    spinner_adj = (GtkAdjustment *) gtk_adjustment_new (window->prefs->slideshow_timeout, 1.0, 30.0, 1.0, 1.0, 0);
     widget = gtk_spin_button_new (spinner_adj, 1.0, 0);
     gtk_spin_button_set_snap_to_ticks (GTK_SPIN_BUTTON(widget), TRUE);
     gtk_spin_button_set_update_policy (GTK_SPIN_BUTTON(widget),
@@ -249,6 +253,7 @@ get_fs_controls(VnrWindow *window)
     g_signal_connect (widget, "value-changed",
                       G_CALLBACK(spin_value_change_cb), window);
     gtk_box_pack_start (GTK_BOX(box), widget, FALSE, FALSE, 0);
+    window->ss_timeout_widget = widget;
 
     window->fs_seconds_label = gtk_label_new(ngettext(" second", " seconds", 5));
     gtk_box_pack_start (GTK_BOX(box), window->fs_seconds_label, FALSE, FALSE, 0);
@@ -297,6 +302,10 @@ vnr_window_fullscreen(VnrWindow *window)
     gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), TRUE);
     gtk_widget_modify_bg(window->view, GTK_STATE_NORMAL, &color);
 
+    if (window->prefs->fit_on_fullscreen)
+        uni_image_view_set_zoom_mode (UNI_IMAGE_VIEW(window->view),
+                                      VNR_PREFS_ZOOM_FIT);
+
     update_fs_filename_label(window);
     gtk_widget_hide_all (window->toolbar);
 
@@ -343,6 +352,10 @@ vnr_window_unfullscreen(VnrWindow *window)
 
     gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), FALSE);
     gtk_widget_modify_bg(window->view, GTK_STATE_NORMAL, NULL);
+
+    if (window->prefs->fit_on_fullscreen)
+        uni_image_view_set_zoom_mode (UNI_IMAGE_VIEW(window->view),
+                                      window->prefs->zoom);
 
     /* First show everything (the toolbar might be hided)
      * and then hide only the fullscreen controls */
@@ -493,7 +506,7 @@ rotate_pixbuf(VnrWindow *window, GdkPixbufRotation angle)
 
     window->modifications ^= 4;
 
-    if(window->modifications == 0)
+    if(window->modifications == 0 && window->prefs->behavior_modify != VNR_PREFS_MODIFY_IGNORE)
     {
         vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
         return;
@@ -504,7 +517,9 @@ rotate_pixbuf(VnrWindow *window, GdkPixbufRotation angle)
                               TRUE,
                               _("Image modifications cannot be saved.\nWriting in this format is not supported."),
                               FALSE);
-    else
+    else if(window->prefs->behavior_modify == VNR_PREFS_MODIFY_SAVE)
+        save_image_cb(NULL, window);
+    else if(window->prefs->behavior_modify == VNR_PREFS_MODIFY_ASK)
         vnr_message_area_show_with_button(VNR_MESSAGE_AREA(window->msg_area),
                                           FALSE,
                                           _("Save modifications?\nThis will overwrite the image and may reduce it's quality!"),
@@ -558,7 +573,9 @@ flip_pixbuf(VnrWindow *window, gboolean horizontal)
                               TRUE,
                               "Image modifications cannot be saved.\nWriting in this format is not supported.",
                               FALSE);
-    else
+    else if(window->prefs->behavior_modify == VNR_PREFS_MODIFY_SAVE)
+        save_image_cb(NULL, window);
+    else if(window->prefs->behavior_modify == VNR_PREFS_MODIFY_ASK)
         vnr_message_area_show_with_button(VNR_MESSAGE_AREA(window->msg_area),
                                           FALSE,
                                           "Save modifications?\nThis will overwrite the image and may reduce it's quality!",
@@ -613,6 +630,10 @@ static void
 spin_value_change_cb (GtkSpinButton *spinbutton, VnrWindow *window)
 {
     int new_value = gtk_spin_button_get_value_as_int (spinbutton);
+
+    if(new_value != window->prefs->slideshow_timeout)
+        vnr_prefs_set_slideshow_timeout(window->prefs, new_value);
+
     gtk_label_set_text (GTK_LABEL(window->fs_seconds_label),
                         ngettext(" second", " seconds", new_value));
     window->ss_timeout = new_value;
@@ -640,19 +661,28 @@ save_image_cb (GtkWidget *widget, VnrWindow *window)
     /* This makes the cursor show NOW */
     gdk_flush();
 
-    vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
+    if(window->prefs->behavior_modify == VNR_PREFS_MODIFY_ASK)
+        vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
 
     if(strcmp(window->writable_format_name, "jpeg" ) == 0)
     {
+        gchar *quality;
+        quality = g_strdup_printf ("%i", window->prefs->jpeg_quality);
+
         gdk_pixbuf_save (uni_image_view_get_pixbuf(UNI_IMAGE_VIEW(window->view)),
                          VNR_FILE(window->file_list->data)->path, "jpeg",
-                         &error, "quality", "90", NULL);
+                         &error, "quality", quality, NULL);
+        g_free(quality);
     }
     else if(strcmp(window->writable_format_name, "png" ) == 0)
     {
+        gchar *compression;
+        compression = g_strdup_printf ("%i", window->prefs->png_compression);
+
         gdk_pixbuf_save (uni_image_view_get_pixbuf(UNI_IMAGE_VIEW(window->view)),
                          VNR_FILE(window->file_list->data)->path, "png",
-                         &error, "compression", "9", NULL);
+                         &error, "compression", compression, NULL);
+        g_free(compression);
     }
     else
     {
@@ -738,6 +768,12 @@ file_open_dialog_response_cb (GtkWidget *dialog,
     }
 
     gtk_widget_destroy (dialog);
+}
+
+static void
+vnr_window_cmd_preferences(GtkAction *action, gpointer user_data)
+{
+    vnr_prefs_show_dialog(VNR_WINDOW(user_data)->prefs);
 }
 
 static void
@@ -976,12 +1012,15 @@ vnr_window_cmd_slideshow (GtkAction *action, VnrWindow *window)
 static void
 vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
 {
-    GtkWidget *dlg;
+    GtkWidget *dlg = NULL;
     const gchar *file_path;
     gchar *markup, *prompt, *warning;
     gboolean restart_slideshow = FALSE;
     gboolean restart_autohide_timeout = FALSE;
     gboolean cursor_was_hidden = FALSE;
+
+    /* Used to get rid of the "may be used uninitialised" warning */
+    markup = prompt = warning = NULL;
 
     if(window->mode == VNR_WINDOW_MODE_SLIDESHOW)
     {
@@ -1003,31 +1042,34 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
 
     file_path = VNR_FILE(window->file_list->data)->path;
 
-    warning = _("If you delete an item, it will be permanently lost.");
+    if(window->prefs->confirm_delete)
+    {
+        warning = _("If you delete an item, it will be permanently lost.");
 
-    /* I18N: The '%s' is replaced with the name of the file to be deleted. */
-    prompt = g_strdup_printf (_("Are you sure you want to\n"
-                                "permanently delete \"%s\"?"),
-                              VNR_FILE(window->file_list->data)->display_name);
-    markup = g_strdup_printf ("<span weight=\"bold\" size=\"larger\">%s</span>\n\n%s",
-                              prompt, warning);
+        /* I18N: The '%s' is replaced with the name of the file to be deleted. */
+        prompt = g_strdup_printf (_("Are you sure you want to\n"
+                                    "permanently delete \"%s\"?"),
+                                  VNR_FILE(window->file_list->data)->display_name);
+        markup = g_strdup_printf ("<span weight=\"bold\" size=\"larger\">%s</span>\n\n%s",
+                                  prompt, warning);
 
 
-    dlg = gtk_message_dialog_new(GTK_WINDOW(window),
-                                 GTK_DIALOG_MODAL,
-                                 GTK_MESSAGE_WARNING,
-                                 GTK_BUTTONS_NONE,
-                                 NULL);
+        dlg = gtk_message_dialog_new(GTK_WINDOW(window),
+                                     GTK_DIALOG_MODAL,
+                                     GTK_MESSAGE_WARNING,
+                                     GTK_BUTTONS_NONE,
+                                     NULL);
 
-    gtk_message_dialog_set_markup (GTK_MESSAGE_DIALOG (dlg),
-                                   markup);
+        gtk_message_dialog_set_markup (GTK_MESSAGE_DIALOG (dlg),
+                                       markup);
 
-    gtk_dialog_add_buttons (GTK_DIALOG (dlg),
-                            GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                            GTK_STOCK_DELETE, GTK_RESPONSE_YES,
-                            NULL);
+        gtk_dialog_add_buttons (GTK_DIALOG (dlg),
+                                GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                GTK_STOCK_DELETE, GTK_RESPONSE_YES,
+                                NULL);
+    }
 
-    if( gtk_dialog_run(GTK_DIALOG(dlg)) == GTK_RESPONSE_YES )
+    if(!window->prefs->confirm_delete || gtk_dialog_run(GTK_DIALOG(dlg)) == GTK_RESPONSE_YES )
     {
         if( g_unlink(file_path) != 0 )
         {
@@ -1070,14 +1112,15 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
             else
             {
                 vnr_window_set_list(window, next, FALSE);
-                if(!window->cursor_is_hidden)
+                if(window->prefs->confirm_delete && !window->cursor_is_hidden)
                     gdk_window_set_cursor(GTK_WIDGET(dlg)->window,
                                           gdk_cursor_new(GDK_WATCH));
+
                 gdk_flush();
 
                 vnr_window_close(window);
                 vnr_window_open(window, FALSE);
-                if(!window->cursor_is_hidden)
+                if(window->prefs->confirm_delete && !window->cursor_is_hidden)
                     gdk_window_set_cursor(GTK_WIDGET(dlg)->window,
                                           gdk_cursor_new(GDK_LEFT_PTR));
             }
@@ -1093,13 +1136,17 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
     if(restart_autohide_timeout)
         fullscreen_set_timeout(window);
 
-    g_free(prompt);
-    g_free(markup);
-    gtk_widget_destroy( dlg );
+    if(window->prefs->confirm_delete)
+    {
+        g_free(prompt);
+        g_free(markup);
+        gtk_widget_destroy( dlg );
+    }
 }
 
 static const GtkActionEntry action_entries_window[] = {
     { "File",  NULL, N_("_File") },
+    { "Edit",  NULL, N_("_Edit") },
     { "View",  NULL, N_("_View") },
     { "Image",  NULL, N_("_Image") },
     { "Go",    NULL, N_("_Go") },
@@ -1116,7 +1163,10 @@ static const GtkActionEntry action_entries_window[] = {
       G_CALLBACK (gtk_main_quit) },
     { "HelpAbout", GTK_STOCK_ABOUT, N_("_About"), NULL,
       N_("About this application"),
-      G_CALLBACK (vnr_window_cmd_about) }
+      G_CALLBACK (vnr_window_cmd_about) },
+    { "EditPreferences", GTK_STOCK_PREFERENCES, N_("_Preferences..."), NULL,
+      N_("User preferences for Viewnior"),
+      G_CALLBACK (vnr_window_cmd_preferences) }
 };
 
 static const GtkActionEntry action_entries_image[] = {
@@ -1330,6 +1380,8 @@ vnr_window_init (VnrWindow * window)
     window->cursor_is_hidden = FALSE;
     window->disable_autohide = FALSE;
 
+    window->prefs = (VnrPrefs*)vnr_prefs_new (GTK_WIDGET(window));
+
     window->mode = VNR_WINDOW_MODE_NORMAL;
 
     gtk_window_set_title ((GtkWindow *) window, "Viewnior");
@@ -1463,6 +1515,7 @@ vnr_window_init (VnrWindow * window)
                              gtk_action_group_get_action (window->actions_collection,
                                                           "GoPrevious"));
 
+    vnr_window_apply_preferences(window);
 
     vnr_window_set_drag(window);
 
@@ -1546,6 +1599,13 @@ vnr_window_open (VnrWindow * window, gboolean fit_to_screen)
     else
         gtk_action_group_set_sensitive(window->actions_static_image, FALSE);
 
+    if(window->mode != VNR_WINDOW_MODE_NORMAL && window->prefs->fit_on_fullscreen)
+        uni_image_view_set_zoom_mode (UNI_IMAGE_VIEW(window->view),
+                                      VNR_PREFS_ZOOM_FIT);
+    else
+        uni_image_view_set_zoom_mode (UNI_IMAGE_VIEW(window->view),
+                                      window->prefs->zoom);
+
     if(GTK_WIDGET_VISIBLE(window->props_dlg))
         vnr_properties_dialog_update(VNR_PROPERTIES_DIALOG(window->props_dlg));
 
@@ -1561,11 +1621,11 @@ vnr_window_open_from_list(VnrWindow *window, GSList *uri_list)
 
     if (g_slist_length(uri_list) == 1)
     {
-        vnr_file_load_single_uri (uri_list->data, &file_list, &error);
+        vnr_file_load_single_uri (uri_list->data, &file_list, window->prefs->show_hidden, &error);
     }
     else
     {
-        vnr_file_load_uri_list (uri_list, &file_list, &error);
+        vnr_file_load_uri_list (uri_list, &file_list, window->prefs->show_hidden, &error);
     }
 
     if(error != NULL && file_list != NULL)
@@ -1767,4 +1827,38 @@ vnr_window_last (VnrWindow *window){
         gdk_window_set_cursor(GTK_WIDGET(window)->window,
                               gdk_cursor_new(GDK_LEFT_PTR));
     return TRUE;
+}
+
+void
+vnr_window_apply_preferences (VnrWindow *window)
+{
+    if(window->prefs->smooth_images && UNI_IMAGE_VIEW(window->view)->interp != GDK_INTERP_BILINEAR)
+    {
+        UNI_IMAGE_VIEW(window->view)->interp = GDK_INTERP_BILINEAR;
+        gtk_widget_queue_draw(window->view);
+    }
+    else if(!window->prefs->smooth_images && UNI_IMAGE_VIEW(window->view)->interp != GDK_INTERP_NEAREST)
+    {
+        UNI_IMAGE_VIEW(window->view)->interp = GDK_INTERP_NEAREST;
+        gtk_widget_queue_draw(window->view);
+    }
+
+
+    if(gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON(window->ss_timeout_widget)) != window->prefs->slideshow_timeout)
+    {
+        gtk_spin_button_set_value(GTK_SPIN_BUTTON(window->ss_timeout_widget), (gdouble) window->prefs->slideshow_timeout);
+    }
+}
+
+void
+vnr_window_toggle_fullscreen (VnrWindow *window)
+{
+    gboolean fullscreen;
+
+    fullscreen = (window->mode == VNR_WINDOW_MODE_NORMAL)?TRUE:FALSE;
+
+    if (fullscreen)
+        vnr_window_fullscreen (window);
+    else
+        vnr_window_unfullscreen (window);
 }

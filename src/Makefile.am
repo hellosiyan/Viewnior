@@ -19,6 +19,7 @@ uni_headers =           \
     vnr-file.h          \
     uni-zoom.h          \
     uni-utils.h         \
+    vnr-prefs.h         \
     vnr-tools.h
 
 viewnior_SOURCES =      \
@@ -36,6 +37,7 @@ viewnior_SOURCES =      \
     mouse_handler.c     \
     vnr-file.c          \
     uni-utils.c         \
+    vnr-prefs.c         \
     vnr-tools.c         \
     $(BUILT_SOURCES)    \
     $(uni_headers)

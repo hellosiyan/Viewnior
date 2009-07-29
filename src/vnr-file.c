@@ -129,7 +129,7 @@ vnr_file_list_compare(gconstpointer a, gconstpointer b, gpointer user_data){
 }
 
 static GList *
-vnr_file_dir_content_to_list(gchar *path, gboolean sort)
+vnr_file_dir_content_to_list(gchar *path, gboolean sort, gboolean include_hidden)
 {
     GList *file_list = NULL;
     GFile *file;
@@ -141,7 +141,8 @@ vnr_file_dir_content_to_list(gchar *path, gboolean sort)
     file = g_file_new_for_path(path);
     f_enum = g_file_enumerate_children(file, G_FILE_ATTRIBUTE_STANDARD_NAME","
                                        G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME","
-                                       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+                                       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE","
+                                       G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN,
                                        G_FILE_QUERY_INFO_NONE,
                                        NULL, NULL);
     file_info = g_file_enumerator_next_file(f_enum,NULL,NULL);
@@ -152,7 +153,7 @@ vnr_file_dir_content_to_list(gchar *path, gboolean sort)
 
         mimetype =g_file_info_get_content_type(file_info);
 
-        if(vnr_file_is_supported_mime_type(mimetype)){
+        if(vnr_file_is_supported_mime_type(mimetype) && (include_hidden || !g_file_info_get_is_hidden (file_info)) ){
             vnr_file_set_display_name(vnr_file, (char*)g_file_info_get_display_name (file_info));
 
             vnr_file->path =g_strjoin(G_DIR_SEPARATOR_S, path,
@@ -178,7 +179,7 @@ vnr_file_dir_content_to_list(gchar *path, gboolean sort)
 
 
 void
-vnr_file_load_single_uri(char *p_path, GList **file_list, GError **error)
+vnr_file_load_single_uri(char *p_path, GList **file_list, gboolean include_hidden, GError **error)
 {
     GFile *file;
     GFileInfo *fileinfo;
@@ -196,7 +197,7 @@ vnr_file_load_single_uri(char *p_path, GList **file_list, GError **error)
 
     if (filetype == G_FILE_TYPE_DIRECTORY)
     {
-        *file_list = vnr_file_dir_content_to_list(p_path, TRUE);
+        *file_list = vnr_file_dir_content_to_list(p_path, TRUE, include_hidden);
     }
     else
     {
@@ -204,7 +205,7 @@ vnr_file_load_single_uri(char *p_path, GList **file_list, GError **error)
         GList *current_position;
 
         parent = g_file_get_parent(file);
-        *file_list = vnr_file_dir_content_to_list(g_file_get_path(parent), TRUE);
+        *file_list = vnr_file_dir_content_to_list(g_file_get_path(parent), TRUE, include_hidden);
 
         g_object_unref(parent);
 
@@ -228,7 +229,7 @@ vnr_file_load_single_uri(char *p_path, GList **file_list, GError **error)
 }
 
 void
-vnr_file_load_uri_list (GSList *uri_list, GList **file_list, GError **error)
+vnr_file_load_uri_list (GSList *uri_list, GList **file_list, gboolean include_hidden, GError **error)
 {
     GFile *file;
     GFileInfo *fileinfo;
@@ -241,7 +242,8 @@ vnr_file_load_uri_list (GSList *uri_list, GList **file_list, GError **error)
         file = g_file_new_for_path(p_path);
         fileinfo = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_TYPE","
                                       G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME","
-                                      G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+                                      G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE","
+                                      G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN,
                                       0, NULL, error);
 
         if (fileinfo == NULL)
@@ -257,7 +259,7 @@ vnr_file_load_uri_list (GSList *uri_list, GList **file_list, GError **error)
 
         if (filetype == G_FILE_TYPE_DIRECTORY)
         {
-            *file_list = g_list_concat (*file_list, vnr_file_dir_content_to_list(p_path, FALSE));
+            *file_list = g_list_concat (*file_list, vnr_file_dir_content_to_list(p_path, FALSE, include_hidden));
         }
         else
         {
@@ -268,7 +270,7 @@ vnr_file_load_uri_list (GSList *uri_list, GList **file_list, GError **error)
 
             mimetype = g_file_info_get_content_type(fileinfo);
 
-            if(vnr_file_is_supported_mime_type(mimetype))
+            if(vnr_file_is_supported_mime_type(mimetype) && (include_hidden || !g_file_info_get_is_hidden (fileinfo)) )
             {
                 vnr_file_set_display_name(new_vnrfile, (char*)g_file_info_get_display_name (fileinfo));
 

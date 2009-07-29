@@ -11,6 +11,9 @@ desktopdir = $(datadir)/applications
 
 desktop_DATA = $(DESKTOP_FILES)
 
+gladedir = $(datadir)/viewnior
+glade_DATA = vnr-preferences-dialog.ui
+
 PIXMAPS_FILES = \
 	pixmaps/object-rotate-right.png \
 	pixmaps/object-rotate-left.png \
@@ -20,6 +23,6 @@ PIXMAPS_FILES = \
 pixmaps_DATA = $(PIXMAPS_FILES)
 pixmapsdir = $(datadir)/viewnior/pixmaps
 
-EXTRA_DIST = $(DESKTOP_IN_FILES) $(pixmaps_DATA)
+EXTRA_DIST = $(DESKTOP_IN_FILES) $(pixmaps_DATA) $(glade_DATA)
 
 CLEANFILES = viewnior.desktop.in viewnior.desktop

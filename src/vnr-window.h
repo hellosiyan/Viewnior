@@ -24,6 +24,7 @@
 #include <glib-object.h>
 #include <gtk/gtk.h>
 #include "vnr-file.h"
+#include "vnr-prefs.h"
 
 G_BEGIN_DECLS
 
@@ -68,6 +69,8 @@ struct _VnrWindow {
 
     GList *file_list;
 
+    VnrPrefs *prefs;
+
     gint max_width;
     gint max_height;
     gchar *writable_format_name;
@@ -91,6 +94,7 @@ struct _VnrWindow {
     gboolean slideshow;
     guint ss_source_tag;
     gint ss_timeout;
+    GtkWidget *ss_timeout_widget;
 };
 
 struct _VnrWindowClass {
@@ -113,6 +117,8 @@ gboolean vnr_window_prev     (VnrWindow *win);
 gboolean vnr_window_first    (VnrWindow *win);
 gboolean vnr_window_last     (VnrWindow *win);
 void     deny_slideshow      (VnrWindow *window);
+void     vnr_window_apply_preferences (VnrWindow *window);
+void     vnr_window_toggle_fullscreen (VnrWindow *win);
 
 G_END_DECLS
 #endif /* __VNR_WINDOW_H__ */

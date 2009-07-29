@@ -257,15 +257,6 @@ uni_image_view_repaint_area (UniImageView * view, GdkRectangle * paint_rect)
                                                    &paint_area);
     if (intersects && view->pixbuf)
     {
-        GdkInterpType interp;
-        if (view->zoom <= 1.0)
-        {
-            interp = GDK_INTERP_TILES;
-        }
-        else
-        {
-            interp = view->interp;
-        }
         int src_x =
             (int) ((view->offset_x + (gdouble) paint_area.x -
                     (gdouble) image_area.x) + 0.5);
@@ -278,7 +269,7 @@ uni_image_view_repaint_area (UniImageView * view, GdkRectangle * paint_rect)
             (GdkRectangle) {src_x, src_y,
                             paint_area.width, paint_area.height},
             paint_area.x, paint_area.y,
-            interp,
+            view->interp,
             view->pixbuf
         };
         uni_dragger_paint_image (UNI_DRAGGER(view->tool), &opts,
@@ -539,7 +530,28 @@ uni_image_view_button_press (GtkWidget * widget, GdkEventButton * ev)
 {
     gtk_widget_grab_focus(widget);
     UniImageView *view = UNI_IMAGE_VIEW (widget);
-    if (ev->type == GDK_BUTTON_PRESS && ev->button == 1)
+    VnrWindow *vnr_win = VNR_WINDOW(gtk_widget_get_toplevel(widget));
+    g_assert(GTK_WIDGET_TOPLEVEL(vnr_win));
+
+    if(ev->type == GDK_2BUTTON_PRESS && ev->button == 1 && vnr_win->prefs->behavior_click == VNR_PREFS_CLICK_FULLSCREEN)
+    {
+        vnr_window_toggle_fullscreen(vnr_win);
+        return 1;
+    }
+    else if(ev->type == GDK_2BUTTON_PRESS && ev->button == 1 && vnr_win->prefs->behavior_click == VNR_PREFS_CLICK_NEXT)
+    {
+
+        int width;
+        gdk_drawable_get_size(GDK_DRAWABLE(widget->window), &width, NULL);
+
+        if(ev->x/width < 0.5)
+            vnr_window_prev(vnr_win);
+        else
+            vnr_window_next(vnr_win, TRUE);
+
+        return 1;
+    }
+    else if (ev->type == GDK_BUTTON_PRESS && ev->button == 1)
     {
         if(view->vadj->upper > view->vadj->page_size ||
            view->hadj->upper > view->hadj->page_size)
@@ -606,19 +618,36 @@ uni_image_view_scroll_event (GtkWidget * widget, GdkEventScroll * ev)
 {
     gdouble zoom;
     UniImageView *view = UNI_IMAGE_VIEW (widget);
+    VnrWindow *vnr_win = VNR_WINDOW(gtk_widget_get_toplevel(widget));
+    g_assert(GTK_WIDGET_TOPLEVEL(vnr_win));
 
     /* Horizontal scroll left is equivalent to scroll up and right is
      * like scroll down. No idea if that is correct -- I have no input
      * device that can do horizontal scrolls. */
     if (ev->direction == GDK_SCROLL_UP || ev->direction == GDK_SCROLL_LEFT)
     {
-        zoom = CLAMP (view->zoom * UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
+        if(vnr_win->prefs->behavior_wheel == VNR_PREFS_WHEEL_NAVIGATE && (ev->state & GDK_CONTROL_MASK) == 0)
+        {
+            vnr_window_prev(vnr_win);
+        }
+        else
+        {
+            zoom = CLAMP (view->zoom * UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
+            uni_image_view_set_zoom_with_center (view, zoom, ev->x, ev->y, FALSE);
+        }
     }
     else
     {
-        zoom = CLAMP (view->zoom / UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
+        if(vnr_win->prefs->behavior_wheel == VNR_PREFS_WHEEL_NAVIGATE && (ev->state & GDK_CONTROL_MASK) == 0)
+        {
+            vnr_window_next(vnr_win, TRUE);
+        }
+        else
+        {
+            zoom = CLAMP (view->zoom / UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
+            uni_image_view_set_zoom_with_center (view, zoom, ev->x, ev->y, FALSE);
+        }
     }
-    uni_image_view_set_zoom_with_center (view, zoom, ev->x, ev->y, FALSE);
 
     return TRUE;
 }
@@ -1134,6 +1163,26 @@ uni_image_view_set_zoom (UniImageView * view, gdouble zoom)
     g_return_if_fail (UNI_IS_IMAGE_VIEW (view));
     zoom = CLAMP (zoom, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
     uni_image_view_set_zoom_no_center (view, zoom, FALSE);
+}
+
+
+void
+uni_image_view_set_zoom_mode (UniImageView * view, VnrPrefsZoom mode)
+{
+    switch(mode)
+    {
+        case VNR_PREFS_ZOOM_NORMAL:
+            uni_image_view_set_fitting(view, UNI_FITTING_NONE);
+            //view->zoom = 1.0;
+            uni_image_view_set_zoom (view, 1.0);
+        break;
+        case VNR_PREFS_ZOOM_FIT:
+            uni_image_view_set_fitting(view, UNI_FITTING_FULL);
+        break;
+        case VNR_PREFS_ZOOM_SMART:
+            uni_image_view_set_fitting(view, UNI_FITTING_NORMAL);
+        break;
+    }
 }
 
 /*************************************************************/

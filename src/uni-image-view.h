@@ -28,6 +28,7 @@
 
 #include "mouse_handler.h"
 #include "uni-dragger.h"
+#include "vnr-prefs.h"
 
 G_BEGIN_DECLS
 #define UNI_TYPE_IMAGE_VIEW             (uni_image_view_get_type ())
@@ -111,7 +112,8 @@ void        uni_image_view_set_pixbuf   (UniImageView * view,
                                          GdkPixbuf * pixbuf,
                                          gboolean reset_fit);
 
-void        uni_image_view_set_zoom     (UniImageView * view, gdouble zoom);
+void        uni_image_view_set_zoom      (UniImageView * view, gdouble zoom);
+void        uni_image_view_set_zoom_mode (UniImageView * view, VnrPrefsZoom mode);
 
 /* Actions */
 void        uni_image_view_zoom_in      (UniImageView * view);
