@@ -571,14 +571,14 @@ flip_pixbuf(VnrWindow *window, gboolean horizontal)
     if(window->writable_format_name == NULL)
         vnr_message_area_show(VNR_MESSAGE_AREA(window->msg_area),
                               TRUE,
-                              "Image modifications cannot be saved.\nWriting in this format is not supported.",
+                              _("Image modifications cannot be saved.\nWriting in this format is not supported."),
                               FALSE);
     else if(window->prefs->behavior_modify == VNR_PREFS_MODIFY_SAVE)
         save_image_cb(NULL, window);
     else if(window->prefs->behavior_modify == VNR_PREFS_MODIFY_ASK)
         vnr_message_area_show_with_button(VNR_MESSAGE_AREA(window->msg_area),
                                           FALSE,
-                                          "Save modifications?\nThis will overwrite the image and may reduce it's quality!",
+                                          _("Save modifications?\nThis will overwrite the image and may reduce it's quality!"),
                                           FALSE, GTK_STOCK_SAVE,
                                           G_CALLBACK(save_image_cb));
 }
