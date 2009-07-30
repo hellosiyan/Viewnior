@@ -664,7 +664,7 @@ save_image_cb (GtkWidget *widget, VnrWindow *window)
     if(window->prefs->behavior_modify == VNR_PREFS_MODIFY_ASK)
         vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
 
-    if(strcmp(window->writable_format_name, "jpeg" ) == 0)
+    if(g_strcmp0(window->writable_format_name, "jpeg" ) == 0)
     {
         gchar *quality;
         quality = g_strdup_printf ("%i", window->prefs->jpeg_quality);
@@ -674,7 +674,7 @@ save_image_cb (GtkWidget *widget, VnrWindow *window)
                          &error, "quality", quality, NULL);
         g_free(quality);
     }
-    else if(strcmp(window->writable_format_name, "png" ) == 0)
+    else if(g_strcmp0(window->writable_format_name, "png" ) == 0)
     {
         gchar *compression;
         compression = g_strdup_printf ("%i", window->prefs->png_compression);
