@@ -58,6 +58,8 @@ const gchar *ui_definition = "<ui>"
       "<menuitem action=\"FileOpen\"/>"
       "<menuitem action=\"FileOpenDir\"/>"
       "<separator/>"
+      "<menuitem action=\"FileSave\"/>"
+      "<separator/>"
       "<menuitem action=\"FileProperties\"/>"
       "<separator/>"
       "<menuitem action=\"FileClose\"/>"
@@ -505,6 +507,7 @@ rotate_pixbuf(VnrWindow *window, GdkPixbufRotation angle)
         window->modifications ^= 3;
 
     window->modifications ^= 4;
+    gtk_action_group_set_sensitive(window->action_save, window->modifications);
 
     if(window->modifications == 0 && window->prefs->behavior_modify != VNR_PREFS_MODIFY_IGNORE)
     {
@@ -561,6 +564,8 @@ flip_pixbuf(VnrWindow *window, gboolean horizontal)
 
     /* Extra conditions. Rotating 180 degrees is also flipping horizontal and vertical */
     window->modifications ^= (window->modifications&4)?1+horizontal:2-horizontal;
+
+    gtk_action_group_set_sensitive(window->action_save, window->modifications);
 
     if(window->modifications == 0)
     {
@@ -701,6 +706,8 @@ save_image_cb (GtkWidget *widget, VnrWindow *window)
         return;
     }
     window->modifications = 0;
+
+    gtk_action_group_set_sensitive(window->action_save, FALSE);
 
     if(GTK_WIDGET_VISIBLE(window->props_dlg))
         vnr_properties_dialog_update(VNR_PROPERTIES_DIALOG(window->props_dlg));
@@ -1170,6 +1177,12 @@ static const GtkActionEntry action_entries_window[] = {
       G_CALLBACK (vnr_window_cmd_preferences) }
 };
 
+static const GtkActionEntry action_entry_save[] = {
+    { "FileSave", GTK_STOCK_SAVE, N_("_Save"), "<control>S",
+      N_("Save changes"),
+      G_CALLBACK (save_image_cb) },
+};
+
 static const GtkActionEntry action_entries_image[] = {
     { "FileDelete", GTK_STOCK_DELETE, N_("_Delete"), NULL,
       N_("Delete the current file"),
@@ -1405,6 +1418,20 @@ vnr_window_init (VnrWindow * window)
     gtk_ui_manager_insert_action_group (window->ui_mngr,
                                         window->actions_window, 0);
 
+    window->action_save = gtk_action_group_new("MenuActionSave");
+
+
+    gtk_action_group_set_translation_domain (window->action_save,
+                                             GETTEXT_PACKAGE);
+
+    gtk_action_group_add_actions (window->action_save,
+                                  action_entry_save,
+                                  G_N_ELEMENTS (action_entry_save),
+                                  window);
+
+    gtk_ui_manager_insert_action_group (window->ui_mngr,
+                                        window->action_save, 0);
+
     window->actions_static_image = gtk_action_group_new("MenuActionsStaticImage");
 
 
@@ -1467,6 +1494,7 @@ vnr_window_init (VnrWindow * window)
     gtk_action_group_set_sensitive(window->actions_collection, FALSE);
     gtk_action_group_set_sensitive(window->actions_image, FALSE);
     gtk_action_group_set_sensitive(window->actions_static_image, FALSE);
+    gtk_action_group_set_sensitive(window->action_save, FALSE);
 
     /* Continue with layout */
 
