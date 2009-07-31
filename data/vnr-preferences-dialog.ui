@@ -21,7 +21,7 @@
               <object class="GtkVBox" id="general">
                 <property name="visible">True</property>
                 <property name="border_width">10</property>
-                <property name="spacing">10</property>
+                <property name="spacing">6</property>
                 <child>
                   <object class="GtkHBox" id="zoom_mode_box">
                     <property name="visible">True</property>
@@ -100,7 +100,7 @@
               <object class="GtkVBox" id="fullscreen">
                 <property name="visible">True</property>
                 <property name="border_width">10</property>
-                <property name="spacing">10</property>
+                <property name="spacing">6</property>
                 <child>
                   <object class="GtkHBox" id="timeout_box">
                     <property name="visible">True</property>
@@ -166,8 +166,8 @@
                 <property name="border_width">10</property>
                 <property name="n_rows">4</property>
                 <property name="n_columns">2</property>
-                <property name="column_spacing">10</property>
-                <property name="row_spacing">10</property>
+                <property name="column_spacing">6</property>
+                <property name="row_spacing">6</property>
                 <child>
                   <object class="GtkLabel" id="wheel_label">
                     <property name="visible">True</property>
