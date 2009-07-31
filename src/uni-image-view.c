@@ -147,9 +147,18 @@ uni_image_view_set_zoom_with_center (UniImageView * view,
 {
     gdouble zoom_ratio = zoom / view->zoom;
 
+    Size zoomed = uni_image_view_get_zoomed_size (view);
+    Size alloc = uni_image_view_get_allocated_size (view);
+    gint x, y;
+
+    x = alloc.width - zoomed.width;
+    y = alloc.height - zoomed.height;
+    x = (x<0)?0:x;
+    y = (y<0)?0:y;
+
     gdouble offset_x, offset_y;
-    offset_x = (view->offset_x + center_x) * zoom_ratio - center_x;
-    offset_y = (view->offset_y + center_y) * zoom_ratio - center_y;
+    offset_x = (view->offset_x + center_x -x/2) * zoom_ratio - center_x;
+    offset_y = (view->offset_y + center_y -y/2) * zoom_ratio - center_y;
     view->zoom = zoom;
 
     uni_image_view_clamp_offset (view, &offset_x, &offset_y);
