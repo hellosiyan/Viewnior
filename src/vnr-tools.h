@@ -25,5 +25,6 @@ void    vnr_tools_fit_to_size (gint * w, gint * h, gint mw, gint mh);
 GSList *vnr_tools_get_list_from_array (gchar **files);
 GSList *vnr_tools_parse_uri_string_list_to_file_list (const gchar *uri_list);
 gint    compare_quarks (gconstpointer a, gconstpointer b);
+void    get_position_of_element_in_list(GList *list, gint *current, gint *total);
 
 #endif /* __VNR_IMAGE_H__ */

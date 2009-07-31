@@ -737,16 +737,17 @@ window_realize_cb(GtkWidget *widget, gpointer user_data)
 static void
 zoom_changed_cb (UniImageView *view, VnrWindow *window)
 {
+    gint position, total;
     char *buf = NULL;
 
     /* Change the info, only if there is an image
      * (vnr_window_close isn't called on the current image) */
     if(gtk_action_group_get_sensitive (window->actions_image))
     {
-        buf = g_strdup_printf ("%s - %ix%i - %i%%",
+        get_position_of_element_in_list(window->file_list, &position, &total);
+        buf = g_strdup_printf ("%s - %i/%i - %i%%",
                                VNR_FILE(window->file_list->data)->display_name,
-                               window->current_image_width,
-                               window->current_image_height,
+                               position, total,
                                (int)(view->zoom*100.));
 
         gtk_window_set_title (GTK_WINDOW(window), buf);
