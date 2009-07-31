@@ -25,7 +25,7 @@
 
 G_DEFINE_TYPE (VnrPropertiesDialog, vnr_properties_dialog, GTK_TYPE_DIALOG);
 
-gboolean
+static gboolean
 key_press_cb (GtkWidget *widget, GdkEventKey *event, gpointer user_data)
 {
     if(event->keyval == GDK_Escape)

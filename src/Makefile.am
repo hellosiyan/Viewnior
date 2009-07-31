@@ -1,6 +1,6 @@
 bin_PROGRAMS = viewnior
 
-QUIET_GEN = $(Q:@=@echo ' GEN '$@;)
+QUIET_GEN = $(Q:@=@echo '  GEN   '$@;)
 
 BUILT_SOURCES =         \
     uni-marshal.c       \
