@@ -22,6 +22,7 @@
 
 #include <stdlib.h>
 #include "mouse_handler.h"
+#include "uni-utils.h"
 
 /**
  * mouse_handler_new:

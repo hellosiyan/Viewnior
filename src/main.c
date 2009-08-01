@@ -24,10 +24,7 @@
 #include <gtk/gtk.h>
 #include "config.h"
 #include "vnr-window.h"
-#include "uni-scroll-win.h"
-#include "uni-image-view.h"
 #include "vnr-message-area.h"
-#include "uni-anim-view.h"
 #include "vnr-file.h"
 #include "vnr-tools.h"
 

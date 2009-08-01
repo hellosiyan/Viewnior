@@ -22,6 +22,7 @@
 
 #include <stdlib.h>
 #include "uni-dragger.h"
+#include "uni-image-view.h"
 
 G_DEFINE_TYPE (UniDragger, uni_dragger, G_TYPE_OBJECT);
 

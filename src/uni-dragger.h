@@ -27,7 +27,6 @@
 #include <gdk/gdk.h>
 #include "uni-cache.h"
 #include "mouse_handler.h"
-#include "uni-image-view.h"
 
 G_BEGIN_DECLS
 #define UNI_TYPE_DRAGGER             (uni_dragger_get_type ())

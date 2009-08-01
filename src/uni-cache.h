@@ -25,8 +25,6 @@
 
 #include <gdk/gdk.h>
 
-#include "uni-utils.h"
-
 typedef struct _UniPixbufDrawOpts UniPixbufDrawOpts;
 typedef struct _UniPixbufDrawCache UniPixbufDrawCache;
 

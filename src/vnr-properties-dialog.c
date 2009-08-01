@@ -22,6 +22,8 @@
 #define _(String) gettext (String)
 
 #include "vnr-properties-dialog.h"
+#include "vnr-file.h"
+#include "vnr-tools.h"
 
 G_DEFINE_TYPE (VnrPropertiesDialog, vnr_properties_dialog, GTK_TYPE_DIALOG);
 

@@ -21,7 +21,7 @@
 #include <glib/gi18n.h>
 #define _(String) gettext (String)
 
-#include <config.h>
+#include "config.h"
 #include <glib/gstdio.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
@@ -30,6 +30,7 @@
 #include "uni-scroll-win.h"
 #include "uni-anim-view.h"
 #include "vnr-tools.h"
+#include "vnr-file.h"
 #include "vnr-message-area.h"
 #include "vnr-properties-dialog.h"
 

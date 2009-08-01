@@ -26,8 +26,6 @@
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
 
-#include "mouse_handler.h"
-#include "uni-dragger.h"
 #include "vnr-prefs.h"
 
 G_BEGIN_DECLS

@@ -24,6 +24,7 @@
 #define _(String) gettext (String)
 
 #include "uni-scroll-win.h"
+#include "uni-image-view.h"
 #include "uni-nav.h"
 
 /*************************************************************/

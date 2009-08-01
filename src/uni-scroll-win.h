@@ -31,7 +31,6 @@
 #include <gtk/gtk.h>
 
 #include "uni-nav.h"
-#include "uni-image-view.h"
 
 G_BEGIN_DECLS
 #define UNI_TYPE_SCROLL_WIN                 (uni_scroll_win_get_type ())

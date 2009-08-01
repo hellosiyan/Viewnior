@@ -27,7 +27,6 @@
 #include <gdk/gdkkeysyms.h>
 #include "uni-image-view.h"
 #include "vnr-window.h"
-#include "vnr-tools.h"
 
 G_BEGIN_DECLS
 
