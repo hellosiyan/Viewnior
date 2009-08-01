@@ -48,6 +48,7 @@ static void leave_fs_cb (GtkButton *button, VnrWindow *window);
 static void toggle_show_next_cb (GtkToggleButton *togglebutton, VnrWindow *window);
 static void spin_value_change_cb (GtkSpinButton *spinbutton, VnrWindow *window);
 static void save_image_cb (GtkWidget *widget, VnrWindow *window);
+static void zoom_changed_cb (UniImageView *view, VnrWindow *window);
 static gboolean fullscreen_timeout_cb (VnrWindow *window);
 static gboolean leave_image_area_cb(GtkWidget * widget, GdkEventCrossing * ev, VnrWindow *window);
 static gboolean fullscreen_motion_cb(GtkWidget * widget, GdkEventMotion * ev, VnrWindow *window);
@@ -708,6 +709,9 @@ save_image_cb (GtkWidget *widget, VnrWindow *window)
     window->modifications = 0;
 
     gtk_action_group_set_sensitive(window->action_save, FALSE);
+
+    if(window->prefs->behavior_modify != VNR_PREFS_MODIFY_ASK)
+        zoom_changed_cb(UNI_IMAGE_VIEW(window->view), window);
 
     if(GTK_WIDGET_VISIBLE(window->props_dlg))
         vnr_properties_dialog_update(VNR_PROPERTIES_DIALOG(window->props_dlg));
