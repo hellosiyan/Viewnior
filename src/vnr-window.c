@@ -752,7 +752,7 @@ zoom_changed_cb (UniImageView *view, VnrWindow *window)
     if(gtk_action_group_get_sensitive (window->actions_image))
     {
         get_position_of_element_in_list(window->file_list, &position, &total);
-        buf = g_strdup_printf ("%s - %i/%i - %i%%",
+        buf = g_strdup_printf ("%s%s - %i/%i - %i%%", (window->modifications)?"*":"",
                                VNR_FILE(window->file_list->data)->display_name,
                                position, total,
                                (int)(view->zoom*100.));
