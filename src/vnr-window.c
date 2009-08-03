@@ -61,6 +61,7 @@ const gchar *ui_definition = "<ui>"
       "<menuitem action=\"FileOpenDir\"/>"
       "<separator/>"
       "<menuitem action=\"FileSave\"/>"
+      "<menuitem action=\"FileReload\"/>"
       "<separator/>"
       "<menuitem action=\"FileProperties\"/>"
       "<separator/>"
@@ -888,6 +889,12 @@ vnr_window_cmd_properties (GtkAction *action, VnrWindow *window)
 }
 
 static void
+vnr_window_cmd_reload (GtkAction *action, VnrWindow *window)
+{
+    vnr_window_open(window, FALSE);
+}
+
+static void
 vnr_window_cmd_open(GtkAction *action, VnrWindow *window)
 {
     GtkWidget *dialog;
@@ -1202,6 +1209,9 @@ static const GtkActionEntry action_entries_image[] = {
     { "FileProperties", GTK_STOCK_PROPERTIES, N_("_Properties..."), "<Alt>Return",
       N_("Show information about the current file"),
       G_CALLBACK (vnr_window_cmd_properties) },
+    { "FileReload", GTK_STOCK_REFRESH, N_("_Reload"), NULL,
+      N_("Reload the current file"),
+      G_CALLBACK (vnr_window_cmd_reload) },
     { "Delete", NULL, N_("_Delete"), "Delete",
       N_("Delete the current file"),
       G_CALLBACK (vnr_window_cmd_delete) },
