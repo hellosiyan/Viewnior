@@ -65,6 +65,13 @@ toggle_confirm_delete_cb (GtkToggleButton *togglebutton, gpointer user_data)
 }
 
 static void
+toggle_reload_on_save_cb (GtkToggleButton *togglebutton, gpointer user_data)
+{
+    VNR_PREFS(user_data)->reload_on_save = gtk_toggle_button_get_active(togglebutton);
+    vnr_prefs_save(VNR_PREFS(user_data));
+}
+
+static void
 change_zoom_mode_cb (GtkComboBox *widget, gpointer user_data)
 {
     VNR_PREFS(user_data)->zoom = gtk_combo_box_get_active(widget);
@@ -148,6 +155,7 @@ vnr_prefs_set_default(VnrPrefs *prefs)
     prefs->behavior_modify = VNR_PREFS_MODIFY_ASK;
     prefs->jpeg_quality = 90;
     prefs->png_compression = 9;
+    prefs->reload_on_save = FALSE;
 }
 
 static GtkWidget *
@@ -163,6 +171,7 @@ build_dialog (VnrPrefs *prefs)
     GtkComboBox *zoom_mode;
     GtkToggleButton *smooth_images;
     GtkToggleButton *confirm_delete;
+    GtkToggleButton *reload_on_save;
     GtkSpinButton *slideshow_timeout;
     GtkTable *behavior_table;
     GtkComboBox *action_wheel;
@@ -199,6 +208,11 @@ build_dialog (VnrPrefs *prefs)
     confirm_delete = GTK_TOGGLE_BUTTON (gtk_builder_get_object (builder, "confirm_delete"));
     gtk_toggle_button_set_active( confirm_delete, prefs->confirm_delete );
     g_signal_connect(G_OBJECT(confirm_delete), "toggled", G_CALLBACK(toggle_confirm_delete_cb), prefs);
+
+    /* Reload image after save checkbox */
+    reload_on_save = GTK_TOGGLE_BUTTON (gtk_builder_get_object (builder, "reload"));
+    gtk_toggle_button_set_active( reload_on_save, prefs->reload_on_save );
+    g_signal_connect(G_OBJECT(reload_on_save), "toggled", G_CALLBACK(toggle_reload_on_save_cb), prefs);
 
     /* Slideshow timeout spin button */
     slideshow_timeout = GTK_SPIN_BUTTON (gtk_builder_get_object (builder, "slideshow_timeout"));
@@ -290,6 +304,7 @@ vnr_prefs_save (VnrPrefs *prefs)
     g_key_file_set_boolean (conf, "prefs", "show-hidden", prefs->show_hidden);
     g_key_file_set_boolean (conf, "prefs", "smooth-images", prefs->smooth_images);
     g_key_file_set_boolean (conf, "prefs", "confirm-delete", prefs->confirm_delete);
+    g_key_file_set_boolean (conf, "prefs", "reload-on-save", prefs->reload_on_save);
     g_key_file_set_integer (conf, "prefs", "slideshow-timeout", prefs->slideshow_timeout);
     g_key_file_set_integer (conf, "prefs", "behavior-wheel", prefs->behavior_wheel);
     g_key_file_set_integer (conf, "prefs", "behavior-click", prefs->behavior_click);
@@ -343,6 +358,7 @@ vnr_prefs_load (VnrPrefs *prefs)
     prefs->show_hidden = g_key_file_get_boolean (conf, "prefs", "show-hidden", &error);
     prefs->smooth_images = g_key_file_get_boolean (conf, "prefs", "smooth-images", &error);
     prefs->confirm_delete = g_key_file_get_boolean (conf, "prefs", "confirm-delete", &error);
+    prefs->reload_on_save = g_key_file_get_boolean (conf, "prefs", "reload-on-save", &error);
     prefs->slideshow_timeout = g_key_file_get_integer (conf, "prefs", "slideshow-timeout", &error);
     prefs->behavior_wheel = g_key_file_get_integer (conf, "prefs", "behavior-wheel", &error);
     prefs->behavior_click = g_key_file_get_integer (conf, "prefs", "behavior-click", &error);

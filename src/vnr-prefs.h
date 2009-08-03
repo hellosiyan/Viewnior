@@ -71,6 +71,7 @@ struct _VnrPrefs {
     gboolean show_hidden;
     gboolean smooth_images;
     gboolean confirm_delete;
+    gboolean reload_on_save;
     int slideshow_timeout;
     int jpeg_quality;
     int png_compression;

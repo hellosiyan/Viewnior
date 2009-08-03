@@ -707,6 +707,13 @@ save_image_cb (GtkWidget *widget, VnrWindow *window)
                                                error->message, FALSE);
         return;
     }
+
+    if(window->prefs->reload_on_save)
+    {
+        vnr_window_open(window, FALSE);
+        return;
+    }
+
     window->modifications = 0;
 
     gtk_action_group_set_sensitive(window->action_save, FALSE);
