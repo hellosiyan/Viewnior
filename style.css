@@ -167,8 +167,27 @@ background-attachment:scroll;
 .post{
 padding-left:10px;
 padding-right:10px;
-margin-bottom:10px;
+margin-bottom:15px;
 }
+
+.download{
+padding-left:10px;
+padding-right:10px;
+margin-bottom:15px;
+}
+
+.download_content{
+margin-left:30px;
+}
+
+.install_desc{
+cursor:auto;
+background-color:#F5F5F5;
+border:1px solid black;
+padding:10px;
+font-family:monospace,courier,'lucida grande','myriad pro',sans-serif,verdana,'helvetica neue',helvetica,arial;
+}
+
 .post h3{
 padding-left:25px;
 background-image:url('vnrbullet16x16.png');
@@ -176,9 +195,11 @@ background-position:top left;
 background-repeat:no-repeat;
 background-attachment:scroll;
 }
+
 .date{
 color:#4F4F4F;
 font-size:13px;
+font-weight:normal;
 }
 
 .screenshot{
@@ -190,24 +211,4 @@ height:210px;
 
 .clear{
 clear:both;
-}
-
-#latest_download{
-padding-left:50px;
-padding-top:20px;
-padding-bottom:20px;
-color:white;
-}
-#latest_download a{
-color:white;
-border-bottom:none;
-border-bottom:1px solid white;
-}
-#latest_download h3{
-background:none;
-padding:0px;
-}
-#latest_download a:hover{
-color:white;
-border-bottom:none;
 }
