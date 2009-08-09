@@ -12,6 +12,7 @@ your images. Among its features are:
   * Rotate, flip, save, delete images
   * Animation support   * Browse only selected images
   * Navigation window
+  * Set image as wallpaper (only under GNOME, see INSTALL file)
   * Simple interface
 
 
