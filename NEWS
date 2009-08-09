@@ -1,3 +1,15 @@
+Viewnior 0.6
+------------
+
+New features included:
+ - Properties dialog
+ - Preferences dialog
+ - Configurable mouse actions
+
+Fixed:
+ - Many User Interface fixes
+ - Fix unaccurate double-click zooming
+
 Viewnior 0.5
 ------------
 

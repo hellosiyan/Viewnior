@@ -10,10 +10,12 @@ your images. Among its features are:
 
   * Fullscreen & Slideshow
   * Rotate, flip, save, delete images
-  * Animation support   * Browse only selected images
+  * Animation support   
+  * Browse only selected images
   * Navigation window
   * Set image as wallpaper (only under GNOME, see INSTALL file)
   * Simple interface
+  * Configurable mouse actions
 
 
 Most of the Viewnior's sources handling image viewing are adopted from
@@ -41,8 +43,8 @@ This program is released under the terms of the GNU General Public
 License.  Please see the file COPYING for details.
 
 object-rotate-left.png, object-rotate-right.png are taken from
-Elementary icon theme by ~DanRabbit.
+Elementary icon theme by ~DanRabbit (under GPL).
 object-flip-horizontal.png, object-flip-vertical.png are taken from
-Gnome icon theme.
+Gnome icon theme (under GPL).
 
-Last Edited - 26 June 2009
+Last Edited - 09 August 2009

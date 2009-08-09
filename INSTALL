@@ -10,6 +10,11 @@ something is missing). This feature is turned off by default. to enable
 it, please run configure with --enable-wallpaper:
 "./configure --enable-wallpaper"
 
+NOTE TO PACKAGE MAINTAINERS: Using --enable-wallpaper will add a gconf 
+dependecy. If the distridution you are packaging for doesn't run GNOME,
+please don't force the users install all those libraries (like orbit2 .etc)
+in vain.
+
 
 Installation Instructions
 *************************
