@@ -73,9 +73,6 @@ struct _VnrWindow {
     GList *file_list;
 
     VnrPrefs *prefs;
-#ifdef HAVE_WALLPAPER
-    GConfClient* client;
-#endif /* HAVE_WALLPAPER */
 
     gint max_width;
     gint max_height;
@@ -101,6 +98,10 @@ struct _VnrWindow {
     guint ss_source_tag;
     gint ss_timeout;
     GtkWidget *ss_timeout_widget;
+	
+#ifdef HAVE_WALLPAPER
+    GConfClient* client;
+#endif /* HAVE_WALLPAPER */
 };
 
 struct _VnrWindowClass {
