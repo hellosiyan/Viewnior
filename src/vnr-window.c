@@ -1121,12 +1121,16 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
 
     if(!window->prefs->confirm_delete || gtk_dialog_run(GTK_DIALOG(dlg)) == GTK_RESPONSE_YES )
     {
-        if( g_unlink(file_path) != 0 )
+        GFile *file;
+        GError *error = NULL;
+
+        file = g_file_new_for_path(file_path);
+        g_file_delete(file, NULL, &error);
+
+        if( error != NULL )
         {
-            /* I18N: The '%s' is replaced with error message. */
             vnr_message_area_show(VNR_MESSAGE_AREA (window->msg_area), TRUE,
-                                  g_strdup_printf (_("Error deleting image: %s"),
-                                   g_strerror(errno)), FALSE);
+                                   error->message, FALSE);
             restart_slideshow = FALSE;
         }
         else
