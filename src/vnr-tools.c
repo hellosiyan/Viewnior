@@ -22,6 +22,7 @@
 
 #include <glib.h>
 #include <gio/gio.h>
+#include <gtk/gtk.h>
 #include <stdio.h>
 #include <string.h>
 #include "vnr-tools.h"
@@ -144,4 +145,35 @@ get_position_of_element_in_list (GList *list, gint *current, gint *total)
     *total = before + after - 1;
 }
 
+void
+vnr_tools_apply_embedded_orientation (GdkPixbufAnimation **anim)
+{
+    GdkPixbuf *pixbuf;
+    GdkPixbuf *original;
+
+    if(!gdk_pixbuf_animation_is_static_image (*anim))
+        return;
+
+    pixbuf = gdk_pixbuf_animation_get_static_image (*anim);
+    original = pixbuf;
+    pixbuf = gdk_pixbuf_apply_embedded_orientation(pixbuf);
+
+    if(original == pixbuf)
+    {
+        g_object_unref(pixbuf);
+        return;
+    }
+
+    GdkPixbufSimpleAnim *s_anim;
+
+    s_anim = gdk_pixbuf_simple_anim_new (gdk_pixbuf_get_width(pixbuf),
+                                         gdk_pixbuf_get_height(pixbuf),
+                                         -1);
+    gdk_pixbuf_simple_anim_add_frame(s_anim, pixbuf);
+
+    g_object_unref(pixbuf);
+    g_object_unref(*anim);
+
+    *anim = GDK_PIXBUF_ANIMATION(s_anim);
+}
 #endif /* __VNR_IMAGE_H__ */
