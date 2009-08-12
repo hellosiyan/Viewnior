@@ -676,8 +676,7 @@ uni_image_view_set_scroll_adjustments (UniImageView * view,
                           "value_changed",
                           G_CALLBACK (uni_image_view_hadj_changed_cb), view);
         view->hadj = hadj;
-        g_object_ref (view->hadj);
-        gtk_object_sink (GTK_OBJECT (view->hadj));
+        g_object_ref_sink (view->hadj);
     }
     if (vadj && view->vadj && view->vadj != vadj)
     {
@@ -687,8 +686,7 @@ uni_image_view_set_scroll_adjustments (UniImageView * view,
                           "value_changed",
                           G_CALLBACK (uni_image_view_vadj_changed_cb), view);
         view->vadj = vadj;
-        g_object_ref (view->vadj);
-        gtk_object_sink (GTK_OBJECT (view->vadj));
+        g_object_ref_sink (view->vadj);
     }
 }
 
@@ -716,10 +714,8 @@ uni_image_view_init (UniImageView * view)
                                                      1.0, 1.0, 1.0));
     view->vadj = GTK_ADJUSTMENT (gtk_adjustment_new (0.0, 1.0, 0.0,
                                                      1.0, 1.0, 1.0));
-    g_object_ref (view->hadj);
-    gtk_object_sink (GTK_OBJECT (view->hadj));
-    g_object_ref (view->vadj);
-    gtk_object_sink (GTK_OBJECT (view->vadj));
+    g_object_ref_sink (view->hadj);
+    g_object_ref_sink (view->vadj);
 
     GtkWidget *widget = (GtkWidget *) view;
     widget->allocation.width = 0;
