@@ -250,6 +250,7 @@ build_dialog (VnrPrefs *prefs)
     action_wheel = (GtkComboBox*) gtk_combo_box_new_text();
     gtk_combo_box_append_text(action_wheel, _("Navigate images"));
     gtk_combo_box_append_text(action_wheel, _("Zoom image"));
+    gtk_combo_box_append_text(action_wheel, _("Scroll image up/down"));
     gtk_combo_box_set_active(action_wheel, prefs->behavior_wheel);
 
     gtk_table_attach (behavior_table, GTK_WIDGET(action_wheel), 1,2,0,1, GTK_FILL,0, 0,0);

@@ -637,26 +637,40 @@ uni_image_view_scroll_event (GtkWidget * widget, GdkEventScroll * ev)
      * device that can do horizontal scrolls. */
     if (ev->direction == GDK_SCROLL_UP || ev->direction == GDK_SCROLL_LEFT)
     {
-        if(vnr_win->prefs->behavior_wheel == VNR_PREFS_WHEEL_NAVIGATE && (ev->state & GDK_CONTROL_MASK) == 0)
+        if (vnr_win->prefs->behavior_wheel == VNR_PREFS_WHEEL_ZOOM || (ev->state & GDK_CONTROL_MASK) != 0)
+        {
+            zoom = CLAMP (view->zoom * UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
+            uni_image_view_set_zoom_with_center (view, zoom, ev->x, ev->y, FALSE);
+        }
+        else if(vnr_win->prefs->behavior_wheel == VNR_PREFS_WHEEL_NAVIGATE)
         {
             vnr_window_prev(vnr_win);
         }
         else
         {
-            zoom = CLAMP (view->zoom * UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
-            uni_image_view_set_zoom_with_center (view, zoom, ev->x, ev->y, FALSE);
+            if(ev->direction == GDK_SCROLL_UP)
+                uni_image_view_scroll (view, GTK_SCROLL_NONE, GTK_SCROLL_PAGE_UP);
+            else
+                uni_image_view_scroll (view, GTK_SCROLL_NONE, GTK_SCROLL_PAGE_LEFT);
         }
     }
     else
     {
-        if(vnr_win->prefs->behavior_wheel == VNR_PREFS_WHEEL_NAVIGATE && (ev->state & GDK_CONTROL_MASK) == 0)
+        if (vnr_win->prefs->behavior_wheel == VNR_PREFS_WHEEL_ZOOM || (ev->state & GDK_CONTROL_MASK) != 0)
+        {
+            zoom = CLAMP (view->zoom / UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
+            uni_image_view_set_zoom_with_center (view, zoom, ev->x, ev->y, FALSE);
+        }
+        else if(vnr_win->prefs->behavior_wheel == VNR_PREFS_WHEEL_NAVIGATE)
         {
             vnr_window_next(vnr_win, TRUE);
         }
         else
         {
-            zoom = CLAMP (view->zoom / UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
-            uni_image_view_set_zoom_with_center (view, zoom, ev->x, ev->y, FALSE);
+            if(ev->direction == GDK_SCROLL_DOWN)
+                uni_image_view_scroll (view,  GTK_SCROLL_NONE, GTK_SCROLL_PAGE_DOWN);
+            else
+                uni_image_view_scroll (view,  GTK_SCROLL_NONE, GTK_SCROLL_PAGE_RIGHT);
         }
     }
 

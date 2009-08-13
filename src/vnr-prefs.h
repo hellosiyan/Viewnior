@@ -46,6 +46,7 @@ typedef enum{
 typedef enum{
     VNR_PREFS_WHEEL_NAVIGATE ,
     VNR_PREFS_WHEEL_ZOOM ,
+    VNR_PREFS_WHEEL_SCROLL,
 } VnrPrefsWheel ;
 
 typedef enum{
