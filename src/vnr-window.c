@@ -92,10 +92,7 @@ const gchar *ui_definition = "<ui>"
       "<separator/>"
       "<menuitem action=\"ImageRotateCW\"/>"
       "<menuitem action=\"ImageRotateCCW\"/>"
-#ifdef HAVE_WALLPAPER
-      "<separator/>"
-      "<menuitem action=\"SetAsWallpaper\"/>"
-#endif /* HAVE_WALLPAPER */
+      "<placeholder name=\"WallpaperEntry\"/>"
     "</menu>"
     "<menu action=\"Go\">"
       "<menuitem name=\"GoPrevious\" action=\"GoPrevious\"/>"
@@ -128,10 +125,7 @@ const gchar *ui_definition = "<ui>"
     "<menuitem action=\"ViewZoomOut\"/>"
     "<menuitem action=\"ViewZoomNormal\"/>"
     "<menuitem action=\"ViewZoomFit\"/>"
-#ifdef HAVE_WALLPAPER
-    "<separator/>"
-    "<menuitem action=\"SetAsWallpaper\"/>"
-#endif /* HAVE_WALLPAPER */
+    "<placeholder name=\"WallpaperEntry\"/>"
     "<separator/>"
     "<menuitem name=\"Fullscreen\" action=\"ViewFullscreen\"/>"
     "<separator/>"
@@ -142,6 +136,26 @@ const gchar *ui_definition = "<ui>"
   "<accelerator name=\"ControlKPSubAccel\" action=\"ControlKpSub\"/>"
   "<accelerator name=\"DeleteAccel\" action=\"Delete\"/>"
 "</ui>";
+
+
+#ifdef HAVE_WALLPAPER
+const gchar *ui_definition_wallpaper = "<ui>"
+  "<menubar name=\"MainMenu\">"
+    "<menu action=\"Image\">"
+      "<placeholder name=\"WallpaperEntry\">"
+        "<separator/>"
+        "<menuitem name=\"Wallpaper\" action=\"SetAsWallpaper\"/>"
+      "</placeholder>"
+    "</menu>"
+  "</menubar>"
+  "<popup name=\"PopupMenu\">"
+    "<placeholder name=\"WallpaperEntry\">"
+      "<separator/>"
+      "<menuitem action=\"SetAsWallpaper\"/>"
+    "</placeholder>"
+  "</popup>"
+"</ui>";
+#endif /* HAVE_WALLPAPER */
 
 /*************************************************************/
 /***** Private actions ***************************************/
@@ -1229,12 +1243,15 @@ static const GtkActionEntry action_entry_save[] = {
       G_CALLBACK (save_image_cb) },
 };
 
-static const GtkActionEntry action_entries_image[] = {
 #ifdef HAVE_WALLPAPER
+static const GtkActionEntry action_entry_wallpaper[] = {
     { "SetAsWallpaper", NULL, N_("Set as _Wallpaper"), "<control>F8",
       N_("Set the selected image as the desktop background"),
       G_CALLBACK (vnr_set_wallpaper) },
+};
 #endif /* HAVE_WALLPAPER */
+
+static const GtkActionEntry action_entries_image[] = {
     { "FileDelete", GTK_STOCK_DELETE, N_("_Delete"), NULL,
       N_("Delete the current file"),
       G_CALLBACK (vnr_window_cmd_delete) },
@@ -1450,10 +1467,6 @@ vnr_window_init (VnrWindow * window)
 
     window->prefs = (VnrPrefs*)vnr_prefs_new (GTK_WIDGET(window));
 
-#ifdef HAVE_WALLPAPER
-    window->client = gconf_client_get_default ();
-#endif /* HAVE_WALLPAPER */
-
     window->mode = VNR_WINDOW_MODE_NORMAL;
 
     gtk_window_set_title ((GtkWindow *) window, "Viewnior");
@@ -1548,6 +1561,35 @@ vnr_window_init (VnrWindow * window)
             g_error ("building menus failed: %s\n", error->message);
             g_error_free (error);
     }
+
+
+#ifdef HAVE_WALLPAPER
+    window->client = gconf_client_get_default ();
+
+    if(gconf_client_dir_exists( window->client, "/desktop/gnome/background", NULL))
+    {
+        window->action_wallpaper = gtk_action_group_new("ActionWallpaper");
+
+        gtk_action_group_set_translation_domain (window->action_wallpaper,
+                                                 GETTEXT_PACKAGE);
+
+        gtk_action_group_add_actions (window->action_wallpaper,
+                                      action_entry_wallpaper,
+                                      G_N_ELEMENTS (action_entry_wallpaper),
+                                      window);
+
+        gtk_ui_manager_insert_action_group (window->ui_mngr,
+                                            window->action_wallpaper, 0);
+
+        if (!gtk_ui_manager_add_ui_from_string (window->ui_mngr,
+                                                ui_definition_wallpaper, -1,
+                                                &error)) {
+                g_error ("building menus failed: %s\n", error->message);
+                g_error_free (error);
+        }
+        gtk_action_group_set_sensitive(window->action_wallpaper, FALSE);
+    }
+#endif /* HAVE_WALLPAPER */
 
     gtk_action_group_set_sensitive(window->actions_collection, FALSE);
     gtk_action_group_set_sensitive(window->actions_image, FALSE);
@@ -1655,6 +1697,9 @@ vnr_window_open (VnrWindow * window, gboolean fit_to_screen)
     }
 
     gtk_action_group_set_sensitive(window->actions_image, TRUE);
+#ifdef HAVE_WALLPAPER
+    gtk_action_group_set_sensitive(window->action_wallpaper, TRUE);
+#endif /* HAVE_WALLPAPER */
 
     format = gdk_pixbuf_get_file_info (file->path, NULL, NULL);
 
@@ -1765,6 +1810,9 @@ vnr_window_close(VnrWindow *window)
     gtk_window_set_title (GTK_WINDOW (window), "Viewnior");
     uni_anim_view_set_anim (UNI_ANIM_VIEW (window->view), NULL);
     gtk_action_group_set_sensitive(window->actions_image, FALSE);
+#ifdef HAVE_WALLPAPER
+    gtk_action_group_set_sensitive(window->action_wallpaper, FALSE);
+#endif /* HAVE_WALLPAPER */
     gtk_action_group_set_sensitive(window->actions_static_image, FALSE);
 }
 

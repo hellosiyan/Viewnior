@@ -98,9 +98,10 @@ struct _VnrWindow {
     guint ss_source_tag;
     gint ss_timeout;
     GtkWidget *ss_timeout_widget;
-	
+
 #ifdef HAVE_WALLPAPER
     GConfClient* client;
+    GtkActionGroup *action_wallpaper;
 #endif /* HAVE_WALLPAPER */
 };
 
