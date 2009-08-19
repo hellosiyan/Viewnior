@@ -156,6 +156,7 @@ vnr_prefs_set_default(VnrPrefs *prefs)
     prefs->jpeg_quality = 90;
     prefs->png_compression = 9;
     prefs->reload_on_save = FALSE;
+    prefs->show_toolbar = TRUE;
 }
 
 static GtkWidget *
@@ -306,6 +307,7 @@ vnr_prefs_save (VnrPrefs *prefs)
     g_key_file_set_boolean (conf, "prefs", "smooth-images", prefs->smooth_images);
     g_key_file_set_boolean (conf, "prefs", "confirm-delete", prefs->confirm_delete);
     g_key_file_set_boolean (conf, "prefs", "reload-on-save", prefs->reload_on_save);
+    g_key_file_set_boolean (conf, "prefs", "show-toolbar", prefs->show_toolbar);
     g_key_file_set_integer (conf, "prefs", "slideshow-timeout", prefs->slideshow_timeout);
     g_key_file_set_integer (conf, "prefs", "behavior-wheel", prefs->behavior_wheel);
     g_key_file_set_integer (conf, "prefs", "behavior-click", prefs->behavior_click);
@@ -360,6 +362,7 @@ vnr_prefs_load (VnrPrefs *prefs)
     prefs->smooth_images = g_key_file_get_boolean (conf, "prefs", "smooth-images", &error);
     prefs->confirm_delete = g_key_file_get_boolean (conf, "prefs", "confirm-delete", &error);
     prefs->reload_on_save = g_key_file_get_boolean (conf, "prefs", "reload-on-save", &error);
+    prefs->show_toolbar = g_key_file_get_boolean (conf, "prefs", "show-toolbar", &error);
     prefs->slideshow_timeout = g_key_file_get_integer (conf, "prefs", "slideshow-timeout", &error);
     prefs->behavior_wheel = g_key_file_get_integer (conf, "prefs", "behavior-wheel", &error);
     prefs->behavior_click = g_key_file_get_integer (conf, "prefs", "behavior-click", &error);
@@ -424,4 +427,14 @@ void
 vnr_prefs_set_slideshow_timeout (VnrPrefs *prefs, int value)
 {
     gtk_spin_button_set_value(prefs->slideshow_timeout_widget, (gdouble)value);
+}
+
+void
+vnr_prefs_set_show_toolbar (VnrPrefs *prefs, gboolean show_toolbar)
+{
+    if(prefs->show_toolbar != show_toolbar)
+    {
+        prefs->show_toolbar = show_toolbar;
+        vnr_prefs_save(prefs);
+    }
 }

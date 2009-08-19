@@ -56,6 +56,7 @@ struct _VnrWindow {
     GtkActionGroup *actions_static_image;
     GtkActionGroup *actions_collection;
     GtkActionGroup *action_save;
+    GtkActionGroup *action_toolbar;
 
     GtkWidget *layout;
     GtkWidget *menus;

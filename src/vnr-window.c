@@ -76,6 +76,8 @@ const gchar *ui_definition = "<ui>"
       "<menuitem action=\"EditPreferences\"/>"
     "</menu>"
     "<menu action=\"View\">"
+      "<menuitem action=\"ViewToolbar\"/>"
+      "<separator/>"
       "<menuitem action=\"ViewZoomIn\"/>"
       "<menuitem action=\"ViewZoomOut\"/>"
       "<menuitem action=\"ViewZoomNormal\"/>"
@@ -411,6 +413,8 @@ vnr_window_unfullscreen(VnrWindow *window)
      * and then hide only the fullscreen controls */
     gtk_widget_show_all(window->toolbar);
     gtk_widget_hide (get_fs_controls(window));
+    if(!window->prefs->show_toolbar)
+        gtk_widget_hide (window->toolbar);
 
     g_signal_handlers_disconnect_by_func(window->view,
                                          G_CALLBACK(fullscreen_motion_cb),
@@ -1065,6 +1069,20 @@ vnr_window_cmd_fullscreen (GtkAction *action, VnrWindow *window)
 }
 
 static void
+vnr_window_cmd_toolbar (GtkAction *action, VnrWindow *window)
+{
+    gboolean show;
+
+    show = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
+    vnr_prefs_set_show_toolbar(window->prefs, show);
+
+    if (show)
+        gtk_widget_show (window->toolbar);
+    else
+        gtk_widget_hide (window->toolbar);
+}
+
+static void
 vnr_window_cmd_slideshow (GtkAction *action, VnrWindow *window)
 {
     if(!window->slideshow)
@@ -1331,6 +1349,12 @@ static const GtkToggleActionEntry toggle_entries_image[] = {
       G_CALLBACK (vnr_window_cmd_fullscreen) },
 };
 
+static const GtkToggleActionEntry toggle_entries_window[] = {
+    { "ViewToolbar", NULL, N_("Toolbar"), NULL,
+      N_("Show Toolbar"),
+      G_CALLBACK (vnr_window_cmd_toolbar) },
+};
+
 static const GtkToggleActionEntry toggle_entries_collection[] = {
     { "ViewSlideshow", GTK_STOCK_NETWORK, N_("Sli_deshow"), "F5",
       N_("Show in slideshow mode"),
@@ -1486,6 +1510,7 @@ static void
 vnr_window_init (VnrWindow * window)
 {
     GError *error = NULL;
+    GtkAction *action;
 
     window->writable_format_name = NULL;
     window->file_list = NULL;
@@ -1566,8 +1591,22 @@ vnr_window_init (VnrWindow * window)
 
     gtk_ui_manager_insert_action_group (window->ui_mngr,
                                         window->actions_image, 0);
+    /**********/
+    window->action_toolbar = gtk_action_group_new("MenuActionToolbar");
 
 
+    gtk_action_group_set_translation_domain (window->action_toolbar,
+                                             GETTEXT_PACKAGE);
+
+    gtk_action_group_add_toggle_actions (window->action_toolbar,
+                                         toggle_entries_window,
+                                         G_N_ELEMENTS (toggle_entries_image),
+                                         window);
+
+    gtk_ui_manager_insert_action_group (window->ui_mngr,
+                                        window->action_toolbar, 0);
+
+    /*****************/
     window->actions_collection = gtk_action_group_new("MenuActionsCollection");
 
 
@@ -1626,6 +1665,7 @@ vnr_window_init (VnrWindow * window)
     gtk_action_group_set_sensitive(window->actions_image, FALSE);
     gtk_action_group_set_sensitive(window->actions_static_image, FALSE);
     gtk_action_group_set_sensitive(window->action_save, FALSE);
+    gtk_action_group_set_sensitive(window->action_toolbar, TRUE);
 
     /* Continue with layout */
 
@@ -1654,6 +1694,14 @@ vnr_window_init (VnrWindow * window)
     gtk_widget_show_all(window->menus);
 
     gtk_widget_hide(get_fs_controls(window));
+
+
+    action = gtk_action_group_get_action (window->action_toolbar,
+                                          "ViewToolbar");
+    if(!window->prefs->show_toolbar)
+        gtk_widget_hide (window->toolbar);
+    else
+        gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), TRUE);
 
     window->msg_area = vnr_message_area_new();
     VNR_MESSAGE_AREA(window->msg_area)->vnr_win = window;
