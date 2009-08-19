@@ -359,7 +359,8 @@ vnr_window_fullscreen(VnrWindow *window)
                                       VNR_PREFS_ZOOM_FIT);
 
     update_fs_filename_label(window);
-    gtk_widget_hide_all (window->toolbar);
+    gtk_widget_hide (window->toolbar);
+    gtk_widget_show (window->fs_controls);
 
     stop_slideshow(window);
 
@@ -409,12 +410,12 @@ vnr_window_unfullscreen(VnrWindow *window)
         uni_image_view_set_zoom_mode (UNI_IMAGE_VIEW(window->view),
                                       window->prefs->zoom);
 
-    /* First show everything (the toolbar might be hided)
-     * and then hide only the fullscreen controls */
-    gtk_widget_show_all(window->toolbar);
-    gtk_widget_hide (get_fs_controls(window));
+    gtk_widget_hide (window->fs_controls);
+
     if(!window->prefs->show_toolbar)
         gtk_widget_hide (window->toolbar);
+    else
+        gtk_widget_show (window->toolbar);
 
     g_signal_handlers_disconnect_by_func(window->view,
                                          G_CALLBACK(fullscreen_motion_cb),
@@ -660,7 +661,7 @@ fullscreen_motion_cb(GtkWidget * widget, GdkEventMotion * ev, VnrWindow *window)
     /* Show the toolbar only when the moves moves to the top
      * of the UniImageView */
     if (ev->y < 20 && !GTK_WIDGET_VISIBLE (window->toolbar))
-        gtk_widget_show_all (GTK_WIDGET (window->toolbar));
+        gtk_widget_show (GTK_WIDGET (window->toolbar));
 
     if(window->cursor_is_hidden)
         vnr_window_show_cursor(window);
@@ -678,7 +679,7 @@ fullscreen_timeout_cb (VnrWindow *window)
     if(window->disable_autohide)
         return FALSE;
 
-    gtk_widget_hide_all(window->toolbar);
+    gtk_widget_hide (window->toolbar);
     vnr_window_hide_cursor(window);
     return FALSE;
 }
