@@ -162,6 +162,28 @@ const gchar *ui_definition_wallpaper = "<ui>"
 /*************************************************************/
 
 static void
+vnr_window_save_accel_map()
+{
+    gchar *accelfile = g_build_filename (g_get_user_config_dir(), PACKAGE,
+                                         "accel_map", NULL);
+
+    /* gtk_accel_map_load does nothing if the file does not exist */
+    gtk_accel_map_save (accelfile);
+    g_free (accelfile);
+}
+
+static void
+vnr_window_load_accel_map()
+{
+    gchar *accelfile = g_build_filename (g_get_user_config_dir(), PACKAGE,
+                                         "accel_map", NULL);
+
+    /* gtk_accel_map_load does nothing if the file does not exist */
+    gtk_accel_map_load (accelfile);
+    g_free (accelfile);
+}
+
+static void
 vnr_window_hide_cursor(VnrWindow *window)
 {
    GdkBitmap *empty;
@@ -1438,9 +1460,20 @@ vnr_window_drag_data_received (GtkWidget *widget,
 }
 
 static void
+vnr_window_finalize (GObject *object)
+{
+    vnr_window_save_accel_map();
+    G_OBJECT_CLASS (vnr_window_parent_class)->finalize (object);
+}
+
+static void
 vnr_window_class_init (VnrWindowClass * klass)
 {
     GtkWidgetClass *widget_class = (GtkWidgetClass *) klass;
+    GObjectClass *g_object_class = (GObjectClass *) klass;
+
+    g_object_class->finalize = vnr_window_finalize;
+
     widget_class->key_press_event = vnr_window_key_press;
     widget_class->drag_data_received = vnr_window_drag_data_received;
 }
@@ -1659,6 +1692,8 @@ vnr_window_init (VnrWindow * window)
 
     gtk_window_add_accel_group (GTK_WINDOW (window),
                 gtk_ui_manager_get_accel_group (window->ui_mngr));
+
+     vnr_window_load_accel_map();
 }
 
 /*************************************************************/
