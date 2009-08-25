@@ -20,6 +20,7 @@ uni_headers =           \
     uni-zoom.h          \
     uni-utils.h         \
     vnr-prefs.h         \
+    vnr-crop.h          \
     vnr-tools.h
 
 viewnior_SOURCES =      \
@@ -38,6 +39,7 @@ viewnior_SOURCES =      \
     vnr-file.c          \
     uni-utils.c         \
     vnr-prefs.c         \
+    vnr-crop.c          \
     vnr-tools.c         \
     $(BUILT_SOURCES)    \
     $(uni_headers)

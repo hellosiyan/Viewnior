@@ -61,6 +61,40 @@ vnr_tools_fit_to_size (gint * width, gint * height, gint max_width, gint max_hei
     return;
 }
 
+void
+vnr_tools_fit_to_size_double (gdouble * width, gdouble * height, gint max_width, gint max_height)
+{
+    gdouble ratio, max_ratio;
+
+    /* if size fits well, then exit */
+    if (*width < max_width && *height < max_height)
+        return;
+    /* check if dividing by 0 */
+    if (*width == 0 || max_height == 0)
+        return;
+
+    ratio = 1. * (*height) / (*width);
+    max_ratio = 1. * max_height / max_width;
+
+    if (max_ratio > ratio)
+    {
+        *width = max_width;
+        *height = ratio * (*width);
+    }
+    else if (ratio > max_ratio)
+    {
+        *height = max_height;
+        *width = (*height) / ratio;
+    }
+    else
+    {
+        *width = max_width;
+        *height = max_height;
+    }
+
+    return;
+}
+
 GSList*
 vnr_tools_get_list_from_array (gchar **files)
 {

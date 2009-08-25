@@ -36,6 +36,7 @@
 #include "vnr-file.h"
 #include "vnr-message-area.h"
 #include "vnr-properties-dialog.h"
+#include "vnr-crop.h"
 
 /* Timeout to hide the toolbar in fullscreen mode */
 #define FULLSCREEN_TIMEOUT 3000
@@ -94,6 +95,8 @@ const gchar *ui_definition = "<ui>"
       "<separator/>"
       "<menuitem action=\"ImageRotateCW\"/>"
       "<menuitem action=\"ImageRotateCCW\"/>"
+      "<separator/>"
+      "<menuitem action=\"ImageCrop\"/>"
       "<placeholder name=\"WallpaperEntry\"/>"
     "</menu>"
     "<menu action=\"Go\">"
@@ -1251,6 +1254,58 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
     }
 }
 
+static void
+vnr_window_cmd_crop(GtkAction *action, VnrWindow *window)
+{
+    VnrCrop *crop;
+
+    crop = (VnrCrop*) vnr_crop_new (window);
+
+    if(! vnr_crop_run(crop))
+    {
+        g_object_unref(crop);
+        return;
+    }
+
+    GdkPixbuf *cropped;
+    GdkPixbuf *original;
+
+    original = uni_image_view_get_pixbuf(UNI_IMAGE_VIEW(window->view));
+
+    cropped = gdk_pixbuf_new (gdk_pixbuf_get_colorspace (original),
+                               gdk_pixbuf_get_has_alpha (original),
+                               gdk_pixbuf_get_bits_per_sample (original),
+                               crop->area.width, crop->area.height);
+
+    gdk_pixbuf_copy_area((const GdkPixbuf*)original, crop->area.x, crop->area.y,
+                         crop->area.width, crop->area.height, cropped, 0, 0);
+
+    uni_anim_view_set_static(UNI_ANIM_VIEW(window->view), cropped);
+
+    g_object_unref(cropped);
+
+    window->modifications |= 8;
+
+    window->current_image_width = crop->area.width;
+    window->current_image_height = crop->area.height;
+
+    if(window->writable_format_name == NULL)
+        vnr_message_area_show(VNR_MESSAGE_AREA(window->msg_area),
+                              TRUE,
+                              _("Image modifications cannot be saved.\nWriting in this format is not supported."),
+                              FALSE);
+    else if(window->prefs->behavior_modify == VNR_PREFS_MODIFY_SAVE)
+        save_image_cb(NULL, window);
+    else if(window->prefs->behavior_modify == VNR_PREFS_MODIFY_ASK)
+        vnr_message_area_show_with_button(VNR_MESSAGE_AREA(window->msg_area),
+                                          FALSE,
+                                          _("Save modifications?\nThis will overwrite the image and may reduce it's quality!"),
+                                          FALSE, GTK_STOCK_SAVE,
+                                          G_CALLBACK(save_image_cb));
+
+    g_object_unref(crop);
+}
+
 static const GtkActionEntry action_entries_window[] = {
     { "File",  NULL, N_("_File") },
     { "Edit",  NULL, N_("_Edit") },
@@ -1342,6 +1397,9 @@ static const GtkActionEntry action_entries_static_image[] = {
     { "ImageFlipHorizontal", "object-flip-horizontal", N_("Flip _Horizontal"), NULL,
       N_("Flip image horizontally"),
       G_CALLBACK (vnr_window_cmd_flip_horizontal) },
+    { "ImageCrop", NULL, N_("Crop..."), NULL,
+      N_("Crop"),
+      G_CALLBACK (vnr_window_cmd_crop) },
 };
 
 static const GtkToggleActionEntry toggle_entries_image[] = {

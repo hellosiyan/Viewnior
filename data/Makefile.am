@@ -12,7 +12,8 @@ desktopdir = $(datadir)/applications
 desktop_DATA = $(DESKTOP_FILES)
 
 gladedir = $(datadir)/viewnior
-glade_DATA = vnr-preferences-dialog.ui
+glade_DATA = vnr-preferences-dialog.ui \
+             vnr-crop-dialog.ui
 
 PIXMAPS_FILES = \
 	pixmaps/object-rotate-right.png \
