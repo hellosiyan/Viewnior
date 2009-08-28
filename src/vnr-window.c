@@ -57,12 +57,16 @@ static void zoom_changed_cb (UniImageView *view, VnrWindow *window);
 static gboolean fullscreen_timeout_cb (VnrWindow *window);
 static gboolean leave_image_area_cb(GtkWidget * widget, GdkEventCrossing * ev, VnrWindow *window);
 static gboolean fullscreen_motion_cb(GtkWidget * widget, GdkEventMotion * ev, VnrWindow *window);
+static void open_with_launch_application_cb (GtkAction *action, VnrWindow *window);
 
 const gchar *ui_definition = "<ui>"
   "<menubar name=\"MainMenu\">"
     "<menu action=\"File\">"
       "<menuitem action=\"FileOpen\"/>"
       "<menuitem action=\"FileOpenDir\"/>"
+      "<menu action=\"FileOpenWith\">"
+         "<placeholder name=\"AppEntries\"/>"
+      "</menu>"
       "<separator/>"
       "<menuitem action=\"FileSave\"/>"
       "<menuitem action=\"FileReload\"/>"
@@ -165,6 +169,102 @@ const gchar *ui_definition_wallpaper = "<ui>"
 /*************************************************************/
 /***** Private actions ***************************************/
 /*************************************************************/
+/* Modified version of eog's eog_window_update_openwith_menu */
+static void
+vnr_window_update_openwith_menu (VnrWindow *window)
+{
+    GFile *file;
+    GFileInfo *file_info;
+    GList *iter;
+    gchar *label, *tip;
+    const gchar *mime_type;
+    GtkAction *action;
+    GList *apps;
+    guint action_id = 0;
+
+    file = g_file_new_for_path ((gchar*)VNR_FILE(window->file_list->data)->path);
+    file_info = g_file_query_info (file,
+                       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+                       0, NULL, NULL);
+
+    if (file_info == NULL)
+        return;
+    else
+        mime_type = g_file_info_get_content_type (file_info);
+
+    if (window->open_with_menu_id != 0)
+    {
+           gtk_ui_manager_remove_ui (window->ui_mngr, window->open_with_menu_id);
+           window->open_with_menu_id = 0;
+    }
+
+    if (window->actions_open_with != NULL)
+    {
+          gtk_ui_manager_remove_action_group (window->ui_mngr, window->actions_open_with);
+          window->actions_open_with = NULL;
+    }
+
+    if (mime_type == NULL)
+    {
+            g_object_unref (file_info);
+            return;
+    }
+
+    apps = g_app_info_get_all_for_type (mime_type);
+
+    g_object_unref (file_info);
+
+    if (!apps)
+            return;
+
+    window->actions_open_with = gtk_action_group_new ("OpenWithActions");
+    gtk_ui_manager_insert_action_group (window->ui_mngr, window->actions_open_with, -1);
+
+    window->open_with_menu_id = gtk_ui_manager_new_merge_id (window->ui_mngr);
+
+    for (iter = apps; iter; iter = iter->next) {
+        GAppInfo *app = iter->data;
+        gchar name[64];
+
+        /* Do not include viewnior itself */
+        if (g_ascii_strcasecmp (g_app_info_get_executable (app),
+                                g_get_prgname ()) == 0)
+        {
+                g_object_unref (app);
+                continue;
+        }
+
+        g_snprintf (name, sizeof (name), "OpenWith%u", action_id++);
+
+        label = g_strdup (g_app_info_get_name (app));
+        tip = g_strdup_printf (_("Use \"%s\" to open the selected image"), g_app_info_get_name (app));
+        action = gtk_action_new (name, label, tip, NULL);
+
+        g_free (label);
+        g_free (tip);
+
+        g_object_set_data_full (G_OBJECT (action), "app", app,
+                                (GDestroyNotify) g_object_unref);
+
+        g_signal_connect (action,
+                          "activate",
+                          G_CALLBACK (open_with_launch_application_cb),
+                          window);
+
+        gtk_action_group_add_action (window->actions_open_with, action);
+        g_object_unref (action);
+
+        gtk_ui_manager_add_ui (window->ui_mngr,
+                        window->open_with_menu_id,
+                        "/MainMenu/File/FileOpenWith/AppEntries",
+                        name,
+                        name,
+                        GTK_UI_MANAGER_MENUITEM,
+                        FALSE);
+    }
+
+    g_list_free (apps);
+}
 
 static void
 vnr_window_save_accel_map()
@@ -647,6 +747,25 @@ flip_pixbuf(VnrWindow *window, gboolean horizontal)
 /*************************************************************/
 /***** Private signal handlers *******************************/
 /*************************************************************/
+/* Modified version of eog's open_with_launch_application_cb */
+static void
+open_with_launch_application_cb (GtkAction *action, VnrWindow *window)
+{
+    GAppInfo *app;
+    GFile *file;
+    GList *files = NULL;
+
+    file = g_file_new_for_path ((gchar*)VNR_FILE(window->file_list->data)->path);
+
+    app = g_object_get_data (G_OBJECT (action), "app");
+    files = g_list_append (files, file);
+    g_app_info_launch (app,
+               files,
+               NULL, NULL);
+
+    g_object_unref (file);
+    g_list_free (files);
+}
 
 static gboolean
 leave_image_area_cb(GtkWidget * widget, GdkEventCrossing * ev, VnrWindow *window)
@@ -1346,6 +1465,9 @@ static const GtkActionEntry action_entry_wallpaper[] = {
 #endif /* HAVE_WALLPAPER */
 
 static const GtkActionEntry action_entries_image[] = {
+    { "FileOpenWith", NULL, N_("Open _With"), NULL,
+      N_("Open the selected image with a different application"),
+      NULL},
     { "FileDelete", GTK_STOCK_DELETE, N_("_Delete"), NULL,
       N_("Delete the current file"),
       G_CALLBACK (vnr_window_cmd_delete) },
@@ -1579,6 +1701,8 @@ vnr_window_init (VnrWindow * window)
     window->slideshow = TRUE;
     window->cursor_is_hidden = FALSE;
     window->disable_autohide = FALSE;
+    window->actions_open_with = NULL;
+    window->open_with_menu_id = 0;
 
     window->prefs = (VnrPrefs*)vnr_prefs_new (GTK_WIDGET(window));
 
@@ -1881,6 +2005,8 @@ vnr_window_open (VnrWindow * window, gboolean fit_to_screen)
 
     if(GTK_WIDGET_VISIBLE(window->props_dlg))
         vnr_properties_dialog_update(VNR_PROPERTIES_DIALOG(window->props_dlg));
+
+    vnr_window_update_openwith_menu (window);
 
     g_object_unref(pixbuf);
     return TRUE;
