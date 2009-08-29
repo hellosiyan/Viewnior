@@ -24,6 +24,7 @@
 #include "config.h"
 #include "vnr-prefs.h"
 #include "vnr-window.h"
+#include "vnr-message-area.h"
 
 #define UI_PATH PACKAGE_DATA_DIR"/viewnior/vnr-preferences-dialog.ui"
 
@@ -164,6 +165,7 @@ build_dialog (VnrPrefs *prefs)
 {
     GtkBuilder *builder;
     GtkWidget *window;
+    GError *error = NULL;
 
     GObject *close_button;
     GtkToggleButton *show_hidden;
@@ -182,7 +184,18 @@ build_dialog (VnrPrefs *prefs)
     GtkRange *png_scale;
 
     builder = gtk_builder_new ();
-    gtk_builder_add_from_file (builder, UI_PATH, NULL);
+    gtk_builder_add_from_file (builder, UI_PATH, &error);
+
+    if (error != NULL)
+    {
+        vnr_message_area_show (VNR_MESSAGE_AREA(VNR_WINDOW(prefs->vnr_win)->msg_area),
+                               TRUE,
+                               error->message,
+                               FALSE);
+        g_object_unref(builder);
+        return NULL;
+    }
+
     window = GTK_WIDGET (gtk_builder_get_object (builder, "window"));
 
     /* Close button */
@@ -410,7 +423,7 @@ vnr_prefs_init (VnrPrefs * prefs)
         vnr_prefs_save (prefs);
     }
 
-    prefs->dialog = build_dialog(prefs);
+    prefs->dialog = NULL;
 }
 
 /*************************************************************/
@@ -420,13 +433,20 @@ vnr_prefs_init (VnrPrefs * prefs)
 void
 vnr_prefs_show_dialog(VnrPrefs *prefs)
 {
+    if (prefs->dialog == NULL)
+    {
+        prefs->dialog = build_dialog (prefs);
+        if (prefs->dialog == NULL)
+            return;
+    }
     gtk_window_present(GTK_WINDOW(prefs->dialog));
 }
 
 void
 vnr_prefs_set_slideshow_timeout (VnrPrefs *prefs, int value)
 {
-    gtk_spin_button_set_value(prefs->slideshow_timeout_widget, (gdouble)value);
+    if (prefs->dialog != NULL)
+        gtk_spin_button_set_value(prefs->slideshow_timeout_widget, (gdouble)value);
 }
 
 void
