@@ -21,7 +21,6 @@
 #include "vnr-tools.h"
 #include "uni-utils.h"
 #include "uni-image-view.h"
-#include "vnr-message-area.h"
 
 #define CROP_UI_PATH PACKAGE_DATA_DIR"/viewnior/vnr-crop-dialog.ui"
 
@@ -108,10 +107,7 @@ vnr_crop_build_dialog (VnrCrop *crop)
 
     if (error != NULL)
     {
-        vnr_message_area_show (VNR_MESSAGE_AREA(crop->vnr_win->msg_area),
-                               TRUE,
-                               error->message,
-                               FALSE);
+        g_warning ("%s\n", error->message);
         g_object_unref(builder);
         return NULL;
     }

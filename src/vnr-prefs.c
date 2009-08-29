@@ -24,7 +24,6 @@
 #include "config.h"
 #include "vnr-prefs.h"
 #include "vnr-window.h"
-#include "vnr-message-area.h"
 
 #define UI_PATH PACKAGE_DATA_DIR"/viewnior/vnr-preferences-dialog.ui"
 
@@ -188,10 +187,7 @@ build_dialog (VnrPrefs *prefs)
 
     if (error != NULL)
     {
-        vnr_message_area_show (VNR_MESSAGE_AREA(VNR_WINDOW(prefs->vnr_win)->msg_area),
-                               TRUE,
-                               error->message,
-                               FALSE);
+        g_warning ("%s\n", error->message);
         g_object_unref(builder);
         return NULL;
     }
