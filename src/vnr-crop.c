@@ -21,6 +21,7 @@
 #include "vnr-tools.h"
 #include "uni-utils.h"
 #include "uni-image-view.h"
+#include "vnr-message-area.h"
 
 #define CROP_UI_PATH PACKAGE_DATA_DIR"/viewnior/vnr-crop-dialog.ui"
 
@@ -100,9 +101,20 @@ vnr_crop_build_dialog (VnrCrop *crop)
     GtkWidget *window;
     GdkPixbuf *original;
     GdkPixbuf *preview;
+    GError *error = NULL;
 
     builder = gtk_builder_new ();
-    gtk_builder_add_from_file (builder, CROP_UI_PATH, NULL);
+    gtk_builder_add_from_file (builder, CROP_UI_PATH, &error);
+
+    if (error != NULL)
+    {
+        vnr_message_area_show (VNR_MESSAGE_AREA(crop->vnr_win->msg_area),
+                               TRUE,
+                               error->message,
+                               FALSE);
+        g_object_unref(builder);
+        return NULL;
+    }
 
     window = GTK_WIDGET (gtk_builder_get_object (builder, "crop-dialog"));
     gtk_window_set_transient_for(GTK_WINDOW(window), GTK_WINDOW(crop->vnr_win));
@@ -374,20 +386,22 @@ drawable_motion_cb (GtkWidget *widget, GdkEventMotion *event, VnrCrop *crop)
 static void
 vnr_crop_dispose (GObject *gobject)
 {
-  VnrCrop *self = VNR_CROP (gobject);
+    VnrCrop *self = VNR_CROP (gobject);
 
-  g_object_unref (self->preview_pixbuf);
-  g_object_unref (self->gc);
+    if (self->preview_pixbuf != NULL)
+        g_object_unref (self->preview_pixbuf);
+    if (self->gc != NULL)
+        g_object_unref (self->gc);
 
-  G_OBJECT_CLASS (vnr_crop_parent_class)->dispose (gobject);
+    G_OBJECT_CLASS (vnr_crop_parent_class)->dispose (gobject);
 }
 
 static void
 vnr_crop_class_init (VnrCropClass *klass)
 {
-  GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+    GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 
-  gobject_class->dispose = vnr_crop_dispose;
+    gobject_class->dispose = vnr_crop_dispose;
 }
 
 GObject *
@@ -414,6 +428,14 @@ vnr_crop_init (VnrCrop *crop)
     crop->sub_width = -1;
     crop->height = -1;
     crop->width = -1;
+
+    crop->gc = NULL;
+    crop->image = NULL;
+    crop->spin_x = NULL;
+    crop->spin_y = NULL;
+    crop->spin_width = NULL;
+    crop->spin_height = NULL;
+    crop->preview_pixbuf = NULL;
 }
 
 /*************************************************************/
@@ -422,8 +444,13 @@ vnr_crop_init (VnrCrop *crop)
 gboolean
 vnr_crop_run (VnrCrop *crop)
 {
-    GtkWidget *dialog = vnr_crop_build_dialog(crop);
+    GtkWidget *dialog;
     gint crop_dialog_response;
+
+    dialog = vnr_crop_build_dialog(crop);
+
+    if(dialog == NULL)
+        return FALSE;
 
     crop_dialog_response = gtk_dialog_run (GTK_DIALOG (dialog));
 
