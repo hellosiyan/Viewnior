@@ -1134,23 +1134,17 @@ vnr_window_cmd_about (GtkAction *action, VnrWindow *window)
         NULL
     };
 
-    const char *license[] = {
+    char *license =
           ("Viewnior is free software: you can redistribute it and/or modify "
            "it under the terms of the GNU General Public License as published by "
            "the Free Software Foundation, either version 3 of the License, or "
-           "(at your option) any later version.\n"),
-          ("Viewnior is distributed in the hope that it will be useful, "
+           "(at your option) any later version.\n\n"
+           "Viewnior is distributed in the hope that it will be useful, "
            "but WITHOUT ANY WARRANTY; without even the implied warranty of "
            "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
-           "GNU General Public License for more details.\n"),
-          ("You should have received a copy of the GNU General Public License "
-           "along with Viewnior.  If not, see <http://www.gnu.org/licenses/>.")
-    };
-
-    char *license_trans;
-
-    license_trans = g_strconcat (_(license[0]), "\n", _(license[1]), "\n",
-                     _(license[2]), "\n", NULL);
+           "GNU General Public License for more details.\n\n"
+           "You should have received a copy of the GNU General Public License "
+           "along with Viewnior.  If not, see <http://www.gnu.org/licenses/>.\n");
 
     gtk_show_about_dialog (GTK_WINDOW (window),
                    "program-name", "Viewnior",
@@ -1160,10 +1154,9 @@ vnr_window_cmd_about (GtkAction *action, VnrWindow *window)
                    "authors", authors,
                    "logo-icon-name", "viewnior",
                    "wrap-license", TRUE,
-                   "license", license_trans,
+                   "license", license,
+                   "translator-credits", _( "translator-credits" ),
                    NULL);
-
-    g_free (license_trans);
 }
 
 #ifdef HAVE_WALLPAPER
