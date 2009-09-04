@@ -12,7 +12,12 @@ body{
 cursor:default;
 text-align:center;
 color:white;
-background-color:#585858;
+#background-color:#585858;
+background-color:#000000;
+background-image:url('pagebg.png');
+background-position:top center;
+background-repeat:no-repeat;
+background-attachment:scroll;
 font-size:14px;
 font-weight:normal;
 font-family:'lucida grande','myriad pro',sans-serif,verdana,'helvetica neue',helvetica,arial;
@@ -73,7 +78,6 @@ display:none;
 
 #navigation{
 margin-left:0px;
-background-color:#585858;
 color:white;
 font-size:16px;
 font-weight:bold;
