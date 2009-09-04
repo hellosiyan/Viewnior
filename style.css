@@ -92,6 +92,10 @@ padding:5px;
 #navigation li a:hover{
 background-color:#e13f3f;
 }
+#navigation .active{
+background-color:#e13f3f;
+}
+
 
 #footer{
 text-align:left;
