@@ -1,4 +1,4 @@
-# Spanish translation for viewnior
+# Italian translation for viewnior
 # Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the viewnior package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-08-31 11:05+0300\n"
-"PO-Revision-Date: 2009-09-05 08:51+0000\n"
+"PO-Revision-Date: 2009-09-01 10:46+0000\n"
 "Last-Translator: bautz <Unknown>\n"
-"Language-Team: Spanish <es@li.org>\n"
+"Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:1153
 msgid "Elegant Image Viewer"
-msgstr "Un visor de imágenes elegante"
+msgstr "Elegante Visualizzatore di Immagini"
 
 #: ../data/viewnior.desktop.in.in.h:2
 msgid "Viewnior"
@@ -32,93 +32,93 @@ msgid ""
 "  Clicking on the left half of the window shows the\n"
 "  previous image and on the right side - the next.</small> "
 msgstr ""
-"<small>  (!) Navegación de imágenes con pulsación doble:\n"
-"  Pulsando en la mitad izquierda de la ventana se muesta la \n"
-"  imagen anterior; pulsando en la derecha se muestra la siguiente.</small> "
+"<small>  (!) Scorri le immagini col doppio click :\n"
+"  Clicando sulla metà finestra si sinistra mostra\n"
+"  l'immagine precedente, e sulla destra la seguente.</small> "
 
 #: ../data/vnr-preferences-dialog.ui.h:4
 msgid "Always expand images to fit screen"
-msgstr "Siempre expandir imágenes al ajustar la pantalla"
+msgstr "Adatta sempre le immagini alla finestra"
 
 #: ../data/vnr-preferences-dialog.ui.h:5
 msgid "Behavior"
-msgstr "Comportamiento"
+msgstr "Comportamento"
 
 #: ../data/vnr-preferences-dialog.ui.h:6
 msgid "Confirm image deletion"
-msgstr "Confirmar el borrado de la imagen"
+msgstr "Comferma eliminazione immagine"
 
 #: ../data/vnr-preferences-dialog.ui.h:7
 msgid "Fullscreen"
-msgstr "Pantalla completa"
+msgstr "Schermo intero"
 
 #: ../data/vnr-preferences-dialog.ui.h:8
 msgid "General"
-msgstr "General"
+msgstr "Generale"
 
 #: ../data/vnr-preferences-dialog.ui.h:9
 msgid "JPEG quality:"
-msgstr "Calidad JPEG:"
+msgstr "Qualità JPEG:"
 
 #: ../data/vnr-preferences-dialog.ui.h:10
 msgid "On double click: "
-msgstr "Al hacer doble clic: "
+msgstr "Doppio click: "
 
 #: ../data/vnr-preferences-dialog.ui.h:11
 msgid "On image modification: "
-msgstr "Al modificar la imagen: "
+msgstr "Imagine modificata: "
 
 #: ../data/vnr-preferences-dialog.ui.h:12
 msgid "On mouse wheel: "
-msgstr "Al girar la rueda del ratón: "
+msgstr "Rotella del mouse: "
 
 #: ../data/vnr-preferences-dialog.ui.h:13
 msgid "Open new image in: "
-msgstr "Abrir nueva imagen en: "
+msgstr "Apri nuova immagine: "
 
 #: ../data/vnr-preferences-dialog.ui.h:14
 msgid "PNG compression:"
-msgstr "Compresión PNG:"
+msgstr "Compressione PNG:"
 
 #: ../data/vnr-preferences-dialog.ui.h:15
 msgid "Reload image on save"
-msgstr "Recargar imagen al guardarla"
+msgstr "Ricarica immagine dopo il salvataggio"
 
 #: ../data/vnr-preferences-dialog.ui.h:16
 msgid "Saving"
-msgstr "Guardar"
+msgstr "Salvataggio"
 
 #: ../data/vnr-preferences-dialog.ui.h:17
 msgid "Show hidden images"
-msgstr "Mostrar imágenes ocultas"
+msgstr "Mostra immagini nascoste"
 
 #: ../data/vnr-preferences-dialog.ui.h:18
 msgid "Show next image after (in seconds): "
-msgstr "Mostrar la siguiente imagen tras (segundos): "
+msgstr "Mostra immagine successiva dopo (secondi): "
 
 #: ../data/vnr-preferences-dialog.ui.h:19
 msgid "Smooth images when zoomed"
-msgstr "Suavizar imágenes al ampliarlas"
+msgstr "Sfuma immagini ingrandite"
 
 #: ../data/vnr-preferences-dialog.ui.h:20
 msgid "Viewnior Preferences"
-msgstr "Preferencias de Viewnior"
+msgstr "Preferenze di Viewnior"
 
 #: ../data/vnr-crop-dialog.ui.h:1 ../src/vnr-window.c:1516
 msgid "Crop"
-msgstr "Recortar"
+msgstr "Ritaglia"
 
 #: ../data/vnr-crop-dialog.ui.h:2
 msgid "Crop Image"
-msgstr "Recortar la imagen"
+msgstr "Ritaglia immagine"
 
 #: ../data/vnr-crop-dialog.ui.h:3
 msgid "Height: "
-msgstr "Altura: "
+msgstr "Altezza: "
 
 #: ../data/vnr-crop-dialog.ui.h:4
 msgid "Width: "
-msgstr "Ancho: "
+msgstr "Larghezza: "
 
 #: ../data/vnr-crop-dialog.ui.h:5
 msgid "X: "
@@ -131,11 +131,11 @@ msgstr "Y: "
 #: ../src/main.c:113 ../src/vnr-window.c:1326 ../src/vnr-window.c:1649
 #: ../src/vnr-window.c:2046
 msgid "The given locations contain no images."
-msgstr "Las ubicaciones proporcionadas no contienen imágenes."
+msgstr "La posizione fornita non contiene alcuna immagine."
 
 #: ../src/uni-scroll-win.c:223
 msgid "Open the navigator window"
-msgstr "Abrir la ventana del explorador"
+msgstr "Apri finestra di navigazione"
 
 #: ../src/vnr-file.c:222
 #, c-format
@@ -143,72 +143,72 @@ msgid ""
 "Couldn't recognise the image file\n"
 "format for file '%s'"
 msgstr ""
-"No se ha podido reconocer el formato\n"
-"de imagen del archivo «%s»"
+"Non riconosco il formato dell'immagine\n"
+"del file '%s'"
 
 #: ../src/vnr-prefs.c:247
 msgid "Smart Mode"
-msgstr "Modo inteligente"
+msgstr "Modalità Intelligente"
 
 #: ../src/vnr-prefs.c:248
 msgid "1:1 Mode"
-msgstr "Modo 1:1"
+msgstr "Scala 1:1"
 
 #: ../src/vnr-prefs.c:249
 msgid "Fit To Window Mode"
-msgstr "Modo ajustar a la ventana"
+msgstr "Adattato a finestra"
 
 #: ../src/vnr-prefs.c:261 ../src/vnr-prefs.c:273
 msgid "Navigate images"
-msgstr "Navegar por las imágenes"
+msgstr "Scorri Immagini"
 
 #: ../src/vnr-prefs.c:262
 msgid "Zoom image"
-msgstr "Ampliar imagen"
+msgstr "Ingrandisci immagine"
 
 #: ../src/vnr-prefs.c:263
 msgid "Scroll image up/down"
-msgstr "Desplazar arriba/abajo"
+msgstr "Scorri immagine su/giù"
 
 #: ../src/vnr-prefs.c:271
 msgid "Switch zoom modes"
-msgstr "Conmutar modos de zoom"
+msgstr "Alterna modo ingrandimento"
 
 #: ../src/vnr-prefs.c:272
 msgid "Enter fullscreen mode"
-msgstr "Activar pantalla completa"
+msgstr "Attiva modalità a schermo intero"
 
 #: ../src/vnr-prefs.c:281
 msgid "Ask every time"
-msgstr "Preguntar siempre"
+msgstr "Chiedi ogni volta"
 
 #: ../src/vnr-prefs.c:282
 msgid "Autosave"
-msgstr "Guardar automáticamente"
+msgstr "Salvataggio automatico"
 
 #: ../src/vnr-prefs.c:283
 msgid "Ignore changes"
-msgstr "Ignorar cambios"
+msgstr "Ignora modifiche"
 
 #: ../src/vnr-properties-dialog.c:111
 msgid "_Next"
-msgstr "_Siguiente"
+msgstr "_Successivo"
 
 #: ../src/vnr-properties-dialog.c:112
 msgid "_Previous"
-msgstr "_Anterior"
+msgstr "_Precedente"
 
 #: ../src/vnr-properties-dialog.c:130
 msgid "Image Properties"
-msgstr "Propiedades de la imagen"
+msgstr "Proprietà immagine"
 
 #: ../src/vnr-properties-dialog.c:138
 msgid "<b>Location:</b>"
-msgstr "<b>Ubicación:</b>"
+msgstr "<b>Posizione:</b>"
 
 #: ../src/vnr-properties-dialog.c:182
 msgid "<b>Name:</b>"
-msgstr "<b>Nombre:</b>"
+msgstr "<b>Nome:</b>"
 
 #: ../src/vnr-properties-dialog.c:186
 msgid "<b>Type:</b>"
@@ -216,77 +216,74 @@ msgstr "<b>Tipo:</b>"
 
 #: ../src/vnr-properties-dialog.c:190
 msgid "<b>Size:</b>"
-msgstr "<b>Tamaño:</b>"
+msgstr "<b>Dimensione:</b>"
 
 #: ../src/vnr-properties-dialog.c:194
 msgid "<b>Width:</b>"
-msgstr "<b>Anchura:</b>"
+msgstr "<b>Larghezza:</b>"
 
 #: ../src/vnr-properties-dialog.c:198
 msgid "<b>Height:</b>"
-msgstr "<b>Altura:</b>"
+msgstr "<b>Altezza:</b>"
 
 #: ../src/vnr-properties-dialog.c:301 ../src/vnr-properties-dialog.c:302
 #: ../src/vnr-properties-dialog.c:303 ../src/vnr-properties-dialog.c:304
 #: ../src/vnr-properties-dialog.c:305 ../src/vnr-properties-dialog.c:306
 msgid "None"
-msgstr "Ninguno"
+msgstr "Nessuno"
 
 #: ../src/vnr-window.c:240
 #, c-format
 msgid "Use \"%s\" to open the selected image"
-msgstr "Usar «%s» para abrir la imagen seleccionada"
+msgstr "Usa \"%s\" per aprire l'immagine selezionata"
 
 #: ../src/vnr-window.c:395
 msgid "Show next image after: "
-msgstr "Mostrar la imagen siguente tras: "
+msgstr "Mostra immagine successiva dopo: "
 
 #: ../src/vnr-window.c:413 ../src/vnr-window.c:818
 msgid " second"
 msgid_plural " seconds"
-msgstr[0] " segundo"
-msgstr[1] " segundos"
+msgstr[0] " secondo"
+msgstr[1] " secondi"
 
 #: ../src/vnr-window.c:643 ../src/vnr-window.c:706
 msgid "Not enough virtual memory."
-msgstr "No hay suficiente memoria virtual."
+msgstr "Memoria virtuale non sufficiente."
 
 #: ../src/vnr-window.c:677 ../src/vnr-window.c:735 ../src/vnr-window.c:1407
 msgid ""
 "Image modifications cannot be saved.\n"
 "Writing in this format is not supported."
 msgstr ""
-"No se han podido guardar los cambios en la imagen.\n"
-"La escritura en este formato no está soportada."
+"Le modifiche all'immagine non possono essere salvate.\n"
+"La scrittura in questo formato non è supportata."
 
 #: ../src/vnr-window.c:684 ../src/vnr-window.c:742 ../src/vnr-window.c:1414
 msgid ""
 "Save modifications?\n"
 "This will overwrite the image and may reduce it's quality!"
 msgstr ""
-"¿Guardar los cambios?\n"
-"La imagen se sobreescribirá y es posible que se reduzca su calidad."
+"Salvare le modifiche?\n"
+"Questo sovrascriverà l'immagine e potrebbe ridurne la qualità!"
 
 #: ../src/vnr-window.c:1073
 msgid "Open Image"
-msgstr "Abrir imagen"
+msgstr "Apri immagine"
 
 #: ../src/vnr-window.c:1102
 msgid "Open Folder"
-msgstr "Abrir carpeta"
+msgstr "Apri Cartella"
 
 #: ../src/vnr-window.c:1158
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Javier García Díaz https://launchpad.net/~jgd\n"
-"  Xoan Sampaiño https://launchpad.net/~xoan\n"
-"  bautz https://launchpad.net/~bautz\n"
-"  perriman https://launchpad.net/~chuchiperriman"
+"  bautz https://launchpad.net/~bautz"
 
 #: ../src/vnr-window.c:1265
 msgid "If you delete an item, it will be permanently lost."
-msgstr "Si borra un elemento, se perderá para siempre."
+msgstr "Se cancelli un'elemento, sarà perso per sempre."
 
 #. I18N: The '%s' is replaced with the name of the file to be deleted.
 #: ../src/vnr-window.c:1268
@@ -295,250 +292,250 @@ msgid ""
 "Are you sure you want to\n"
 "permanently delete \"%s\"?"
 msgstr ""
-"¿Realmente desea eliminar\n"
-"permanentemente «%s»?"
+"Sei sicuro di voler cancellare\n"
+"per sempre \"%s\"?"
 
 #: ../src/vnr-window.c:1422
 msgid "_File"
-msgstr "_Archivo"
+msgstr "_File"
 
 #: ../src/vnr-window.c:1423
 msgid "_Edit"
-msgstr "_Editar"
+msgstr "_Modifica"
 
 #: ../src/vnr-window.c:1424
 msgid "_View"
-msgstr "_Ver"
+msgstr "_Visualizza"
 
 #: ../src/vnr-window.c:1425
 msgid "_Image"
-msgstr "I_magen"
+msgstr "_Immagine"
 
 #: ../src/vnr-window.c:1426
 msgid "_Go"
-msgstr "_Ir"
+msgstr "_Vai"
 
 #: ../src/vnr-window.c:1427
 msgid "_Help"
-msgstr "Ay_uda"
+msgstr "_Aiuto"
 
 #: ../src/vnr-window.c:1429
 msgid "Open _Image..."
-msgstr "Abrir _imagen..."
+msgstr "Apri _Immagine..."
 
 #: ../src/vnr-window.c:1430
 msgid "Open an Image"
-msgstr "Abrir una imagen"
+msgstr "Apri un'Immagine"
 
 #: ../src/vnr-window.c:1432
 msgid "Open _Folder..."
-msgstr "Abrir _carpeta…"
+msgstr "Apri _Cartella..."
 
 #: ../src/vnr-window.c:1433
 msgid "Open a Folder"
-msgstr "Abrir una carpeta"
+msgstr "Apri una Cartella"
 
 #: ../src/vnr-window.c:1435
 msgid "_Close"
-msgstr "_Cerrar"
+msgstr "_Chiudi"
 
 #: ../src/vnr-window.c:1436
 msgid "Close window"
-msgstr "Cerrar la ventana"
+msgstr "Chiudi finestra"
 
 #: ../src/vnr-window.c:1438
 msgid "_About"
-msgstr "_Acerca de"
+msgstr "Riguardo _A..."
 
 #: ../src/vnr-window.c:1439
 msgid "About this application"
-msgstr "Acerca de esta aplicación"
+msgstr "Informazioni sull'applicazione"
 
 #: ../src/vnr-window.c:1441
 msgid "_Preferences..."
-msgstr "_Preferencias..."
+msgstr "_Preferenze..."
 
 #: ../src/vnr-window.c:1442
 msgid "User preferences for Viewnior"
-msgstr "Preferencias de usuario de Viewnior"
+msgstr "Preferenze utente per Viewnior"
 
 #: ../src/vnr-window.c:1447
 msgid "_Save"
-msgstr "_Guardar"
+msgstr "_Salva"
 
 #: ../src/vnr-window.c:1448
 msgid "Save changes"
-msgstr "Guardar los cambios"
+msgstr "Salva modifiche"
 
 #: ../src/vnr-window.c:1454
 msgid "Set as _Wallpaper"
-msgstr "Establecer como fondo del _escritorio"
+msgstr "Imposta come _Sfondo"
 
 #: ../src/vnr-window.c:1455
 msgid "Set the selected image as the desktop background"
-msgstr "Establece la imagen seleccionada como fondo del escritorio"
+msgstr "Imposta l'immagine selezionata come sfondo della scrivania"
 
 #: ../src/vnr-window.c:1461
 msgid "Open _With"
-msgstr "Abrir _con"
+msgstr "Apri _con"
 
 #: ../src/vnr-window.c:1462
 msgid "Open the selected image with a different application"
-msgstr "Abre la imagen seleccionada con una aplicación diferente"
+msgstr "Apre l'immagine selezionata con una diversa applicazione"
 
 #: ../src/vnr-window.c:1464 ../src/vnr-window.c:1473
 msgid "_Delete"
-msgstr "_Borrar"
+msgstr "_Elimina"
 
 #: ../src/vnr-window.c:1465 ../src/vnr-window.c:1474
 msgid "Delete the current file"
-msgstr "Borrar la imagen actual"
+msgstr "Elimina il file corrente"
 
 #: ../src/vnr-window.c:1467
 msgid "_Properties..."
-msgstr "_Propiedades..."
+msgstr "_Proprietà..."
 
 #: ../src/vnr-window.c:1468
 msgid "Show information about the current file"
-msgstr "Mostrar información del archivo actual"
+msgstr "Mostra le informazioni sul file attuale"
 
 #: ../src/vnr-window.c:1470
 msgid "_Reload"
-msgstr "_Recargar"
+msgstr "_Ricarica"
 
 #: ../src/vnr-window.c:1471
 msgid "Reload the current file"
-msgstr "Recargar el archivo actual"
+msgstr "Ricarica il file corrente"
 
 #: ../src/vnr-window.c:1476 ../src/vnr-window.c:1491 ../src/vnr-window.c:1494
 msgid "_Zoom In"
-msgstr "_Ampliar"
+msgstr "Aum_enta ingrandimento"
 
 #: ../src/vnr-window.c:1477
 msgid "Enlarge the image"
-msgstr "Agrandar la imagen"
+msgstr "Ingrandisci l'immagine"
 
 #: ../src/vnr-window.c:1479 ../src/vnr-window.c:1497
 msgid "Zoom _Out"
-msgstr "_Reducir"
+msgstr "Rid_uci ingrandimento"
 
 #: ../src/vnr-window.c:1480 ../src/vnr-window.c:1492 ../src/vnr-window.c:1495
 #: ../src/vnr-window.c:1498
 msgid "Shrink the image"
-msgstr "Encoger la imagen"
+msgstr "Rimpicciolisce l'immagine"
 
 #: ../src/vnr-window.c:1482
 msgid "_Normal Size"
-msgstr "Tamaño _normal"
+msgstr "Dimensione _Normale"
 
 #: ../src/vnr-window.c:1483
 msgid "Show the image at its normal size"
-msgstr "Mostar la imagen en su tamaño normal"
+msgstr "Mostra l'immagine alla sua dimensione normale"
 
 #: ../src/vnr-window.c:1485
 msgid "Best _Fit"
-msgstr "Ajuste _óptimo"
+msgstr "_Adatta"
 
 #: ../src/vnr-window.c:1486
 msgid "Fit the image to the window"
-msgstr "Ajustar la imagen a la ventana"
+msgstr "Adatta l'immagine alla finestra"
 
 #: ../src/vnr-window.c:1488
 msgid "_Adjust window size"
-msgstr "_Ajustar el tamaño de la ventana"
+msgstr "Adatta dimensione _Finestra"
 
 #: ../src/vnr-window.c:1489
 msgid "Adjust window size to fit the image"
-msgstr "Ajustar el tamaño de la ventana para que quepa la imagen"
+msgstr "Adatta dimensone finestra all'immagine"
 
 #: ../src/vnr-window.c:1503
 msgid "Rotate _Clockwise"
-msgstr "Rotar a la _derecha"
+msgstr "Ruota _Orario"
 
 #: ../src/vnr-window.c:1504
 msgid "Rotate image clockwise"
-msgstr "Rota la imagen en el sentido de las agujas del reloj"
+msgstr "Ruota in senso orario"
 
 #: ../src/vnr-window.c:1506
 msgid "Rotate _Anti-clockwise"
-msgstr "Rotar a la _izquierda"
+msgstr "Ruota _Antiorario"
 
 #: ../src/vnr-window.c:1507
 msgid "Rotate image anti-clockwise"
-msgstr "Rota la imagen en el sentido contrario a las agujas del reloj"
+msgstr "Ruota in senso antiorario"
 
 #: ../src/vnr-window.c:1509
 msgid "Flip _Vertical"
-msgstr "Voltear _verticalmente"
+msgstr "Rifletti _verticalmente"
 
 #: ../src/vnr-window.c:1510
 msgid "Flip image vertically"
-msgstr "Voltea la imagen verticalmente"
+msgstr "Rifletti l'immgine in verticale"
 
 #: ../src/vnr-window.c:1512
 msgid "Flip _Horizontal"
-msgstr "Voltear _horizontalmente"
+msgstr "Rifletti _orizzontalmente"
 
 #: ../src/vnr-window.c:1513
 msgid "Flip image horizontally"
-msgstr "Voltea la imagen horizontalmente"
+msgstr "Rifletti l'immagine in orizzontale"
 
 #: ../src/vnr-window.c:1515
 msgid "Crop..."
-msgstr "Recortar..."
+msgstr "Ritaglia..."
 
 #: ../src/vnr-window.c:1521
 msgid "Full _Screen"
-msgstr "Pantalla _completa"
+msgstr "Sc_hermo Intero"
 
 #: ../src/vnr-window.c:1522
 msgid "Show in fullscreen mode"
-msgstr "Mostrar en modo a pantalla completa"
+msgstr "Visualizza a schermo intero"
 
 #: ../src/vnr-window.c:1527
 msgid "Toolbar"
-msgstr "Barra de Herramientas"
+msgstr "Barra degli strumenti"
 
 #: ../src/vnr-window.c:1528
 msgid "Show Toolbar"
-msgstr "Mostrar Barra de Herramientas"
+msgstr "Mostra barra strumenti"
 
 #: ../src/vnr-window.c:1533
 msgid "Sli_deshow"
-msgstr "Pase de _diapositivas"
+msgstr "_Diapositive"
 
 #: ../src/vnr-window.c:1534
 msgid "Show in slideshow mode"
-msgstr "Mostrar en modo pase de diapositivas"
+msgstr "Mostra presentazione immagini"
 
 #: ../src/vnr-window.c:1539
 msgid "_Previous Image"
-msgstr "Imagen _anterior"
+msgstr "Immagine pr_ecedente"
 
 #: ../src/vnr-window.c:1540
 msgid "Go to the previous image of the collection"
-msgstr "Ir a la imagen anterior de la colección"
+msgstr "Va all'immagine precedente della raccolta"
 
 #: ../src/vnr-window.c:1542
 msgid "_Next Image"
-msgstr "_Siguiente imagen"
+msgstr "Immagine _successiva"
 
 #: ../src/vnr-window.c:1543
 msgid "Go to the next image of the collection"
-msgstr "Ir a la siguiente imagen de la colección"
+msgstr "Va all'immagine successiva della raccolta"
 
 #: ../src/vnr-window.c:1545
 msgid "_First Image"
-msgstr "_Primera imagen"
+msgstr "_Prima immagine"
 
 #: ../src/vnr-window.c:1546
 msgid "Go to the first image of the collection"
-msgstr "Ir a la primera imagen de la colección"
+msgstr "Va alla prima immagine della raccolta"
 
 #: ../src/vnr-window.c:1548
 msgid "_Last Image"
-msgstr "Ú_ltima imagen"
+msgstr "_Ultima immagine"
 
 #: ../src/vnr-window.c:1549
 msgid "Go to the last image of the collection"
-msgstr "Ir a la última imagen de la colección"
+msgstr "Va all'ultima immagine della raccolta"
