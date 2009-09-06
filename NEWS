@@ -1,3 +1,17 @@
+Viewnior 0.7
+------------
+
+New features included:
+ - Simple Crop functionality
+ - "Open With" menu
+ - Show/hide the toolbar
+ - New mouse wheel action - "Scroll image up/down"
+
+Fixed:
+ - Honor image orientation metadata
+ - Fix #415022: Custom assigned keybindings don't get saved
+ - Fix #422507: Image height displayed incorrectly
+
 Viewnior 0.6
 ------------
 

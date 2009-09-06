@@ -9,7 +9,7 @@ and elegant. It's minimalistic interface provides more screenspace for
 your images. Among its features are:
 
   * Fullscreen & Slideshow
-  * Rotate, flip, save, delete images
+  * Rotate, flip, crop, save, delete images
   * Animation support   
   * Browse only selected images
   * Navigation window
@@ -28,7 +28,7 @@ Requirements
 ------------
 
 This package requires the following modules to be installed: glib,
-GTK+, gio, gnome-icon-theme, shared-mime-info.
+GTK+, gio, shared-mime-info.
 Optional: for SetAsWallpaper - gconf.
 
 You can get these packages from your favourite GNOME FTP mirror or at
@@ -47,4 +47,4 @@ Elementary icon theme by ~DanRabbit (under GPL).
 object-flip-horizontal.png, object-flip-vertical.png are taken from
 Gnome icon theme (under GPL).
 
-Last Edited - 09 August 2009
+Last Edited - 06 September 2009

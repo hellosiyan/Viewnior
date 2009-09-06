@@ -11,15 +11,15 @@
   <description xml:lang="en">
     Viewnior is an image viewer with a minimalistic interface that is fast,
     simple, and light. It supports GIF animations, fullscreen and slideshow
-    mode, rotation and flipping. It is  written in C (GTK+) and designed
+    mode, rotation, flipping and cropping. It is  written in C (GTK+) and designed
     with usability in mind.
   </decription>
 
   <release>
     <Version>
       <name>stable</name>
-      <created>2009-08-09</created>
-      <revision>0.6</revision>
+      <created>2009-09-06</created>
+      <revision>0.7</revision>
     </Version>
   </release>
 
