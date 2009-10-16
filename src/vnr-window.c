@@ -1401,6 +1401,8 @@ vnr_window_cmd_crop(GtkAction *action, VnrWindow *window)
     window->current_image_width = crop->area.width;
     window->current_image_height = crop->area.height;
 
+    gtk_action_group_set_sensitive(window->action_save, TRUE);
+
     if(window->writable_format_name == NULL)
         vnr_message_area_show(VNR_MESSAGE_AREA(window->msg_area),
                               TRUE,
