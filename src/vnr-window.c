@@ -1606,6 +1606,8 @@ vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
         case GDK_Escape:
             if(window->mode != VNR_WINDOW_MODE_NORMAL)
                 vnr_window_unfullscreen(window);
+            else
+                gtk_main_quit();
             break;
         case GDK_space:
             if (GTK_CONTAINER(window->toolbar)->focus_child != NULL ||
