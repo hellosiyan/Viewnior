@@ -1155,6 +1155,7 @@ vnr_window_cmd_about (GtkAction *action, VnrWindow *window)
                    "logo-icon-name", "viewnior",
                    "wrap-license", TRUE,
                    "license", license,
+                   "website", "http://xsisqox.github.com/Viewnior",
                    "translator-credits", _( "translator-credits" ),
                    NULL);
 }
