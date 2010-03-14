@@ -13,202 +13,182 @@
     <meta name="robots" content="all" />
 
     <title>Viewnior</title>
-
-
-    <style type="text/css" media="all">
-        @import "style.css";
-    </style>
+	<link rel="stylesheet" href="style.css" type="text/css" media="screen" charset="utf-8" />
 </head><body>
 <div id ="page">
 
-<div id="header"><div id="logo"><h1>Viewnior - The Elegant Image Viewer</h1></div></div>
+	<div id="header">
+		<div id="header-cnt">
+			<h1 id="logo"><em>Viewnior</em> - The Elegant Image Viewer</h1>
+			<ul id="navigation">
+				<li><a href="index.html" class="active">Home</a></li>
+				<li><a href="about.html">About</a></li>
+				<li><a href="faq.html">FAQ</a></li>
+				<li><a href="download.html">Download</a></li>
+				<li><a href="feedback.html">Feedback</a></li>
+			</ul>
+			<div class="cl">&nbsp;</div>
+		</div>
+	</div>
+	
+	<div class="blackout">
+		<h2>
+			Viewnior is a fast and simple image viewer for GNU/Linux. 
+			<a href="about.html">Learn more &raquo;</a>
+		</h2>
+	</div>
+	
+	<div class="grayout">
+		<ul id="quick">
+			<li>Download: <a href="download.html">Viewnior 0.7</a></li>
+			<li>See in action: <a href="about.html">Screenshots</a></li>
+			<li>Help: <a href="http://launchpad.net/viewnior">Translate</a></li>
+			<li>Stay in touch: <a href="http://feeds.launchpad.net/viewnior/announcements.atom">Atom Feed</a></li>
+		</ul>
+	</div>
+	
+	<div id="content">
 
-<ul id="navigation">
-<li><a href="index.html" class="active">Home</a></li>
-<li><a href="about.html">About</a></li>
-<li><a href="faq.html">FAQ</a></li>
-<li><a href="download.html">Download</a></li>
-<li><a href="feedback.html">Feedback</a></li>
-</ul>
+		<div class="post">
+			<span class="date">21 November 2009</span>
+			<h3>Sorry, boys &amp; girls</h3>
+			I have to admit, that there is no time left for me to hack on Viewnior. But don't worry, Viewnior 1.0 will be out as soon as possible!
+			<br /><br />P.S. I also lost all my GPG &amp; SSH keys :(
+		</div>
 
-<div id="content">
-<div id="sidebar" class="bitten">
-<div class="sidebar_post">
-Download
-<div class="sidebar_post_content"><span class="date">6 September 2009</span>
-<br/><a href="download.html">Viewnior 0.7</a></div>
+		<div class="post">
+			<span class="date">10 September 2009</span>
+			<h3>Going 1.0</h3>
+			I will be brief. <br/>
+			The project was started with "simple and fast". Cropping functionality in the last (0.7) release is the only and ,I assure you, the last exception.<br/>
+			No image editing or photo management tools will be implemented, nor that "ultra mega giga fancy" functionality you may want.
+			As said in the About page, Viewnior is and will be dependent only on gtk+.<br/><br/>
+			Until now Viewnior was facing a new release every month. As a result, it is now stable and functional enough to enter the 1.0 release cycle. The next (0.8) version will become 1.0 and will be released sometime in October.
+		</div>
+
+		<div class="post">
+			<span class="date">6 September 2009</span>
+			<h3>Viewnior 0.7 released</h3>
+			<strong>New features:</strong>
+			<ul>
+				<li>Simple Crop functionality</li>
+				<li>"Open With" menu</li>
+				<li>Show/hide the toolbar</li>
+				<li>New mouse wheel action - "Scroll image up/down"</li>
+			</ul>
+			<br/><strong>Fixes:</strong>
+			<ul>
+				<li>Honor image orientation metadata</li>
+				<li>Custom assigned keybindings don't get saved (#415022)</li>
+				<li>Image height displayed incorrectly (#422507)</li>
+			</ul>
+		</div>
+
+		<div class="post">
+			<span class="date">31 August 2009</span>
+			<h3>Soon: Viewnior 0.7</h3>
+			Viewnior 0.7 to be released on September 6!<br/>
+			The new release brings: simple crop functionality, "Open With" menu, option to show/hide the toolbar, new mouse wheel action and some important fixes. Full list of the changes will be available on the relase date.<br/>
+			<a onclick="window.open(this.href); return false;" href="https://translations.launchpad.net/viewnior">Help Translate!</a>.
+		</div>
+
+		<div class="post">
+			<span class="date">15 August 2009</span>
+			<h3>Viewnior's PPA for Karmic users</h3>
+			Refer to <a href="https://launchpad.net/~xsisqox/+archive/ppa">https://launchpad.net/~xsisqox/+archive/ppa</a>
+		</div>
+
+		<div class="post">
+			<span class="date">9 August 2009</span>
+			<h3>Viewnior 0.6 released</h3>
+			<strong>New features:</strong>
+			<ul>
+				<li>Preferences dialog</li>
+				<li>Configurable mouse actions</li>
+				<li>Properties dialog</li>
+			</ul>
+			<br/><strong>Fixes:</strong>
+			<ul>
+				<li>Many User Interface fixes</li>
+				<li>Fix unaccurate double-click zooming</li>
+			</ul>
+		</div>
+
+		<div class="post">
+			<span class="date">2 August 2009</span>
+			<h3>Soon: Viewnior 0.6</h3>
+			Viewnior 0.6 is about to be released on 9 August.<br/>You can give a helping hand by
+			<a onclick="window.open(this.href); return false;" href="https://translations.launchpad.net/viewnior">TRANSLATING</a> it.<br/><br/>
+			What's the new stuff? Well ... it's pretty much a secret :P<br/>
+			...but the
+			<a onclick="window.open(this.href); return false;" href="http://github.com/xsisqox/Viewnior/commits/master">git repo</a> isn't.
+		</div>
+
+		<div class="post">
+			<span class="date">26 June 2009</span>
+			<h3>Viewnior 0.5 released</h3>
+			<strong>New features:</strong>
+			<ul>
+				<li>Rotate and flip images</li>
+				<li>Autohide toolbar and cursor in fullscreen mode</li>
+				<li>Popup (right-click) menu</li>
+			</ul>
+			<br/><strong>Fixes:</strong>
+			<ul>
+				<li>"Fit to window" really works (scales above than 1:1)</li>
+			</ul>
+		</div>
+
+		<div class="post">
+			<span class="date">26 June 2009</span>
+			<h3>Site redesign</h3>
+			Cool, huh?
+		</div>
+
+		<div class="post">
+			<span class="date">19 May 2009</span>
+			<h3>Viewnior 0.4 released</h3>
+			<strong>New features:</strong>
+			<ul>
+				<li>Drag'n'Drop</li>
+				<li>Set Wallpaper (optional / only for Gnome)</li>
+				<li>Fullscreen and Slideshow</li>
+				<li>Add "Open Image" and "Open Folder" to the File menu</li>
+				<li>Add "Delete" to the File menu</li>
+			</ul>
+			<br/><strong>Fixes:</strong>
+			<ul>
+				<li>Multiple code fixes</li>
+			</ul>
+		</div>
+
+		<div class="post">
+			<span class="date">17 May 2009</span>
+			<h3>Viewnior 0.3 released</h3>
+			<strong>New features:</strong>
+			<ul>
+				<li>Translations</li>
+				<li>File Navigation</li>
+				<li>UI - Add menu and toolbar</li>
+			</ul>
+			<br/><strong>Fixes:</strong>
+			<ul>
+				<li>Message area is now complete</li>
+				<li>Improved small size icons</li>
+			</ul>
+		</div>
+
+		<div class="post">
+			<span class="date">17 May 2009</span>
+			<h3>Site launched</h3>
+			Welcome to Viewnior's homepage.
+		</div>
+
+		<div class="clear"><hr/></div>
+	</div>
+	<div class="push">&nbsp;</div>
 </div>
-<div class="sidebar_post">
-Atom Feed
-<div class="sidebar_post_content">
-<a href="http://feeds.launchpad.net/viewnior/announcements.atom">Announcements</a></div>
+<div id="footer" class="blackout">
+	<p>&times; Designed by Siyan Panayotov</p>
 </div>
-<div class="sidebar_post">
-Screenshots
-<a onclick="window.open(this.href); return false;" href="vnr_normal_mode.png">
-<img src="vnr_normal_mode.png" alt="Screenshot of Viewnior in use" class="screenshot"/>
-</a>
-<div class="sidebar_post_content">
-<a href="about.html#screenshots">See more &raquo;</a>
-</div>
-</div>
-</div>
-
-<h2 class="post">Viewnior is a fast and simple image viewer for GNU/Linux. <a href="about.html">Learn more &raquo;</a></h2>
-
-<div class="post">
-<h3>Sorry, boys &amp; girls</h3>
-<span class="date">21 November 2009</span><br/>
-I have to admit, that there is no time left for me to hack on Viewnior. But don't worry, Viewnior 1.0 will be out as soon as possible!
-<br /><br />P.S. I also lost all my GPG &amp; SSH keys :(
-</div>
-
-<div class="post">
-<h3>Going 1.0</h3>
-<span class="date">10 September 2009</span><br/>
-I will be brief. <br/>
-The project was started with "simple and fast". Cropping functionality in the last (0.7) release is the only and ,I assure you, the last exception.<br/>
-No image editing or photo management tools will be implemented, nor that "ultra mega giga fancy" functionality you may want.
-As said in the About page, Viewnior is and will be dependent only on gtk+.<br/><br/>
-Until now Viewnior was facing a new release every month. As a result, it is now stable and functional enough to enter the 1.0 release cycle. The next (0.8) version will become 1.0 and will be released sometime in October.
-</div>
-
-<div class="post">
-<h3>Viewnior 0.7 released</h3>
-<span class="date">6 September 2009</span><br/>
-New features:
-<ul>
-<li>Simple Crop functionality</li>
-<li>"Open With" menu</li>
-<li>Show/hide the toolbar</li>
-<li>New mouse wheel action - "Scroll image up/down"</li>
-</ul>
-<br/>Fixes:
-<ul>
-<li>Honor image orientation metadata</li>
-<li>Custom assigned keybindings don't get saved (#415022)</li>
-<li>Image height displayed incorrectly (#422507)</li>
-</ul>
-</div>
-
-<div class="post">
-<h3>Soon: Viewnior 0.7</h3>
-<span class="date">31 August 2009</span><br/>
-Viewnior 0.7 to be released on September 6!<br/>
-The new release brings: simple crop functionality, "Open With" menu, option to show/hide the toolbar, new mouse wheel action and some important fixes. Full list of the changes will be available on the relase date.<br/>
-<a onclick="window.open(this.href); return false;" href="https://translations.launchpad.net/viewnior">Help Translate!</a>.
-</div>
-
-<div class="post">
-<h3>Viewnior's PPA for Karmic users</h3>
-<span class="date">15 August 2009</span><br/>
-Refer to <a href="https://launchpad.net/~xsisqox/+archive/ppa">https://launchpad.net/~xsisqox/+archive/ppa</a>
-</div>
-
-<div class="post">
-<h3>Viewnior 0.6 released</h3>
-<span class="date">9 August 2009</span><br/>
-New features:
-<ul>
-<li>Preferences dialog</li>
-<li>Configurable mouse actions</li>
-<li>Properties dialog</li>
-</ul>
-<br/>Fixes:
-<ul>
-<li>Many User Interface fixes</li>
-<li>Fix unaccurate double-click zooming</li>
-</ul>
-</div>
-
-<div class="post">
-<h3>Soon: Viewnior 0.6</h3>
-<span class="date">2 August 2009</span><br/>
-Viewnior 0.6 is about to be released on 9 August.<br/>You can give a helping hand by
-<a onclick="window.open(this.href); return false;" href="https://translations.launchpad.net/viewnior">TRANSLATING</a> it.<br/><br/>
-What's the new stuff? Well ... it's pretty much a secret :P<br/>
-...but the
-<a onclick="window.open(this.href); return false;" href="http://github.com/xsisqox/Viewnior/commits/master">git repo</a> isn't.
-</div>
-
-<div class="post">
-<h3>Viewnior 0.5 released</h3>
-<span class="date">26 June 2009</span><br/>
-New features:
-<ul>
-<li>Rotate and flip images</li>
-<li>Autohide toolbar and cursor in fullscreen mode</li>
-<li>Popup (right-click) menu</li>
-</ul>
-<br/>Fixes:
-<ul>
-<li>"Fit to window" really works (scales above than 1:1)</li>
-</ul>
-</div>
-
-<div class="post">
-<h3>Site redesign</h3>
-<span class="date">26 June 2009</span><br/>
-Cool, huh?
-</div>
-
-<div class="post">
-<h3>Viewnior 0.4 released</h3>
-<span class="date">19 May 2009</span><br/>
-New features:
-<ul>
-<li>Drag'n'Drop</li>
-<li>Set Wallpaper (optional / only for Gnome)</li>
-<li>Fullscreen and Slideshow</li>
-<li>Add "Open Image" and "Open Folder" to the File menu</li>
-<li>Add "Delete" to the File menu</li>
-</ul>
-<br/>Fixes:
-<ul>
-<li>Multiple code fixes</li>
-</ul>
-</div>
-
-<div class="post">
-<h3>Viewnior 0.3 released</h3>
-<span class="date">17 May 2009</span><br/>
-New features:
-<ul>
-<li>Translations</li>
-<li>File Navigation</li>
-<li>UI - Add menu and toolbar</li>
-</ul>
-<br/>Fixes:
-<ul>
-<li>Message area is now complete</li>
-<li>Improved small size icons</li>
-</ul>
-</div>
-
-<div class="post">
-<h3>Site launched</h3>
-<span class="date">17 May 2009</span><br/>
-Welcome to Viewnior's homepage.
-</div>
-
-<div class="clear"><hr/></div>
-</div>
-
-
-<div id="footer">
-<p>Designed by Siyan Panayotov</p>
-</div>
-
-</div>
-
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-8883232-1");
-pageTracker._trackPageview();
-} catch(err) {}</script>
-
 </body></html>

@@ -15,102 +15,117 @@
     <title>Viewnior</title>
 
 
-    <style type="text/css" media="all">
-        @import "style.css";
-    </style>
+	<link rel="stylesheet" href="style.css" type="text/css" media="screen" charset="utf-8" />
 </head><body>
 <div id ="page">
 
-<div id="header"><div id="logo"><h1>Viewnior - The Elegant Image Viewer</h1></div></div>
+	<div id="header">
+		<div id="header-cnt">
+			<div id="logo">
+				<h1><em>Viewnior</em> - The Elegant Image Viewer</h1>
+			</div>
+			<ul id="navigation">
+				<li><a href="index.html">Home</a></li>
+				<li><a href="about.html" class="active">About</a></li>
+				<li><a href="faq.html">FAQ</a></li>
+				<li><a href="download.html">Download</a></li>
+				<li><a href="feedback.html">Feedback</a></li>
+			</ul>
+			<div class="cl">&nbsp;</div>
+		</div>
+	</div>
 
-<ul id="navigation">
-<li><a href="index.html">Home</a></li>
-<li><a href="about.html" class="active">About</a></li>
-<li><a href="faq.html">FAQ</a></li>
-<li><a href="download.html">Download</a></li>
-<li><a href="feedback.html">Feedback</a></li>
-</ul>
 
-<div id="content">
+	<div class="blackout">
+		<div id="screenshots">
+			<a onclick="window.open(this.href); return false;" href="vnr_normal_mode.png">
+				<img src="vnr_normal_mode_thumb.png" alt="Screenshot of Viewnior in use" class="screenshot2"/>
+			</a>
+			<a onclick="window.open(this.href); return false;" href="vnr_pref_window.png">
+				<img src="vnr_pref_window_thumb.png" alt="Screenshot of Viewnior in use" class="screenshot2"/>
+			</a>
+			<a onclick="window.open(this.href); return false;" href="vnr_navigation_window.png">
+				<img src="vnr_navigation_window_thumb.png" alt="Screenshot of Viewnior in use" class="screenshot2"/>
+			</a>
+			<a onclick="window.open(this.href); return false;" href="vnr_fullscreen.png">
+				<img src="vnr_fullscreen_thumb.png" alt="Screenshot of Viewnior in use" class="screenshot2"/>
+			</a>
+			<a onclick="window.open(this.href); return false;" href="vnr_fullscreen.png">
+				<img src="vnr_popup_menu_thumb.png" alt="Screenshot of Viewnior in use" class="screenshot2"/>
+			</a>
+			<a onclick="window.open(this.href); return false;" href="vnr_fullscreen.png">
+				<img src="vnr_normal_mode_transp_thumb.png" alt="Screenshot of Viewnior in use" class="screenshot2"/>
+			</a>
+			<a onclick="window.open(this.href); return false;" href="vnr_fullscreen.png">
+				<img src="vnr_normal_mode_2_thumb.png" alt="Screenshot of Viewnior in use" class="screenshot2"/>
+			</a>
+		</div>
+	</div>
+	
+	<div id="content">
 
-<div class="post">
-<h3>About</h3>
-<p>This is Viewnior, an image viewer program. Created to be simple, fast
-and elegant. It's minimalistic interface provides more screenspace for
-your images. Among its features are:</p>
-<ul>
-<li>Fullscreen &amp; Slideshow</li>
-<li>Rotate, flip, crop, save, delete images</li>
-<li>Animation support</li>
-<li>Browse only selected images</li>
-<li>Navigation window</li>
-<li>Set image as wallpaper (only under GNOME, see INSTALL file)</li>
-<li>Simple interface</li>
-<li>Configurable mouse actions</li>
-</ul>
-<p>Viewnior is insipred by big projects like
-<a onclick="window.open(this.href); return false;" href="http://projects.gnome.org/eog/">
-Eye of Gnome</a>, because of it's usability and richness,and by
-<a onclick="window.open(this.href); return false;" href="http://lxde.sourceforge.net/gpicview/">
-GPicView</a>, because of it's lightweight design and minimal interface. So here comes
-Viewnior - small and light, with no compromise with the quality of it's functions.
-The program is made with better integration in mind (follows
-<a onclick="window.open(this.href); return false;" href="http://library.gnome.org/devel/hig-book/stable/">
-Gnome HIG2</a>)</p>
-<p>Viewnior is written in C (GTK+) and uses modified version of the
-<a onclick="window.open(this.href); return false;" href="http://trac.bjourne.webfactional.com/">
-GtkImageView</a> library by Bjourn Lindqvist. Without it, image viewing wouldn't be such a pleasure. :)</p>
-<p>Viewnior is licensed under the terms of the
-<a onclick="window.open(this.href); return false;" href="http://www.gnu.org/licenses/gpl.txt">
-GPLv3</a>.<br/>Copyright &copy; 2009 Siyan Panayotov</p>
+	<div class="post">
+		<h3>About</h3>
+		<p>This is Viewnior, an image viewer program. Created to be simple, fast
+		and elegant. It's minimalistic interface provides more screenspace for
+		your images. Among its features are:</p>
+		<ul>
+			<li>Fullscreen &amp; Slideshow</li>
+			<li>Rotate, flip, crop, save, delete images</li>
+			<li>Animation support</li>
+			<li>Browse only selected images</li>
+			<li>Navigation window</li>
+			<li>Set image as wallpaper (only under GNOME, see INSTALL file)</li>
+			<li>Simple interface</li>
+			<li>Configurable mouse actions</li>
+		</ul>
+		<p>
+			Viewnior is insipred by big projects like
+			<a onclick="window.open(this.href); return false;" href="http://projects.gnome.org/eog/">
+			Eye of Gnome</a>, because of it's usability and richness,and by
+			<a onclick="window.open(this.href); return false;" href="http://lxde.sourceforge.net/gpicview/">
+			GPicView</a>, because of it's lightweight design and minimal interface. So here comes
+			Viewnior - small and light, with no compromise with the quality of it's functions.
+			The program is made with better integration in mind (follows
+			<a onclick="window.open(this.href); return false;" href="http://library.gnome.org/devel/hig-book/stable/">
+			Gnome HIG2</a>)
+		</p>
+		<p>
+			Viewnior is written in C (GTK+) and uses modified version of the
+			<a onclick="window.open(this.href); return false;" href="http://trac.bjourne.webfactional.com/">
+			GtkImageView</a> library by Bjourn Lindqvist. Without it, image viewing wouldn't be such a pleasure. :)
+		</p>
+		<p>
+			Viewnior is licensed under the terms of the
+			<a onclick="window.open(this.href); return false;" href="http://www.gnu.org/licenses/gpl.txt">
+			GPLv3</a>.<br/>Copyright &copy; 2009 Siyan Panayotov
+		</p>
+	</div>
+
+	<div class="post">
+		<h3>To do</h3>
+		<p>I would like Viewnior to:</p>
+		<ul>
+			<li>Show EXIF data attached to images</li>
+			<li>Automatically update the folder contents</li>
+			<li>Drag images out of Viewnior</li>
+		</ul>
+		<p>
+			If you can/want to help, first contact me, because I'm already working on some of this features. For more information, browse the
+			<a onclick="window.open(this.href); return false;" href="http://github.com/xsisqox/Viewnior">git repo</a>.
+		</p>
+		<p>
+			All things marked as "ready for the next release" are available in the master branch in the
+			<a onclick="window.open(this.href); return false;" href="http://github.com/xsisqox/Viewnior">git repo</a>.
+			Can't wait? Download the code from there (might be unstable!).
+		</p>
+	</div>
+
+	</div>
+	<div class="push">&nbsp;</div>
 </div>
-
-<div class="post">
-<h3>To do</h3>
-<p>I would like Viewnior to:</p>
-<ul>
-<li>Show EXIF data attached to images</li>
-<li>Automatically update the folder contents</li>
-<li>Drag images out of Viewnior</li>
-</ul>
-<p>If you can/want to help, first contact me, because I'm already working on some of this features. For more information, browse the
-<a onclick="window.open(this.href); return false;" href="http://github.com/xsisqox/Viewnior">git repo</a>.</p>
-<p>All things marked as "ready for the next release" are available in the master branch in the
-<a onclick="window.open(this.href); return false;" href="http://github.com/xsisqox/Viewnior">git repo</a>.
-Can't wait? Download the code from there (might be unstable!).</p>
+<div id="footer" class="blackout">
+	<p>&times; Designed by Siyan Panayotov</p>
 </div>
-
-<div class="post">
-<h3 id="screenshots">Screenshots</h3>
-<a onclick="window.open(this.href); return false;" href="vnr_normal_mode.png">
-<img src="vnr_normal_mode.png" alt="Screenshot of Viewnior in use" class="screenshot2"/>
-</a>
-<a onclick="window.open(this.href); return false;" href="vnr_pref_window.png">
-<img src="vnr_pref_window.png" alt="Screenshot of Viewnior in use" class="screenshot2"/>
-</a>
-<a onclick="window.open(this.href); return false;" href="vnr_navigation_window.png">
-<img src="vnr_navigation_window.png" alt="Screenshot of Viewnior in use" class="screenshot2"/>
-</a>
-<a onclick="window.open(this.href); return false;" href="vnr_fullscreen.png">
-<img src="vnr_fullscreen.png" alt="Screenshot of Viewnior in use" class="screenshot2"/>
-</a>
-</div>
-
-</div>
-
-<div id="footer">
-<p>Designed by Siyan Panayotov</p>
-</div>
-
-</div>
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-8883232-1");
-pageTracker._trackPageview();
-} catch(err) {}</script>
 </body></html>
 
