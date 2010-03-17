@@ -633,7 +633,10 @@ rotate_pixbuf(VnrWindow *window, GdkPixbufRotation angle)
                               gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
     gdk_flush();
-
+	
+	/* Stop slideshow while editing the image */
+	stop_slideshow(window);
+	
     result = gdk_pixbuf_rotate_simple(UNI_IMAGE_VIEW(window->view)->pixbuf,
                                       angle);
 
