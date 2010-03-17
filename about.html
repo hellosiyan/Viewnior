@@ -16,9 +16,14 @@
 
 
 	<link rel="stylesheet" href="style.css" type="text/css" media="screen" charset="utf-8" />
+	<link rel="stylesheet" href="colorbox.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+	<script src="jquery.js" type="text/javascript" language="javascript" charset="utf-8" ></script>
+	<script src="jquery.colorbox.js" type="text/javascript" language="javascript" charset="utf-8" ></script>
+	<script type="text/javascript" language="javascript" charset="utf-8">
+	jQuery(function($){ $('#screenshots a').colorbox({transition:'elastic', speed:500}); });
+	</script>
 </head><body>
 <div id ="page">
-
 	<div id="header">
 		<div id="header-cnt">
 			<div id="logo">
@@ -38,25 +43,25 @@
 
 	<div class="blackout">
 		<div id="screenshots">
-			<a onclick="window.open(this.href); return false;" href="vnr_normal_mode.png">
+			<a href="vnr_normal_mode.png" rel="screenshots">
 				<img src="vnr_normal_mode_thumb.png" alt="Screenshot of Viewnior in use" class="screenshot2"/>
 			</a>
-			<a onclick="window.open(this.href); return false;" href="vnr_pref_window.png">
+			<a href="vnr_pref_window.png" rel="screenshots">
 				<img src="vnr_pref_window_thumb.png" alt="Screenshot of Viewnior in use" class="screenshot2"/>
 			</a>
-			<a onclick="window.open(this.href); return false;" href="vnr_navigation_window.png">
+			<a href="vnr_navigation_window.png" rel="screenshots">
 				<img src="vnr_navigation_window_thumb.png" alt="Screenshot of Viewnior in use" class="screenshot2"/>
 			</a>
-			<a onclick="window.open(this.href); return false;" href="vnr_fullscreen.png">
+			<a href="vnr_fullscreen.png" rel="screenshots">
 				<img src="vnr_fullscreen_thumb.png" alt="Screenshot of Viewnior in use" class="screenshot2"/>
 			</a>
-			<a onclick="window.open(this.href); return false;" href="vnr_fullscreen.png">
+			<a href="vnr_popup_menu.png" rel="screenshots">
 				<img src="vnr_popup_menu_thumb.png" alt="Screenshot of Viewnior in use" class="screenshot2"/>
 			</a>
-			<a onclick="window.open(this.href); return false;" href="vnr_fullscreen.png">
+			<a href="vnr_normal_mode_transp.png" rel="screenshots">
 				<img src="vnr_normal_mode_transp_thumb.png" alt="Screenshot of Viewnior in use" class="screenshot2"/>
 			</a>
-			<a onclick="window.open(this.href); return false;" href="vnr_fullscreen.png">
+			<a href="vnr_normal_mode_2.png" rel="screenshots">
 				<img src="vnr_normal_mode_2_thumb.png" alt="Screenshot of Viewnior in use" class="screenshot2"/>
 			</a>
 		</div>
@@ -98,7 +103,7 @@
 		<p>
 			Viewnior is licensed under the terms of the
 			<a onclick="window.open(this.href); return false;" href="http://www.gnu.org/licenses/gpl.txt">
-			GPLv3</a>.<br/>Copyright &copy; 2009 Siyan Panayotov
+			GPLv3</a>.<br/>Copyright &copy; 2009-2010 Siyan Panayotov
 		</p>
 	</div>
 

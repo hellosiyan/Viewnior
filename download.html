@@ -39,7 +39,8 @@
 	<div id="content">
 
 		<div class="post">
-			<h3>The latest stable release is Viewnior 0.7 <span class="date">6 September 2009</span></h3>
+			<span class="date">6 September 2009</span>
+			<h3>The latest stable release is Viewnior 0.7</h3>
 		</div>
 
 		<div class="download">
@@ -47,13 +48,11 @@
 			<div class="download_content">
 				<p>
 					<a href="http://cloud.github.com/downloads/xsisqox/Viewnior/viewnior-0.7.tar.gz">&laquo; Download here &raquo;</a></p>
-					<p class="install_desc">
-						$ tar zxvf viewnior-0.7.tar.gz<br/>
-						$ cd viewnior-0.7<br/>
-						$ ./configure<br/>
-						$ make<br/>
-						$ sudo make install</p>
-					<p>
+					<input type="text" value="$ tar zxvf viewnior-0.7.tar.gz" class="install_desc" />
+					<input type="text" value="$ cd viewnior-0.7" class="install_desc" />
+					<input type="text" value="$ ./configure" class="install_desc" />
+					<input type="text" value="$ make" class="install_desc" />
+					<input type="text" value="$ sudo make install" class="install_desc" />
 					For more information see the INSTALL file.
 				</p>
 			</div>
@@ -63,29 +62,15 @@
 			<h3>Ubuntu (and Ubuntu-based)</h3>
 			<div class="download_content">
 				<p><a href="https://launchpad.net/~xsisqox/+archive/ppa">&laquo; PPA (stable releases) &raquo;</a></p>
-				<p>You can download the .deb file for your version and architecture from the link above and install it.</p>
-				<p>OR (preferred): Add the repository in your sources.list file with these easy steps:</p>
-				<p class="install_desc">
-					$ sudo nano /etc/apt/sources.list
-				</p>
-				<p>At the end of the file add:</p>
-				<p class="install_desc">
-					deb http://ppa.launchpad.net/xsisqox/ppa/ubuntu YOUR_UBUNTU_VERSION_HERE main<br/>
-					deb-src http://ppa.launchpad.net/xsisqox/ppa/ubuntu YOUR_UBUNTU_VERSION_HERE main
-				</p>
-				<p>Where YOUR_UBUNTU_VERSION_HERE is one of the following: hardy | intrepid | jaunty | karmic.</p>
-				<p class="install_desc">
-					$ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8279047A<br/>
-					$ sudo aptitude update<br/>
-					$ sudo aptitude install viewnior
-				</p>
+				<p>Just follow the instructions (the link "Read about installing"). Then just:</p>
+				<input type="text" value="$ sudo aptitude install viewnior" class="install_desc" />
 			</div>
 		</div>
 
 		<div class="download">
 			<h3>Crunchbang (9.04.1)</h3>
 			<div class="download_content">
-				<p class="install_desc">$ sudo aptitude install viewnior</p>
+				<input type="text" value="$ sudo aptitude install viewnior" class="install_desc" />
 			</div>
 		</div>
 
@@ -104,6 +89,15 @@
 		</div>
 
 		<div class="download">
+		<h3>Fedora</h3>
+			<div class="download_content">
+				<a href="http://www.rpmfind.net/linux/rpm2html/search.php?query=viewnior&submit=Search+...">&laquo; RPMFind search results &raquo;</a>
+			</div>
+		</div>
+		
+		
+
+		<div class="download">
 			<h3>Frugalware</h3>
 			<div class="download_content">
 				<a href="http://frugalware.org/packages/?op=pkg&desc=on&srch=viewnior&arch=all&ver=all">&laquo; Official packages &raquo;</a>
@@ -120,14 +114,18 @@
 		<div class="download">
 			<h3>Older tarballs</h3>
 			<div class="download_content">
-				<p><span class="date">9 August 2009</span>
-				<a href="http://cloud.github.com/downloads/xsisqox/Viewnior/viewnior-0.6.tar.gz">Viewnior 0.6</a></p>
-				<p><span class="date">26 June 2009</span>
-				<a href="http://cloud.github.com/downloads/xsisqox/Viewnior/viewnior-0.5.tar.gz">Viewnior 0.5</a></p>
-				<p><span class="date">19 May 2009</span>
-				<a href="http://cloud.github.com/downloads/xsisqox/Viewnior/viewnior-0.4.tar.gz">Viewnior 0.4</a></p>
-				<p><span class="date">17 May 2009</span>
-				<a href="http://cloud.github.com/downloads/xsisqox/Viewnior/viewnior-0.3.tar.gz">Viewnior 0.3</a></p>
+				<p>
+				<a href="http://cloud.github.com/downloads/xsisqox/Viewnior/viewnior-0.6.tar.gz">Viewnior 0.6</a>
+				<span class="date">9 August 2009</span></p>
+				<p>
+				<a href="http://cloud.github.com/downloads/xsisqox/Viewnior/viewnior-0.5.tar.gz">Viewnior 0.5</a>
+				<span class="date">26 June 2009</span></p>
+				<p>
+				<a href="http://cloud.github.com/downloads/xsisqox/Viewnior/viewnior-0.4.tar.gz">Viewnior 0.4</a>
+				<span class="date">19 May 2009</span></p>
+				<p>
+				<a href="http://cloud.github.com/downloads/xsisqox/Viewnior/viewnior-0.3.tar.gz">Viewnior 0.3</a>
+				<span class="date">17 May 2009</span></p>
 			</div>
 		</div>
 	</div>
@@ -135,7 +133,7 @@
 </div>
 
 <div id="footer" class="blackout">
-	<p>Designed by Siyan Panayotov</p>
+	<p>&times; Designed by Siyan Panayotov</p>
 </div>
 </body></html>
 

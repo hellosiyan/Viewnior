@@ -77,6 +77,13 @@ a, a:visited, a:hover { text-decoration: none; color: black;}
 	padding-top: 20px;
 }
 
+#content a {
+	color: #E13F3F;
+}
+#content a:hover {
+	color: #5bc642;
+}
+
 #content .post {
 	margin-bottom: 20px;
 }
@@ -103,6 +110,15 @@ a, a:visited, a:hover { text-decoration: none; color: black;}
 }
 #content .post p {
 	text-indent: 10px;
+}
+
+.install_desc {
+	background-color: #222;
+	color: white;
+	font-family: monospace,courier,"Trebuchet MS", arial;
+	padding: 5px;
+	font-size: 14px;
+	width: 100%;
 }
 
 /* FOOTER */
@@ -167,6 +183,21 @@ a, a:visited, a:hover { text-decoration: none; color: black;}
 	vertical-align: bottom;
 }
 
-#download-page #content {
+#download-page #content, #faq-page #content, #feedback-page #content {
 	padding: 0;
+}
+#faq-page h4 {
+	color: #E13F3F;
+}
+#faq-page #content p {
+	text-indent: 0;
+}
+
+.download_content {
+	margin-left: 10px;
+	padding: 10px 0;
+}
+.download_content .date {
+	color: #BBBBBB;
+	padding-left: 10px;
 }
