@@ -315,9 +315,18 @@ update_fs_filename_label(VnrWindow *window)
 {
     if(window->mode == VNR_WINDOW_MODE_NORMAL)
         return;
+        
+    gint position, total;
+    char *buf = NULL;
+    
+    get_position_of_element_in_list(window->file_list, &position, &total);
+    buf = g_strdup_printf ("%s - %i/%i",
+                           VNR_FILE(window->file_list->data)->display_name,
+                           position, total);
 
-    gtk_label_set_text(GTK_LABEL(window->fs_filename_label),
-                       VNR_FILE(window->file_list->data)->display_name);
+    gtk_label_set_text(GTK_LABEL(window->fs_filename_label), buf);
+    
+    g_free(buf);
 }
 
 static gboolean
