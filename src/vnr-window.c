@@ -1616,6 +1616,14 @@ vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
             vnr_window_cmd_next (NULL, window);
             result = TRUE;
             break;
+        case GDK_Page_Up:
+            vnr_window_cmd_prev (NULL, window);
+            result = TRUE;
+            break;
+        case GDK_Page_Down:
+            vnr_window_cmd_next (NULL, window);
+            result = TRUE;
+            break;
         case GDK_Escape:
             if(window->mode != VNR_WINDOW_MODE_NORMAL)
                 vnr_window_unfullscreen(window);
