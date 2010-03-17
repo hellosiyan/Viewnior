@@ -233,7 +233,7 @@ uni_nav_motion_notify (GtkWidget * widget, GdkEventMotion * ev)
     int zoom_x_ofs = mx * zoom2nav_factor;
     int zoom_y_ofs = my * zoom2nav_factor;
 
-    uni_image_view_set_offset (nav->view, zoom_x_ofs, zoom_y_ofs, FALSE);
+    uni_image_view_set_offset (nav->view, zoom_x_ofs, zoom_y_ofs, TRUE);
     uni_nav_draw_rectangle (nav, TRUE);
 
     return TRUE;
