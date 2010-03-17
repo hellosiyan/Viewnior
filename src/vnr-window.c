@@ -130,10 +130,13 @@ const gchar *ui_definition = "<ui>"
     "<menuitem name=\"GoPrevious\" action=\"GoPrevious\"/>"
     "<menuitem name=\"GoNext\" action=\"GoNext\"/>"
     "<separator/>"
+    "<menu action=\"FileOpenWith\">"
+       "<placeholder name=\"AppEntries\"/>"
+    "</menu>"
+    "<separator/>"
     "<menuitem action=\"ViewZoomIn\"/>"
     "<menuitem action=\"ViewZoomOut\"/>"
     "<menuitem action=\"ViewZoomNormal\"/>"
-    "<menuitem action=\"ViewZoomFit\"/>"
     "<placeholder name=\"WallpaperEntry\"/>"
     "<separator/>"
     "<menuitem name=\"Fullscreen\" action=\"ViewFullscreen\"/>"
@@ -257,6 +260,13 @@ vnr_window_update_openwith_menu (VnrWindow *window)
         gtk_ui_manager_add_ui (window->ui_mngr,
                         window->open_with_menu_id,
                         "/MainMenu/File/FileOpenWith/AppEntries",
+                        name,
+                        name,
+                        GTK_UI_MANAGER_MENUITEM,
+                        FALSE);
+        gtk_ui_manager_add_ui (window->ui_mngr,
+                        window->open_with_menu_id,
+                        "/PopupMenu/FileOpenWith/AppEntries",
                         name,
                         name,
                         GTK_UI_MANAGER_MENUITEM,
