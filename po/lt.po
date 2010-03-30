@@ -1,4 +1,4 @@
-# Dutch translation for viewnior
+# Lithuanian translation for viewnior
 # Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the viewnior package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
@@ -8,20 +8,20 @@ msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-08-31 11:05+0300\n"
-"PO-Revision-Date: 2009-12-23 21:30+0000\n"
-"Last-Translator: Launchpad Translations Administrators "
-"<rosetta@launchpad.net>\n"
-"Language-Team: Dutch <nl@li.org>\n"
+"PO-Revision-Date: 2009-11-21 14:43+0000\n"
+"Last-Translator: Joshas <Unknown>\n"
+"Language-Team: Lithuanian <lt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"(n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Launchpad-Export-Date: 2010-03-30 18:12+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:1153
 msgid "Elegant Image Viewer"
-msgstr "Elegante Afbeeldingsviewer"
+msgstr "Elegantiška paveikslų žiūryklė"
 
 #: ../data/viewnior.desktop.in.in.h:2
 msgid "Viewnior"
@@ -33,93 +33,93 @@ msgid ""
 "  Clicking on the left half of the window shows the\n"
 "  previous image and on the right side - the next.</small> "
 msgstr ""
-"<small>(!) Navigeer door afbeeldingen met dubbelklik:\n"
-"  Klikken op de linker helft van het venster laat de vorige\n"
-"  afbeelding zien, klikken op de rechter helft de volgende,</small> "
+"<small>  (!) Paveikslų naršymas dvikarčiu spustelėjimu :\n"
+"  Spragtelėjus kairėje lango pusėje rodomas ankstesnis\n"
+"  paveikslas, spragtelėjus dešinėje - kitas.</small> "
 
 #: ../data/vnr-preferences-dialog.ui.h:4
 msgid "Always expand images to fit screen"
-msgstr "Afbeeldingen altijd vergroten tot de grootte van het venster"
+msgstr "Visada išskleisti paveikslus, kad tilptų ekrane"
 
 #: ../data/vnr-preferences-dialog.ui.h:5
 msgid "Behavior"
-msgstr "Gedrag"
+msgstr "Veikimas"
 
 #: ../data/vnr-preferences-dialog.ui.h:6
 msgid "Confirm image deletion"
-msgstr "Bevestig verwijderen van een afbeelding"
+msgstr "Patvirtinkite paveikslo šalinimą"
 
 #: ../data/vnr-preferences-dialog.ui.h:7
 msgid "Fullscreen"
-msgstr "Volledig scherm"
+msgstr "Visas ekranas"
 
 #: ../data/vnr-preferences-dialog.ui.h:8
 msgid "General"
-msgstr "Algemeen"
+msgstr "Bendri"
 
 #: ../data/vnr-preferences-dialog.ui.h:9
 msgid "JPEG quality:"
-msgstr "JPEG-kwaliteit:"
+msgstr "JPEG kokybė:"
 
 #: ../data/vnr-preferences-dialog.ui.h:10
 msgid "On double click: "
-msgstr "Bij dubbelklikken: "
+msgstr "Dvikarčiu spustelėjimu: "
 
 #: ../data/vnr-preferences-dialog.ui.h:11
 msgid "On image modification: "
-msgstr "Bij bewerken van een afbeelding: "
+msgstr "Pasikeitus paveikslėliui: "
 
 #: ../data/vnr-preferences-dialog.ui.h:12
 msgid "On mouse wheel: "
-msgstr "Bij muiswiel: "
+msgstr "Pasukus pelės ratuką: "
 
 #: ../data/vnr-preferences-dialog.ui.h:13
 msgid "Open new image in: "
-msgstr "Open nieuwe afbeelding in: "
+msgstr "Atverti naują paveikslą: "
 
 #: ../data/vnr-preferences-dialog.ui.h:14
 msgid "PNG compression:"
-msgstr "PNG-compressie:"
+msgstr "PNG suspaudimas:"
 
 #: ../data/vnr-preferences-dialog.ui.h:15
 msgid "Reload image on save"
-msgstr "Afbeelding opnieuw laden bij opslaan"
+msgstr "Įrašius paveikslą įkelti iš naujo"
 
 #: ../data/vnr-preferences-dialog.ui.h:16
 msgid "Saving"
-msgstr "Bezig met opslaan"
+msgstr "Įrašoma"
 
 #: ../data/vnr-preferences-dialog.ui.h:17
 msgid "Show hidden images"
-msgstr "Verborgen bestanden tonen"
+msgstr "Rodyti slepiamus paveikslus"
 
 #: ../data/vnr-preferences-dialog.ui.h:18
 msgid "Show next image after (in seconds): "
-msgstr "Volgende afbeelding laten zien na (in seconden): "
+msgstr "Rodyti tolesnį paveikslą po (sekundėmis): "
 
 #: ../data/vnr-preferences-dialog.ui.h:19
 msgid "Smooth images when zoomed"
-msgstr "Smooth afbeeldingen bij zoomen"
+msgstr "Glodinti pakeisto mastelio paveikslėlius"
 
 #: ../data/vnr-preferences-dialog.ui.h:20
 msgid "Viewnior Preferences"
-msgstr "Viewnior Voorkeuren"
+msgstr "Programos parinktys"
 
 #: ../data/vnr-crop-dialog.ui.h:1 ../src/vnr-window.c:1516
 msgid "Crop"
-msgstr "Bijsnijden"
+msgstr "Apkirpti"
 
 #: ../data/vnr-crop-dialog.ui.h:2
 msgid "Crop Image"
-msgstr "Afbeelding bijsnijden"
+msgstr "Apkirpti paveikslą"
 
 #: ../data/vnr-crop-dialog.ui.h:3
 msgid "Height: "
-msgstr "Hoogte: "
+msgstr "Aukštis: "
 
 #: ../data/vnr-crop-dialog.ui.h:4
 msgid "Width: "
-msgstr "Breedte: "
+msgstr "Plotis: "
 
 #: ../data/vnr-crop-dialog.ui.h:5
 msgid "X: "
@@ -132,157 +132,160 @@ msgstr "Y: "
 #: ../src/main.c:113 ../src/vnr-window.c:1326 ../src/vnr-window.c:1649
 #: ../src/vnr-window.c:2046
 msgid "The given locations contain no images."
-msgstr "De opgegeven locaties bevatten geen afbeeldigen."
+msgstr "Nurodytose vietose paveikslų nėra."
 
 #: ../src/uni-scroll-win.c:223
 msgid "Open the navigator window"
-msgstr "Open navigatievenster"
+msgstr "Atverti naršymo langą"
 
 #: ../src/vnr-file.c:222
 #, c-format
 msgid ""
 "Couldn't recognise the image file\n"
 "format for file '%s'"
-msgstr "Afbeeldingstype niet herkend voor bestand '%s'"
+msgstr ""
+"Nepavyko atpažinti paveikslo\n"
+"failo formato failui '%s'"
 
 #: ../src/vnr-prefs.c:247
 msgid "Smart Mode"
-msgstr "Slimme modus"
+msgstr "Išmani veiksena"
 
 #: ../src/vnr-prefs.c:248
 msgid "1:1 Mode"
-msgstr "1:1 Modus"
+msgstr "1:1 veiksena"
 
 #: ../src/vnr-prefs.c:249
 msgid "Fit To Window Mode"
-msgstr "Aanpassen aan Venstermodus"
+msgstr "Priderinti prie lango veiksena"
 
 #: ../src/vnr-prefs.c:261 ../src/vnr-prefs.c:273
 msgid "Navigate images"
-msgstr "Afbeeldingen Navigeren"
+msgstr "Naršyti paveikslus"
 
 #: ../src/vnr-prefs.c:262
 msgid "Zoom image"
-msgstr "Inzoomen"
+msgstr "Keisti paveikslo mastelį"
 
 #: ../src/vnr-prefs.c:263
 msgid "Scroll image up/down"
-msgstr "Afbeelding naar boven/beneden scrollen"
+msgstr "Slinkti paveikslą aukštyn/žemyn"
 
 #: ../src/vnr-prefs.c:271
 msgid "Switch zoom modes"
-msgstr "Zoommodus"
+msgstr "Perjungti mastelio keitimo veikseną"
 
 #: ../src/vnr-prefs.c:272
 msgid "Enter fullscreen mode"
-msgstr "Schermvullend"
+msgstr "Įjungti viso ekrano režimą"
 
 #: ../src/vnr-prefs.c:281
 msgid "Ask every time"
-msgstr "Elke keer vragen"
+msgstr "Klausti kiekvieną kartą"
 
 #: ../src/vnr-prefs.c:282
 msgid "Autosave"
-msgstr "Automatisch opslaan"
+msgstr "Automatinis įrašymas"
 
 #: ../src/vnr-prefs.c:283
 msgid "Ignore changes"
-msgstr "Veranderingen negeren"
+msgstr "Nepaisyti pakeitimų"
 
 #: ../src/vnr-properties-dialog.c:111
 msgid "_Next"
-msgstr "_Volgende"
+msgstr "_Kitas"
 
 #: ../src/vnr-properties-dialog.c:112
 msgid "_Previous"
-msgstr "V_orige"
+msgstr "_Ankstesnis"
 
 #: ../src/vnr-properties-dialog.c:130
 msgid "Image Properties"
-msgstr "Afbeeldingseigenschappen"
+msgstr "Paveikslo savybės"
 
 #: ../src/vnr-properties-dialog.c:138
 msgid "<b>Location:</b>"
-msgstr "<b>Locatie:</b>"
+msgstr "<b>Vieta:</b>"
 
 #: ../src/vnr-properties-dialog.c:182
 msgid "<b>Name:</b>"
-msgstr "<b>Naam:</b>"
+msgstr "<b>Pavadinimas:</b>"
 
 #: ../src/vnr-properties-dialog.c:186
 msgid "<b>Type:</b>"
-msgstr "<b>Type:</b>"
+msgstr "<b>Tipas:</b>"
 
 #: ../src/vnr-properties-dialog.c:190
 msgid "<b>Size:</b>"
-msgstr "<b>Grootte:</b>"
+msgstr "<b>Dydis:</b>"
 
 #: ../src/vnr-properties-dialog.c:194
 msgid "<b>Width:</b>"
-msgstr "<b>Breedte:</b>"
+msgstr "<b>Plotis:</b>"
 
 #: ../src/vnr-properties-dialog.c:198
 msgid "<b>Height:</b>"
-msgstr "<b>Hoogte:</b>"
+msgstr "<b>Aukštis:</b>"
 
 #: ../src/vnr-properties-dialog.c:301 ../src/vnr-properties-dialog.c:302
 #: ../src/vnr-properties-dialog.c:303 ../src/vnr-properties-dialog.c:304
 #: ../src/vnr-properties-dialog.c:305 ../src/vnr-properties-dialog.c:306
 msgid "None"
-msgstr "Geen"
+msgstr "Nieko"
 
 #: ../src/vnr-window.c:240
 #, c-format
 msgid "Use \"%s\" to open the selected image"
-msgstr "‘%s’ gebruiken om de geselecteerde afbeelding te openen"
+msgstr "Atverti pasirinktą paveikslą su „%s“"
 
 #: ../src/vnr-window.c:395
 msgid "Show next image after: "
-msgstr "Volgende afbeelding na: "
+msgstr "Rodyti kitą paveikslą po: "
 
 #: ../src/vnr-window.c:413 ../src/vnr-window.c:818
 msgid " second"
 msgid_plural " seconds"
-msgstr[0] " seconde"
-msgstr[1] " seconden"
+msgstr[0] " sekundė"
+msgstr[1] " sekundės"
+msgstr[2] " sekundžių"
 
 #: ../src/vnr-window.c:643 ../src/vnr-window.c:706
 msgid "Not enough virtual memory."
-msgstr "Niet genoeg virtueel geheugen"
+msgstr "Nepakanka virtualiosios atminties."
 
 #: ../src/vnr-window.c:677 ../src/vnr-window.c:735 ../src/vnr-window.c:1407
 msgid ""
 "Image modifications cannot be saved.\n"
 "Writing in this format is not supported."
 msgstr ""
-"Veranderingen aan afbeeldingen kunnen niet worden opgeslagen.\n"
-"Opslaan in dit afbeeldingstype wordt niet ondersteund."
+"Negalima įrašyti paveikslėlio pakeitimų.\n"
+"Įrašymas šiuo formatu nepalaikomas."
 
 #: ../src/vnr-window.c:684 ../src/vnr-window.c:742 ../src/vnr-window.c:1414
 msgid ""
 "Save modifications?\n"
 "This will overwrite the image and may reduce it's quality!"
 msgstr ""
-"Veranderingen opslaan?\n"
-"Dit overschrijft het bestand en kan de kwaliteit verminderen!"
+"Įrašyti pakeitimus?\n"
+"Paveikslėlis bus perrašytas ir gali suprastėti jo kokybė!"
 
 #: ../src/vnr-window.c:1073
 msgid "Open Image"
-msgstr "Afbeelding openen"
+msgstr "Atverti paveikslą"
 
 #: ../src/vnr-window.c:1102
 msgid "Open Folder"
-msgstr "Map openen"
+msgstr "Atverti aplanką"
 
 #: ../src/vnr-window.c:1158
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Wouter Stomp https://launchpad.net/~wouterstomp"
+"  Joshas https://launchpad.net/~joshas"
 
 #: ../src/vnr-window.c:1265
 msgid "If you delete an item, it will be permanently lost."
-msgstr "Als u een item verwijdert, zal het voorgoed verloren gaan."
+msgstr "Jei ištrinsite elementą, jis bus negrįžtamai prarastas."
 
 #. I18N: The '%s' is replaced with the name of the file to be deleted.
 #: ../src/vnr-window.c:1268
@@ -290,250 +293,251 @@ msgstr "Als u een item verwijdert, zal het voorgoed verloren gaan."
 msgid ""
 "Are you sure you want to\n"
 "permanently delete \"%s\"?"
-msgstr "Weet u zeker dat u \"%s\" permanent wil verwijderen?"
+msgstr ""
+"Ar Jūs tikrai norite \n"
+"negrįžtamai pašalinti „%s“?"
 
 #: ../src/vnr-window.c:1422
 msgid "_File"
-msgstr "_Bestand"
+msgstr "_Failas"
 
 #: ../src/vnr-window.c:1423
 msgid "_Edit"
-msgstr "Be_werken"
+msgstr "_Taisa"
 
 #: ../src/vnr-window.c:1424
 msgid "_View"
-msgstr "_Toon"
+msgstr "_Rodymas"
 
 #: ../src/vnr-window.c:1425
 msgid "_Image"
-msgstr "_Afbeelding"
+msgstr "_Paveikslas"
 
 #: ../src/vnr-window.c:1426
 msgid "_Go"
-msgstr "_Ga"
+msgstr "_Eiti"
 
 #: ../src/vnr-window.c:1427
 msgid "_Help"
-msgstr "_Help"
+msgstr "_Žinynas"
 
 #: ../src/vnr-window.c:1429
 msgid "Open _Image..."
-msgstr "Open _Afbeelding..."
+msgstr "Atverti _paveikslą..."
 
 #: ../src/vnr-window.c:1430
 msgid "Open an Image"
-msgstr "Open een afbeelding"
+msgstr "Atverti paveikslą"
 
 #: ../src/vnr-window.c:1432
 msgid "Open _Folder..."
-msgstr "_Map openen..."
+msgstr "Atverti _aplanką..."
 
 #: ../src/vnr-window.c:1433
 msgid "Open a Folder"
-msgstr "Open een map"
+msgstr "Atverti aplanką"
 
 #: ../src/vnr-window.c:1435
 msgid "_Close"
-msgstr "_Sluiten"
+msgstr "_Užverti"
 
 #: ../src/vnr-window.c:1436
 msgid "Close window"
-msgstr "Venster sluiten"
+msgstr "Užverti langą"
 
 #: ../src/vnr-window.c:1438
 msgid "_About"
-msgstr "Info"
+msgstr "_Apie"
 
 #: ../src/vnr-window.c:1439
 msgid "About this application"
-msgstr "Over deze toepassing"
+msgstr "Apie šią programą"
 
 #: ../src/vnr-window.c:1441
 msgid "_Preferences..."
-msgstr "_Voorkeuren..."
+msgstr "_Parinktys..."
 
 #: ../src/vnr-window.c:1442
 msgid "User preferences for Viewnior"
-msgstr "Gebruikersvoorkeuren voor Viewnior"
+msgstr "Vartotojo parinktys programai"
 
 #: ../src/vnr-window.c:1447
 msgid "_Save"
-msgstr "_Opslaan"
+msgstr "_Įrašyti"
 
 #: ../src/vnr-window.c:1448
 msgid "Save changes"
-msgstr "Wijzigingen opslaan"
+msgstr "Įrašyti pakeitimus"
 
 #: ../src/vnr-window.c:1454
 msgid "Set as _Wallpaper"
-msgstr "Als _achtergrond instellen"
+msgstr "Parinkti _darbalaukio fonu"
 
 #: ../src/vnr-window.c:1455
 msgid "Set the selected image as the desktop background"
-msgstr ""
-"De geselecteerde afbeelding als achtergrond van het bureaublad instellen"
+msgstr "Nustatyti parinktą paveikslą kaip darbalaukio foną"
 
 #: ../src/vnr-window.c:1461
 msgid "Open _With"
-msgstr "Openen _met"
+msgstr "Atverti _su"
 
 #: ../src/vnr-window.c:1462
 msgid "Open the selected image with a different application"
-msgstr "De geselecteerde afbeelding openen met een andere toepassing"
+msgstr "Atverti parinktą paveikslą su kita programa"
 
 #: ../src/vnr-window.c:1464 ../src/vnr-window.c:1473
 msgid "_Delete"
-msgstr "_Verwijderen"
+msgstr "_Pašalinti"
 
 #: ../src/vnr-window.c:1465 ../src/vnr-window.c:1474
 msgid "Delete the current file"
-msgstr "Huidige bestand verwijderen"
+msgstr "Pašalinti parinktą failą"
 
 #: ../src/vnr-window.c:1467
 msgid "_Properties..."
-msgstr "_Eigenschappen..."
+msgstr "_Savybės"
 
 #: ../src/vnr-window.c:1468
 msgid "Show information about the current file"
-msgstr "Informatie over het huidige bestand tonen"
+msgstr "Rodyti informaciją apie šį failą"
 
 #: ../src/vnr-window.c:1470
 msgid "_Reload"
-msgstr "_Herladen"
+msgstr "_Įkelti iš naujo"
 
 #: ../src/vnr-window.c:1471
 msgid "Reload the current file"
-msgstr "Huidig bestand opnieuw laden"
+msgstr "Įkelti šį failą iš naujo"
 
 #: ../src/vnr-window.c:1476 ../src/vnr-window.c:1491 ../src/vnr-window.c:1494
 msgid "_Zoom In"
-msgstr "_Inzoomen"
+msgstr "_Didinti"
 
 #: ../src/vnr-window.c:1477
 msgid "Enlarge the image"
-msgstr "Afbeelding vergroten"
+msgstr "Padidinti paveikslą"
 
 #: ../src/vnr-window.c:1479 ../src/vnr-window.c:1497
 msgid "Zoom _Out"
-msgstr "_Uitzoomen"
+msgstr "_Mažinti"
 
 #: ../src/vnr-window.c:1480 ../src/vnr-window.c:1492 ../src/vnr-window.c:1495
 #: ../src/vnr-window.c:1498
 msgid "Shrink the image"
-msgstr "Afbeelding verkleinen"
+msgstr "Sumažinti paveikslą"
 
 #: ../src/vnr-window.c:1482
 msgid "_Normal Size"
-msgstr "_Normale grootte"
+msgstr "_Normalus dydis"
 
 #: ../src/vnr-window.c:1483
 msgid "Show the image at its normal size"
-msgstr "Afbeelding weergeven op de normale grootte"
+msgstr "Rodyti paveikslą normaliu dydžiu"
 
 #: ../src/vnr-window.c:1485
 msgid "Best _Fit"
-msgstr "Best _passend"
+msgstr "_Geriausias priderinimas"
 
 #: ../src/vnr-window.c:1486
 msgid "Fit the image to the window"
-msgstr "Afbeeldingsgrootte aanpassen aan het venster"
+msgstr "Priderinti paveikslo dydį langui"
 
 #: ../src/vnr-window.c:1488
 msgid "_Adjust window size"
-msgstr "_Venstergrootte aanpassen"
+msgstr "_Priderinti lango dydį"
 
 #: ../src/vnr-window.c:1489
 msgid "Adjust window size to fit the image"
-msgstr "Venstergrootte aanpassen aan afbeelding"
+msgstr "Priderinti lango dydį paveikslui"
 
 #: ../src/vnr-window.c:1503
 msgid "Rotate _Clockwise"
-msgstr "_Kloksgewijs Roteren"
+msgstr "_Pasukti pagal laikrodžio rodyklę"
 
 #: ../src/vnr-window.c:1504
 msgid "Rotate image clockwise"
-msgstr "Met de klok mee roteren"
+msgstr "Pasukti paveikslą pagal laikrodžio rodyklę"
 
 #: ../src/vnr-window.c:1506
 msgid "Rotate _Anti-clockwise"
-msgstr "_Antikloksgewijs Roteren"
+msgstr "Pasukti p_rieš laikrodžio rodyklę"
 
 #: ../src/vnr-window.c:1507
 msgid "Rotate image anti-clockwise"
-msgstr "Tegen de klok in roteren"
+msgstr "Pasukti paveikslą prieš laikrodžio rodyklę"
 
 #: ../src/vnr-window.c:1509
 msgid "Flip _Vertical"
-msgstr "_Verticaal spiegelen"
+msgstr "Apversti _vertikaliai"
 
 #: ../src/vnr-window.c:1510
 msgid "Flip image vertically"
-msgstr "Afbeelding verticaal spiegelen"
+msgstr "Apversti paveikslą vertikaliai"
 
 #: ../src/vnr-window.c:1512
 msgid "Flip _Horizontal"
-msgstr "_Horizontaal spiegelen"
+msgstr "Apversti _horizontaliai"
 
 #: ../src/vnr-window.c:1513
 msgid "Flip image horizontally"
-msgstr "Afbeelding horizontaal spiegelen"
+msgstr "Apversti paveikslą horizontaliai"
 
 #: ../src/vnr-window.c:1515
 msgid "Crop..."
-msgstr "Bijsnijden..."
+msgstr "Apkirpti..."
 
 #: ../src/vnr-window.c:1521
 msgid "Full _Screen"
-msgstr "_Volledig Scherm"
+msgstr "_Visas ekranas"
 
 #: ../src/vnr-window.c:1522
 msgid "Show in fullscreen mode"
-msgstr "Volledig scherm"
+msgstr "Rodyti visame ekrane"
 
 #: ../src/vnr-window.c:1527
 msgid "Toolbar"
-msgstr "Werkbalk"
+msgstr "Įrankių juosta"
 
 #: ../src/vnr-window.c:1528
 msgid "Show Toolbar"
-msgstr "Toon werkbalk"
+msgstr "Rodyti įrankių juostą"
 
 #: ../src/vnr-window.c:1533
 msgid "Sli_deshow"
-msgstr "_Slideshow"
+msgstr "_Pristatymas"
 
 #: ../src/vnr-window.c:1534
 msgid "Show in slideshow mode"
-msgstr "Laten zien in slideshow"
+msgstr "Rodyti pristatymo veiksenoje"
 
 #: ../src/vnr-window.c:1539
 msgid "_Previous Image"
-msgstr "Vo_rige afbeelding"
+msgstr "_Ankstesnis paveikslas"
 
 #: ../src/vnr-window.c:1540
 msgid "Go to the previous image of the collection"
-msgstr "Naar de vorige afbeelding in de verzameling gaan"
+msgstr "Rodyti ankstesnį rinkinio paveikslą"
 
 #: ../src/vnr-window.c:1542
 msgid "_Next Image"
-msgstr "V_olgende afbeelding"
+msgstr "_Kitas paveikslas"
 
 #: ../src/vnr-window.c:1543
 msgid "Go to the next image of the collection"
-msgstr "Naar de volgende afbeelding in de verzameling gaan"
+msgstr "Rodyti kitą rinkinio paveikslą"
 
 #: ../src/vnr-window.c:1545
 msgid "_First Image"
-msgstr "_Eerste afbeelding"
+msgstr "_Pirmas paveikslas"
 
 #: ../src/vnr-window.c:1546
 msgid "Go to the first image of the collection"
-msgstr "Naar de eerste afbeelding in de verzameling gaan"
+msgstr "Rodyti pirmąjį rinkinio paveikslą"
 
 #: ../src/vnr-window.c:1548
 msgid "_Last Image"
-msgstr "_Laatste afbeelding"
+msgstr "Paskutinis paveiks_las"
 
 #: ../src/vnr-window.c:1549
 msgid "Go to the last image of the collection"
-msgstr "Naar de laatste afbeelding in de verzameling gaan"
+msgstr "Rodyti paskutinį rinkinio paveikslą"

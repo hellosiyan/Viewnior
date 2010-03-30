@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-08-31 11:05+0300\n"
-"PO-Revision-Date: 2009-09-03 11:22+0000\n"
+"PO-Revision-Date: 2009-12-03 22:55+0000\n"
 "Last-Translator: Γεώργιος Γεωργάς <Unknown>\n"
 "Language-Team: Greek <el@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-09-06 07:24+0000\n"
+"X-Launchpad-Export-Date: 2010-03-30 18:12+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:1153
@@ -24,7 +24,7 @@ msgstr "Καλαίσθητος Προβολέας Εικόνων"
 
 #: ../data/viewnior.desktop.in.in.h:2
 msgid "Viewnior"
-msgstr ""
+msgstr "Viewnior"
 
 #: ../data/vnr-preferences-dialog.ui.h:1
 msgid ""
@@ -32,6 +32,9 @@ msgid ""
 "  Clicking on the left half of the window shows the\n"
 "  previous image and on the right side - the next.</small> "
 msgstr ""
+"<small> (!) Πλοήγηση των εικόνων με διπλό κλικ :\n"
+"Κάνοντας κλικ στο αριστερό μισό του παραθύρου εμφανίζει\n"
+"την προηγούμενη εικόνα, ενώ στα δεξιά την επόμενη</small> "
 
 #: ../data/vnr-preferences-dialog.ui.h:4
 msgid "Always expand images to fit screen"
@@ -63,11 +66,11 @@ msgstr "Στο διπλό κλικ "
 
 #: ../data/vnr-preferences-dialog.ui.h:11
 msgid "On image modification: "
-msgstr ""
+msgstr "Κατά την τροποποίηση της εικόνας: "
 
 #: ../data/vnr-preferences-dialog.ui.h:12
 msgid "On mouse wheel: "
-msgstr ""
+msgstr "Στη ροδέλα του ποντικιού: "
 
 #: ../data/vnr-preferences-dialog.ui.h:13
 msgid "Open new image in: "
@@ -79,15 +82,15 @@ msgstr "Συμπίεση PNG:"
 
 #: ../data/vnr-preferences-dialog.ui.h:15
 msgid "Reload image on save"
-msgstr ""
+msgstr "Επαναφόρτωση της εικόνας κατά την αποθήκευση"
 
 #: ../data/vnr-preferences-dialog.ui.h:16
 msgid "Saving"
-msgstr ""
+msgstr "Αποθήκευση"
 
 #: ../data/vnr-preferences-dialog.ui.h:17
 msgid "Show hidden images"
-msgstr "Προβολή κρυμμένων εικόνων"
+msgstr "Προβολή κρυφών εικόνων"
 
 #: ../data/vnr-preferences-dialog.ui.h:18
 msgid "Show next image after (in seconds): "
@@ -140,36 +143,36 @@ msgid ""
 "Couldn't recognise the image file\n"
 "format for file '%s'"
 msgstr ""
-"Δεν ήταν δυνατή η αναγνώριση του αρχείου ειόνας\n"
+"Δεν ήταν δυνατή η αναγνώριση του αρχείου εικόνας\n"
 "τύπος αρχείου '%s'"
 
 #: ../src/vnr-prefs.c:247
 msgid "Smart Mode"
-msgstr ""
+msgstr "Έξυπνη Λειτουργία"
 
 #: ../src/vnr-prefs.c:248
 msgid "1:1 Mode"
-msgstr ""
+msgstr "1:1 Λειτουργία"
 
 #: ../src/vnr-prefs.c:249
 msgid "Fit To Window Mode"
-msgstr ""
+msgstr "Τοποθέτηση σε  Λειτουργία Παραθύρου"
 
 #: ../src/vnr-prefs.c:261 ../src/vnr-prefs.c:273
 msgid "Navigate images"
-msgstr ""
+msgstr "Πλοήγηση εικόνων"
 
 #: ../src/vnr-prefs.c:262
 msgid "Zoom image"
-msgstr ""
+msgstr "Μεγέθυνση εικόνας"
 
 #: ../src/vnr-prefs.c:263
 msgid "Scroll image up/down"
-msgstr ""
+msgstr "Κύλιση εικόνας πάνω/κάτω"
 
 #: ../src/vnr-prefs.c:271
 msgid "Switch zoom modes"
-msgstr ""
+msgstr "Αλλαγή σε λειτουργία μεγέθυνσης"
 
 #: ../src/vnr-prefs.c:272
 msgid "Enter fullscreen mode"
@@ -227,16 +230,16 @@ msgstr "<b>Ύψος:</b>"
 #: ../src/vnr-properties-dialog.c:303 ../src/vnr-properties-dialog.c:304
 #: ../src/vnr-properties-dialog.c:305 ../src/vnr-properties-dialog.c:306
 msgid "None"
-msgstr ""
+msgstr "Καμμία"
 
 #: ../src/vnr-window.c:240
 #, c-format
 msgid "Use \"%s\" to open the selected image"
-msgstr ""
+msgstr "Χρήση \"%s\" για άνοιγμα της επιλεγμένης εικόνας"
 
 #: ../src/vnr-window.c:395
 msgid "Show next image after: "
-msgstr "Προβολή επομένης φωτογραφίας μετά από: "
+msgstr "Προβολή επόμενης εικόνας μετά από: "
 
 #: ../src/vnr-window.c:413 ../src/vnr-window.c:818
 msgid " second"
@@ -261,6 +264,8 @@ msgid ""
 "Save modifications?\n"
 "This will overwrite the image and may reduce it's quality!"
 msgstr ""
+"Αποθήκευση τροποποιήσεων;\n"
+"Αυτό θα επανεγγράψει την εικόνα και ίσως μειώσει την ποιότητά της!"
 
 #: ../src/vnr-window.c:1073
 msgid "Open Image"
@@ -274,7 +279,8 @@ msgstr "Άνοιγμα Φακέλου"
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Γεώργιος Γεωργάς https://launchpad.net/~apopatos"
+"  Michalis Ntovas https://launchpad.net/~michalisntovas\n"
+"  Γεώργιος Γεωργάς https://launchpad.net/~apopas"
 
 #: ../src/vnr-window.c:1265
 msgid "If you delete an item, it will be permanently lost."
@@ -292,31 +298,31 @@ msgstr ""
 
 #: ../src/vnr-window.c:1422
 msgid "_File"
-msgstr "Αρχείο"
+msgstr "_Αρχείο"
 
 #: ../src/vnr-window.c:1423
 msgid "_Edit"
-msgstr ""
+msgstr "_Επεξεργασία"
 
 #: ../src/vnr-window.c:1424
 msgid "_View"
-msgstr "Προβολή"
+msgstr "_Προβολή"
 
 #: ../src/vnr-window.c:1425
 msgid "_Image"
-msgstr ""
+msgstr "_Εικόνα"
 
 #: ../src/vnr-window.c:1426
 msgid "_Go"
-msgstr "Μεταφορά"
+msgstr "_Μετάβαση"
 
 #: ../src/vnr-window.c:1427
 msgid "_Help"
-msgstr "Βοήθεια"
+msgstr "_Βοήθεια"
 
 #: ../src/vnr-window.c:1429
 msgid "Open _Image..."
-msgstr "Άνοιγμα Εικόνας..."
+msgstr "Άνοιγμα _Εικόνας..."
 
 #: ../src/vnr-window.c:1430
 msgid "Open an Image"
@@ -324,7 +330,7 @@ msgstr "Ανοίξτε μία Εικόνα"
 
 #: ../src/vnr-window.c:1432
 msgid "Open _Folder..."
-msgstr "Άνοιγμα Φακέλου"
+msgstr "Άνοιγμα _Φακέλου..."
 
 #: ../src/vnr-window.c:1433
 msgid "Open a Folder"
@@ -332,7 +338,7 @@ msgstr "Ανοίξτε ένα Φάκελο"
 
 #: ../src/vnr-window.c:1435
 msgid "_Close"
-msgstr "Κλείσιμο"
+msgstr "_Κλείσιμο"
 
 #: ../src/vnr-window.c:1436
 msgid "Close window"
@@ -340,7 +346,7 @@ msgstr "Κλείσιμο Παραθύρου"
 
 #: ../src/vnr-window.c:1438
 msgid "_About"
-msgstr "Περί"
+msgstr "_Περί"
 
 #: ../src/vnr-window.c:1439
 msgid "About this application"
@@ -348,23 +354,23 @@ msgstr "Πληροφορίες Εφαρμογής"
 
 #: ../src/vnr-window.c:1441
 msgid "_Preferences..."
-msgstr ""
+msgstr "_Προτιμήσεις..."
 
 #: ../src/vnr-window.c:1442
 msgid "User preferences for Viewnior"
-msgstr ""
+msgstr "Προτιμήσεις χρήστη για Viewnior"
 
 #: ../src/vnr-window.c:1447
 msgid "_Save"
-msgstr ""
+msgstr "_Αποθήκευση"
 
 #: ../src/vnr-window.c:1448
 msgid "Save changes"
-msgstr ""
+msgstr "Αποθήκευση αλλαγών"
 
 #: ../src/vnr-window.c:1454
 msgid "Set as _Wallpaper"
-msgstr "Τοποθέτηση ως Παρασκήνιο Επιφάνειας Εργασίας"
+msgstr "Τοποθέτηση ως _Παρασκήνιο Επιφάνειας Εργασίας"
 
 #: ../src/vnr-window.c:1455
 msgid "Set the selected image as the desktop background"
@@ -372,15 +378,15 @@ msgstr "Τοποθέτηση της επιλεγμένης εικόνας ως �
 
 #: ../src/vnr-window.c:1461
 msgid "Open _With"
-msgstr ""
+msgstr "Άνοιγμα _Με"
 
 #: ../src/vnr-window.c:1462
 msgid "Open the selected image with a different application"
-msgstr ""
+msgstr "Άνοιγμα της επιλεγμένης εικόνας με διαφορετική εφαρμογή"
 
 #: ../src/vnr-window.c:1464 ../src/vnr-window.c:1473
 msgid "_Delete"
-msgstr "Διαγραφή"
+msgstr "_Διαγραφή"
 
 #: ../src/vnr-window.c:1465 ../src/vnr-window.c:1474
 msgid "Delete the current file"
@@ -388,23 +394,23 @@ msgstr "Διαγραφή παρόντος αρχείου"
 
 #: ../src/vnr-window.c:1467
 msgid "_Properties..."
-msgstr ""
+msgstr "_Ιδιότητες..."
 
 #: ../src/vnr-window.c:1468
 msgid "Show information about the current file"
-msgstr ""
+msgstr "Εμφάνιση πληροφοριών για το τρέχον αρχείο"
 
 #: ../src/vnr-window.c:1470
 msgid "_Reload"
-msgstr ""
+msgstr "_Επαναφόρτωση"
 
 #: ../src/vnr-window.c:1471
 msgid "Reload the current file"
-msgstr ""
+msgstr "Επαναφόρτωσε το παρόν αρχείο"
 
 #: ../src/vnr-window.c:1476 ../src/vnr-window.c:1491 ../src/vnr-window.c:1494
 msgid "_Zoom In"
-msgstr "Εστίαση"
+msgstr "_Μεγέθυνση"
 
 #: ../src/vnr-window.c:1477
 msgid "Enlarge the image"
@@ -412,7 +418,7 @@ msgstr "Μεγέθυνση Εικόνας"
 
 #: ../src/vnr-window.c:1479 ../src/vnr-window.c:1497
 msgid "Zoom _Out"
-msgstr "Σμίκρυνση"
+msgstr "Σμίκρ_υνση"
 
 #: ../src/vnr-window.c:1480 ../src/vnr-window.c:1492 ../src/vnr-window.c:1495
 #: ../src/vnr-window.c:1498
@@ -421,7 +427,7 @@ msgstr "Συρρίκνωση Εικόνας"
 
 #: ../src/vnr-window.c:1482
 msgid "_Normal Size"
-msgstr "Κανονικό Μέγεθος"
+msgstr "_Κανονικό Μέγεθος"
 
 #: ../src/vnr-window.c:1483
 msgid "Show the image at its normal size"
@@ -429,7 +435,7 @@ msgstr "Προβολή κανονικού μεγέθους εικόνας"
 
 #: ../src/vnr-window.c:1485
 msgid "Best _Fit"
-msgstr "Καλύτερο Ταίριασμα"
+msgstr "Καλύτερο _Ταίριασμα"
 
 #: ../src/vnr-window.c:1486
 msgid "Fit the image to the window"
@@ -437,51 +443,51 @@ msgstr "Ταίριασμα στο Παράθυρο"
 
 #: ../src/vnr-window.c:1488
 msgid "_Adjust window size"
-msgstr ""
+msgstr "_Ρύθμιση μεγέθους παραθύρου"
 
 #: ../src/vnr-window.c:1489
 msgid "Adjust window size to fit the image"
-msgstr ""
+msgstr "Ρύθμιση μεγέθους παραθύρου για ταίριασμα στην εικόνα"
 
 #: ../src/vnr-window.c:1503
 msgid "Rotate _Clockwise"
-msgstr ""
+msgstr "_Δεξιόστροφη Περιστροφή"
 
 #: ../src/vnr-window.c:1504
 msgid "Rotate image clockwise"
-msgstr ""
+msgstr "Δεξιόστροφη περιστροφή της εικόνας"
 
 #: ../src/vnr-window.c:1506
 msgid "Rotate _Anti-clockwise"
-msgstr ""
+msgstr "_Αριστερόστροφη Περιστροφή"
 
 #: ../src/vnr-window.c:1507
 msgid "Rotate image anti-clockwise"
-msgstr ""
+msgstr "Αριστερόστροφη περιστροφή της εικόνας"
 
 #: ../src/vnr-window.c:1509
 msgid "Flip _Vertical"
-msgstr ""
+msgstr "_Κάθετη Αναστροφή"
 
 #: ../src/vnr-window.c:1510
 msgid "Flip image vertically"
-msgstr ""
+msgstr "Κάθετη αναστροφή της εικόνας"
 
 #: ../src/vnr-window.c:1512
 msgid "Flip _Horizontal"
-msgstr ""
+msgstr "_Οριζόντια Αναστροφή"
 
 #: ../src/vnr-window.c:1513
 msgid "Flip image horizontally"
-msgstr ""
+msgstr "Οριζόντια αναστροφή της εικόνας"
 
 #: ../src/vnr-window.c:1515
 msgid "Crop..."
-msgstr ""
+msgstr "Περικοπή..."
 
 #: ../src/vnr-window.c:1521
 msgid "Full _Screen"
-msgstr "Πλήρης Οθόνη"
+msgstr "Πλήρης _Οθόνη"
 
 #: ../src/vnr-window.c:1522
 msgid "Show in fullscreen mode"
@@ -489,23 +495,23 @@ msgstr "Προβολή σε κατάσταση πλήρους οθόνης"
 
 #: ../src/vnr-window.c:1527
 msgid "Toolbar"
-msgstr ""
+msgstr "Γραμμή εργαλείων"
 
 #: ../src/vnr-window.c:1528
 msgid "Show Toolbar"
-msgstr ""
+msgstr "Εμφάνιση γραμμής εργαλείων"
 
 #: ../src/vnr-window.c:1533
 msgid "Sli_deshow"
-msgstr ""
+msgstr "Προβολή Δια_φανειών"
 
 #: ../src/vnr-window.c:1534
 msgid "Show in slideshow mode"
-msgstr ""
+msgstr "Εμφάνιση σε προβολή διαφανειών"
 
 #: ../src/vnr-window.c:1539
 msgid "_Previous Image"
-msgstr "Προηγούμενη Εικόνα"
+msgstr "_Προηγούμενη Εικόνα"
 
 #: ../src/vnr-window.c:1540
 msgid "Go to the previous image of the collection"
@@ -513,7 +519,7 @@ msgstr "Μεταφορά στην προηγούμενη εικόνα της σ�
 
 #: ../src/vnr-window.c:1542
 msgid "_Next Image"
-msgstr "Επόμενη εικόνα"
+msgstr "_Επόμενη Εικόνα"
 
 #: ../src/vnr-window.c:1543
 msgid "Go to the next image of the collection"
@@ -521,7 +527,7 @@ msgstr "Μεταφορά στην επόμενη εικόνα της συλλο�
 
 #: ../src/vnr-window.c:1545
 msgid "_First Image"
-msgstr "Αρχική Εικόνα"
+msgstr "_Αρχική Εικόνα"
 
 #: ../src/vnr-window.c:1546
 msgid "Go to the first image of the collection"
@@ -529,7 +535,7 @@ msgstr "Μεταφορά στην αρχική εικόνα της συλλογ�
 
 #: ../src/vnr-window.c:1548
 msgid "_Last Image"
-msgstr "Τελευταία Εικόνα"
+msgstr "_Τελευταία Εικόνα"
 
 #: ../src/vnr-window.c:1549
 msgid "Go to the last image of the collection"

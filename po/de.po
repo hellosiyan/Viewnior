@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-08-31 11:05+0300\n"
-"PO-Revision-Date: 2009-08-14 07:28+0000\n"
-"Last-Translator: Fabian Affolter <Unknown>\n"
+"PO-Revision-Date: 2009-12-03 22:44+0000\n"
+"Last-Translator: bitsteller <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-09-06 07:24+0000\n"
+"X-Launchpad-Export-Date: 2010-03-30 18:12+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:1153
@@ -32,7 +32,7 @@ msgid ""
 "  Clicking on the left half of the window shows the\n"
 "  previous image and on the right side - the next.</small> "
 msgstr ""
-"<small>  (!) Bilder mit Doppelklick navigieren:\n"
+"<small>Bilder mit Doppelklick navigieren:\n"
 "  Auf die linke Seite klicken um das vorige Bild zu zeigen\n"
 "  und auf die rechte um das nächste zu zeigen.</small> "
 
@@ -82,15 +82,15 @@ msgstr "PNG-Komprimierung:"
 
 #: ../data/vnr-preferences-dialog.ui.h:15
 msgid "Reload image on save"
-msgstr "Bild nach dem Speichern neu laden:"
+msgstr "Bild nach dem Speichern neu laden"
 
 #: ../data/vnr-preferences-dialog.ui.h:16
 msgid "Saving"
-msgstr "Wird gespeichert"
+msgstr "Speichern"
 
 #: ../data/vnr-preferences-dialog.ui.h:17
 msgid "Show hidden images"
-msgstr "Zeige versteckte Bilder"
+msgstr "Versteckte Bilder anzeigen"
 
 #: ../data/vnr-preferences-dialog.ui.h:18
 msgid "Show next image after (in seconds): "
@@ -98,7 +98,7 @@ msgstr "Nächstes Bild zeigen nach (in Sekunden): "
 
 #: ../data/vnr-preferences-dialog.ui.h:19
 msgid "Smooth images when zoomed"
-msgstr "Bilder glätten beim zoomen"
+msgstr "Bilder glätten beim Zoomen"
 
 #: ../data/vnr-preferences-dialog.ui.h:20
 msgid "Viewnior Preferences"
@@ -106,27 +106,27 @@ msgstr "Viewnior Einstellungen"
 
 #: ../data/vnr-crop-dialog.ui.h:1 ../src/vnr-window.c:1516
 msgid "Crop"
-msgstr ""
+msgstr "Zuschneiden"
 
 #: ../data/vnr-crop-dialog.ui.h:2
 msgid "Crop Image"
-msgstr ""
+msgstr "Bild zuschneiden"
 
 #: ../data/vnr-crop-dialog.ui.h:3
 msgid "Height: "
-msgstr ""
+msgstr "Höhe: "
 
 #: ../data/vnr-crop-dialog.ui.h:4
 msgid "Width: "
-msgstr ""
+msgstr "Breite: "
 
 #: ../data/vnr-crop-dialog.ui.h:5
 msgid "X: "
-msgstr ""
+msgstr "X: "
 
 #: ../data/vnr-crop-dialog.ui.h:6
 msgid "Y: "
-msgstr ""
+msgstr "Y: "
 
 #: ../src/main.c:113 ../src/vnr-window.c:1326 ../src/vnr-window.c:1649
 #: ../src/vnr-window.c:2046
@@ -156,7 +156,7 @@ msgstr "1:1 Modus"
 
 #: ../src/vnr-prefs.c:249
 msgid "Fit To Window Mode"
-msgstr "In Fenster einpassen Modus"
+msgstr "In Fenster einpassen"
 
 #: ../src/vnr-prefs.c:261 ../src/vnr-prefs.c:273
 msgid "Navigate images"
@@ -168,7 +168,7 @@ msgstr "Bild zoomen"
 
 #: ../src/vnr-prefs.c:263
 msgid "Scroll image up/down"
-msgstr ""
+msgstr "Bild scrollen (rauf/runter)"
 
 #: ../src/vnr-prefs.c:271
 msgid "Switch zoom modes"
@@ -176,7 +176,7 @@ msgstr "Zoom-Modus umschalten"
 
 #: ../src/vnr-prefs.c:272
 msgid "Enter fullscreen mode"
-msgstr "Vollbildmodus verwenden"
+msgstr "Vollbildmodus"
 
 #: ../src/vnr-prefs.c:281
 msgid "Ask every time"
@@ -235,7 +235,7 @@ msgstr "Kein"
 #: ../src/vnr-window.c:240
 #, c-format
 msgid "Use \"%s\" to open the selected image"
-msgstr ""
+msgstr "Benutzen Sie »%s« um das gewählte Bild zu öffnen"
 
 #: ../src/vnr-window.c:395
 msgid "Show next image after: "
@@ -378,11 +378,11 @@ msgstr "Das gewählte Bild als Desktop-Hintergrund verwenden"
 
 #: ../src/vnr-window.c:1461
 msgid "Open _With"
-msgstr ""
+msgstr "Öffnen _mit"
 
 #: ../src/vnr-window.c:1462
 msgid "Open the selected image with a different application"
-msgstr ""
+msgstr "Das gewählte Bild mit einer anderen Anwendung öffnen"
 
 #: ../src/vnr-window.c:1464 ../src/vnr-window.c:1473
 msgid "_Delete"
@@ -483,7 +483,7 @@ msgstr "Das Bild horizontal spiegeln"
 
 #: ../src/vnr-window.c:1515
 msgid "Crop..."
-msgstr ""
+msgstr "Zuschneiden..."
 
 #: ../src/vnr-window.c:1521
 msgid "Full _Screen"
@@ -495,11 +495,11 @@ msgstr "Im Vollbildmodus anzeigen"
 
 #: ../src/vnr-window.c:1527
 msgid "Toolbar"
-msgstr ""
+msgstr "Werkzeugleiste"
 
 #: ../src/vnr-window.c:1528
 msgid "Show Toolbar"
-msgstr ""
+msgstr "Werkzeugleiste anzeigen"
 
 #: ../src/vnr-window.c:1533
 msgid "Sli_deshow"

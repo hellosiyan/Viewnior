@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-08-31 11:05+0300\n"
-"PO-Revision-Date: 2009-08-10 17:42+0000\n"
-"Last-Translator: asensio <Unknown>\n"
+"PO-Revision-Date: 2009-12-23 21:42+0000\n"
+"Last-Translator: Launchpad Translations Administrators "
+"<rosetta@launchpad.net>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2009-09-06 07:24+0000\n"
+"X-Launchpad-Export-Date: 2010-03-30 18:12+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:1153
@@ -106,27 +107,27 @@ msgstr "Preferências do Viewnior"
 
 #: ../data/vnr-crop-dialog.ui.h:1 ../src/vnr-window.c:1516
 msgid "Crop"
-msgstr ""
+msgstr "Cortar"
 
 #: ../data/vnr-crop-dialog.ui.h:2
 msgid "Crop Image"
-msgstr ""
+msgstr "Cortar Imagem"
 
 #: ../data/vnr-crop-dialog.ui.h:3
 msgid "Height: "
-msgstr ""
+msgstr "Altura: "
 
 #: ../data/vnr-crop-dialog.ui.h:4
 msgid "Width: "
-msgstr ""
+msgstr "Largura: "
 
 #: ../data/vnr-crop-dialog.ui.h:5
 msgid "X: "
-msgstr ""
+msgstr "X: "
 
 #: ../data/vnr-crop-dialog.ui.h:6
 msgid "Y: "
-msgstr ""
+msgstr "Y: "
 
 #: ../src/main.c:113 ../src/vnr-window.c:1326 ../src/vnr-window.c:1649
 #: ../src/vnr-window.c:2046
@@ -168,7 +169,7 @@ msgstr "Aumentar imagem"
 
 #: ../src/vnr-prefs.c:263
 msgid "Scroll image up/down"
-msgstr ""
+msgstr "Mover imagem para baixo/cima"
 
 #: ../src/vnr-prefs.c:271
 msgid "Switch zoom modes"
@@ -235,7 +236,7 @@ msgstr "Nenhum"
 #: ../src/vnr-window.c:240
 #, c-format
 msgid "Use \"%s\" to open the selected image"
-msgstr ""
+msgstr "Utilizar \"%s\" para abrir a imagem seleccionada"
 
 #: ../src/vnr-window.c:395
 msgid "Show next image after: "
@@ -265,7 +266,7 @@ msgid ""
 "This will overwrite the image and may reduce it's quality!"
 msgstr ""
 "Guardar alterações?\n"
-"Isto vai sobrescrever a imagem e pode reduzir a sua qualidade!"
+"Isto vai regravar a imagem e pode reduzir a sua qualidade!"
 
 #: ../src/vnr-window.c:1073
 msgid "Open Image"
@@ -369,19 +370,19 @@ msgstr "Guardar alterações"
 
 #: ../src/vnr-window.c:1454
 msgid "Set as _Wallpaper"
-msgstr ""
+msgstr "Defenir como _Fundo da Área de Trabalho"
 
 #: ../src/vnr-window.c:1455
 msgid "Set the selected image as the desktop background"
-msgstr ""
+msgstr "Definir a imagem seleccionada como fundo da área de trabalho"
 
 #: ../src/vnr-window.c:1461
 msgid "Open _With"
-msgstr ""
+msgstr "Abrir _Com"
 
 #: ../src/vnr-window.c:1462
 msgid "Open the selected image with a different application"
-msgstr ""
+msgstr "Abrir a imagem seleccionada com uma aplicação diferente"
 
 #: ../src/vnr-window.c:1464 ../src/vnr-window.c:1473
 msgid "_Delete"
@@ -482,7 +483,7 @@ msgstr "Rodar imagem na horizontal"
 
 #: ../src/vnr-window.c:1515
 msgid "Crop..."
-msgstr ""
+msgstr "Cortar..."
 
 #: ../src/vnr-window.c:1521
 msgid "Full _Screen"
@@ -494,11 +495,11 @@ msgstr "Mostrar em modo de ecrã inteiro"
 
 #: ../src/vnr-window.c:1527
 msgid "Toolbar"
-msgstr ""
+msgstr "Barra de Ferramentas"
 
 #: ../src/vnr-window.c:1528
 msgid "Show Toolbar"
-msgstr ""
+msgstr "Mostrar Barra de Ferramentas"
 
 #: ../src/vnr-window.c:1533
 msgid "Sli_deshow"

@@ -1,4 +1,4 @@
-# Dutch translation for viewnior
+# Swedish translation for viewnior
 # Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the viewnior package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
@@ -8,10 +8,9 @@ msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-08-31 11:05+0300\n"
-"PO-Revision-Date: 2009-12-23 21:30+0000\n"
-"Last-Translator: Launchpad Translations Administrators "
-"<rosetta@launchpad.net>\n"
-"Language-Team: Dutch <nl@li.org>\n"
+"PO-Revision-Date: 2009-12-01 19:25+0000\n"
+"Last-Translator: Daniel Nylander <yeager@ubuntu.com>\n"
+"Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,7 +20,7 @@ msgstr ""
 
 #: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:1153
 msgid "Elegant Image Viewer"
-msgstr "Elegante Afbeeldingsviewer"
+msgstr "Elegant bildvisare"
 
 #: ../data/viewnior.desktop.in.in.h:2
 msgid "Viewnior"
@@ -33,93 +32,93 @@ msgid ""
 "  Clicking on the left half of the window shows the\n"
 "  previous image and on the right side - the next.</small> "
 msgstr ""
-"<small>(!) Navigeer door afbeeldingen met dubbelklik:\n"
-"  Klikken op de linker helft van het venster laat de vorige\n"
-"  afbeelding zien, klikken op de rechter helft de volgende,</small> "
+"<small>  (!) Navigera bland bilder med dubbelklick :\n"
+"  Klicka på vänstra delen av fönstret för att visa föregående\n"
+"  bild och på den högra sidan för nästa bild.</small> "
 
 #: ../data/vnr-preferences-dialog.ui.h:4
 msgid "Always expand images to fit screen"
-msgstr "Afbeeldingen altijd vergroten tot de grootte van het venster"
+msgstr "Förstora alltid bilder för att passa skärmen"
 
 #: ../data/vnr-preferences-dialog.ui.h:5
 msgid "Behavior"
-msgstr "Gedrag"
+msgstr "Beteende"
 
 #: ../data/vnr-preferences-dialog.ui.h:6
 msgid "Confirm image deletion"
-msgstr "Bevestig verwijderen van een afbeelding"
+msgstr "Bekräfta bildborttagning"
 
 #: ../data/vnr-preferences-dialog.ui.h:7
 msgid "Fullscreen"
-msgstr "Volledig scherm"
+msgstr "Helskärm"
 
 #: ../data/vnr-preferences-dialog.ui.h:8
 msgid "General"
-msgstr "Algemeen"
+msgstr "Allmänt"
 
 #: ../data/vnr-preferences-dialog.ui.h:9
 msgid "JPEG quality:"
-msgstr "JPEG-kwaliteit:"
+msgstr "JPEG-kvalitet:"
 
 #: ../data/vnr-preferences-dialog.ui.h:10
 msgid "On double click: "
-msgstr "Bij dubbelklikken: "
+msgstr "Vid dubbelklick: "
 
 #: ../data/vnr-preferences-dialog.ui.h:11
 msgid "On image modification: "
-msgstr "Bij bewerken van een afbeelding: "
+msgstr "Vid bildändringar: "
 
 #: ../data/vnr-preferences-dialog.ui.h:12
 msgid "On mouse wheel: "
-msgstr "Bij muiswiel: "
+msgstr "Vid musrullning: "
 
 #: ../data/vnr-preferences-dialog.ui.h:13
 msgid "Open new image in: "
-msgstr "Open nieuwe afbeelding in: "
+msgstr "Öppna ny bild i: "
 
 #: ../data/vnr-preferences-dialog.ui.h:14
 msgid "PNG compression:"
-msgstr "PNG-compressie:"
+msgstr "PNG-komprimering:"
 
 #: ../data/vnr-preferences-dialog.ui.h:15
 msgid "Reload image on save"
-msgstr "Afbeelding opnieuw laden bij opslaan"
+msgstr "Läs om bild vid sparning"
 
 #: ../data/vnr-preferences-dialog.ui.h:16
 msgid "Saving"
-msgstr "Bezig met opslaan"
+msgstr "Sparning"
 
 #: ../data/vnr-preferences-dialog.ui.h:17
 msgid "Show hidden images"
-msgstr "Verborgen bestanden tonen"
+msgstr "Visa dolda bilder"
 
 #: ../data/vnr-preferences-dialog.ui.h:18
 msgid "Show next image after (in seconds): "
-msgstr "Volgende afbeelding laten zien na (in seconden): "
+msgstr "Visa nästa bild efter (i sekunder): "
 
 #: ../data/vnr-preferences-dialog.ui.h:19
 msgid "Smooth images when zoomed"
-msgstr "Smooth afbeeldingen bij zoomen"
+msgstr "Mjuka upp bilder vid zoomning"
 
 #: ../data/vnr-preferences-dialog.ui.h:20
 msgid "Viewnior Preferences"
-msgstr "Viewnior Voorkeuren"
+msgstr "Inställningar för Viewnior"
 
 #: ../data/vnr-crop-dialog.ui.h:1 ../src/vnr-window.c:1516
 msgid "Crop"
-msgstr "Bijsnijden"
+msgstr "Beskär"
 
 #: ../data/vnr-crop-dialog.ui.h:2
 msgid "Crop Image"
-msgstr "Afbeelding bijsnijden"
+msgstr "Beskär bild"
 
 #: ../data/vnr-crop-dialog.ui.h:3
 msgid "Height: "
-msgstr "Hoogte: "
+msgstr "Höjd: "
 
 #: ../data/vnr-crop-dialog.ui.h:4
 msgid "Width: "
-msgstr "Breedte: "
+msgstr "Bredd: "
 
 #: ../data/vnr-crop-dialog.ui.h:5
 msgid "X: "
@@ -132,157 +131,159 @@ msgstr "Y: "
 #: ../src/main.c:113 ../src/vnr-window.c:1326 ../src/vnr-window.c:1649
 #: ../src/vnr-window.c:2046
 msgid "The given locations contain no images."
-msgstr "De opgegeven locaties bevatten geen afbeeldigen."
+msgstr "De angivna platserna innehåller inga bilder."
 
 #: ../src/uni-scroll-win.c:223
 msgid "Open the navigator window"
-msgstr "Open navigatievenster"
+msgstr "Öppna navigatorfönstret"
 
 #: ../src/vnr-file.c:222
 #, c-format
 msgid ""
 "Couldn't recognise the image file\n"
 "format for file '%s'"
-msgstr "Afbeeldingstype niet herkend voor bestand '%s'"
+msgstr ""
+"Kunde inte känna igen bildfilens\n"
+"format för filen \"%s\""
 
 #: ../src/vnr-prefs.c:247
 msgid "Smart Mode"
-msgstr "Slimme modus"
+msgstr "Smart läge"
 
 #: ../src/vnr-prefs.c:248
 msgid "1:1 Mode"
-msgstr "1:1 Modus"
+msgstr "1:1-läge"
 
 #: ../src/vnr-prefs.c:249
 msgid "Fit To Window Mode"
-msgstr "Aanpassen aan Venstermodus"
+msgstr "Anpassa till fönster"
 
 #: ../src/vnr-prefs.c:261 ../src/vnr-prefs.c:273
 msgid "Navigate images"
-msgstr "Afbeeldingen Navigeren"
+msgstr "Navigera bland bilder"
 
 #: ../src/vnr-prefs.c:262
 msgid "Zoom image"
-msgstr "Inzoomen"
+msgstr "Zooma bild"
 
 #: ../src/vnr-prefs.c:263
 msgid "Scroll image up/down"
-msgstr "Afbeelding naar boven/beneden scrollen"
+msgstr "Rulla bilden upp/ned"
 
 #: ../src/vnr-prefs.c:271
 msgid "Switch zoom modes"
-msgstr "Zoommodus"
+msgstr "Växla zoomlägen"
 
 #: ../src/vnr-prefs.c:272
 msgid "Enter fullscreen mode"
-msgstr "Schermvullend"
+msgstr "Gå in i helskärmsläge"
 
 #: ../src/vnr-prefs.c:281
 msgid "Ask every time"
-msgstr "Elke keer vragen"
+msgstr "Fråga varje gång"
 
 #: ../src/vnr-prefs.c:282
 msgid "Autosave"
-msgstr "Automatisch opslaan"
+msgstr "Spara automatiskt"
 
 #: ../src/vnr-prefs.c:283
 msgid "Ignore changes"
-msgstr "Veranderingen negeren"
+msgstr "Ignorera ändringar"
 
 #: ../src/vnr-properties-dialog.c:111
 msgid "_Next"
-msgstr "_Volgende"
+msgstr "_Nästa"
 
 #: ../src/vnr-properties-dialog.c:112
 msgid "_Previous"
-msgstr "V_orige"
+msgstr "_Föregående"
 
 #: ../src/vnr-properties-dialog.c:130
 msgid "Image Properties"
-msgstr "Afbeeldingseigenschappen"
+msgstr "Bildegenskaper"
 
 #: ../src/vnr-properties-dialog.c:138
 msgid "<b>Location:</b>"
-msgstr "<b>Locatie:</b>"
+msgstr "<b>Plats:</b>"
 
 #: ../src/vnr-properties-dialog.c:182
 msgid "<b>Name:</b>"
-msgstr "<b>Naam:</b>"
+msgstr "<b>Namn:</b>"
 
 #: ../src/vnr-properties-dialog.c:186
 msgid "<b>Type:</b>"
-msgstr "<b>Type:</b>"
+msgstr "<b>Typ:</b>"
 
 #: ../src/vnr-properties-dialog.c:190
 msgid "<b>Size:</b>"
-msgstr "<b>Grootte:</b>"
+msgstr "<b>Storlek:</b>"
 
 #: ../src/vnr-properties-dialog.c:194
 msgid "<b>Width:</b>"
-msgstr "<b>Breedte:</b>"
+msgstr "<b>Bredd:</b>"
 
 #: ../src/vnr-properties-dialog.c:198
 msgid "<b>Height:</b>"
-msgstr "<b>Hoogte:</b>"
+msgstr "<b>Höjd:</b>"
 
 #: ../src/vnr-properties-dialog.c:301 ../src/vnr-properties-dialog.c:302
 #: ../src/vnr-properties-dialog.c:303 ../src/vnr-properties-dialog.c:304
 #: ../src/vnr-properties-dialog.c:305 ../src/vnr-properties-dialog.c:306
 msgid "None"
-msgstr "Geen"
+msgstr "Ingen"
 
 #: ../src/vnr-window.c:240
 #, c-format
 msgid "Use \"%s\" to open the selected image"
-msgstr "‘%s’ gebruiken om de geselecteerde afbeelding te openen"
+msgstr "Använd \"%s\" för att öppna den markerade bilden"
 
 #: ../src/vnr-window.c:395
 msgid "Show next image after: "
-msgstr "Volgende afbeelding na: "
+msgstr "Visa nästa bild efter: "
 
 #: ../src/vnr-window.c:413 ../src/vnr-window.c:818
 msgid " second"
 msgid_plural " seconds"
-msgstr[0] " seconde"
-msgstr[1] " seconden"
+msgstr[0] " sekund"
+msgstr[1] " sekunder"
 
 #: ../src/vnr-window.c:643 ../src/vnr-window.c:706
 msgid "Not enough virtual memory."
-msgstr "Niet genoeg virtueel geheugen"
+msgstr "Det finns inte tillräckligt mycket virtuellt minne."
 
 #: ../src/vnr-window.c:677 ../src/vnr-window.c:735 ../src/vnr-window.c:1407
 msgid ""
 "Image modifications cannot be saved.\n"
 "Writing in this format is not supported."
 msgstr ""
-"Veranderingen aan afbeeldingen kunnen niet worden opgeslagen.\n"
-"Opslaan in dit afbeeldingstype wordt niet ondersteund."
+"Bildändringar kan inte sparas.\n"
+"Skrivning i detta format stöds inte."
 
 #: ../src/vnr-window.c:684 ../src/vnr-window.c:742 ../src/vnr-window.c:1414
 msgid ""
 "Save modifications?\n"
 "This will overwrite the image and may reduce it's quality!"
 msgstr ""
-"Veranderingen opslaan?\n"
-"Dit overschrijft het bestand en kan de kwaliteit verminderen!"
+"Spara ändringar?\n"
+"Detta kommer att skriva över bilden och kan minska kvaliteten!"
 
 #: ../src/vnr-window.c:1073
 msgid "Open Image"
-msgstr "Afbeelding openen"
+msgstr "Öppna bild"
 
 #: ../src/vnr-window.c:1102
 msgid "Open Folder"
-msgstr "Map openen"
+msgstr "Öppna mapp"
 
 #: ../src/vnr-window.c:1158
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Wouter Stomp https://launchpad.net/~wouterstomp"
+"  Daniel Nylander https://launchpad.net/~yeager"
 
 #: ../src/vnr-window.c:1265
 msgid "If you delete an item, it will be permanently lost."
-msgstr "Als u een item verwijdert, zal het voorgoed verloren gaan."
+msgstr "Om du tar bort ett objekt kommer det att försvinna för alltid."
 
 #. I18N: The '%s' is replaced with the name of the file to be deleted.
 #: ../src/vnr-window.c:1268
@@ -290,250 +291,251 @@ msgstr "Als u een item verwijdert, zal het voorgoed verloren gaan."
 msgid ""
 "Are you sure you want to\n"
 "permanently delete \"%s\"?"
-msgstr "Weet u zeker dat u \"%s\" permanent wil verwijderen?"
+msgstr ""
+"Är du säker på att du vill\n"
+"permanent ta bort \"%s\"?"
 
 #: ../src/vnr-window.c:1422
 msgid "_File"
-msgstr "_Bestand"
+msgstr "_Arkiv"
 
 #: ../src/vnr-window.c:1423
 msgid "_Edit"
-msgstr "Be_werken"
+msgstr "R_edigera"
 
 #: ../src/vnr-window.c:1424
 msgid "_View"
-msgstr "_Toon"
+msgstr "_Visa"
 
 #: ../src/vnr-window.c:1425
 msgid "_Image"
-msgstr "_Afbeelding"
+msgstr "_Bild"
 
 #: ../src/vnr-window.c:1426
 msgid "_Go"
-msgstr "_Ga"
+msgstr "_Gå"
 
 #: ../src/vnr-window.c:1427
 msgid "_Help"
-msgstr "_Help"
+msgstr "_Hjälp"
 
 #: ../src/vnr-window.c:1429
 msgid "Open _Image..."
-msgstr "Open _Afbeelding..."
+msgstr "Öppna _bild..."
 
 #: ../src/vnr-window.c:1430
 msgid "Open an Image"
-msgstr "Open een afbeelding"
+msgstr "Öppna en bild"
 
 #: ../src/vnr-window.c:1432
 msgid "Open _Folder..."
-msgstr "_Map openen..."
+msgstr "Öppna ma_pp..."
 
 #: ../src/vnr-window.c:1433
 msgid "Open a Folder"
-msgstr "Open een map"
+msgstr "Öppna en mapp"
 
 #: ../src/vnr-window.c:1435
 msgid "_Close"
-msgstr "_Sluiten"
+msgstr "S_täng"
 
 #: ../src/vnr-window.c:1436
 msgid "Close window"
-msgstr "Venster sluiten"
+msgstr "Stäng fönster"
 
 #: ../src/vnr-window.c:1438
 msgid "_About"
-msgstr "Info"
+msgstr "_Om"
 
 #: ../src/vnr-window.c:1439
 msgid "About this application"
-msgstr "Over deze toepassing"
+msgstr "Om detta program"
 
 #: ../src/vnr-window.c:1441
 msgid "_Preferences..."
-msgstr "_Voorkeuren..."
+msgstr "_Inställningar..."
 
 #: ../src/vnr-window.c:1442
 msgid "User preferences for Viewnior"
-msgstr "Gebruikersvoorkeuren voor Viewnior"
+msgstr "Användarinställningar för Viewnior"
 
 #: ../src/vnr-window.c:1447
 msgid "_Save"
-msgstr "_Opslaan"
+msgstr "_Spara"
 
 #: ../src/vnr-window.c:1448
 msgid "Save changes"
-msgstr "Wijzigingen opslaan"
+msgstr "Spara ändringar"
 
 #: ../src/vnr-window.c:1454
 msgid "Set as _Wallpaper"
-msgstr "Als _achtergrond instellen"
+msgstr "Ställ in som skrivbordsbak_grund"
 
 #: ../src/vnr-window.c:1455
 msgid "Set the selected image as the desktop background"
-msgstr ""
-"De geselecteerde afbeelding als achtergrond van het bureaublad instellen"
+msgstr "Ange markerad bild som skrivbordsbakgrund"
 
 #: ../src/vnr-window.c:1461
 msgid "Open _With"
-msgstr "Openen _met"
+msgstr "Öppna _med"
 
 #: ../src/vnr-window.c:1462
 msgid "Open the selected image with a different application"
-msgstr "De geselecteerde afbeelding openen met een andere toepassing"
+msgstr "Öppna markerad bild med ett annat program"
 
 #: ../src/vnr-window.c:1464 ../src/vnr-window.c:1473
 msgid "_Delete"
-msgstr "_Verwijderen"
+msgstr "_Ta bort"
 
 #: ../src/vnr-window.c:1465 ../src/vnr-window.c:1474
 msgid "Delete the current file"
-msgstr "Huidige bestand verwijderen"
+msgstr "Ta bort den aktuella filen"
 
 #: ../src/vnr-window.c:1467
 msgid "_Properties..."
-msgstr "_Eigenschappen..."
+msgstr "_Egenskaper..."
 
 #: ../src/vnr-window.c:1468
 msgid "Show information about the current file"
-msgstr "Informatie over het huidige bestand tonen"
+msgstr "Visa information om den aktuella filen"
 
 #: ../src/vnr-window.c:1470
 msgid "_Reload"
-msgstr "_Herladen"
+msgstr "_Uppdatera"
 
 #: ../src/vnr-window.c:1471
 msgid "Reload the current file"
-msgstr "Huidig bestand opnieuw laden"
+msgstr "Läs om den aktuella filen"
 
 #: ../src/vnr-window.c:1476 ../src/vnr-window.c:1491 ../src/vnr-window.c:1494
 msgid "_Zoom In"
-msgstr "_Inzoomen"
+msgstr "_Zooma in"
 
 #: ../src/vnr-window.c:1477
 msgid "Enlarge the image"
-msgstr "Afbeelding vergroten"
+msgstr "Förstora bilden"
 
 #: ../src/vnr-window.c:1479 ../src/vnr-window.c:1497
 msgid "Zoom _Out"
-msgstr "_Uitzoomen"
+msgstr "Zooma _ut"
 
 #: ../src/vnr-window.c:1480 ../src/vnr-window.c:1492 ../src/vnr-window.c:1495
 #: ../src/vnr-window.c:1498
 msgid "Shrink the image"
-msgstr "Afbeelding verkleinen"
+msgstr "Förminska bilden"
 
 #: ../src/vnr-window.c:1482
 msgid "_Normal Size"
-msgstr "_Normale grootte"
+msgstr "_Normal storlek"
 
 #: ../src/vnr-window.c:1483
 msgid "Show the image at its normal size"
-msgstr "Afbeelding weergeven op de normale grootte"
+msgstr "Visa bilden i sin normala storlek"
 
 #: ../src/vnr-window.c:1485
 msgid "Best _Fit"
-msgstr "Best _passend"
+msgstr "Bästa _passning"
 
 #: ../src/vnr-window.c:1486
 msgid "Fit the image to the window"
-msgstr "Afbeeldingsgrootte aanpassen aan het venster"
+msgstr "Anpassa bilden till fönstret"
 
 #: ../src/vnr-window.c:1488
 msgid "_Adjust window size"
-msgstr "_Venstergrootte aanpassen"
+msgstr "_Justera fönsterstorleken"
 
 #: ../src/vnr-window.c:1489
 msgid "Adjust window size to fit the image"
-msgstr "Venstergrootte aanpassen aan afbeelding"
+msgstr "Justera fönsterstorleken för att passa bilden"
 
 #: ../src/vnr-window.c:1503
 msgid "Rotate _Clockwise"
-msgstr "_Kloksgewijs Roteren"
+msgstr "Rotera _medsols"
 
 #: ../src/vnr-window.c:1504
 msgid "Rotate image clockwise"
-msgstr "Met de klok mee roteren"
+msgstr "Rotera bilden medsols"
 
 #: ../src/vnr-window.c:1506
 msgid "Rotate _Anti-clockwise"
-msgstr "_Antikloksgewijs Roteren"
+msgstr "Rotera m_otsols"
 
 #: ../src/vnr-window.c:1507
 msgid "Rotate image anti-clockwise"
-msgstr "Tegen de klok in roteren"
+msgstr "Rotera bilden motsols"
 
 #: ../src/vnr-window.c:1509
 msgid "Flip _Vertical"
-msgstr "_Verticaal spiegelen"
+msgstr "Vänd _vertikalt"
 
 #: ../src/vnr-window.c:1510
 msgid "Flip image vertically"
-msgstr "Afbeelding verticaal spiegelen"
+msgstr "Vänd bilden vertikalt"
 
 #: ../src/vnr-window.c:1512
 msgid "Flip _Horizontal"
-msgstr "_Horizontaal spiegelen"
+msgstr "Vänd _horisontellt"
 
 #: ../src/vnr-window.c:1513
 msgid "Flip image horizontally"
-msgstr "Afbeelding horizontaal spiegelen"
+msgstr "Vänd bilden horisontellt"
 
 #: ../src/vnr-window.c:1515
 msgid "Crop..."
-msgstr "Bijsnijden..."
+msgstr "Beskär..."
 
 #: ../src/vnr-window.c:1521
 msgid "Full _Screen"
-msgstr "_Volledig Scherm"
+msgstr "Hel_skärm"
 
 #: ../src/vnr-window.c:1522
 msgid "Show in fullscreen mode"
-msgstr "Volledig scherm"
+msgstr "Visa i helskärmsläge"
 
 #: ../src/vnr-window.c:1527
 msgid "Toolbar"
-msgstr "Werkbalk"
+msgstr "Verktygsrad"
 
 #: ../src/vnr-window.c:1528
 msgid "Show Toolbar"
-msgstr "Toon werkbalk"
+msgstr "Visa verktygsrad"
 
 #: ../src/vnr-window.c:1533
 msgid "Sli_deshow"
-msgstr "_Slideshow"
+msgstr "_Bildspel"
 
 #: ../src/vnr-window.c:1534
 msgid "Show in slideshow mode"
-msgstr "Laten zien in slideshow"
+msgstr "Visa i bildspelsläge"
 
 #: ../src/vnr-window.c:1539
 msgid "_Previous Image"
-msgstr "Vo_rige afbeelding"
+msgstr "Fö_regående bild"
 
 #: ../src/vnr-window.c:1540
 msgid "Go to the previous image of the collection"
-msgstr "Naar de vorige afbeelding in de verzameling gaan"
+msgstr "Gå till föregående bild i samlingen"
 
 #: ../src/vnr-window.c:1542
 msgid "_Next Image"
-msgstr "V_olgende afbeelding"
+msgstr "_Nästa bild"
 
 #: ../src/vnr-window.c:1543
 msgid "Go to the next image of the collection"
-msgstr "Naar de volgende afbeelding in de verzameling gaan"
+msgstr "Gå till nästa bild i samlingen"
 
 #: ../src/vnr-window.c:1545
 msgid "_First Image"
-msgstr "_Eerste afbeelding"
+msgstr "_Första bilden"
 
 #: ../src/vnr-window.c:1546
 msgid "Go to the first image of the collection"
-msgstr "Naar de eerste afbeelding in de verzameling gaan"
+msgstr "Gå till första bilden i samlingen"
 
 #: ../src/vnr-window.c:1548
 msgid "_Last Image"
-msgstr "_Laatste afbeelding"
+msgstr "_Sista bilden"
 
 #: ../src/vnr-window.c:1549
 msgid "Go to the last image of the collection"
-msgstr "Naar de laatste afbeelding in de verzameling gaan"
+msgstr "Gå till sista bilden i samlingen"

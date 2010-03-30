@@ -8,20 +8,20 @@ msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-08-31 11:05+0300\n"
-"PO-Revision-Date: 2009-08-10 17:06+0000\n"
-"Last-Translator: Sergei Sedov <sedov@webmail.perm.ru>\n"
+"PO-Revision-Date: 2009-12-18 14:12+0000\n"
+"Last-Translator: HsH <hsh@runtu.org>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2009-09-06 07:24+0000\n"
+"X-Launchpad-Export-Date: 2010-03-30 18:12+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:1153
 msgid "Elegant Image Viewer"
-msgstr "Элегантная смотрелка картинок"
+msgstr "Изящный просмотрщик изображений"
 
 #: ../data/viewnior.desktop.in.in.h:2
 msgid "Viewnior"
@@ -43,7 +43,7 @@ msgstr "Всегда подгонять изображение к окну"
 
 #: ../data/vnr-preferences-dialog.ui.h:5
 msgid "Behavior"
-msgstr "Поведение"
+msgstr "Behavior"
 
 #: ../data/vnr-preferences-dialog.ui.h:6
 msgid "Confirm image deletion"
@@ -55,7 +55,7 @@ msgstr "Во весь экран"
 
 #: ../data/vnr-preferences-dialog.ui.h:8
 msgid "General"
-msgstr "Основные"
+msgstr "Общие"
 
 #: ../data/vnr-preferences-dialog.ui.h:9
 msgid "JPEG quality:"
@@ -107,27 +107,27 @@ msgstr "Параметры Viewnior"
 
 #: ../data/vnr-crop-dialog.ui.h:1 ../src/vnr-window.c:1516
 msgid "Crop"
-msgstr ""
+msgstr "Обрезать"
 
 #: ../data/vnr-crop-dialog.ui.h:2
 msgid "Crop Image"
-msgstr ""
+msgstr "Обрезать изображение"
 
 #: ../data/vnr-crop-dialog.ui.h:3
 msgid "Height: "
-msgstr ""
+msgstr "Высота: "
 
 #: ../data/vnr-crop-dialog.ui.h:4
 msgid "Width: "
-msgstr ""
+msgstr "Ширина: "
 
 #: ../data/vnr-crop-dialog.ui.h:5
 msgid "X: "
-msgstr ""
+msgstr "X: "
 
 #: ../data/vnr-crop-dialog.ui.h:6
 msgid "Y: "
-msgstr ""
+msgstr "Y: "
 
 #: ../src/main.c:113 ../src/vnr-window.c:1326 ../src/vnr-window.c:1649
 #: ../src/vnr-window.c:2046
@@ -169,7 +169,7 @@ msgstr "увеличить изображение"
 
 #: ../src/vnr-prefs.c:263
 msgid "Scroll image up/down"
-msgstr ""
+msgstr "Прокрутка изображения вверх/вниз"
 
 #: ../src/vnr-prefs.c:271
 msgid "Switch zoom modes"
@@ -236,7 +236,7 @@ msgstr "Нет"
 #: ../src/vnr-window.c:240
 #, c-format
 msgid "Use \"%s\" to open the selected image"
-msgstr ""
+msgstr "Используйте \"%s\" для открытия выбранного изображения"
 
 #: ../src/vnr-window.c:395
 msgid "Show next image after: "
@@ -282,8 +282,11 @@ msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Alexei https://launchpad.net/~jleexa\n"
-"  Sergei Sedov https://launchpad.net/~serg-sedov\n"
-"  stroncium https://launchpad.net/~yanis-benson"
+"  HsH https://launchpad.net/~hsh\n"
+"  Kolesnikov Dmitrij https://launchpad.net/~virusmater\n"
+"  Sergey Sedov https://launchpad.net/~serg-sedov\n"
+"  stroncium https://launchpad.net/~yanis-benson\n"
+"  Денис Крюков https://launchpad.net/~dk4485"
 
 #: ../src/vnr-window.c:1265
 msgid "If you delete an item, it will be permanently lost."
@@ -373,19 +376,19 @@ msgstr "Сохранить изменения"
 
 #: ../src/vnr-window.c:1454
 msgid "Set as _Wallpaper"
-msgstr "Поставить обои"
+msgstr "Установить фоном рабочего стола"
 
 #: ../src/vnr-window.c:1455
 msgid "Set the selected image as the desktop background"
-msgstr "Установить текущую картинку как обои на рабочий стол"
+msgstr "Установить выделенное изображение фоном рабочего стола"
 
 #: ../src/vnr-window.c:1461
 msgid "Open _With"
-msgstr ""
+msgstr "Открыть _в"
 
 #: ../src/vnr-window.c:1462
 msgid "Open the selected image with a different application"
-msgstr ""
+msgstr "Открыть выделенное изображение в другом приложении"
 
 #: ../src/vnr-window.c:1464 ../src/vnr-window.c:1473
 msgid "_Delete"
@@ -470,23 +473,23 @@ msgstr "Повернуть изображение против часовой с
 
 #: ../src/vnr-window.c:1509
 msgid "Flip _Vertical"
-msgstr "Перевернуть по _вертикали"
+msgstr "Отразить по _вертикали"
 
 #: ../src/vnr-window.c:1510
 msgid "Flip image vertically"
-msgstr "Перевернуть изображение по вертикали"
+msgstr "Отразить изображение по вертикали"
 
 #: ../src/vnr-window.c:1512
 msgid "Flip _Horizontal"
-msgstr "Перевернуть по _горизонтали"
+msgstr "Отразить по _горизотали"
 
 #: ../src/vnr-window.c:1513
 msgid "Flip image horizontally"
-msgstr "Перевернуть изображение по горизонтали"
+msgstr "Отразить изображение по горизонтали"
 
 #: ../src/vnr-window.c:1515
 msgid "Crop..."
-msgstr ""
+msgstr "Обрезать..."
 
 #: ../src/vnr-window.c:1521
 msgid "Full _Screen"
@@ -498,11 +501,11 @@ msgstr "Перейти в полноэкранный режим"
 
 #: ../src/vnr-window.c:1527
 msgid "Toolbar"
-msgstr ""
+msgstr "Панель инструментов"
 
 #: ../src/vnr-window.c:1528
 msgid "Show Toolbar"
-msgstr ""
+msgstr "Показать панель инструментов"
 
 #: ../src/vnr-window.c:1533
 msgid "Sli_deshow"

@@ -1,4 +1,4 @@
-# Dutch translation for viewnior
+# Czech translation for viewnior
 # Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the viewnior package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
@@ -8,20 +8,20 @@ msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-08-31 11:05+0300\n"
-"PO-Revision-Date: 2009-12-23 21:30+0000\n"
+"PO-Revision-Date: 2009-12-23 23:54+0000\n"
 "Last-Translator: Launchpad Translations Administrators "
 "<rosetta@launchpad.net>\n"
-"Language-Team: Dutch <nl@li.org>\n"
+"Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Launchpad-Export-Date: 2010-03-30 18:12+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:1153
 msgid "Elegant Image Viewer"
-msgstr "Elegante Afbeeldingsviewer"
+msgstr "Elegantní prohlížeč obrázků"
 
 #: ../data/viewnior.desktop.in.in.h:2
 msgid "Viewnior"
@@ -33,93 +33,93 @@ msgid ""
 "  Clicking on the left half of the window shows the\n"
 "  previous image and on the right side - the next.</small> "
 msgstr ""
-"<small>(!) Navigeer door afbeeldingen met dubbelklik:\n"
-"  Klikken op de linker helft van het venster laat de vorige\n"
-"  afbeelding zien, klikken op de rechter helft de volgende,</small> "
+"<small>  (!) Navigace v obrázcích pomocí dvojkliku :\n"
+"  Kliknutím na levou polovinu okna bude zobrazen obrázek\n"
+"  předchozí, kliknutím na pravou půlku pak obrázek následující.</small> "
 
 #: ../data/vnr-preferences-dialog.ui.h:4
 msgid "Always expand images to fit screen"
-msgstr "Afbeeldingen altijd vergroten tot de grootte van het venster"
+msgstr "Vždy přizpůsobit velikost obrázku oknu"
 
 #: ../data/vnr-preferences-dialog.ui.h:5
 msgid "Behavior"
-msgstr "Gedrag"
+msgstr "Chování"
 
 #: ../data/vnr-preferences-dialog.ui.h:6
 msgid "Confirm image deletion"
-msgstr "Bevestig verwijderen van een afbeelding"
+msgstr "Potvrdit smazání obrázku"
 
 #: ../data/vnr-preferences-dialog.ui.h:7
 msgid "Fullscreen"
-msgstr "Volledig scherm"
+msgstr "Přes celou obrazovku"
 
 #: ../data/vnr-preferences-dialog.ui.h:8
 msgid "General"
-msgstr "Algemeen"
+msgstr "Obecné"
 
 #: ../data/vnr-preferences-dialog.ui.h:9
 msgid "JPEG quality:"
-msgstr "JPEG-kwaliteit:"
+msgstr "Kvalita JPEG:"
 
 #: ../data/vnr-preferences-dialog.ui.h:10
 msgid "On double click: "
-msgstr "Bij dubbelklikken: "
+msgstr "Při dvojkliku: "
 
 #: ../data/vnr-preferences-dialog.ui.h:11
 msgid "On image modification: "
-msgstr "Bij bewerken van een afbeelding: "
+msgstr "Při úpravě obrázku: "
 
 #: ../data/vnr-preferences-dialog.ui.h:12
 msgid "On mouse wheel: "
-msgstr "Bij muiswiel: "
+msgstr "Při točení kolečkem myši: "
 
 #: ../data/vnr-preferences-dialog.ui.h:13
 msgid "Open new image in: "
-msgstr "Open nieuwe afbeelding in: "
+msgstr "Otevřít nový obrázek: "
 
 #: ../data/vnr-preferences-dialog.ui.h:14
 msgid "PNG compression:"
-msgstr "PNG-compressie:"
+msgstr "PNG komprese:"
 
 #: ../data/vnr-preferences-dialog.ui.h:15
 msgid "Reload image on save"
-msgstr "Afbeelding opnieuw laden bij opslaan"
+msgstr "Po uložení obrázku jej znovu načíst"
 
 #: ../data/vnr-preferences-dialog.ui.h:16
 msgid "Saving"
-msgstr "Bezig met opslaan"
+msgstr "Ukládám"
 
 #: ../data/vnr-preferences-dialog.ui.h:17
 msgid "Show hidden images"
-msgstr "Verborgen bestanden tonen"
+msgstr "Zobrazit i skryté obrázky"
 
 #: ../data/vnr-preferences-dialog.ui.h:18
 msgid "Show next image after (in seconds): "
-msgstr "Volgende afbeelding laten zien na (in seconden): "
+msgstr "Zobrazit další obrázek po (v sekundách): "
 
 #: ../data/vnr-preferences-dialog.ui.h:19
 msgid "Smooth images when zoomed"
-msgstr "Smooth afbeeldingen bij zoomen"
+msgstr "Obrázky při zvětšování vyhladit"
 
 #: ../data/vnr-preferences-dialog.ui.h:20
 msgid "Viewnior Preferences"
-msgstr "Viewnior Voorkeuren"
+msgstr "Nastavení Viewnior"
 
 #: ../data/vnr-crop-dialog.ui.h:1 ../src/vnr-window.c:1516
 msgid "Crop"
-msgstr "Bijsnijden"
+msgstr "Ořez"
 
 #: ../data/vnr-crop-dialog.ui.h:2
 msgid "Crop Image"
-msgstr "Afbeelding bijsnijden"
+msgstr "Oříznout obrázek"
 
 #: ../data/vnr-crop-dialog.ui.h:3
 msgid "Height: "
-msgstr "Hoogte: "
+msgstr "Výška: "
 
 #: ../data/vnr-crop-dialog.ui.h:4
 msgid "Width: "
-msgstr "Breedte: "
+msgstr "Šířka: "
 
 #: ../data/vnr-crop-dialog.ui.h:5
 msgid "X: "
@@ -132,157 +132,161 @@ msgstr "Y: "
 #: ../src/main.c:113 ../src/vnr-window.c:1326 ../src/vnr-window.c:1649
 #: ../src/vnr-window.c:2046
 msgid "The given locations contain no images."
-msgstr "De opgegeven locaties bevatten geen afbeeldigen."
+msgstr "Zadané umístění neobsahuje žádné obrázky."
 
 #: ../src/uni-scroll-win.c:223
 msgid "Open the navigator window"
-msgstr "Open navigatievenster"
+msgstr "Otevřít navigační okno"
 
 #: ../src/vnr-file.c:222
 #, c-format
 msgid ""
 "Couldn't recognise the image file\n"
 "format for file '%s'"
-msgstr "Afbeeldingstype niet herkend voor bestand '%s'"
+msgstr ""
+"Nemohu rozpoznat formát\n"
+"obrázku souboru \"%s\""
 
 #: ../src/vnr-prefs.c:247
 msgid "Smart Mode"
-msgstr "Slimme modus"
+msgstr "Chytrý režim"
 
 #: ../src/vnr-prefs.c:248
 msgid "1:1 Mode"
-msgstr "1:1 Modus"
+msgstr "Režim 1:1"
 
 #: ../src/vnr-prefs.c:249
 msgid "Fit To Window Mode"
-msgstr "Aanpassen aan Venstermodus"
+msgstr "Režim přizpůsobení velikosti okna"
 
 #: ../src/vnr-prefs.c:261 ../src/vnr-prefs.c:273
 msgid "Navigate images"
-msgstr "Afbeeldingen Navigeren"
+msgstr "Procházení obrázků"
 
 #: ../src/vnr-prefs.c:262
 msgid "Zoom image"
-msgstr "Inzoomen"
+msgstr "Zvětšit obrázek"
 
 #: ../src/vnr-prefs.c:263
 msgid "Scroll image up/down"
-msgstr "Afbeelding naar boven/beneden scrollen"
+msgstr "Posouvat obrázek nahoru/dolu"
 
 #: ../src/vnr-prefs.c:271
 msgid "Switch zoom modes"
-msgstr "Zoommodus"
+msgstr "Přepnout režimy zvětšení"
 
 #: ../src/vnr-prefs.c:272
 msgid "Enter fullscreen mode"
-msgstr "Schermvullend"
+msgstr "Přejít do režimu celé obrazovky"
 
 #: ../src/vnr-prefs.c:281
 msgid "Ask every time"
-msgstr "Elke keer vragen"
+msgstr "Pokaždé se zeptat"
 
 #: ../src/vnr-prefs.c:282
 msgid "Autosave"
-msgstr "Automatisch opslaan"
+msgstr "Automatické ukládání"
 
 #: ../src/vnr-prefs.c:283
 msgid "Ignore changes"
-msgstr "Veranderingen negeren"
+msgstr "Ignorovat změny"
 
 #: ../src/vnr-properties-dialog.c:111
 msgid "_Next"
-msgstr "_Volgende"
+msgstr "_Následující"
 
 #: ../src/vnr-properties-dialog.c:112
 msgid "_Previous"
-msgstr "V_orige"
+msgstr "_Předchozí"
 
 #: ../src/vnr-properties-dialog.c:130
 msgid "Image Properties"
-msgstr "Afbeeldingseigenschappen"
+msgstr "Vlastnosti obrázku"
 
 #: ../src/vnr-properties-dialog.c:138
 msgid "<b>Location:</b>"
-msgstr "<b>Locatie:</b>"
+msgstr "<b>Umístění:</b>"
 
 #: ../src/vnr-properties-dialog.c:182
 msgid "<b>Name:</b>"
-msgstr "<b>Naam:</b>"
+msgstr "<b>Název:</b>"
 
 #: ../src/vnr-properties-dialog.c:186
 msgid "<b>Type:</b>"
-msgstr "<b>Type:</b>"
+msgstr "<b>Typ:</b>"
 
 #: ../src/vnr-properties-dialog.c:190
 msgid "<b>Size:</b>"
-msgstr "<b>Grootte:</b>"
+msgstr "<b>Velikost:</b>"
 
 #: ../src/vnr-properties-dialog.c:194
 msgid "<b>Width:</b>"
-msgstr "<b>Breedte:</b>"
+msgstr "<b>Šířka:</b>"
 
 #: ../src/vnr-properties-dialog.c:198
 msgid "<b>Height:</b>"
-msgstr "<b>Hoogte:</b>"
+msgstr "<b>Výška:</b>"
 
 #: ../src/vnr-properties-dialog.c:301 ../src/vnr-properties-dialog.c:302
 #: ../src/vnr-properties-dialog.c:303 ../src/vnr-properties-dialog.c:304
 #: ../src/vnr-properties-dialog.c:305 ../src/vnr-properties-dialog.c:306
 msgid "None"
-msgstr "Geen"
+msgstr "Nic"
 
 #: ../src/vnr-window.c:240
 #, c-format
 msgid "Use \"%s\" to open the selected image"
-msgstr "‘%s’ gebruiken om de geselecteerde afbeelding te openen"
+msgstr "Otevřít vybraný obrázek pomocí \"%s\""
 
 #: ../src/vnr-window.c:395
 msgid "Show next image after: "
-msgstr "Volgende afbeelding na: "
+msgstr "Zobrazit další obrázek po: "
 
 #: ../src/vnr-window.c:413 ../src/vnr-window.c:818
 msgid " second"
 msgid_plural " seconds"
-msgstr[0] " seconde"
-msgstr[1] " seconden"
+msgstr[0] " sekundě"
+msgstr[1] " sekundách"
+msgstr[2] " sekundách"
 
 #: ../src/vnr-window.c:643 ../src/vnr-window.c:706
 msgid "Not enough virtual memory."
-msgstr "Niet genoeg virtueel geheugen"
+msgstr "Není dostatek virtuální paměti."
 
 #: ../src/vnr-window.c:677 ../src/vnr-window.c:735 ../src/vnr-window.c:1407
 msgid ""
 "Image modifications cannot be saved.\n"
 "Writing in this format is not supported."
 msgstr ""
-"Veranderingen aan afbeeldingen kunnen niet worden opgeslagen.\n"
-"Opslaan in dit afbeeldingstype wordt niet ondersteund."
+"Změny obrázku nemohou být uloženy.\n"
+"Zápis v tomto formátu není podporován."
 
 #: ../src/vnr-window.c:684 ../src/vnr-window.c:742 ../src/vnr-window.c:1414
 msgid ""
 "Save modifications?\n"
 "This will overwrite the image and may reduce it's quality!"
 msgstr ""
-"Veranderingen opslaan?\n"
-"Dit overschrijft het bestand en kan de kwaliteit verminderen!"
+"Uložit změny?\n"
+"Tímto se přepíše originální obrázek, což může mít za následek snížení jeho "
+"kvality!"
 
 #: ../src/vnr-window.c:1073
 msgid "Open Image"
-msgstr "Afbeelding openen"
+msgstr "Otevřít obrázek"
 
 #: ../src/vnr-window.c:1102
 msgid "Open Folder"
-msgstr "Map openen"
+msgstr "Otevřít složku"
 
 #: ../src/vnr-window.c:1158
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Wouter Stomp https://launchpad.net/~wouterstomp"
+"  Roman Horník https://launchpad.net/~roman.hornik"
 
 #: ../src/vnr-window.c:1265
 msgid "If you delete an item, it will be permanently lost."
-msgstr "Als u een item verwijdert, zal het voorgoed verloren gaan."
+msgstr "Odstraníte-li položku, bude navždy ztracena."
 
 #. I18N: The '%s' is replaced with the name of the file to be deleted.
 #: ../src/vnr-window.c:1268
@@ -290,250 +294,251 @@ msgstr "Als u een item verwijdert, zal het voorgoed verloren gaan."
 msgid ""
 "Are you sure you want to\n"
 "permanently delete \"%s\"?"
-msgstr "Weet u zeker dat u \"%s\" permanent wil verwijderen?"
+msgstr ""
+"Přejete si trvale\n"
+"odstranit \"%s\"?"
 
 #: ../src/vnr-window.c:1422
 msgid "_File"
-msgstr "_Bestand"
+msgstr "_Soubor"
 
 #: ../src/vnr-window.c:1423
 msgid "_Edit"
-msgstr "Be_werken"
+msgstr "_Úpravy"
 
 #: ../src/vnr-window.c:1424
 msgid "_View"
-msgstr "_Toon"
+msgstr "_Zobrazit"
 
 #: ../src/vnr-window.c:1425
 msgid "_Image"
-msgstr "_Afbeelding"
+msgstr "_Obrázek"
 
 #: ../src/vnr-window.c:1426
 msgid "_Go"
-msgstr "_Ga"
+msgstr "_Přejít"
 
 #: ../src/vnr-window.c:1427
 msgid "_Help"
-msgstr "_Help"
+msgstr "_Nápověda"
 
 #: ../src/vnr-window.c:1429
 msgid "Open _Image..."
-msgstr "Open _Afbeelding..."
+msgstr "_Otevřít obrázek..."
 
 #: ../src/vnr-window.c:1430
 msgid "Open an Image"
-msgstr "Open een afbeelding"
+msgstr "Otevře obrázek"
 
 #: ../src/vnr-window.c:1432
 msgid "Open _Folder..."
-msgstr "_Map openen..."
+msgstr "Otevřít _složku..."
 
 #: ../src/vnr-window.c:1433
 msgid "Open a Folder"
-msgstr "Open een map"
+msgstr "Otevře složku"
 
 #: ../src/vnr-window.c:1435
 msgid "_Close"
-msgstr "_Sluiten"
+msgstr "_Zavřít"
 
 #: ../src/vnr-window.c:1436
 msgid "Close window"
-msgstr "Venster sluiten"
+msgstr "Zavřít okno"
 
 #: ../src/vnr-window.c:1438
 msgid "_About"
-msgstr "Info"
+msgstr "_O programu..."
 
 #: ../src/vnr-window.c:1439
 msgid "About this application"
-msgstr "Over deze toepassing"
+msgstr "O této aplikaci"
 
 #: ../src/vnr-window.c:1441
 msgid "_Preferences..."
-msgstr "_Voorkeuren..."
+msgstr "_Nastavení..."
 
 #: ../src/vnr-window.c:1442
 msgid "User preferences for Viewnior"
-msgstr "Gebruikersvoorkeuren voor Viewnior"
+msgstr "Uživatelská nastavení pro Viewnior"
 
 #: ../src/vnr-window.c:1447
 msgid "_Save"
-msgstr "_Opslaan"
+msgstr "_Uložit"
 
 #: ../src/vnr-window.c:1448
 msgid "Save changes"
-msgstr "Wijzigingen opslaan"
+msgstr "Uložit změny"
 
 #: ../src/vnr-window.c:1454
 msgid "Set as _Wallpaper"
-msgstr "Als _achtergrond instellen"
+msgstr "Nastavit jako _tapetu plochy"
 
 #: ../src/vnr-window.c:1455
 msgid "Set the selected image as the desktop background"
-msgstr ""
-"De geselecteerde afbeelding als achtergrond van het bureaublad instellen"
+msgstr "Nastavit vybraný obrázek jako pozadí plochy"
 
 #: ../src/vnr-window.c:1461
 msgid "Open _With"
-msgstr "Openen _met"
+msgstr "Otevřít _s"
 
 #: ../src/vnr-window.c:1462
 msgid "Open the selected image with a different application"
-msgstr "De geselecteerde afbeelding openen met een andere toepassing"
+msgstr "Otevřít vybraný obrázek jinou aplikací"
 
 #: ../src/vnr-window.c:1464 ../src/vnr-window.c:1473
 msgid "_Delete"
-msgstr "_Verwijderen"
+msgstr "_Smazat"
 
 #: ../src/vnr-window.c:1465 ../src/vnr-window.c:1474
 msgid "Delete the current file"
-msgstr "Huidige bestand verwijderen"
+msgstr "Smazat aktuální soubor"
 
 #: ../src/vnr-window.c:1467
 msgid "_Properties..."
-msgstr "_Eigenschappen..."
+msgstr "Vlas_tnosti..."
 
 #: ../src/vnr-window.c:1468
 msgid "Show information about the current file"
-msgstr "Informatie over het huidige bestand tonen"
+msgstr "Zobrazí informace o aktuálním souboru"
 
 #: ../src/vnr-window.c:1470
 msgid "_Reload"
-msgstr "_Herladen"
+msgstr "_Obnovit"
 
 #: ../src/vnr-window.c:1471
 msgid "Reload the current file"
-msgstr "Huidig bestand opnieuw laden"
+msgstr "Znovu načíst aktuální soubor"
 
 #: ../src/vnr-window.c:1476 ../src/vnr-window.c:1491 ../src/vnr-window.c:1494
 msgid "_Zoom In"
-msgstr "_Inzoomen"
+msgstr "_Přiblížit"
 
 #: ../src/vnr-window.c:1477
 msgid "Enlarge the image"
-msgstr "Afbeelding vergroten"
+msgstr "Zvětšit obrázek"
 
 #: ../src/vnr-window.c:1479 ../src/vnr-window.c:1497
 msgid "Zoom _Out"
-msgstr "_Uitzoomen"
+msgstr "_Oddálit"
 
 #: ../src/vnr-window.c:1480 ../src/vnr-window.c:1492 ../src/vnr-window.c:1495
 #: ../src/vnr-window.c:1498
 msgid "Shrink the image"
-msgstr "Afbeelding verkleinen"
+msgstr "Zmenšit obrázek"
 
 #: ../src/vnr-window.c:1482
 msgid "_Normal Size"
-msgstr "_Normale grootte"
+msgstr "No_rmální velikost"
 
 #: ../src/vnr-window.c:1483
 msgid "Show the image at its normal size"
-msgstr "Afbeelding weergeven op de normale grootte"
+msgstr "Zobrazit obrázek v původní velikosti"
 
 #: ../src/vnr-window.c:1485
 msgid "Best _Fit"
-msgstr "Best _passend"
+msgstr "Při_způsobit velikost"
 
 #: ../src/vnr-window.c:1486
 msgid "Fit the image to the window"
-msgstr "Afbeeldingsgrootte aanpassen aan het venster"
+msgstr "Přizpůsobit obrázek oknu"
 
 #: ../src/vnr-window.c:1488
 msgid "_Adjust window size"
-msgstr "_Venstergrootte aanpassen"
+msgstr "Nastavit _velikost okna"
 
 #: ../src/vnr-window.c:1489
 msgid "Adjust window size to fit the image"
-msgstr "Venstergrootte aanpassen aan afbeelding"
+msgstr "Nastavit velikost okna podle obrázku"
 
 #: ../src/vnr-window.c:1503
 msgid "Rotate _Clockwise"
-msgstr "_Kloksgewijs Roteren"
+msgstr "Rotovat doprava"
 
 #: ../src/vnr-window.c:1504
 msgid "Rotate image clockwise"
-msgstr "Met de klok mee roteren"
+msgstr "Otočit obrázek ve směru hodinových ručiček"
 
 #: ../src/vnr-window.c:1506
 msgid "Rotate _Anti-clockwise"
-msgstr "_Antikloksgewijs Roteren"
+msgstr "Rotovat _doleva"
 
 #: ../src/vnr-window.c:1507
 msgid "Rotate image anti-clockwise"
-msgstr "Tegen de klok in roteren"
+msgstr "Otočit obrázek proti směru hodinových ručiček"
 
 #: ../src/vnr-window.c:1509
 msgid "Flip _Vertical"
-msgstr "_Verticaal spiegelen"
+msgstr "Převrátit _svisle"
 
 #: ../src/vnr-window.c:1510
 msgid "Flip image vertically"
-msgstr "Afbeelding verticaal spiegelen"
+msgstr "Překlopit obrázek svisle"
 
 #: ../src/vnr-window.c:1512
 msgid "Flip _Horizontal"
-msgstr "_Horizontaal spiegelen"
+msgstr "Převrátit _vodorovně"
 
 #: ../src/vnr-window.c:1513
 msgid "Flip image horizontally"
-msgstr "Afbeelding horizontaal spiegelen"
+msgstr "Překlopit obrázek vodorovně"
 
 #: ../src/vnr-window.c:1515
 msgid "Crop..."
-msgstr "Bijsnijden..."
+msgstr "Ořez..."
 
 #: ../src/vnr-window.c:1521
 msgid "Full _Screen"
-msgstr "_Volledig Scherm"
+msgstr "Přes celou o_brazovku"
 
 #: ../src/vnr-window.c:1522
 msgid "Show in fullscreen mode"
-msgstr "Volledig scherm"
+msgstr "Zobrazit v režimu celé obrazovky"
 
 #: ../src/vnr-window.c:1527
 msgid "Toolbar"
-msgstr "Werkbalk"
+msgstr "Lišta nástrojů"
 
 #: ../src/vnr-window.c:1528
 msgid "Show Toolbar"
-msgstr "Toon werkbalk"
+msgstr "Zobrazit lištu nástrojů"
 
 #: ../src/vnr-window.c:1533
 msgid "Sli_deshow"
-msgstr "_Slideshow"
+msgstr "Pr_ezentace"
 
 #: ../src/vnr-window.c:1534
 msgid "Show in slideshow mode"
-msgstr "Laten zien in slideshow"
+msgstr "Zobrazit promítání snímků"
 
 #: ../src/vnr-window.c:1539
 msgid "_Previous Image"
-msgstr "Vo_rige afbeelding"
+msgstr "_Předchozí obrázek"
 
 #: ../src/vnr-window.c:1540
 msgid "Go to the previous image of the collection"
-msgstr "Naar de vorige afbeelding in de verzameling gaan"
+msgstr "Přejít na předchozí obrázek ze sbírky"
 
 #: ../src/vnr-window.c:1542
 msgid "_Next Image"
-msgstr "V_olgende afbeelding"
+msgstr "_Následující obrázek"
 
 #: ../src/vnr-window.c:1543
 msgid "Go to the next image of the collection"
-msgstr "Naar de volgende afbeelding in de verzameling gaan"
+msgstr "Přejít na následující obrázek ze sbírky"
 
 #: ../src/vnr-window.c:1545
 msgid "_First Image"
-msgstr "_Eerste afbeelding"
+msgstr "P_rvní obrázek"
 
 #: ../src/vnr-window.c:1546
 msgid "Go to the first image of the collection"
-msgstr "Naar de eerste afbeelding in de verzameling gaan"
+msgstr "Přejít na první obrázek ze sbírky"
 
 #: ../src/vnr-window.c:1548
 msgid "_Last Image"
-msgstr "_Laatste afbeelding"
+msgstr "Po_slední obrázek"
 
 #: ../src/vnr-window.c:1549
 msgid "Go to the last image of the collection"
-msgstr "Naar de laatste afbeelding in de verzameling gaan"
+msgstr "Přejít na poslední obrázek ze sbírky"
