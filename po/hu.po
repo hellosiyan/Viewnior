@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-08-31 11:05+0300\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-03-30 21:25+0300\n"
 "PO-Revision-Date: 2009-12-04 00:07+0000\n"
 "Last-Translator: Polesz <polesz@nedudu.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Launchpad-Export-Date: 2010-03-30 18:12+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:1153
+#: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:1175
 msgid "Elegant Image Viewer"
 msgstr "Elegáns Képnéző"
 
@@ -104,7 +104,7 @@ msgstr "Kép simítása nagyításkor"
 msgid "Viewnior Preferences"
 msgstr "Viewnior beállítások"
 
-#: ../data/vnr-crop-dialog.ui.h:1 ../src/vnr-window.c:1516
+#: ../data/vnr-crop-dialog.ui.h:1 ../src/vnr-window.c:1541
 msgid "Crop"
 msgstr "Vágás"
 
@@ -128,8 +128,8 @@ msgstr "X: "
 msgid "Y: "
 msgstr "Y: "
 
-#: ../src/main.c:113 ../src/vnr-window.c:1326 ../src/vnr-window.c:1649
-#: ../src/vnr-window.c:2046
+#: ../src/main.c:113 ../src/vnr-window.c:1349 ../src/vnr-window.c:1684
+#: ../src/vnr-window.c:2081
 msgid "The given locations contain no images."
 msgstr "Az adott helyek nem tartalmaznak képeket."
 
@@ -232,26 +232,26 @@ msgstr "<b>Magasság:</b>"
 msgid "None"
 msgstr "Nincs"
 
-#: ../src/vnr-window.c:240
+#: ../src/vnr-window.c:243
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "A kijelölt kép megnyitása ezzel: „%s”"
 
-#: ../src/vnr-window.c:395
+#: ../src/vnr-window.c:414
 msgid "Show next image after: "
 msgstr "Következő kép mutatása: "
 
-#: ../src/vnr-window.c:413 ../src/vnr-window.c:818
+#: ../src/vnr-window.c:432 ../src/vnr-window.c:840
 msgid " second"
 msgid_plural " seconds"
 msgstr[0] " másodperc"
 msgstr[1] " másodperc"
 
-#: ../src/vnr-window.c:643 ../src/vnr-window.c:706
+#: ../src/vnr-window.c:665 ../src/vnr-window.c:728
 msgid "Not enough virtual memory."
 msgstr "Nincs elég virtuális memória."
 
-#: ../src/vnr-window.c:677 ../src/vnr-window.c:735 ../src/vnr-window.c:1407
+#: ../src/vnr-window.c:699 ../src/vnr-window.c:757 ../src/vnr-window.c:1432
 msgid ""
 "Image modifications cannot be saved.\n"
 "Writing in this format is not supported."
@@ -259,7 +259,7 @@ msgstr ""
 "Kép módosításainak elmentése nem sikerült.\n"
 "Az írni kívánt fájlformátum nem támogatott."
 
-#: ../src/vnr-window.c:684 ../src/vnr-window.c:742 ../src/vnr-window.c:1414
+#: ../src/vnr-window.c:706 ../src/vnr-window.c:764 ../src/vnr-window.c:1439
 msgid ""
 "Save modifications?\n"
 "This will overwrite the image and may reduce it's quality!"
@@ -267,26 +267,26 @@ msgstr ""
 "Módosítások mentése?\n"
 "A kép felül lesz írva és csökkenhet a minősége!"
 
-#: ../src/vnr-window.c:1073
+#: ../src/vnr-window.c:1095
 msgid "Open Image"
 msgstr "Kép megnyitása"
 
-#: ../src/vnr-window.c:1102
+#: ../src/vnr-window.c:1124
 msgid "Open Folder"
 msgstr "Mappa megnyitása"
 
-#: ../src/vnr-window.c:1158
+#: ../src/vnr-window.c:1181
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Polesz https://launchpad.net/~polesz-nedudu"
 
-#: ../src/vnr-window.c:1265
+#: ../src/vnr-window.c:1288
 msgid "If you delete an item, it will be permanently lost."
 msgstr "Ha töröl egy elemet, akkor az véglegesen el fog veszni."
 
 #. I18N: The '%s' is replaced with the name of the file to be deleted.
-#: ../src/vnr-window.c:1268
+#: ../src/vnr-window.c:1291
 #, c-format
 msgid ""
 "Are you sure you want to\n"
@@ -295,247 +295,247 @@ msgstr ""
 "Biztos benne, hogy\n"
 "véglegesen törli \"%s\"?"
 
-#: ../src/vnr-window.c:1422
+#: ../src/vnr-window.c:1447
 msgid "_File"
 msgstr "_Fájl"
 
-#: ../src/vnr-window.c:1423
+#: ../src/vnr-window.c:1448
 msgid "_Edit"
 msgstr "Sz_erkesztés"
 
-#: ../src/vnr-window.c:1424
+#: ../src/vnr-window.c:1449
 msgid "_View"
 msgstr "_Nézet"
 
-#: ../src/vnr-window.c:1425
+#: ../src/vnr-window.c:1450
 msgid "_Image"
 msgstr "_Kép"
 
-#: ../src/vnr-window.c:1426
+#: ../src/vnr-window.c:1451
 msgid "_Go"
 msgstr "_Ugrás"
 
-#: ../src/vnr-window.c:1427
+#: ../src/vnr-window.c:1452
 msgid "_Help"
 msgstr "_Segítség"
 
-#: ../src/vnr-window.c:1429
+#: ../src/vnr-window.c:1454
 msgid "Open _Image..."
 msgstr "Kép _megnyitása..."
 
-#: ../src/vnr-window.c:1430
+#: ../src/vnr-window.c:1455
 msgid "Open an Image"
 msgstr "Kép megnyitása"
 
-#: ../src/vnr-window.c:1432
+#: ../src/vnr-window.c:1457
 msgid "Open _Folder..."
 msgstr "Ma_ppa megnyitása…"
 
-#: ../src/vnr-window.c:1433
+#: ../src/vnr-window.c:1458
 msgid "Open a Folder"
 msgstr "Mappa megnyitása"
 
-#: ../src/vnr-window.c:1435
+#: ../src/vnr-window.c:1460
 msgid "_Close"
 msgstr "_Bezárás"
 
-#: ../src/vnr-window.c:1436
+#: ../src/vnr-window.c:1461
 msgid "Close window"
 msgstr "Ablak bezárása"
 
-#: ../src/vnr-window.c:1438
+#: ../src/vnr-window.c:1463
 msgid "_About"
 msgstr "_Névjegy"
 
-#: ../src/vnr-window.c:1439
+#: ../src/vnr-window.c:1464
 msgid "About this application"
 msgstr "Az alkalmazás névjegye"
 
-#: ../src/vnr-window.c:1441
+#: ../src/vnr-window.c:1466
 msgid "_Preferences..."
 msgstr "_Beállítások..."
 
-#: ../src/vnr-window.c:1442
+#: ../src/vnr-window.c:1467
 msgid "User preferences for Viewnior"
 msgstr "Felhasználói beállítások"
 
-#: ../src/vnr-window.c:1447
+#: ../src/vnr-window.c:1472
 msgid "_Save"
 msgstr "_Mentés"
 
-#: ../src/vnr-window.c:1448
+#: ../src/vnr-window.c:1473
 msgid "Save changes"
 msgstr "Változtatások mentése"
 
-#: ../src/vnr-window.c:1454
+#: ../src/vnr-window.c:1479
 msgid "Set as _Wallpaper"
 msgstr "Beállítás _háttérképként"
 
-#: ../src/vnr-window.c:1455
+#: ../src/vnr-window.c:1480
 msgid "Set the selected image as the desktop background"
 msgstr "A kijelölt kép beállítása asztalháttérként"
 
-#: ../src/vnr-window.c:1461
+#: ../src/vnr-window.c:1486
 msgid "Open _With"
 msgstr "Megnyitás _ezzel"
 
-#: ../src/vnr-window.c:1462
+#: ../src/vnr-window.c:1487
 msgid "Open the selected image with a different application"
 msgstr "Kiválasztott kép megnyitása más alkalmazással."
 
-#: ../src/vnr-window.c:1464 ../src/vnr-window.c:1473
+#: ../src/vnr-window.c:1489 ../src/vnr-window.c:1498
 msgid "_Delete"
 msgstr "_Törlés"
 
-#: ../src/vnr-window.c:1465 ../src/vnr-window.c:1474
+#: ../src/vnr-window.c:1490 ../src/vnr-window.c:1499
 msgid "Delete the current file"
 msgstr "Aktuális fájl törlése"
 
-#: ../src/vnr-window.c:1467
+#: ../src/vnr-window.c:1492
 msgid "_Properties..."
 msgstr "_Tulajdonságok…"
 
-#: ../src/vnr-window.c:1468
+#: ../src/vnr-window.c:1493
 msgid "Show information about the current file"
 msgstr "A jelenlegi fájl adatai"
 
-#: ../src/vnr-window.c:1470
+#: ../src/vnr-window.c:1495
 msgid "_Reload"
 msgstr "Új_ratöltés"
 
-#: ../src/vnr-window.c:1471
+#: ../src/vnr-window.c:1496
 msgid "Reload the current file"
 msgstr "Az aktuális fájl újratöltése"
 
-#: ../src/vnr-window.c:1476 ../src/vnr-window.c:1491 ../src/vnr-window.c:1494
+#: ../src/vnr-window.c:1501 ../src/vnr-window.c:1516 ../src/vnr-window.c:1519
 msgid "_Zoom In"
 msgstr "_Nagyítás"
 
-#: ../src/vnr-window.c:1477
+#: ../src/vnr-window.c:1502
 msgid "Enlarge the image"
 msgstr "Kép nagyítása"
 
-#: ../src/vnr-window.c:1479 ../src/vnr-window.c:1497
+#: ../src/vnr-window.c:1504 ../src/vnr-window.c:1522
 msgid "Zoom _Out"
 msgstr "_Kicsinyítés"
 
-#: ../src/vnr-window.c:1480 ../src/vnr-window.c:1492 ../src/vnr-window.c:1495
-#: ../src/vnr-window.c:1498
+#: ../src/vnr-window.c:1505 ../src/vnr-window.c:1517 ../src/vnr-window.c:1520
+#: ../src/vnr-window.c:1523
 msgid "Shrink the image"
 msgstr "Kép kicsinyítése"
 
-#: ../src/vnr-window.c:1482
+#: ../src/vnr-window.c:1507
 msgid "_Normal Size"
 msgstr "N_ormál méret"
 
-#: ../src/vnr-window.c:1483
+#: ../src/vnr-window.c:1508
 msgid "Show the image at its normal size"
 msgstr "Kép megjelenítése rendes méretben"
 
-#: ../src/vnr-window.c:1485
+#: ../src/vnr-window.c:1510
 msgid "Best _Fit"
 msgstr "Legjobb _illeszkedés"
 
-#: ../src/vnr-window.c:1486
+#: ../src/vnr-window.c:1511
 msgid "Fit the image to the window"
 msgstr "Kép igazítása az ablakhoz"
 
-#: ../src/vnr-window.c:1488
+#: ../src/vnr-window.c:1513
 msgid "_Adjust window size"
 msgstr "_Ablak méretének beállítása"
 
-#: ../src/vnr-window.c:1489
+#: ../src/vnr-window.c:1514
 msgid "Adjust window size to fit the image"
 msgstr "Ablak méretének beállítása a kép méretéhez"
 
-#: ../src/vnr-window.c:1503
+#: ../src/vnr-window.c:1528
 msgid "Rotate _Clockwise"
 msgstr "Forgatás az óramutató járásával"
 
-#: ../src/vnr-window.c:1504
+#: ../src/vnr-window.c:1529
 msgid "Rotate image clockwise"
 msgstr "Forgatás az óramutató járásával megyezően"
 
-#: ../src/vnr-window.c:1506
+#: ../src/vnr-window.c:1531
 msgid "Rotate _Anti-clockwise"
 msgstr "Forgatás ellentétesen"
 
-#: ../src/vnr-window.c:1507
+#: ../src/vnr-window.c:1532
 msgid "Rotate image anti-clockwise"
 msgstr "Forgatás az óramutató járásával ellentétesen"
 
-#: ../src/vnr-window.c:1509
+#: ../src/vnr-window.c:1534
 msgid "Flip _Vertical"
 msgstr "_Függőleges tükrözés"
 
-#: ../src/vnr-window.c:1510
+#: ../src/vnr-window.c:1535
 msgid "Flip image vertically"
 msgstr "A kép függőleges tükrözése"
 
-#: ../src/vnr-window.c:1512
+#: ../src/vnr-window.c:1537
 msgid "Flip _Horizontal"
 msgstr "_Vízszintes tükrözés"
 
-#: ../src/vnr-window.c:1513
+#: ../src/vnr-window.c:1538
 msgid "Flip image horizontally"
 msgstr "A kép vízszintes tükrözése"
 
-#: ../src/vnr-window.c:1515
+#: ../src/vnr-window.c:1540
 msgid "Crop..."
 msgstr "Vágás..."
 
-#: ../src/vnr-window.c:1521
+#: ../src/vnr-window.c:1546
 msgid "Full _Screen"
 msgstr "Telje_s képernyő"
 
-#: ../src/vnr-window.c:1522
+#: ../src/vnr-window.c:1547
 msgid "Show in fullscreen mode"
 msgstr "Mutatás teljes képernyős üzemmódban"
 
-#: ../src/vnr-window.c:1527
+#: ../src/vnr-window.c:1552
 msgid "Toolbar"
 msgstr "Eszköztár"
 
-#: ../src/vnr-window.c:1528
+#: ../src/vnr-window.c:1553
 msgid "Show Toolbar"
 msgstr "Eszköztár megjelenítése"
 
-#: ../src/vnr-window.c:1533
+#: ../src/vnr-window.c:1558
 msgid "Sli_deshow"
 msgstr "_Diavetítés"
 
-#: ../src/vnr-window.c:1534
+#: ../src/vnr-window.c:1559
 msgid "Show in slideshow mode"
 msgstr "Mutatás diavetítés módban"
 
-#: ../src/vnr-window.c:1539
+#: ../src/vnr-window.c:1564
 msgid "_Previous Image"
 msgstr "_Előző kép"
 
-#: ../src/vnr-window.c:1540
+#: ../src/vnr-window.c:1565
 msgid "Go to the previous image of the collection"
 msgstr "Ugrás a gyűjtemény előző képére"
 
-#: ../src/vnr-window.c:1542
+#: ../src/vnr-window.c:1567
 msgid "_Next Image"
 msgstr "_Következő kép"
 
-#: ../src/vnr-window.c:1543
+#: ../src/vnr-window.c:1568
 msgid "Go to the next image of the collection"
 msgstr "Ugrás a gyűjtemény következő képére"
 
-#: ../src/vnr-window.c:1545
+#: ../src/vnr-window.c:1570
 msgid "_First Image"
 msgstr "_Első kép"
 
-#: ../src/vnr-window.c:1546
+#: ../src/vnr-window.c:1571
 msgid "Go to the first image of the collection"
 msgstr "Ugrás a gyűjtemény első képére"
 
-#: ../src/vnr-window.c:1548
+#: ../src/vnr-window.c:1573
 msgid "_Last Image"
 msgstr "_Utolsó kép"
 
-#: ../src/vnr-window.c:1549
+#: ../src/vnr-window.c:1574
 msgid "Go to the last image of the collection"
 msgstr "Ugrás a gyűjtemény utolsó képére"

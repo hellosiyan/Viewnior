@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: viewnior trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-09 12:01+0300\n"
+"POT-Creation-Date: 2010-03-30 21:25+0300\n"
 "PO-Revision-Date: 2009-05-02 23:17+0300\n"
 "Last-Translator: Siyan Panayotov <xsisqox@gmail.com>\n"
 "Language-Team: Siyan Panayotov <xsisqox@gmail.com>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:987
+#: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:1175
 msgid "Elegant Image Viewer"
 msgstr "Elegancka przeglądarka obrazów"
 
@@ -103,8 +103,33 @@ msgstr ""
 msgid "Viewnior Preferences"
 msgstr ""
 
-#: ../src/main.c:113 ../src/vnr-window.c:1131 ../src/vnr-window.c:1382
-#: ../src/vnr-window.c:1705
+#: ../data/vnr-crop-dialog.ui.h:1 ../src/vnr-window.c:1541
+msgid "Crop"
+msgstr ""
+
+#: ../data/vnr-crop-dialog.ui.h:2
+#, fuzzy
+msgid "Crop Image"
+msgstr "Otwiera obraz"
+
+#: ../data/vnr-crop-dialog.ui.h:3
+msgid "Height: "
+msgstr ""
+
+#: ../data/vnr-crop-dialog.ui.h:4
+msgid "Width: "
+msgstr ""
+
+#: ../data/vnr-crop-dialog.ui.h:5
+msgid "X: "
+msgstr ""
+
+#: ../data/vnr-crop-dialog.ui.h:6
+msgid "Y: "
+msgstr ""
+
+#: ../src/main.c:113 ../src/vnr-window.c:1349 ../src/vnr-window.c:1684
+#: ../src/vnr-window.c:2081
 msgid "The given locations contain no images."
 msgstr "Podana lokalizacja nie zawiera żadnych zdjęć."
 
@@ -119,45 +144,49 @@ msgid ""
 "format for file '%s'"
 msgstr ""
 
-#: ../src/vnr-prefs.c:237
+#: ../src/vnr-prefs.c:247
 msgid "Smart Mode"
 msgstr ""
 
-#: ../src/vnr-prefs.c:238
+#: ../src/vnr-prefs.c:248
 msgid "1:1 Mode"
 msgstr ""
 
-#: ../src/vnr-prefs.c:239
+#: ../src/vnr-prefs.c:249
 msgid "Fit To Window Mode"
 msgstr ""
 
-#: ../src/vnr-prefs.c:251 ../src/vnr-prefs.c:262
+#: ../src/vnr-prefs.c:261 ../src/vnr-prefs.c:273
 #, fuzzy
 msgid "Navigate images"
 msgstr "Powiększa obraz"
 
-#: ../src/vnr-prefs.c:252
+#: ../src/vnr-prefs.c:262
 msgid "Zoom image"
 msgstr ""
 
-#: ../src/vnr-prefs.c:260
+#: ../src/vnr-prefs.c:263
+msgid "Scroll image up/down"
+msgstr ""
+
+#: ../src/vnr-prefs.c:271
 msgid "Switch zoom modes"
 msgstr ""
 
-#: ../src/vnr-prefs.c:261
+#: ../src/vnr-prefs.c:272
 #, fuzzy
 msgid "Enter fullscreen mode"
 msgstr "Pokazuje obraz w trybie pełnoekranowym"
 
-#: ../src/vnr-prefs.c:270
+#: ../src/vnr-prefs.c:281
 msgid "Ask every time"
 msgstr ""
 
-#: ../src/vnr-prefs.c:271
+#: ../src/vnr-prefs.c:282
 msgid "Autosave"
 msgstr ""
 
-#: ../src/vnr-prefs.c:272
+#: ../src/vnr-prefs.c:283
 msgid "Ignore changes"
 msgstr ""
 
@@ -205,49 +234,58 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: ../src/vnr-window.c:245
+#: ../src/vnr-window.c:243
+#, c-format
+msgid "Use \"%s\" to open the selected image"
+msgstr ""
+
+#: ../src/vnr-window.c:414
 msgid "Show next image after: "
 msgstr "Pokaż następny obraz po: "
 
-#: ../src/vnr-window.c:263 ../src/vnr-window.c:646
+#: ../src/vnr-window.c:432 ../src/vnr-window.c:840
 #, fuzzy
 msgid " second"
 msgid_plural " seconds"
 msgstr[0] " sekund"
 msgstr[1] " sekund"
 
-#: ../src/vnr-window.c:490 ../src/vnr-window.c:553
+#: ../src/vnr-window.c:665 ../src/vnr-window.c:728
 msgid "Not enough virtual memory."
 msgstr ""
 
-#: ../src/vnr-window.c:524 ../src/vnr-window.c:582
+#: ../src/vnr-window.c:699 ../src/vnr-window.c:757 ../src/vnr-window.c:1432
 msgid ""
 "Image modifications cannot be saved.\n"
 "Writing in this format is not supported."
 msgstr ""
 
-#: ../src/vnr-window.c:531 ../src/vnr-window.c:589
+#: ../src/vnr-window.c:706 ../src/vnr-window.c:764 ../src/vnr-window.c:1439
 msgid ""
 "Save modifications?\n"
 "This will overwrite the image and may reduce it's quality!"
 msgstr ""
 
-#: ../src/vnr-window.c:901
+#: ../src/vnr-window.c:1095
 #, fuzzy
 msgid "Open Image"
 msgstr "Otwiera obraz"
 
-#: ../src/vnr-window.c:930
+#: ../src/vnr-window.c:1124
 #, fuzzy
 msgid "Open Folder"
 msgstr "Otwiera folder"
 
-#: ../src/vnr-window.c:1074
+#: ../src/vnr-window.c:1181
+msgid "translator-credits"
+msgstr ""
+
+#: ../src/vnr-window.c:1288
 msgid "If you delete an item, it will be permanently lost."
 msgstr "Jeśli usuniesz obraz, zostanie on bezpowrotnie utracony."
 
 #. I18N: The '%s' is replaced with the name of the file to be deleted.
-#: ../src/vnr-window.c:1077
+#: ../src/vnr-window.c:1291
 #, c-format
 msgid ""
 "Are you sure you want to\n"
@@ -256,237 +294,258 @@ msgstr ""
 "Czy jesteś pewien że chcesz\n"
 "permanentnie usunąć \"%s\"?"
 
-#: ../src/vnr-window.c:1105
-#, c-format
-msgid "Error deleting image: %s"
-msgstr "Bład przy usuwaniu obrazu: %s"
-
-#: ../src/vnr-window.c:1175
+#: ../src/vnr-window.c:1447
 msgid "_File"
 msgstr "_Plik"
 
-#: ../src/vnr-window.c:1176
+#: ../src/vnr-window.c:1448
 msgid "_Edit"
 msgstr ""
 
-#: ../src/vnr-window.c:1177
+#: ../src/vnr-window.c:1449
 msgid "_View"
 msgstr "_Widok"
 
-#: ../src/vnr-window.c:1178
+#: ../src/vnr-window.c:1450
 #, fuzzy
 msgid "_Image"
 msgstr "_Następny obraz"
 
-#: ../src/vnr-window.c:1179
+#: ../src/vnr-window.c:1451
 msgid "_Go"
 msgstr "_Idź"
 
-#: ../src/vnr-window.c:1180
+#: ../src/vnr-window.c:1452
 msgid "_Help"
 msgstr "_Pomoc"
 
-#: ../src/vnr-window.c:1182
+#: ../src/vnr-window.c:1454
 msgid "Open _Image..."
 msgstr "_Otwórz obraz..."
 
-#: ../src/vnr-window.c:1183
+#: ../src/vnr-window.c:1455
 msgid "Open an Image"
 msgstr "Otwiera obraz"
 
-#: ../src/vnr-window.c:1185
+#: ../src/vnr-window.c:1457
 msgid "Open _Folder..."
 msgstr "Otwórz _folder..."
 
-#: ../src/vnr-window.c:1186
+#: ../src/vnr-window.c:1458
 msgid "Open a Folder"
 msgstr "Otwiera folder"
 
-#: ../src/vnr-window.c:1188
+#: ../src/vnr-window.c:1460
 msgid "_Close"
 msgstr "_Zamknij"
 
-#: ../src/vnr-window.c:1189
+#: ../src/vnr-window.c:1461
 msgid "Close window"
 msgstr "Zamyka aktualne okno"
 
-#: ../src/vnr-window.c:1191
+#: ../src/vnr-window.c:1463
 msgid "_About"
 msgstr "O programie..."
 
-#: ../src/vnr-window.c:1192
+#: ../src/vnr-window.c:1464
 msgid "About this application"
 msgstr "Pokazuje okno z informacją o tym programie"
 
-#: ../src/vnr-window.c:1194
+#: ../src/vnr-window.c:1466
 msgid "_Preferences..."
 msgstr ""
 
-#: ../src/vnr-window.c:1195
+#: ../src/vnr-window.c:1467
 msgid "User preferences for Viewnior"
 msgstr ""
 
-#: ../src/vnr-window.c:1200
+#: ../src/vnr-window.c:1472
 msgid "_Save"
 msgstr ""
 
-#: ../src/vnr-window.c:1201
+#: ../src/vnr-window.c:1473
 msgid "Save changes"
 msgstr ""
 
-#: ../src/vnr-window.c:1206 ../src/vnr-window.c:1215
+#: ../src/vnr-window.c:1479
+msgid "Set as _Wallpaper"
+msgstr "Ustaw jako _tapetę"
+
+#: ../src/vnr-window.c:1480
+msgid "Set the selected image as the desktop background"
+msgstr "Ustawia obecnie załadowany obraz jako tło pulpitu"
+
+#: ../src/vnr-window.c:1486
+msgid "Open _With"
+msgstr ""
+
+#: ../src/vnr-window.c:1487
+#, fuzzy
+msgid "Open the selected image with a different application"
+msgstr "Ustawia obecnie załadowany obraz jako tło pulpitu"
+
+#: ../src/vnr-window.c:1489 ../src/vnr-window.c:1498
 msgid "_Delete"
 msgstr "_Usuń"
 
-#: ../src/vnr-window.c:1207 ../src/vnr-window.c:1216
+#: ../src/vnr-window.c:1490 ../src/vnr-window.c:1499
 msgid "Delete the current file"
 msgstr "Usuwa aktualny plk"
 
-#: ../src/vnr-window.c:1209
+#: ../src/vnr-window.c:1492
 msgid "_Properties..."
 msgstr ""
 
-#: ../src/vnr-window.c:1210
+#: ../src/vnr-window.c:1493
 msgid "Show information about the current file"
 msgstr ""
 
-#: ../src/vnr-window.c:1212
+#: ../src/vnr-window.c:1495
 msgid "_Reload"
 msgstr ""
 
-#: ../src/vnr-window.c:1213
+#: ../src/vnr-window.c:1496
 #, fuzzy
 msgid "Reload the current file"
 msgstr "Usuwa aktualny plk"
 
-#: ../src/vnr-window.c:1218 ../src/vnr-window.c:1233 ../src/vnr-window.c:1236
+#: ../src/vnr-window.c:1501 ../src/vnr-window.c:1516 ../src/vnr-window.c:1519
 msgid "_Zoom In"
 msgstr "Powiększ"
 
-#: ../src/vnr-window.c:1219
+#: ../src/vnr-window.c:1502
 msgid "Enlarge the image"
 msgstr "Powiększa obraz"
 
-#: ../src/vnr-window.c:1221 ../src/vnr-window.c:1239
+#: ../src/vnr-window.c:1504 ../src/vnr-window.c:1522
 msgid "Zoom _Out"
 msgstr "Pomnniejsz"
 
-#: ../src/vnr-window.c:1222 ../src/vnr-window.c:1234 ../src/vnr-window.c:1237
-#: ../src/vnr-window.c:1240
+#: ../src/vnr-window.c:1505 ../src/vnr-window.c:1517 ../src/vnr-window.c:1520
+#: ../src/vnr-window.c:1523
 msgid "Shrink the image"
 msgstr "Pomniejsza obraz"
 
-#: ../src/vnr-window.c:1224
+#: ../src/vnr-window.c:1507
 msgid "_Normal Size"
 msgstr "_Normalny rozmiar"
 
-#: ../src/vnr-window.c:1225
+#: ../src/vnr-window.c:1508
 msgid "Show the image at its normal size"
 msgstr "Pokazuje obraz w normalnym rozmiarze"
 
-#: ../src/vnr-window.c:1227
+#: ../src/vnr-window.c:1510
 msgid "Best _Fit"
 msgstr "Najlepsze dopasowanie"
 
-#: ../src/vnr-window.c:1228
+#: ../src/vnr-window.c:1511
 msgid "Fit the image to the window"
 msgstr "Skaluj obraz do okna"
 
-#: ../src/vnr-window.c:1230
+#: ../src/vnr-window.c:1513
 msgid "_Adjust window size"
 msgstr ""
 
-#: ../src/vnr-window.c:1231
+#: ../src/vnr-window.c:1514
 #, fuzzy
 msgid "Adjust window size to fit the image"
 msgstr "Zmienia rozmiar okna dopasowując do rozmiaru obrazu"
 
-#: ../src/vnr-window.c:1245
+#: ../src/vnr-window.c:1528
 msgid "Rotate _Clockwise"
 msgstr ""
 
-#: ../src/vnr-window.c:1246
+#: ../src/vnr-window.c:1529
 msgid "Rotate image clockwise"
 msgstr ""
 
-#: ../src/vnr-window.c:1248
+#: ../src/vnr-window.c:1531
 msgid "Rotate _Anti-clockwise"
 msgstr ""
 
-#: ../src/vnr-window.c:1249
+#: ../src/vnr-window.c:1532
 msgid "Rotate image anti-clockwise"
 msgstr ""
 
-#: ../src/vnr-window.c:1251
+#: ../src/vnr-window.c:1534
 msgid "Flip _Vertical"
 msgstr ""
 
-#: ../src/vnr-window.c:1252
+#: ../src/vnr-window.c:1535
 msgid "Flip image vertically"
 msgstr ""
 
-#: ../src/vnr-window.c:1254
+#: ../src/vnr-window.c:1537
 msgid "Flip _Horizontal"
 msgstr ""
 
-#: ../src/vnr-window.c:1255
+#: ../src/vnr-window.c:1538
 msgid "Flip image horizontally"
 msgstr ""
 
-#: ../src/vnr-window.c:1260
+#: ../src/vnr-window.c:1540
+msgid "Crop..."
+msgstr ""
+
+#: ../src/vnr-window.c:1546
 msgid "Full _Screen"
 msgstr "Pełny _ekran"
 
-#: ../src/vnr-window.c:1261
+#: ../src/vnr-window.c:1547
 msgid "Show in fullscreen mode"
 msgstr "Pokazuje obraz w trybie pełnoekranowym"
 
-#: ../src/vnr-window.c:1266
+#: ../src/vnr-window.c:1552
+msgid "Toolbar"
+msgstr ""
+
+#: ../src/vnr-window.c:1553
+msgid "Show Toolbar"
+msgstr ""
+
+#: ../src/vnr-window.c:1558
 msgid "Sli_deshow"
 msgstr ""
 
-#: ../src/vnr-window.c:1267
+#: ../src/vnr-window.c:1559
 #, fuzzy
 msgid "Show in slideshow mode"
 msgstr "Pokazuje obraz w trybie pełnoekranowym"
 
-#: ../src/vnr-window.c:1272
+#: ../src/vnr-window.c:1564
 msgid "_Previous Image"
 msgstr "_Poprzedni obraz"
 
-#: ../src/vnr-window.c:1273
+#: ../src/vnr-window.c:1565
 msgid "Go to the previous image of the collection"
 msgstr "Przechodzi do poprzedniego obrazu w kolekcji"
 
-#: ../src/vnr-window.c:1275
+#: ../src/vnr-window.c:1567
 msgid "_Next Image"
 msgstr "_Następny obraz"
 
-#: ../src/vnr-window.c:1276
+#: ../src/vnr-window.c:1568
 msgid "Go to the next image of the collection"
 msgstr "Przechodzi do następnego obrazu w kolekcji"
 
-#: ../src/vnr-window.c:1278
+#: ../src/vnr-window.c:1570
 msgid "_First Image"
 msgstr "_Pierwszy obraz"
 
-#: ../src/vnr-window.c:1279
+#: ../src/vnr-window.c:1571
 msgid "Go to the first image of the collection"
 msgstr "Pokazuje pierwszy obraz w kolekcji"
 
-#: ../src/vnr-window.c:1281
+#: ../src/vnr-window.c:1573
 msgid "_Last Image"
 msgstr "_Ostatni obraz"
 
-#: ../src/vnr-window.c:1282
+#: ../src/vnr-window.c:1574
 msgid "Go to the last image of the collection"
 msgstr "Pokazuje ostatni obraz w kolekcji"
 
-#~ msgid "Set as _Wallpaper"
-#~ msgstr "Ustaw jako _tapetę"
-
-#~ msgid "Set the selected image as the desktop background"
-#~ msgstr "Ustawia obecnie załadowany obraz jako tło pulpitu"
+#~ msgid "Error deleting image: %s"
+#~ msgstr "Bład przy usuwaniu obrazu: %s"
 
 #~ msgid "_Resize Window"
 #~ msgstr "Zmień rozmiar okna"

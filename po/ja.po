@@ -6,11 +6,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: viewnior-0.7\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-08-31 11:05+0300\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-03-30 21:25+0300\n"
 "PO-Revision-Date: 2009-12-23 23:01+0000\n"
-"Last-Translator: Launchpad Translations Administrators "
-"<rosetta@launchpad.net>\n"
+"Last-Translator: Launchpad Translations Administrators <rosetta@launchpad."
+"net>\n"
 "Language-Team: Team Puppy linux Japan\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Launchpad-Export-Date: 2010-03-30 18:12+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:1153
+#: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:1175
 msgid "Elegant Image Viewer"
 msgstr "エレガントな画像ビューア"
 
@@ -105,7 +105,7 @@ msgstr "ズームする時、画像をなめらかに"
 msgid "Viewnior Preferences"
 msgstr "Viewnior 設定"
 
-#: ../data/vnr-crop-dialog.ui.h:1 ../src/vnr-window.c:1516
+#: ../data/vnr-crop-dialog.ui.h:1 ../src/vnr-window.c:1541
 msgid "Crop"
 msgstr "トリミング"
 
@@ -129,8 +129,8 @@ msgstr "X: "
 msgid "Y: "
 msgstr "Y: "
 
-#: ../src/main.c:113 ../src/vnr-window.c:1326 ../src/vnr-window.c:1649
-#: ../src/vnr-window.c:2046
+#: ../src/main.c:113 ../src/vnr-window.c:1349 ../src/vnr-window.c:1684
+#: ../src/vnr-window.c:2081
 msgid "The given locations contain no images."
 msgstr "指定された場所には画像はありません。"
 
@@ -233,25 +233,25 @@ msgstr "<b>高さ:</b>"
 msgid "None"
 msgstr "なし"
 
-#: ../src/vnr-window.c:240
+#: ../src/vnr-window.c:243
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "選択画像を開くのに \"%s\" を使う"
 
-#: ../src/vnr-window.c:395
+#: ../src/vnr-window.c:414
 msgid "Show next image after: "
 msgstr "後ろに次の画像を表示: "
 
-#: ../src/vnr-window.c:413 ../src/vnr-window.c:818
+#: ../src/vnr-window.c:432 ../src/vnr-window.c:840
 msgid " second"
 msgid_plural " seconds"
 msgstr[0] " 秒"
 
-#: ../src/vnr-window.c:643 ../src/vnr-window.c:706
+#: ../src/vnr-window.c:665 ../src/vnr-window.c:728
 msgid "Not enough virtual memory."
 msgstr "仮想メモリが足りません。"
 
-#: ../src/vnr-window.c:677 ../src/vnr-window.c:735 ../src/vnr-window.c:1407
+#: ../src/vnr-window.c:699 ../src/vnr-window.c:757 ../src/vnr-window.c:1432
 msgid ""
 "Image modifications cannot be saved.\n"
 "Writing in this format is not supported."
@@ -259,7 +259,7 @@ msgstr ""
 "画像の修正が保存できません。\n"
 "この形式への書き込みはサポートされていません。"
 
-#: ../src/vnr-window.c:684 ../src/vnr-window.c:742 ../src/vnr-window.c:1414
+#: ../src/vnr-window.c:706 ../src/vnr-window.c:764 ../src/vnr-window.c:1439
 msgid ""
 "Save modifications?\n"
 "This will overwrite the image and may reduce it's quality!"
@@ -267,26 +267,26 @@ msgstr ""
 "修正を保存しますか？\n"
 "この操作は画像を上書きし、品質が低下します！"
 
-#: ../src/vnr-window.c:1073
+#: ../src/vnr-window.c:1095
 msgid "Open Image"
 msgstr "画像を開く"
 
-#: ../src/vnr-window.c:1102
+#: ../src/vnr-window.c:1124
 msgid "Open Folder"
 msgstr "フォルダを開く"
 
-#: ../src/vnr-window.c:1158
+#: ../src/vnr-window.c:1181
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  YoN https://launchpad.net/~yon8844"
 
-#: ../src/vnr-window.c:1265
+#: ../src/vnr-window.c:1288
 msgid "If you delete an item, it will be permanently lost."
 msgstr "アイテムを削除すると、永久に失われます。"
 
 #. I18N: The '%s' is replaced with the name of the file to be deleted.
-#: ../src/vnr-window.c:1268
+#: ../src/vnr-window.c:1291
 #, c-format
 msgid ""
 "Are you sure you want to\n"
@@ -295,247 +295,247 @@ msgstr ""
 "本当に次のファイル\n"
 " \"%s\" を永久に削除しますか？"
 
-#: ../src/vnr-window.c:1422
+#: ../src/vnr-window.c:1447
 msgid "_File"
 msgstr "ファイル(_F)"
 
-#: ../src/vnr-window.c:1423
+#: ../src/vnr-window.c:1448
 msgid "_Edit"
 msgstr "編集(_E)"
 
-#: ../src/vnr-window.c:1424
+#: ../src/vnr-window.c:1449
 msgid "_View"
 msgstr "表示(_V)"
 
-#: ../src/vnr-window.c:1425
+#: ../src/vnr-window.c:1450
 msgid "_Image"
 msgstr "画像(_I)"
 
-#: ../src/vnr-window.c:1426
+#: ../src/vnr-window.c:1451
 msgid "_Go"
 msgstr "移動(_G)"
 
-#: ../src/vnr-window.c:1427
+#: ../src/vnr-window.c:1452
 msgid "_Help"
 msgstr "ヘルプ(_H)"
 
-#: ../src/vnr-window.c:1429
+#: ../src/vnr-window.c:1454
 msgid "Open _Image..."
 msgstr "画像を開く(_I)..."
 
-#: ../src/vnr-window.c:1430
+#: ../src/vnr-window.c:1455
 msgid "Open an Image"
 msgstr "画像を開く"
 
-#: ../src/vnr-window.c:1432
+#: ../src/vnr-window.c:1457
 msgid "Open _Folder..."
 msgstr "フォルダを開く(_F)..."
 
-#: ../src/vnr-window.c:1433
+#: ../src/vnr-window.c:1458
 msgid "Open a Folder"
 msgstr "フォルダを開く"
 
-#: ../src/vnr-window.c:1435
+#: ../src/vnr-window.c:1460
 msgid "_Close"
 msgstr "閉じる(_C)"
 
-#: ../src/vnr-window.c:1436
+#: ../src/vnr-window.c:1461
 msgid "Close window"
 msgstr "ウィンドウを閉じる"
 
-#: ../src/vnr-window.c:1438
+#: ../src/vnr-window.c:1463
 msgid "_About"
 msgstr "バージョン情報(_A)"
 
-#: ../src/vnr-window.c:1439
+#: ../src/vnr-window.c:1464
 msgid "About this application"
 msgstr "このアプリケーションについて"
 
-#: ../src/vnr-window.c:1441
+#: ../src/vnr-window.c:1466
 msgid "_Preferences..."
 msgstr "設定(_P)..."
 
-#: ../src/vnr-window.c:1442
+#: ../src/vnr-window.c:1467
 msgid "User preferences for Viewnior"
 msgstr "Viewnior 用のユーザ設定"
 
-#: ../src/vnr-window.c:1447
+#: ../src/vnr-window.c:1472
 msgid "_Save"
 msgstr "保存(_S)"
 
-#: ../src/vnr-window.c:1448
+#: ../src/vnr-window.c:1473
 msgid "Save changes"
 msgstr "変更を保存"
 
-#: ../src/vnr-window.c:1454
+#: ../src/vnr-window.c:1479
 msgid "Set as _Wallpaper"
 msgstr "壁紙に設定(_W)"
 
-#: ../src/vnr-window.c:1455
+#: ../src/vnr-window.c:1480
 msgid "Set the selected image as the desktop background"
 msgstr "選択画像をデスクトップ背景に設定"
 
-#: ../src/vnr-window.c:1461
+#: ../src/vnr-window.c:1486
 msgid "Open _With"
 msgstr "次のプログラムで開く(_W)"
 
-#: ../src/vnr-window.c:1462
+#: ../src/vnr-window.c:1487
 msgid "Open the selected image with a different application"
 msgstr "選択画像を別のアプリケーションで開く"
 
-#: ../src/vnr-window.c:1464 ../src/vnr-window.c:1473
+#: ../src/vnr-window.c:1489 ../src/vnr-window.c:1498
 msgid "_Delete"
 msgstr "削除(_D)"
 
-#: ../src/vnr-window.c:1465 ../src/vnr-window.c:1474
+#: ../src/vnr-window.c:1490 ../src/vnr-window.c:1499
 msgid "Delete the current file"
 msgstr "現在のファイルを削除"
 
-#: ../src/vnr-window.c:1467
+#: ../src/vnr-window.c:1492
 msgid "_Properties..."
 msgstr "プロパティ(_P)..."
 
-#: ../src/vnr-window.c:1468
+#: ../src/vnr-window.c:1493
 msgid "Show information about the current file"
 msgstr "現在のファイルの情報を表示"
 
-#: ../src/vnr-window.c:1470
+#: ../src/vnr-window.c:1495
 msgid "_Reload"
 msgstr "再読み込み(_R)"
 
-#: ../src/vnr-window.c:1471
+#: ../src/vnr-window.c:1496
 msgid "Reload the current file"
 msgstr "現在のファイルを再読み込み"
 
-#: ../src/vnr-window.c:1476 ../src/vnr-window.c:1491 ../src/vnr-window.c:1494
+#: ../src/vnr-window.c:1501 ../src/vnr-window.c:1516 ../src/vnr-window.c:1519
 msgid "_Zoom In"
 msgstr "拡大(_Z)"
 
-#: ../src/vnr-window.c:1477
+#: ../src/vnr-window.c:1502
 msgid "Enlarge the image"
 msgstr "画像を拡大"
 
-#: ../src/vnr-window.c:1479 ../src/vnr-window.c:1497
+#: ../src/vnr-window.c:1504 ../src/vnr-window.c:1522
 msgid "Zoom _Out"
 msgstr "縮小(_O)"
 
-#: ../src/vnr-window.c:1480 ../src/vnr-window.c:1492 ../src/vnr-window.c:1495
-#: ../src/vnr-window.c:1498
+#: ../src/vnr-window.c:1505 ../src/vnr-window.c:1517 ../src/vnr-window.c:1520
+#: ../src/vnr-window.c:1523
 msgid "Shrink the image"
 msgstr "画像を縮小"
 
-#: ../src/vnr-window.c:1482
+#: ../src/vnr-window.c:1507
 msgid "_Normal Size"
 msgstr "普通サイズ(_N)"
 
-#: ../src/vnr-window.c:1483
+#: ../src/vnr-window.c:1508
 msgid "Show the image at its normal size"
 msgstr "画像をその普通サイズで表示"
 
-#: ../src/vnr-window.c:1485
+#: ../src/vnr-window.c:1510
 msgid "Best _Fit"
 msgstr "最適(_F)"
 
-#: ../src/vnr-window.c:1486
+#: ../src/vnr-window.c:1511
 msgid "Fit the image to the window"
 msgstr "画像をウィンドウに合わせる"
 
-#: ../src/vnr-window.c:1488
+#: ../src/vnr-window.c:1513
 msgid "_Adjust window size"
 msgstr "ウィンドウサイズを調整(_A)"
 
-#: ../src/vnr-window.c:1489
+#: ../src/vnr-window.c:1514
 msgid "Adjust window size to fit the image"
 msgstr "ウィンドウサイズを画像に合わせて調整"
 
-#: ../src/vnr-window.c:1503
+#: ../src/vnr-window.c:1528
 msgid "Rotate _Clockwise"
 msgstr "時計回りに回転(_C)"
 
-#: ../src/vnr-window.c:1504
+#: ../src/vnr-window.c:1529
 msgid "Rotate image clockwise"
 msgstr "画像を時計回りに回転"
 
-#: ../src/vnr-window.c:1506
+#: ../src/vnr-window.c:1531
 msgid "Rotate _Anti-clockwise"
 msgstr "反時計回りに回転(_A)"
 
-#: ../src/vnr-window.c:1507
+#: ../src/vnr-window.c:1532
 msgid "Rotate image anti-clockwise"
 msgstr "画像を反時計回りに回転"
 
-#: ../src/vnr-window.c:1509
+#: ../src/vnr-window.c:1534
 msgid "Flip _Vertical"
 msgstr "垂直に反転(_V)"
 
-#: ../src/vnr-window.c:1510
+#: ../src/vnr-window.c:1535
 msgid "Flip image vertically"
 msgstr "画像を垂直方向に反転"
 
-#: ../src/vnr-window.c:1512
+#: ../src/vnr-window.c:1537
 msgid "Flip _Horizontal"
 msgstr "水平に反転(_H)"
 
-#: ../src/vnr-window.c:1513
+#: ../src/vnr-window.c:1538
 msgid "Flip image horizontally"
 msgstr "画像を水平方向に反転"
 
-#: ../src/vnr-window.c:1515
+#: ../src/vnr-window.c:1540
 msgid "Crop..."
 msgstr "トリミング..."
 
-#: ../src/vnr-window.c:1521
+#: ../src/vnr-window.c:1546
 msgid "Full _Screen"
 msgstr "全画面(_S)"
 
-#: ../src/vnr-window.c:1522
+#: ../src/vnr-window.c:1547
 msgid "Show in fullscreen mode"
 msgstr "全画面モードで表示"
 
-#: ../src/vnr-window.c:1527
+#: ../src/vnr-window.c:1552
 msgid "Toolbar"
 msgstr "ツールバー"
 
-#: ../src/vnr-window.c:1528
+#: ../src/vnr-window.c:1553
 msgid "Show Toolbar"
 msgstr "ツールバーを表示"
 
-#: ../src/vnr-window.c:1533
+#: ../src/vnr-window.c:1558
 msgid "Sli_deshow"
 msgstr "スライドショー(_D)"
 
-#: ../src/vnr-window.c:1534
+#: ../src/vnr-window.c:1559
 msgid "Show in slideshow mode"
 msgstr "スライドショー モードで表示"
 
-#: ../src/vnr-window.c:1539
+#: ../src/vnr-window.c:1564
 msgid "_Previous Image"
 msgstr "前の画像(_P)"
 
-#: ../src/vnr-window.c:1540
+#: ../src/vnr-window.c:1565
 msgid "Go to the previous image of the collection"
 msgstr "コレクションの前の画像に移動"
 
-#: ../src/vnr-window.c:1542
+#: ../src/vnr-window.c:1567
 msgid "_Next Image"
 msgstr "次の画像(_N)"
 
-#: ../src/vnr-window.c:1543
+#: ../src/vnr-window.c:1568
 msgid "Go to the next image of the collection"
 msgstr "コレクションの次の画像に移動"
 
-#: ../src/vnr-window.c:1545
+#: ../src/vnr-window.c:1570
 msgid "_First Image"
 msgstr "最初の画像(_F)"
 
-#: ../src/vnr-window.c:1546
+#: ../src/vnr-window.c:1571
 msgid "Go to the first image of the collection"
 msgstr "コレクションの最初の画像に移動"
 
-#: ../src/vnr-window.c:1548
+#: ../src/vnr-window.c:1573
 msgid "_Last Image"
 msgstr "最後の画像(_L)"
 
-#: ../src/vnr-window.c:1549
+#: ../src/vnr-window.c:1574
 msgid "Go to the last image of the collection"
 msgstr "コレクションの最後の画像に移動"

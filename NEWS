@@ -1,3 +1,12 @@
+Viewnior 1.0
+------------
+
+Fixed:
+ - After cropping make the save action sensitive
+ - Rendering issues under Ubuntu 9.10
+ - Show position/total images in fullscreen view
+ - Interface modifications/fixes
+
 Viewnior 0.7
 ------------
 

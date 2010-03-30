@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-08-31 11:05+0300\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-03-30 21:25+0300\n"
 "PO-Revision-Date: 2009-09-28 23:07+0000\n"
 "Last-Translator: Roman Horník <roman.hornik@gmail.com>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Launchpad-Export-Date: 2010-03-30 18:12+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:1153
+#: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:1175
 msgid "Elegant Image Viewer"
 msgstr "Elegantný prehliadač obrázkov"
 
@@ -105,7 +105,7 @@ msgstr ""
 msgid "Viewnior Preferences"
 msgstr "Nastavenie Viewnior"
 
-#: ../data/vnr-crop-dialog.ui.h:1 ../src/vnr-window.c:1516
+#: ../data/vnr-crop-dialog.ui.h:1 ../src/vnr-window.c:1541
 msgid "Crop"
 msgstr "Orezanie"
 
@@ -129,8 +129,8 @@ msgstr "X: "
 msgid "Y: "
 msgstr "Y: "
 
-#: ../src/main.c:113 ../src/vnr-window.c:1326 ../src/vnr-window.c:1649
-#: ../src/vnr-window.c:2046
+#: ../src/main.c:113 ../src/vnr-window.c:1349 ../src/vnr-window.c:1684
+#: ../src/vnr-window.c:2081
 msgid "The given locations contain no images."
 msgstr "Zadané miesto neobsahuje obrázky."
 
@@ -231,305 +231,305 @@ msgstr "<b>Výška:</b>"
 msgid "None"
 msgstr "Žiadne"
 
-#: ../src/vnr-window.c:240
+#: ../src/vnr-window.c:243
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "Použiť  \"%s\" na otvorenie vybraného obrázku"
 
-#: ../src/vnr-window.c:395
+#: ../src/vnr-window.c:414
 msgid "Show next image after: "
 msgstr ""
 
-#: ../src/vnr-window.c:413 ../src/vnr-window.c:818
+#: ../src/vnr-window.c:432 ../src/vnr-window.c:840
 msgid " second"
 msgid_plural " seconds"
 msgstr[0] " sekunda"
 msgstr[1] " sekundy"
 msgstr[2] " sekúnd"
 
-#: ../src/vnr-window.c:643 ../src/vnr-window.c:706
+#: ../src/vnr-window.c:665 ../src/vnr-window.c:728
 msgid "Not enough virtual memory."
 msgstr ""
 
-#: ../src/vnr-window.c:677 ../src/vnr-window.c:735 ../src/vnr-window.c:1407
+#: ../src/vnr-window.c:699 ../src/vnr-window.c:757 ../src/vnr-window.c:1432
 msgid ""
 "Image modifications cannot be saved.\n"
 "Writing in this format is not supported."
 msgstr ""
 
-#: ../src/vnr-window.c:684 ../src/vnr-window.c:742 ../src/vnr-window.c:1414
+#: ../src/vnr-window.c:706 ../src/vnr-window.c:764 ../src/vnr-window.c:1439
 msgid ""
 "Save modifications?\n"
 "This will overwrite the image and may reduce it's quality!"
 msgstr ""
 
-#: ../src/vnr-window.c:1073
+#: ../src/vnr-window.c:1095
 msgid "Open Image"
 msgstr "Otvoriť obrázok"
 
-#: ../src/vnr-window.c:1102
+#: ../src/vnr-window.c:1124
 msgid "Open Folder"
 msgstr "Otvoriť priečinok"
 
-#: ../src/vnr-window.c:1158
+#: ../src/vnr-window.c:1181
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Roman Horník https://launchpad.net/~roman.hornik"
 
-#: ../src/vnr-window.c:1265
+#: ../src/vnr-window.c:1288
 msgid "If you delete an item, it will be permanently lost."
 msgstr "Ak odstránite položku, bude nenávratne stratená."
 
 #. I18N: The '%s' is replaced with the name of the file to be deleted.
-#: ../src/vnr-window.c:1268
+#: ../src/vnr-window.c:1291
 #, c-format
 msgid ""
 "Are you sure you want to\n"
 "permanently delete \"%s\"?"
 msgstr ""
 
-#: ../src/vnr-window.c:1422
+#: ../src/vnr-window.c:1447
 msgid "_File"
 msgstr "_Súbor"
 
-#: ../src/vnr-window.c:1423
+#: ../src/vnr-window.c:1448
 msgid "_Edit"
 msgstr "_Upraviť"
 
-#: ../src/vnr-window.c:1424
+#: ../src/vnr-window.c:1449
 msgid "_View"
 msgstr "_Zobraziť"
 
-#: ../src/vnr-window.c:1425
+#: ../src/vnr-window.c:1450
 msgid "_Image"
 msgstr "_Obrázok"
 
-#: ../src/vnr-window.c:1426
+#: ../src/vnr-window.c:1451
 msgid "_Go"
 msgstr "_Prejsť"
 
-#: ../src/vnr-window.c:1427
+#: ../src/vnr-window.c:1452
 msgid "_Help"
 msgstr "Po_moc"
 
-#: ../src/vnr-window.c:1429
+#: ../src/vnr-window.c:1454
 msgid "Open _Image..."
 msgstr ""
 
-#: ../src/vnr-window.c:1430
+#: ../src/vnr-window.c:1455
 msgid "Open an Image"
 msgstr ""
 
-#: ../src/vnr-window.c:1432
+#: ../src/vnr-window.c:1457
 msgid "Open _Folder..."
 msgstr "Otvoriť _priečinok..."
 
-#: ../src/vnr-window.c:1433
+#: ../src/vnr-window.c:1458
 msgid "Open a Folder"
 msgstr ""
 
-#: ../src/vnr-window.c:1435
+#: ../src/vnr-window.c:1460
 msgid "_Close"
 msgstr "Za_tvoriť"
 
-#: ../src/vnr-window.c:1436
+#: ../src/vnr-window.c:1461
 msgid "Close window"
 msgstr "Zatvoriť okno"
 
-#: ../src/vnr-window.c:1438
+#: ../src/vnr-window.c:1463
 msgid "_About"
 msgstr "O _aplikácii"
 
-#: ../src/vnr-window.c:1439
+#: ../src/vnr-window.c:1464
 msgid "About this application"
 msgstr "O tejto aplikácii"
 
-#: ../src/vnr-window.c:1441
+#: ../src/vnr-window.c:1466
 msgid "_Preferences..."
 msgstr "_Predvoľby..."
 
-#: ../src/vnr-window.c:1442
+#: ../src/vnr-window.c:1467
 msgid "User preferences for Viewnior"
 msgstr ""
 
-#: ../src/vnr-window.c:1447
+#: ../src/vnr-window.c:1472
 msgid "_Save"
 msgstr "_Uložiť"
 
-#: ../src/vnr-window.c:1448
+#: ../src/vnr-window.c:1473
 msgid "Save changes"
 msgstr "Uložiť zmeny"
 
-#: ../src/vnr-window.c:1454
+#: ../src/vnr-window.c:1479
 msgid "Set as _Wallpaper"
 msgstr ""
 
-#: ../src/vnr-window.c:1455
+#: ../src/vnr-window.c:1480
 msgid "Set the selected image as the desktop background"
 msgstr "Vybraný obrázok nastaví ako pozadie plochy"
 
-#: ../src/vnr-window.c:1461
+#: ../src/vnr-window.c:1486
 msgid "Open _With"
 msgstr "Otvoriť _pomocou"
 
-#: ../src/vnr-window.c:1462
+#: ../src/vnr-window.c:1487
 msgid "Open the selected image with a different application"
 msgstr "Otvoriť vybraný obrázok inou aplikáciou"
 
-#: ../src/vnr-window.c:1464 ../src/vnr-window.c:1473
+#: ../src/vnr-window.c:1489 ../src/vnr-window.c:1498
 msgid "_Delete"
 msgstr "_Odstrániť"
 
-#: ../src/vnr-window.c:1465 ../src/vnr-window.c:1474
+#: ../src/vnr-window.c:1490 ../src/vnr-window.c:1499
 msgid "Delete the current file"
 msgstr ""
 
-#: ../src/vnr-window.c:1467
+#: ../src/vnr-window.c:1492
 msgid "_Properties..."
 msgstr "_Vlastnosti..."
 
-#: ../src/vnr-window.c:1468
+#: ../src/vnr-window.c:1493
 msgid "Show information about the current file"
 msgstr "Zobraziť informácie o aktuálnom súbore"
 
-#: ../src/vnr-window.c:1470
+#: ../src/vnr-window.c:1495
 msgid "_Reload"
 msgstr "_Obnoviť"
 
-#: ../src/vnr-window.c:1471
+#: ../src/vnr-window.c:1496
 msgid "Reload the current file"
 msgstr ""
 
-#: ../src/vnr-window.c:1476 ../src/vnr-window.c:1491 ../src/vnr-window.c:1494
+#: ../src/vnr-window.c:1501 ../src/vnr-window.c:1516 ../src/vnr-window.c:1519
 msgid "_Zoom In"
 msgstr "_Zväčšiť"
 
-#: ../src/vnr-window.c:1477
+#: ../src/vnr-window.c:1502
 msgid "Enlarge the image"
 msgstr "Zväčšiť obrázok"
 
-#: ../src/vnr-window.c:1479 ../src/vnr-window.c:1497
+#: ../src/vnr-window.c:1504 ../src/vnr-window.c:1522
 msgid "Zoom _Out"
 msgstr "Zm_enšiť"
 
-#: ../src/vnr-window.c:1480 ../src/vnr-window.c:1492 ../src/vnr-window.c:1495
-#: ../src/vnr-window.c:1498
+#: ../src/vnr-window.c:1505 ../src/vnr-window.c:1517 ../src/vnr-window.c:1520
+#: ../src/vnr-window.c:1523
 msgid "Shrink the image"
 msgstr "Zmenšiť obrázok"
 
-#: ../src/vnr-window.c:1482
+#: ../src/vnr-window.c:1507
 msgid "_Normal Size"
 msgstr "_Normálna veľkosť"
 
-#: ../src/vnr-window.c:1483
+#: ../src/vnr-window.c:1508
 msgid "Show the image at its normal size"
 msgstr "Zobraziť obrázok v jeho pôvodnej veľkosti"
 
-#: ../src/vnr-window.c:1485
+#: ../src/vnr-window.c:1510
 msgid "Best _Fit"
 msgstr "Pr_ispôsobiť"
 
-#: ../src/vnr-window.c:1486
+#: ../src/vnr-window.c:1511
 msgid "Fit the image to the window"
 msgstr "Prispôsobiť obrázok veľkosti okna"
 
-#: ../src/vnr-window.c:1488
+#: ../src/vnr-window.c:1513
 msgid "_Adjust window size"
 msgstr ""
 
-#: ../src/vnr-window.c:1489
+#: ../src/vnr-window.c:1514
 msgid "Adjust window size to fit the image"
 msgstr ""
 
-#: ../src/vnr-window.c:1503
+#: ../src/vnr-window.c:1528
 msgid "Rotate _Clockwise"
 msgstr ""
 
-#: ../src/vnr-window.c:1504
+#: ../src/vnr-window.c:1529
 msgid "Rotate image clockwise"
 msgstr ""
 
-#: ../src/vnr-window.c:1506
+#: ../src/vnr-window.c:1531
 msgid "Rotate _Anti-clockwise"
 msgstr ""
 
-#: ../src/vnr-window.c:1507
+#: ../src/vnr-window.c:1532
 msgid "Rotate image anti-clockwise"
 msgstr ""
 
-#: ../src/vnr-window.c:1509
+#: ../src/vnr-window.c:1534
 msgid "Flip _Vertical"
 msgstr "Preklopiť z_visle"
 
-#: ../src/vnr-window.c:1510
+#: ../src/vnr-window.c:1535
 msgid "Flip image vertically"
 msgstr "Preklopiť z_visle"
 
-#: ../src/vnr-window.c:1512
+#: ../src/vnr-window.c:1537
 msgid "Flip _Horizontal"
 msgstr "Preklopiť v_odorovne"
 
-#: ../src/vnr-window.c:1513
+#: ../src/vnr-window.c:1538
 msgid "Flip image horizontally"
 msgstr "Preklopiť v_odorovne"
 
-#: ../src/vnr-window.c:1515
+#: ../src/vnr-window.c:1540
 msgid "Crop..."
 msgstr "Orez..."
 
-#: ../src/vnr-window.c:1521
+#: ../src/vnr-window.c:1546
 msgid "Full _Screen"
 msgstr ""
 
-#: ../src/vnr-window.c:1522
+#: ../src/vnr-window.c:1547
 msgid "Show in fullscreen mode"
 msgstr ""
 
-#: ../src/vnr-window.c:1527
+#: ../src/vnr-window.c:1552
 msgid "Toolbar"
 msgstr "Panel nástrojov"
 
-#: ../src/vnr-window.c:1528
+#: ../src/vnr-window.c:1553
 msgid "Show Toolbar"
 msgstr "Zobraziť panel nástrojov"
 
-#: ../src/vnr-window.c:1533
+#: ../src/vnr-window.c:1558
 msgid "Sli_deshow"
 msgstr ""
 
-#: ../src/vnr-window.c:1534
+#: ../src/vnr-window.c:1559
 msgid "Show in slideshow mode"
 msgstr ""
 
-#: ../src/vnr-window.c:1539
+#: ../src/vnr-window.c:1564
 msgid "_Previous Image"
 msgstr "_Predchádzajúci obrázok"
 
-#: ../src/vnr-window.c:1540
+#: ../src/vnr-window.c:1565
 msgid "Go to the previous image of the collection"
 msgstr "Prejsť na predchádzajúci obrázok v zbierke"
 
-#: ../src/vnr-window.c:1542
+#: ../src/vnr-window.c:1567
 msgid "_Next Image"
 msgstr "_Nasledujúci obrázok"
 
-#: ../src/vnr-window.c:1543
+#: ../src/vnr-window.c:1568
 msgid "Go to the next image of the collection"
 msgstr "Prejsť na nasledujúci obrázok v zbierke"
 
-#: ../src/vnr-window.c:1545
+#: ../src/vnr-window.c:1570
 msgid "_First Image"
 msgstr "P_rvý obrázok"
 
-#: ../src/vnr-window.c:1546
+#: ../src/vnr-window.c:1571
 msgid "Go to the first image of the collection"
 msgstr "Prejsť na prvý obrázok v zbierke"
 
-#: ../src/vnr-window.c:1548
+#: ../src/vnr-window.c:1573
 msgid "_Last Image"
 msgstr "Po_sledný obrázok"
 
-#: ../src/vnr-window.c:1549
+#: ../src/vnr-window.c:1574
 msgid "Go to the last image of the collection"
 msgstr "Prejsť na posledný obrázok v zbierke"
