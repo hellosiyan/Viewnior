@@ -183,7 +183,7 @@ vnr_file_load_single_uri(char *p_path, GList **file_list, gboolean include_hidde
 {
     GFile *file;
     GFileInfo *fileinfo;
-    GFileAttributeType filetype;
+    GFileType filetype;
 
     file = g_file_new_for_path(p_path);
     fileinfo = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_TYPE","
@@ -233,7 +233,7 @@ vnr_file_load_uri_list (GSList *uri_list, GList **file_list, gboolean include_hi
 {
     GFile *file;
     GFileInfo *fileinfo;
-    GFileAttributeType filetype;
+    GFileType filetype;
     gchar *p_path;
 
     while(uri_list != NULL)
