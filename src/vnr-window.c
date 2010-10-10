@@ -39,7 +39,7 @@
 #include "vnr-crop.h"
 
 /* Timeout to hide the toolbar in fullscreen mode */
-#define FULLSCREEN_TIMEOUT 3000
+#define FULLSCREEN_TIMEOUT 1000
 
 G_DEFINE_TYPE (VnrWindow, vnr_window, GTK_TYPE_WINDOW);
 
