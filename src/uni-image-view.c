@@ -474,7 +474,7 @@ static void
 uni_image_view_realize (GtkWidget * widget)
 {
     UniImageView *view = UNI_IMAGE_VIEW (widget);
-    GTK_WIDGET_SET_FLAGS (widget, GTK_REALIZED);
+    gtk_widget_set_realized(widget, TRUE);
 
     GdkWindowAttr attrs;
     attrs.window_type = GDK_WINDOW_CHILD;
@@ -524,7 +524,7 @@ uni_image_view_size_allocate (GtkWidget * widget, GtkAllocation * alloc)
 
     uni_image_view_update_adjustments (view);
 
-    if (GTK_WIDGET_REALIZED (widget))
+    if (gtk_widget_get_realized (widget))
         gdk_window_move_resize (widget->window,
                                 alloc->x, alloc->y,
                                 alloc->width, alloc->height);
@@ -542,7 +542,7 @@ uni_image_view_button_press (GtkWidget * widget, GdkEventButton * ev)
     gtk_widget_grab_focus(widget);
     UniImageView *view = UNI_IMAGE_VIEW (widget);
     VnrWindow *vnr_win = VNR_WINDOW(gtk_widget_get_toplevel(widget));
-    g_assert(GTK_WIDGET_TOPLEVEL(vnr_win));
+    g_assert(gtk_widget_is_toplevel(GTK_WIDGET(vnr_win)));
 
     if(ev->type == GDK_2BUTTON_PRESS && ev->button == 1 && vnr_win->prefs->behavior_click == VNR_PREFS_CLICK_FULLSCREEN)
     {
@@ -630,7 +630,7 @@ uni_image_view_scroll_event (GtkWidget * widget, GdkEventScroll * ev)
     gdouble zoom;
     UniImageView *view = UNI_IMAGE_VIEW (widget);
     VnrWindow *vnr_win = VNR_WINDOW(gtk_widget_get_toplevel(widget));
-    g_assert(GTK_WIDGET_TOPLEVEL(vnr_win));
+    g_assert(gtk_widget_is_toplevel(GTK_WIDGET(vnr_win)));
 
     /* Horizontal scroll left is equivalent to scroll up and right is
      * like scroll down. No idea if that is correct -- I have no input
@@ -696,7 +696,7 @@ uni_image_view_set_scroll_adjustments (UniImageView * view,
 static void
 uni_image_view_init (UniImageView * view)
 {
-    GTK_WIDGET_SET_FLAGS (view, GTK_CAN_FOCUS);
+    gtk_widget_set_can_focus (GTK_WIDGET(view), TRUE);
 
     view->interp = GDK_INTERP_BILINEAR;
     view->fitting = UNI_FITTING_NORMAL;

@@ -102,11 +102,9 @@ vnr_properties_dialog_new (VnrWindow *vnr_win, GtkAction *next_action, GtkAction
     dialog->thumbnail = NULL;
     dialog->vnr_win = vnr_win;
 
-    gtk_action_connect_proxy (next_action,
-              dialog->next_button);
+	gtk_activatable_set_related_action (GTK_ACTIVATABLE(dialog->next_button), next_action);
 
-    gtk_action_connect_proxy (prev_action,
-              dialog->prev_button);
+    gtk_activatable_set_related_action (GTK_ACTIVATABLE(dialog->prev_button), prev_action);
 
     gtk_button_set_label (GTK_BUTTON(dialog->next_button), _("_Next"));
     gtk_button_set_label (GTK_BUTTON(dialog->prev_button), _("_Previous"));

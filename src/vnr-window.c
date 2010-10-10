@@ -441,8 +441,8 @@ get_fs_controls(VnrWindow *window)
 static gboolean
 scrollbars_visible (VnrWindow *window)
 {
-    if (!GTK_WIDGET_VISIBLE (GTK_WIDGET (UNI_SCROLL_WIN(window->scroll_view)->hscroll)) &&
-        !GTK_WIDGET_VISIBLE (GTK_WIDGET (UNI_SCROLL_WIN(window->scroll_view)->vscroll)))
+    if (!gtk_widget_get_visible (GTK_WIDGET (UNI_SCROLL_WIN(window->scroll_view)->hscroll)) &&
+        !gtk_widget_get_visible (GTK_WIDGET (UNI_SCROLL_WIN(window->scroll_view)->vscroll)))
         return FALSE;
 
     return TRUE;
@@ -677,7 +677,7 @@ rotate_pixbuf(VnrWindow *window, GdkPixbufRotation angle)
     window->current_image_width = gdk_pixbuf_get_width (result);
     window->current_image_height = gdk_pixbuf_get_height (result);
 
-    if(GTK_WIDGET_VISIBLE(window->props_dlg))
+    if(gtk_widget_get_visible(window->props_dlg))
         vnr_properties_dialog_update_image(VNR_PROPERTIES_DIALOG(window->props_dlg));
 
     /* Extra conditions. Rotating 180 degrees is also flipping horizontal and vertical */
@@ -732,7 +732,7 @@ flip_pixbuf(VnrWindow *window, gboolean horizontal)
 
     uni_anim_view_set_static(UNI_ANIM_VIEW(window->view), result);
 
-    if(GTK_WIDGET_VISIBLE(window->props_dlg))
+    if(gtk_widget_get_visible(window->props_dlg))
         vnr_properties_dialog_update_image(VNR_PROPERTIES_DIALOG(window->props_dlg));
 
     if(!window->cursor_is_hidden)
@@ -804,7 +804,7 @@ fullscreen_motion_cb(GtkWidget * widget, GdkEventMotion * ev, VnrWindow *window)
 
     /* Show the toolbar only when the moves moves to the top
      * of the UniImageView */
-    if (ev->y < 20 && !GTK_WIDGET_VISIBLE (window->toolbar))
+    if (ev->y < 20 && !gtk_widget_get_visible (window->toolbar))
         gtk_widget_show (GTK_WIDGET (window->toolbar));
 
     if(window->cursor_is_hidden)
@@ -916,7 +916,7 @@ save_image_cb (GtkWidget *widget, VnrWindow *window)
     if(window->prefs->behavior_modify != VNR_PREFS_MODIFY_ASK)
         zoom_changed_cb(UNI_IMAGE_VIEW(window->view), window);
 
-    if(GTK_WIDGET_VISIBLE(window->props_dlg))
+    if(gtk_widget_get_visible(window->props_dlg))
         vnr_properties_dialog_update(VNR_PROPERTIES_DIALOG(window->props_dlg));
 }
 
@@ -1351,7 +1351,7 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
                 restart_slideshow = FALSE;
 
 
-                if(GTK_WIDGET_VISIBLE(window->props_dlg))
+                if(gtk_widget_get_visible(window->props_dlg))
                     vnr_properties_dialog_clear(VNR_PROPERTIES_DIALOG(window->props_dlg));
             }
             else
@@ -1920,7 +1920,7 @@ vnr_window_init (VnrWindow * window)
     gtk_widget_show(GTK_WIDGET (window->msg_area));
 
     window->view = uni_anim_view_new ();
-    GTK_WIDGET_SET_FLAGS(window->view, GTK_CAN_FOCUS);
+    gtk_widget_set_can_focus(window->view, TRUE);
     window->scroll_view = uni_scroll_win_new (UNI_IMAGE_VIEW (window->view));
     gtk_box_pack_end (GTK_BOX (window->layout), window->scroll_view, TRUE,TRUE,0);
     gtk_widget_show_all(GTK_WIDGET (window->scroll_view));
@@ -1978,7 +1978,7 @@ vnr_window_open (VnrWindow * window, gboolean fit_to_screen)
         vnr_message_area_show(VNR_MESSAGE_AREA (window->msg_area),
                               TRUE, error->message, TRUE);
 
-        if(GTK_WIDGET_VISIBLE(window->props_dlg))
+        if(gtk_widget_get_visible(window->props_dlg))
             vnr_properties_dialog_clear(VNR_PROPERTIES_DIALOG(window->props_dlg));
         return FALSE;
     }
@@ -2031,7 +2031,7 @@ vnr_window_open (VnrWindow * window, gboolean fit_to_screen)
         uni_image_view_set_zoom_mode (UNI_IMAGE_VIEW(window->view),
                                       window->prefs->zoom);
 
-    if(GTK_WIDGET_VISIBLE(window->props_dlg))
+    if(gtk_widget_get_visible(window->props_dlg))
         vnr_properties_dialog_update(VNR_PROPERTIES_DIALOG(window->props_dlg));
 
     vnr_window_update_openwith_menu (window);

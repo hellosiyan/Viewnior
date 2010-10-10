@@ -114,7 +114,7 @@ static void
 uni_nav_update_position (UniNav * nav)
 {
     /* If the Navigation is opened, we don't have to move it again! */
-    if (GTK_WIDGET_VISIBLE (GTK_WIDGET (nav)))
+    if (gtk_widget_get_visible (GTK_WIDGET (nav)))
     {
         return;
     }
@@ -252,7 +252,7 @@ uni_nav_pixbuf_changed (UniNav * nav)
     // If the widget is showing, then create the downsampled pixbuf.
     // Otherwise, just set a flag so that it is done later.
     nav->update_when_shown = TRUE;
-    if (!GTK_WIDGET_VISIBLE (nav))
+    if (!gtk_widget_get_visible (GTK_WIDGET(nav)))
         return;
     uni_nav_update_pixbuf (nav);
     gtk_widget_queue_draw (GTK_WIDGET (nav));
