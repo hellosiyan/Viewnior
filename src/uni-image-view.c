@@ -461,7 +461,7 @@ uni_image_view_scroll (UniImageView * view,
         ystep = -view->vadj->page_increment;
     else if (yscroll == GTK_SCROLL_PAGE_DOWN)
         ystep = view->vadj->page_increment;
-
+    
     uni_image_view_scroll_to (view,
                               view->offset_x + xstep,
                               view->offset_y + ystep, TRUE, FALSE);
@@ -635,44 +635,29 @@ uni_image_view_scroll_event (GtkWidget * widget, GdkEventScroll * ev)
     /* Horizontal scroll left is equivalent to scroll up and right is
      * like scroll down. No idea if that is correct -- I have no input
      * device that can do horizontal scrolls. */
-    if (ev->direction == GDK_SCROLL_UP || ev->direction == GDK_SCROLL_LEFT)
-    {
-        if (vnr_win->prefs->behavior_wheel == VNR_PREFS_WHEEL_ZOOM || (ev->state & GDK_CONTROL_MASK) != 0)
-        {
-            zoom = CLAMP (view->zoom * UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
-            uni_image_view_set_zoom_with_center (view, zoom, ev->x, ev->y, FALSE);
-        }
-        else if(vnr_win->prefs->behavior_wheel == VNR_PREFS_WHEEL_NAVIGATE)
-        {
-            vnr_window_prev(vnr_win);
-        }
-        else
-        {
-            if(ev->direction == GDK_SCROLL_UP)
-                uni_image_view_scroll (view, GTK_SCROLL_NONE, GTK_SCROLL_PAGE_UP);
-            else
-                uni_image_view_scroll (view, GTK_SCROLL_NONE, GTK_SCROLL_PAGE_LEFT);
-        }
-    }
-    else
-    {
-        if (vnr_win->prefs->behavior_wheel == VNR_PREFS_WHEEL_ZOOM || (ev->state & GDK_CONTROL_MASK) != 0)
-        {
-            zoom = CLAMP (view->zoom / UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
-            uni_image_view_set_zoom_with_center (view, zoom, ev->x, ev->y, FALSE);
-        }
-        else if(vnr_win->prefs->behavior_wheel == VNR_PREFS_WHEEL_NAVIGATE)
-        {
-            vnr_window_next(vnr_win, TRUE);
-        }
-        else
-        {
-            if(ev->direction == GDK_SCROLL_DOWN)
-                uni_image_view_scroll (view,  GTK_SCROLL_NONE, GTK_SCROLL_PAGE_DOWN);
-            else
-                uni_image_view_scroll (view,  GTK_SCROLL_NONE, GTK_SCROLL_PAGE_RIGHT);
-        }
-    }
+    
+	if (vnr_win->prefs->behavior_wheel == VNR_PREFS_WHEEL_ZOOM || (ev->state & GDK_CONTROL_MASK) != 0)
+	{
+		zoom = CLAMP (view->zoom * UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
+		uni_image_view_set_zoom_with_center (view, zoom, ev->x, ev->y, FALSE);
+	}
+	else if(vnr_win->prefs->behavior_wheel == VNR_PREFS_WHEEL_NAVIGATE)
+	{
+		if (ev->direction == GDK_SCROLL_UP || ev->direction == GDK_SCROLL_LEFT)
+			vnr_window_prev(vnr_win);
+		else
+			vnr_window_next(vnr_win, TRUE);
+	}
+	else
+	{
+		switch (ev->direction) 
+		{
+			case GDK_SCROLL_UP: uni_image_view_scroll (view, GTK_SCROLL_NONE, GTK_SCROLL_PAGE_UP); break;
+			case GDK_SCROLL_LEFT: uni_image_view_scroll (view, GTK_SCROLL_PAGE_LEFT, GTK_SCROLL_NONE); break;
+			case GDK_SCROLL_RIGHT: uni_image_view_scroll (view, GTK_SCROLL_PAGE_RIGHT, GTK_SCROLL_NONE); break;
+			default: uni_image_view_scroll (view, GTK_SCROLL_NONE, GTK_SCROLL_PAGE_DOWN); break;
+		}
+	}
 
     return TRUE;
 }
