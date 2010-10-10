@@ -638,7 +638,11 @@ uni_image_view_scroll_event (GtkWidget * widget, GdkEventScroll * ev)
     
 	if (vnr_win->prefs->behavior_wheel == VNR_PREFS_WHEEL_ZOOM || (ev->state & GDK_CONTROL_MASK) != 0)
 	{
-		zoom = CLAMP (view->zoom * UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
+		if ( ev->direction == GDK_SCROLL_UP || ev->direction == GDK_SCROLL_LEFT )
+			zoom = CLAMP (view->zoom * UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
+		else
+			zoom = CLAMP (view->zoom / UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
+		
 		uni_image_view_set_zoom_with_center (view, zoom, ev->x, ev->y, FALSE);
 	}
 	else if(vnr_win->prefs->behavior_wheel == VNR_PREFS_WHEEL_NAVIGATE)
