@@ -41,6 +41,7 @@ typedef enum{
     VNR_PREFS_ZOOM_SMART,
     VNR_PREFS_ZOOM_NORMAL,
     VNR_PREFS_ZOOM_FIT,
+    VNR_PREFS_ZOOM_LAST_USED,
 } VnrPrefsZoom;
 
 typedef enum{

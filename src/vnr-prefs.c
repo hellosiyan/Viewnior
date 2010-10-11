@@ -247,6 +247,7 @@ build_dialog (VnrPrefs *prefs)
     gtk_combo_box_append_text(zoom_mode, _("Smart Mode"));
     gtk_combo_box_append_text(zoom_mode, _("1:1 Mode"));
     gtk_combo_box_append_text(zoom_mode, _("Fit To Window Mode"));
+    gtk_combo_box_append_text(zoom_mode, _("Last Used Mode"));
     gtk_combo_box_set_active(zoom_mode, prefs->zoom);
 
     gtk_box_pack_end (zoom_mode_box, GTK_WIDGET(zoom_mode), FALSE, FALSE, 0);

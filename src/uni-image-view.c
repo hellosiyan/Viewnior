@@ -1192,6 +1192,7 @@ uni_image_view_set_zoom_mode (UniImageView * view, VnrPrefsZoom mode)
         case VNR_PREFS_ZOOM_SMART:
             uni_image_view_set_fitting(view, UNI_FITTING_NORMAL);
         break;
+        default: break;
     }
 }
 

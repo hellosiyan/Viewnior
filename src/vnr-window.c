@@ -1031,6 +1031,7 @@ static void
 vnr_window_cmd_normal_size (GtkAction *action, gpointer user_data)
 {
     uni_image_view_set_zoom(UNI_IMAGE_VIEW(VNR_WINDOW(user_data)->view), 1);
+    uni_image_view_set_fitting(UNI_IMAGE_VIEW(VNR_WINDOW(user_data)->view), UNI_FITTING_NONE);
 }
 
 static void
@@ -1962,6 +1963,7 @@ vnr_window_open (VnrWindow * window, gboolean fit_to_screen)
     VnrFile *file;
     GdkPixbufAnimation *pixbuf;
     GdkPixbufFormat *format;
+    UniFittingMode last_fit_mode;
     GError *error = NULL;
 
     if(window->file_list == NULL)
@@ -2017,6 +2019,8 @@ vnr_window_open (VnrWindow * window, gboolean fit_to_screen)
 
         gtk_window_resize (GTK_WINDOW (window), img_w, img_h + window->menus->allocation.height);
     }
+    
+    last_fit_mode = UNI_IMAGE_VIEW(window->view)->fitting;
 
     /* Return TRUE if the image is static */
     if ( uni_anim_view_set_anim (UNI_ANIM_VIEW (window->view), pixbuf) )
@@ -2024,13 +2028,21 @@ vnr_window_open (VnrWindow * window, gboolean fit_to_screen)
     else
         gtk_action_group_set_sensitive(window->actions_static_image, FALSE);
 
-    if(window->mode != VNR_WINDOW_MODE_NORMAL && window->prefs->fit_on_fullscreen)
-        uni_image_view_set_zoom_mode (UNI_IMAGE_VIEW(window->view),
-                                      VNR_PREFS_ZOOM_FIT);
-    else
-        uni_image_view_set_zoom_mode (UNI_IMAGE_VIEW(window->view),
-                                      window->prefs->zoom);
 
+    if(window->mode != VNR_WINDOW_MODE_NORMAL && window->prefs->fit_on_fullscreen) 
+    {
+		uni_image_view_set_zoom_mode (UNI_IMAGE_VIEW(window->view), VNR_PREFS_ZOOM_FIT);
+    } 
+    else if(window->prefs->zoom == VNR_PREFS_ZOOM_LAST_USED )
+    {
+		uni_image_view_set_fitting (UNI_IMAGE_VIEW(window->view), last_fit_mode);
+		zoom_changed_cb(UNI_IMAGE_VIEW(window->view), window);
+    }
+    else
+    {
+		uni_image_view_set_zoom_mode (UNI_IMAGE_VIEW(window->view), window->prefs->zoom);
+    }
+                                      
     if(gtk_widget_get_visible(window->props_dlg))
         vnr_properties_dialog_update(VNR_PROPERTIES_DIALOG(window->props_dlg));
 
