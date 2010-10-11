@@ -969,6 +969,25 @@ zoom_changed_cb (UniImageView *view, VnrWindow *window)
     }
 }
 
+
+static void
+window_drag_begin_cb (GtkWidget *widget,
+			  GdkDragContext *drag_context,
+			  GtkSelectionData *data,
+			  guint info,
+			  guint time,
+			  gpointer user_data)
+{
+	gchar *uris[2];
+	
+	uris[0] = g_filename_to_uri((gchar*)VNR_FILE(VNR_WINDOW(user_data)->file_list->data)->path, NULL, NULL);
+	uris[1] = NULL;
+
+	gtk_selection_data_set_uris (data, uris);
+	
+	g_free(uris[0]);
+}
+
 static void
 file_open_dialog_response_cb (GtkWidget *dialog,
                               gint response_id,
@@ -1947,6 +1966,9 @@ vnr_window_init (VnrWindow * window)
 
     g_signal_connect (G_OBJECT (window->view), "zoom_changed",
                       G_CALLBACK (zoom_changed_cb), window);
+
+    g_signal_connect (G_OBJECT (window->view), "drag-data-get",
+                      G_CALLBACK (window_drag_begin_cb), window);
 
     gtk_window_add_accel_group (GTK_WINDOW (window),
                 gtk_ui_manager_get_accel_group (window->ui_mngr));

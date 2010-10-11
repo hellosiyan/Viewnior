@@ -20,11 +20,18 @@
  * along with Viewnior.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <math.h>
 #include <stdlib.h>
 #include "uni-dragger.h"
 #include "uni-image-view.h"
 
 G_DEFINE_TYPE (UniDragger, uni_dragger, G_TYPE_OBJECT);
+
+
+/* Drag 'n Drop */
+static GtkTargetEntry target_table[] = {
+	{ "text/uri-list", 0, 0},
+};
 
 /*************************************************************/
 /***** Actions ***********************************************/
@@ -55,6 +62,19 @@ uni_dragger_motion_notify (UniDragger * tool, GdkEventMotion * ev)
     mouse_handler_get_drag_delta (mouse_handler, &dx, &dy);
     if (abs (dx) < 1 && abs (dy) < 1)
         return FALSE;
+        
+    if ( pow(dx, 2) + pow(dy, 2) > 7 && 
+    		UNI_IMAGE_VIEW(tool->view)->vadj->upper <= UNI_IMAGE_VIEW(tool->view)->vadj->page_size && 
+    		UNI_IMAGE_VIEW(tool->view)->hadj->upper <= UNI_IMAGE_VIEW(tool->view)->hadj->page_size ) 
+    {
+		mouse_handler_button_release (mouse_handler, (GdkEventButton*)ev);
+    	gtk_drag_begin (GTK_WIDGET(tool->view),
+                gtk_target_list_new(target_table, G_N_ELEMENTS(target_table)),
+                GDK_ACTION_COPY,
+                1,
+                (GdkEvent*)ev);
+		return TRUE;
+    }
 
     GdkRectangle viewport;
     uni_image_view_get_viewport (UNI_IMAGE_VIEW (tool->view), &viewport);

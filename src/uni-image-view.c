@@ -564,11 +564,7 @@ uni_image_view_button_press (GtkWidget * widget, GdkEventButton * ev)
     }
     else if (ev->type == GDK_BUTTON_PRESS && ev->button == 1)
     {
-        if(view->vadj->upper > view->vadj->page_size ||
-           view->hadj->upper > view->hadj->page_size)
-            return uni_dragger_button_press (UNI_DRAGGER(view->tool), ev);
-        /* else
-         *     //drag out image */
+        return uni_dragger_button_press (UNI_DRAGGER(view->tool), ev);
     }
     else if (ev->type == GDK_2BUTTON_PRESS && ev->button == 1)
     {
