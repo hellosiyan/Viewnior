@@ -63,7 +63,7 @@ uni_dragger_motion_notify (UniDragger * tool, GdkEventMotion * ev)
     if (abs (dx) < 1 && abs (dy) < 1)
         return FALSE;
         
-    if ( pow(dx, 2) + pow(dy, 2) > 7 && 
+    if ( pow(dx, 2) + pow(dy, 2) > 7 && UNI_IMAGE_VIEW(tool->view)->pixbuf != NULL && 
     		UNI_IMAGE_VIEW(tool->view)->vadj->upper <= UNI_IMAGE_VIEW(tool->view)->vadj->page_size && 
     		UNI_IMAGE_VIEW(tool->view)->hadj->upper <= UNI_IMAGE_VIEW(tool->view)->hadj->page_size ) 
     {
