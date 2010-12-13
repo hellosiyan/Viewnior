@@ -116,12 +116,8 @@ vnr_properties_dialog_new (VnrWindow *vnr_win, GtkAction *next_action, GtkAction
 static void
 vnr_properties_dialog_init (VnrPropertiesDialog * dialog)
 {
-    /* Available in libgtk+ >= 2.14
-     * GtkWidget *content_area = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
-     * GtkWidget *action_area = gtk_dialog_get_action_area(GTK_DIALOG(dialog));
-     */
-    GtkWidget *content_area = GTK_DIALOG(dialog)->vbox;
-    GtkWidget *action_area = GTK_DIALOG(dialog)->action_area;
+    GtkWidget *content_area = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
+    GtkWidget *action_area = gtk_dialog_get_action_area(GTK_DIALOG(dialog));
     GtkWidget *temp_box;
     GtkWidget *temp_label;
 

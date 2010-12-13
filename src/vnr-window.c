@@ -299,15 +299,7 @@ vnr_window_load_accel_map()
 static void
 vnr_window_hide_cursor(VnrWindow *window)
 {
-   GdkBitmap *empty;
-   GdkColor black = { 0, 0, 0, 0 };
-   static char bits[] = { 0x00 };
-
-   empty = gdk_bitmap_create_from_data (NULL, bits, 1, 1);
-
-    gdk_window_set_cursor (GTK_WIDGET(window)->window,
-                           gdk_cursor_new_from_pixmap (empty, empty, &black,
-                                                       &black, 0, 0));
+    gdk_window_set_cursor (GTK_WIDGET(window)->window, gdk_cursor_new(GDK_BLANK_CURSOR));
     window->cursor_is_hidden = TRUE;
     gdk_flush();
 }
