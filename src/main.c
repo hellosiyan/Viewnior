@@ -118,7 +118,6 @@ main (int argc, char *argv[])
             vnr_window_set_list(VNR_WINDOW(window), file_list, TRUE);
         }
     }
-
     if ( VNR_WINDOW(window)->prefs->start_maximized ) {
     	gtk_window_maximize(window);
     }

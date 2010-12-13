@@ -91,7 +91,7 @@ const gchar *ui_definition = "<ui>"
       "<menuitem name=\"Fullscreen\" action=\"ViewFullscreen\"/>"
       "<menuitem name=\"Slideshow\" action=\"ViewSlideshow\"/>"
       "<separator/>"
-      "<menuitem action=\"ViewResizeWindow\"/>"
+      "<menuitem name=\"ResizeWindow\" action=\"ViewResizeWindow\"/>"
     "</menu>"
     "<menu action=\"Image\">"
       "<menuitem action=\"ImageFlipVertical\"/>"
@@ -1097,8 +1097,11 @@ vnr_window_cmd_prev (GtkAction *action, gpointer user_data)
 }
 
 static void
-vnr_window_cmd_resize (GtkAction *action, VnrWindow *window)
+vnr_window_cmd_resize (GtkToggleAction *action, VnrWindow *window)
 {
+	if ( action != NULL && !gtk_toggle_action_get_active(action) )
+		return;
+	
     gint img_h, img_w;          /* Width and Height of the pixbuf */
 
     img_w = window->current_image_width;
@@ -1543,9 +1546,6 @@ static const GtkActionEntry action_entries_image[] = {
     { "ViewZoomFit", GTK_STOCK_ZOOM_FIT, N_("Best _Fit"), NULL,
       N_("Fit the image to the window"),
       G_CALLBACK (vnr_window_cmd_fit) },
-    { "ViewResizeWindow", NULL, N_("_Adjust window size"), NULL,
-      N_("Adjust window size to fit the image"),
-      G_CALLBACK (vnr_window_cmd_resize) },
     { "ControlEqual", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>equal",
       N_("Shrink the image"),
       G_CALLBACK (vnr_window_cmd_zoom_in) },
@@ -1579,6 +1579,9 @@ static const GtkToggleActionEntry toggle_entries_image[] = {
     { "ViewFullscreen", GTK_STOCK_FULLSCREEN, N_("Full _Screen"), "F11",
       N_("Show in fullscreen mode"),
       G_CALLBACK (vnr_window_cmd_fullscreen) },
+    { "ViewResizeWindow", NULL, N_("_Adjust window size"), NULL,
+      N_("Adjust window size to fit the image"),
+      G_CALLBACK (vnr_window_cmd_resize) },
 };
 
 static const GtkToggleActionEntry toggle_entries_window[] = {
@@ -1844,7 +1847,7 @@ vnr_window_init (VnrWindow * window)
 
     gtk_action_group_add_toggle_actions (window->action_toolbar,
                                          toggle_entries_window,
-                                         G_N_ELEMENTS (toggle_entries_image),
+                                         G_N_ELEMENTS (toggle_entries_window),
                                          window);
 
     gtk_ui_manager_insert_action_group (window->ui_mngr,
@@ -2079,7 +2082,11 @@ vnr_window_open (VnrWindow * window, gboolean fit_to_screen)
     {
 		uni_image_view_set_zoom_mode (UNI_IMAGE_VIEW(window->view), window->prefs->zoom);
     }
-                                      
+	
+	if ( gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(gtk_action_group_get_action(window->actions_image, "ViewResizeWindow"))) ) {
+	    vnr_window_cmd_resize(NULL, window);
+	}
+	
     if(gtk_widget_get_visible(window->props_dlg))
         vnr_properties_dialog_update(VNR_PROPERTIES_DIALOG(window->props_dlg));
     
