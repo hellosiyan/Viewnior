@@ -924,20 +924,41 @@ window_realize_cb(GtkWidget *widget, gpointer user_data)
     g_signal_handlers_disconnect_by_func(widget, window_realize_cb, user_data);
 
     if(!vnr_message_area_is_critical(VNR_MESSAGE_AREA(VNR_WINDOW(widget)->msg_area)))
-    {
-        GdkScreen *screen;
-        GdkRectangle monitor;
-        screen = gtk_window_get_screen (GTK_WINDOW (widget));
-        gdk_screen_get_monitor_geometry (screen,
-                                         gdk_screen_get_monitor_at_window (screen,
-                                            widget->window),
-                                         &monitor);
+    {	
+    	if ( VNR_WINDOW(widget)->prefs->start_maximized ) {
+	        vnr_window_open(VNR_WINDOW(widget), FALSE);
+    	} 
+    	else 
+    	{
+		    GdkScreen *screen;
+		    GdkRectangle monitor;
+		    screen = gtk_window_get_screen (GTK_WINDOW (widget));
+		    gdk_screen_get_monitor_geometry (screen,
+		                                     gdk_screen_get_monitor_at_window (screen,
+		                                        widget->window),
+		                                     &monitor);
 
-        VNR_WINDOW(widget)->max_width = monitor.width * 0.9 - 100;
-        VNR_WINDOW(widget)->max_height = monitor.height * 0.9 - 100;
+		    VNR_WINDOW(widget)->max_width = monitor.width * 0.9 - 100;
+		    VNR_WINDOW(widget)->max_height = monitor.height * 0.9 - 100;
 
-        vnr_window_open(VNR_WINDOW(widget), TRUE);
+		    vnr_window_open(VNR_WINDOW(widget), TRUE);
+		}
     }
+}
+
+static gboolean 
+window_change_state_cb (GtkWidget * widget, GdkEventWindowState * event, gpointer user_data)
+{
+	if ( event->changed_mask & GDK_WINDOW_STATE_MAXIMIZED ) {
+		/* Detect maximized state only */
+		if ( event->new_window_state & GDK_WINDOW_STATE_MAXIMIZED  ) {
+			VNR_WINDOW(widget)->prefs->start_maximized = TRUE;
+		} else {
+			VNR_WINDOW(widget)->prefs->start_maximized = FALSE;
+		}
+		vnr_prefs_save(VNR_WINDOW(widget)->prefs);
+	}
+	return TRUE;
 }
 
 static void
@@ -1955,6 +1976,9 @@ vnr_window_init (VnrWindow * window)
 
     g_signal_connect (G_OBJECT (window), "realize",
                       G_CALLBACK (window_realize_cb), NULL);
+                      
+    g_signal_connect (G_OBJECT (window), "window-state-event",
+                      G_CALLBACK (window_change_state_cb), NULL);
 
     g_signal_connect (G_OBJECT (window->view), "zoom_changed",
                       G_CALLBACK (zoom_changed_cb), window);
@@ -2035,13 +2059,12 @@ vnr_window_open (VnrWindow * window, gboolean fit_to_screen)
     }
     
     last_fit_mode = UNI_IMAGE_VIEW(window->view)->fitting;
-
+    
     /* Return TRUE if the image is static */
     if ( uni_anim_view_set_anim (UNI_ANIM_VIEW (window->view), pixbuf) )
         gtk_action_group_set_sensitive(window->actions_static_image, TRUE);
     else
         gtk_action_group_set_sensitive(window->actions_static_image, FALSE);
-
 
     if(window->mode != VNR_WINDOW_MODE_NORMAL && window->prefs->fit_on_fullscreen) 
     {
@@ -2059,7 +2082,7 @@ vnr_window_open (VnrWindow * window, gboolean fit_to_screen)
                                       
     if(gtk_widget_get_visible(window->props_dlg))
         vnr_properties_dialog_update(VNR_PROPERTIES_DIALOG(window->props_dlg));
-
+    
     vnr_window_update_openwith_menu (window);
 
     g_object_unref(pixbuf);

@@ -75,6 +75,7 @@ struct _VnrPrefs {
     gboolean confirm_delete;
     gboolean reload_on_save;
     gboolean show_toolbar;
+    gboolean start_maximized;
     int slideshow_timeout;
     int jpeg_quality;
     int png_compression;
@@ -95,6 +96,7 @@ GObject*  vnr_prefs_new      (GtkWidget *window);
 void      vnr_prefs_show_dialog (VnrPrefs *prefs);
 void      vnr_prefs_set_slideshow_timeout   (VnrPrefs *prefs, int value);
 void      vnr_prefs_set_show_toolbar   (VnrPrefs *prefs, gboolean show_toolbar);
+gboolean  vnr_prefs_save (VnrPrefs *prefs);
 
 G_END_DECLS
 #endif /* __VNR_PREFS_H__ */

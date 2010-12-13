@@ -119,6 +119,9 @@ main (int argc, char *argv[])
         }
     }
 
+    if ( VNR_WINDOW(window)->prefs->start_maximized ) {
+    	gtk_window_maximize(window);
+    }
     gtk_widget_show (GTK_WIDGET (window));
     gtk_main ();
 

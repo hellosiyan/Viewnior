@@ -29,8 +29,6 @@
 
 G_DEFINE_TYPE (VnrPrefs, vnr_prefs, G_TYPE_OBJECT);
 
-static gboolean vnr_prefs_save (VnrPrefs *prefs);
-
 /*************************************************************/
 /***** Private signal handlers *******************************/
 /*************************************************************/
@@ -157,6 +155,7 @@ vnr_prefs_set_default(VnrPrefs *prefs)
     prefs->png_compression = 9;
     prefs->reload_on_save = FALSE;
     prefs->show_toolbar = TRUE;
+    prefs->start_maximized = FALSE;
 }
 
 static GtkWidget *
@@ -300,52 +299,6 @@ build_dialog (VnrPrefs *prefs)
 }
 
 static gboolean
-vnr_prefs_save (VnrPrefs *prefs)
-{
-    GKeyFile *conf;
-    FILE *rcfile;
-    const gchar *dir;
-    const gchar *path;
-
-    dir = g_build_filename (g_get_user_config_dir(), PACKAGE, NULL);
-    path = g_build_filename (dir, "viewnior.conf", NULL);
-
-    conf = g_key_file_new();
-    g_key_file_set_integer (conf, "prefs", "zoom-mode", prefs->zoom);
-    g_key_file_set_boolean (conf, "prefs", "fit-on-fullscreen", prefs->fit_on_fullscreen);
-    g_key_file_set_boolean (conf, "prefs", "show-hidden", prefs->show_hidden);
-    g_key_file_set_boolean (conf, "prefs", "smooth-images", prefs->smooth_images);
-    g_key_file_set_boolean (conf, "prefs", "confirm-delete", prefs->confirm_delete);
-    g_key_file_set_boolean (conf, "prefs", "reload-on-save", prefs->reload_on_save);
-    g_key_file_set_boolean (conf, "prefs", "show-toolbar", prefs->show_toolbar);
-    g_key_file_set_integer (conf, "prefs", "slideshow-timeout", prefs->slideshow_timeout);
-    g_key_file_set_integer (conf, "prefs", "behavior-wheel", prefs->behavior_wheel);
-    g_key_file_set_integer (conf, "prefs", "behavior-click", prefs->behavior_click);
-    g_key_file_set_integer (conf, "prefs", "behavior-modify", prefs->behavior_modify);
-    g_key_file_set_integer (conf, "prefs", "jpeg-quality", prefs->jpeg_quality);
-    g_key_file_set_integer (conf, "prefs", "png-compression", prefs->png_compression);
-
-    if(g_mkdir_with_parents (dir, 0700) != 0)
-        g_warning("Error creating config file's parent directory (%s)\n", dir);
-
-    rcfile = fopen(path , "w");
-
-    if(rcfile != NULL)
-    {
-        fputs(g_key_file_to_data (conf, NULL, NULL), rcfile);
-        fclose(rcfile);
-    }
-    else
-        g_warning("Saving config file: Unable to open the configuration file for writing!\n");
-
-    g_key_file_free (conf);
-    g_free((char*)dir);
-    g_free((char*)path);
-
-    return TRUE;
-}
-
-static gboolean
 vnr_prefs_load (VnrPrefs *prefs)
 {
     GKeyFile *conf;
@@ -373,6 +326,7 @@ vnr_prefs_load (VnrPrefs *prefs)
     prefs->confirm_delete = g_key_file_get_boolean (conf, "prefs", "confirm-delete", &error);
     prefs->reload_on_save = g_key_file_get_boolean (conf, "prefs", "reload-on-save", &error);
     prefs->show_toolbar = g_key_file_get_boolean (conf, "prefs", "show-toolbar", &error);
+    prefs->start_maximized = g_key_file_get_boolean (conf, "prefs", "start-maximized", &error);
     prefs->slideshow_timeout = g_key_file_get_integer (conf, "prefs", "slideshow-timeout", &error);
     prefs->behavior_wheel = g_key_file_get_integer (conf, "prefs", "behavior-wheel", &error);
     prefs->behavior_click = g_key_file_get_integer (conf, "prefs", "behavior-click", &error);
@@ -437,6 +391,53 @@ vnr_prefs_show_dialog(VnrPrefs *prefs)
             return;
     }
     gtk_window_present(GTK_WINDOW(prefs->dialog));
+}
+
+gboolean
+vnr_prefs_save (VnrPrefs *prefs)
+{
+    GKeyFile *conf;
+    FILE *rcfile;
+    const gchar *dir;
+    const gchar *path;
+
+    dir = g_build_filename (g_get_user_config_dir(), PACKAGE, NULL);
+    path = g_build_filename (dir, "viewnior.conf", NULL);
+
+    conf = g_key_file_new();
+    g_key_file_set_integer (conf, "prefs", "zoom-mode", prefs->zoom);
+    g_key_file_set_boolean (conf, "prefs", "fit-on-fullscreen", prefs->fit_on_fullscreen);
+    g_key_file_set_boolean (conf, "prefs", "show-hidden", prefs->show_hidden);
+    g_key_file_set_boolean (conf, "prefs", "smooth-images", prefs->smooth_images);
+    g_key_file_set_boolean (conf, "prefs", "confirm-delete", prefs->confirm_delete);
+    g_key_file_set_boolean (conf, "prefs", "reload-on-save", prefs->reload_on_save);
+    g_key_file_set_boolean (conf, "prefs", "show-toolbar", prefs->show_toolbar);
+    g_key_file_set_boolean (conf, "prefs", "start-maximized", prefs->start_maximized);
+    g_key_file_set_integer (conf, "prefs", "slideshow-timeout", prefs->slideshow_timeout);
+    g_key_file_set_integer (conf, "prefs", "behavior-wheel", prefs->behavior_wheel);
+    g_key_file_set_integer (conf, "prefs", "behavior-click", prefs->behavior_click);
+    g_key_file_set_integer (conf, "prefs", "behavior-modify", prefs->behavior_modify);
+    g_key_file_set_integer (conf, "prefs", "jpeg-quality", prefs->jpeg_quality);
+    g_key_file_set_integer (conf, "prefs", "png-compression", prefs->png_compression);
+
+    if(g_mkdir_with_parents (dir, 0700) != 0)
+        g_warning("Error creating config file's parent directory (%s)\n", dir);
+
+    rcfile = fopen(path , "w");
+
+    if(rcfile != NULL)
+    {
+        fputs(g_key_file_to_data (conf, NULL, NULL), rcfile);
+        fclose(rcfile);
+    }
+    else
+        g_warning("Saving config file: Unable to open the configuration file for writing!\n");
+
+    g_key_file_free (conf);
+    g_free((char*)dir);
+    g_free((char*)path);
+
+    return TRUE;
 }
 
 void
