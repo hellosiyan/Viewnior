@@ -21,7 +21,6 @@
  */
 
 #include "uni-nav.h"
-#include "mouse_handler.h"
 #include "uni-utils.h"
 
 

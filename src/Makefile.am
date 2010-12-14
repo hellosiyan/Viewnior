@@ -7,7 +7,6 @@ BUILT_SOURCES =         \
     uni-marshal.h
 
 uni_headers =           \
-    mouse_handler.h     \
     uni-cache.h         \
     uni-image-view.h    \
     uni-anim-view.h     \
@@ -35,7 +34,6 @@ viewnior_SOURCES =      \
     uni-image-view.c    \
     vnr-message-area.c  \
     vnr-properties-dialog.c  \
-    mouse_handler.c     \
     vnr-file.c          \
     uni-utils.c         \
     vnr-prefs.c         \

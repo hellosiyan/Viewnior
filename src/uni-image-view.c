@@ -27,7 +27,6 @@
 
 #include "uni-dragger.h"
 #include "uni-image-view.h"
-#include "mouse_handler.h"
 #include "uni-dragger.h"
 #include "uni-anim-view.h"
 #include "uni-marshal.h"

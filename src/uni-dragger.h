@@ -26,7 +26,6 @@
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 #include "uni-cache.h"
-#include "mouse_handler.h"
 
 G_BEGIN_DECLS
 #define UNI_TYPE_DRAGGER             (uni_dragger_get_type ())
@@ -40,9 +39,23 @@ typedef struct _UniDraggerClass UniDraggerClass;
 
 struct _UniDragger {
     GObject parent;
-    MouseHandler *mouse_handler;
     GtkWidget *view;
     UniPixbufDrawCache *cache;
+    
+    gboolean pressed;
+    gboolean dragging;
+
+    /* Position where the mouse was pressed. */
+    int drag_base_x;
+    int drag_base_y;
+
+    /* Current position of the mouse. */
+    int drag_ofs_x;
+    int drag_ofs_y;
+    
+    
+    /* Cursor to use when grabbing. */
+    GdkCursor *grab_cursor;
 };
 
 struct _UniDraggerClass {

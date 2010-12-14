@@ -34,32 +34,66 @@ static GtkTargetEntry target_table[] = {
 };
 
 /*************************************************************/
+/***** Static stuff ******************************************/
+/*************************************************************/
+
+static void
+uni_dragger_grab_pointer (UniDragger * tool,
+                            GdkWindow * window, guint32 time)
+{
+    int mask = (GDK_POINTER_MOTION_MASK
+                | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_RELEASE_MASK);
+    gdk_pointer_grab (window, FALSE, mask, NULL, tool->grab_cursor, time);
+}
+
+static void
+uni_dragger_get_drag_delta (UniDragger * tool, int *x, int *y)
+{
+    *x = tool->drag_base_x - tool->drag_ofs_x;
+    *y = tool->drag_base_y - tool->drag_ofs_y;
+}
+
+/*************************************************************/
 /***** Actions ***********************************************/
 /*************************************************************/
 
 gboolean
 uni_dragger_button_press (UniDragger * tool, GdkEventButton * ev)
 {
-    return mouse_handler_button_press (tool->mouse_handler, ev);
+    uni_dragger_grab_pointer (tool, ev->window, ev->time);
+    tool->pressed = TRUE;
+    tool->drag_base_x = ev->x;
+    tool->drag_base_y = ev->y;
+    tool->drag_ofs_x = ev->x;
+    tool->drag_ofs_y = ev->y;
+
+    return TRUE;
 }
 
 gboolean
 uni_dragger_button_release (UniDragger * tool, GdkEventButton * ev)
 {
-    return mouse_handler_button_release (tool->mouse_handler, ev);
+    if (ev->button != 1)
+        return FALSE;
+    gdk_pointer_ungrab (ev->time);
+    tool->pressed = FALSE;
+    tool->dragging = FALSE;
+    return TRUE;
 }
 
 gboolean
 uni_dragger_motion_notify (UniDragger * tool, GdkEventMotion * ev)
 {
-    MouseHandler *mouse_handler = tool->mouse_handler;
+    if (tool->pressed)
+        tool->dragging = TRUE;
+    else
+    	return FALSE;
 
-    mouse_handler_motion_notify (mouse_handler, ev);
-    if (!mouse_handler->dragging)
-        return FALSE;
+    tool->drag_ofs_x = ev->x;
+    tool->drag_ofs_y = ev->y;
 
     int dx, dy;
-    mouse_handler_get_drag_delta (mouse_handler, &dx, &dy);
+    uni_dragger_get_drag_delta (tool, &dx, &dy);
     if (abs (dx) < 1 && abs (dy) < 1)
         return FALSE;
         
@@ -67,7 +101,7 @@ uni_dragger_motion_notify (UniDragger * tool, GdkEventMotion * ev)
     		UNI_IMAGE_VIEW(tool->view)->vadj->upper <= UNI_IMAGE_VIEW(tool->view)->vadj->page_size && 
     		UNI_IMAGE_VIEW(tool->view)->hadj->upper <= UNI_IMAGE_VIEW(tool->view)->hadj->page_size ) 
     {
-		mouse_handler_button_release (mouse_handler, (GdkEventButton*)ev);
+		uni_dragger_button_release (tool, (GdkEventButton*)ev);
     	gtk_drag_begin (GTK_WIDGET(tool->view),
                 gtk_target_list_new(target_table, G_N_ELEMENTS(target_table)),
                 GDK_ACTION_COPY,
@@ -85,8 +119,8 @@ uni_dragger_motion_notify (UniDragger * tool, GdkEventMotion * ev)
     uni_image_view_set_offset (UNI_IMAGE_VIEW (tool->view), offset_x,
                                offset_y, FALSE);
 
-    mouse_handler->drag_base_x = mouse_handler->drag_ofs_x;
-    mouse_handler->drag_base_y = mouse_handler->drag_ofs_y;
+    tool->drag_base_x = tool->drag_ofs_x;
+    tool->drag_base_y = tool->drag_ofs_y;
 
     return TRUE;
 }
@@ -113,7 +147,6 @@ static void
 uni_dragger_finalize (GObject * object)
 {
     UniDragger *dragger = UNI_DRAGGER (object);
-    g_free (dragger->mouse_handler);
     uni_pixbuf_draw_cache_free (dragger->cache);
 
     /* Chain up */
@@ -155,9 +188,16 @@ uni_dragger_class_init (UniDraggerClass * klass)
 static void
 uni_dragger_init (UniDragger * tool)
 {
-    tool->mouse_handler = mouse_handler_new ();
     tool->view = NULL;
     tool->cache = uni_pixbuf_draw_cache_new ();
+    
+    tool->pressed = FALSE;
+    tool->dragging = FALSE;
+    tool->drag_base_x = 0;
+    tool->drag_base_y = 0;
+    tool->drag_ofs_x = 0;
+    tool->drag_ofs_y = 0;
+    tool->grab_cursor = gdk_cursor_new (GDK_FLEUR);
 }
 
 /**
