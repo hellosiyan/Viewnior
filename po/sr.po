@@ -6,20 +6,20 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-30 21:25+0300\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-08-31 11:05+0300\n"
 "PO-Revision-Date: 2010-03-26 21:05+0000\n"
 "Last-Translator: Никола Радовановић <nrad@eunet.rs>\n"
 "Language-Team: Serbian <sr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2010-03-30 18:12+0000\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Launchpad-Export-Date: 2010-12-14 22:08+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:1175
+#: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:1153
 msgid "Elegant Image Viewer"
 msgstr "Елегантан прегледач слика"
 
@@ -105,7 +105,7 @@ msgstr "Улепшај слике при увећању"
 msgid "Viewnior Preferences"
 msgstr "Подешавање Viewnior-а"
 
-#: ../data/vnr-crop-dialog.ui.h:1 ../src/vnr-window.c:1541
+#: ../data/vnr-crop-dialog.ui.h:1 ../src/vnr-window.c:1516
 msgid "Crop"
 msgstr "Исеци"
 
@@ -129,8 +129,8 @@ msgstr "X: "
 msgid "Y: "
 msgstr "Y: "
 
-#: ../src/main.c:113 ../src/vnr-window.c:1349 ../src/vnr-window.c:1684
-#: ../src/vnr-window.c:2081
+#: ../src/main.c:113 ../src/vnr-window.c:1326 ../src/vnr-window.c:1649
+#: ../src/vnr-window.c:2046
 msgid "The given locations contain no images."
 msgstr "Наведена локација не садржи слике."
 
@@ -231,27 +231,27 @@ msgstr "<b>Висина:</b>"
 msgid "None"
 msgstr "Ништа"
 
-#: ../src/vnr-window.c:243
+#: ../src/vnr-window.c:240
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "Користи „%s“ да отвориш одабрану слику"
 
-#: ../src/vnr-window.c:414
+#: ../src/vnr-window.c:395
 msgid "Show next image after: "
 msgstr "Прикажи следећу слику после: "
 
-#: ../src/vnr-window.c:432 ../src/vnr-window.c:840
+#: ../src/vnr-window.c:413 ../src/vnr-window.c:818
 msgid " second"
 msgid_plural " seconds"
 msgstr[0] " секунда"
 msgstr[1] " секунде"
 msgstr[2] " секунди"
 
-#: ../src/vnr-window.c:665 ../src/vnr-window.c:728
+#: ../src/vnr-window.c:643 ../src/vnr-window.c:706
 msgid "Not enough virtual memory."
 msgstr "Недовољно виртуелне меморије."
 
-#: ../src/vnr-window.c:699 ../src/vnr-window.c:757 ../src/vnr-window.c:1432
+#: ../src/vnr-window.c:677 ../src/vnr-window.c:735 ../src/vnr-window.c:1407
 msgid ""
 "Image modifications cannot be saved.\n"
 "Writing in this format is not supported."
@@ -259,32 +259,32 @@ msgstr ""
 "Не могу да сачувам измене слике.\n"
 "Није подржан упис у изабрани формат."
 
-#: ../src/vnr-window.c:706 ../src/vnr-window.c:764 ../src/vnr-window.c:1439
+#: ../src/vnr-window.c:684 ../src/vnr-window.c:742 ../src/vnr-window.c:1414
 msgid ""
 "Save modifications?\n"
 "This will overwrite the image and may reduce it's quality!"
 msgstr "Да ли да запамтим измене?"
 
-#: ../src/vnr-window.c:1095
+#: ../src/vnr-window.c:1073
 msgid "Open Image"
 msgstr "Отвори слику"
 
-#: ../src/vnr-window.c:1124
+#: ../src/vnr-window.c:1102
 msgid "Open Folder"
 msgstr "Отвори директоријум"
 
-#: ../src/vnr-window.c:1181
+#: ../src/vnr-window.c:1158
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Никола Радовановић https://launchpad.net/~nikoola"
 
-#: ../src/vnr-window.c:1288
+#: ../src/vnr-window.c:1265
 msgid "If you delete an item, it will be permanently lost."
 msgstr "Ако обришеш ставку, она ће бити неповратно изгубљена."
 
 #. I18N: The '%s' is replaced with the name of the file to be deleted.
-#: ../src/vnr-window.c:1291
+#: ../src/vnr-window.c:1268
 #, c-format
 msgid ""
 "Are you sure you want to\n"
@@ -293,247 +293,247 @@ msgstr ""
 "Да ли сте сигурни да\n"
 "трајно уклоните \"%s\"?"
 
-#: ../src/vnr-window.c:1447
+#: ../src/vnr-window.c:1422
 msgid "_File"
 msgstr "_Датотека"
 
-#: ../src/vnr-window.c:1448
+#: ../src/vnr-window.c:1423
 msgid "_Edit"
 msgstr "Изм_ени"
 
-#: ../src/vnr-window.c:1449
+#: ../src/vnr-window.c:1424
 msgid "_View"
 msgstr "_Преглед"
 
-#: ../src/vnr-window.c:1450
+#: ../src/vnr-window.c:1425
 msgid "_Image"
 msgstr "_Слика"
 
-#: ../src/vnr-window.c:1451
+#: ../src/vnr-window.c:1426
 msgid "_Go"
 msgstr "_Слике"
 
-#: ../src/vnr-window.c:1452
+#: ../src/vnr-window.c:1427
 msgid "_Help"
 msgstr "_Помоћ"
 
-#: ../src/vnr-window.c:1454
+#: ../src/vnr-window.c:1429
 msgid "Open _Image..."
 msgstr "Отвори _слику..."
 
-#: ../src/vnr-window.c:1455
+#: ../src/vnr-window.c:1430
 msgid "Open an Image"
 msgstr "Отвори слику"
 
-#: ../src/vnr-window.c:1457
+#: ../src/vnr-window.c:1432
 msgid "Open _Folder..."
 msgstr "Отвори _директоријум..."
 
-#: ../src/vnr-window.c:1458
+#: ../src/vnr-window.c:1433
 msgid "Open a Folder"
 msgstr "Отвори директоријум"
 
-#: ../src/vnr-window.c:1460
+#: ../src/vnr-window.c:1435
 msgid "_Close"
 msgstr "_Затвори"
 
-#: ../src/vnr-window.c:1461
+#: ../src/vnr-window.c:1436
 msgid "Close window"
 msgstr "Затвори прозор"
 
-#: ../src/vnr-window.c:1463
+#: ../src/vnr-window.c:1438
 msgid "_About"
 msgstr "_О програму"
 
-#: ../src/vnr-window.c:1464
+#: ../src/vnr-window.c:1439
 msgid "About this application"
 msgstr "О програму"
 
-#: ../src/vnr-window.c:1466
+#: ../src/vnr-window.c:1441
 msgid "_Preferences..."
 msgstr "_Поставке..."
 
-#: ../src/vnr-window.c:1467
+#: ../src/vnr-window.c:1442
 msgid "User preferences for Viewnior"
 msgstr "Корисничке поставке Viewnior-а"
 
-#: ../src/vnr-window.c:1472
+#: ../src/vnr-window.c:1447
 msgid "_Save"
 msgstr "_Сачувај"
 
-#: ../src/vnr-window.c:1473
+#: ../src/vnr-window.c:1448
 msgid "Save changes"
 msgstr "Сачувај измене"
 
-#: ../src/vnr-window.c:1479
+#: ../src/vnr-window.c:1454
 msgid "Set as _Wallpaper"
 msgstr "Постави као _позадину"
 
-#: ../src/vnr-window.c:1480
+#: ../src/vnr-window.c:1455
 msgid "Set the selected image as the desktop background"
 msgstr "Поставља изабрану слику у позадину радне површине"
 
-#: ../src/vnr-window.c:1486
+#: ../src/vnr-window.c:1461
 msgid "Open _With"
 msgstr "Отвори _помоћу"
 
-#: ../src/vnr-window.c:1487
+#: ../src/vnr-window.c:1462
 msgid "Open the selected image with a different application"
 msgstr "Отвори изабрану слику другим програмом"
 
-#: ../src/vnr-window.c:1489 ../src/vnr-window.c:1498
+#: ../src/vnr-window.c:1464 ../src/vnr-window.c:1473
 msgid "_Delete"
 msgstr "_Обриши"
 
-#: ../src/vnr-window.c:1490 ../src/vnr-window.c:1499
+#: ../src/vnr-window.c:1465 ../src/vnr-window.c:1474
 msgid "Delete the current file"
 msgstr "Обриши текућу датотеку"
 
-#: ../src/vnr-window.c:1492
+#: ../src/vnr-window.c:1467
 msgid "_Properties..."
 msgstr "_Особине..."
 
-#: ../src/vnr-window.c:1493
+#: ../src/vnr-window.c:1468
 msgid "Show information about the current file"
 msgstr "Прикажи податке о текућој датотеци"
 
-#: ../src/vnr-window.c:1495
+#: ../src/vnr-window.c:1470
 msgid "_Reload"
 msgstr "_Освежи"
 
-#: ../src/vnr-window.c:1496
+#: ../src/vnr-window.c:1471
 msgid "Reload the current file"
 msgstr "Освежи текућу датотеку"
 
-#: ../src/vnr-window.c:1501 ../src/vnr-window.c:1516 ../src/vnr-window.c:1519
+#: ../src/vnr-window.c:1476 ../src/vnr-window.c:1491 ../src/vnr-window.c:1494
 msgid "_Zoom In"
 msgstr "_Увећај"
 
-#: ../src/vnr-window.c:1502
+#: ../src/vnr-window.c:1477
 msgid "Enlarge the image"
 msgstr "Увећај слику"
 
-#: ../src/vnr-window.c:1504 ../src/vnr-window.c:1522
+#: ../src/vnr-window.c:1479 ../src/vnr-window.c:1497
 msgid "Zoom _Out"
 msgstr "У_мањи"
 
-#: ../src/vnr-window.c:1505 ../src/vnr-window.c:1517 ../src/vnr-window.c:1520
-#: ../src/vnr-window.c:1523
+#: ../src/vnr-window.c:1480 ../src/vnr-window.c:1492 ../src/vnr-window.c:1495
+#: ../src/vnr-window.c:1498
 msgid "Shrink the image"
 msgstr "Умањује преглед слике"
 
-#: ../src/vnr-window.c:1507
+#: ../src/vnr-window.c:1482
 msgid "_Normal Size"
 msgstr "_Нормална величина"
 
-#: ../src/vnr-window.c:1508
+#: ../src/vnr-window.c:1483
 msgid "Show the image at its normal size"
 msgstr "Приказује слику у њеној пуној величини"
 
-#: ../src/vnr-window.c:1510
+#: ../src/vnr-window.c:1485
 msgid "Best _Fit"
 msgstr "Уклопи на _најбољи начин"
 
-#: ../src/vnr-window.c:1511
+#: ../src/vnr-window.c:1486
 msgid "Fit the image to the window"
 msgstr "Прилагоди слику величини прозора"
 
-#: ../src/vnr-window.c:1513
+#: ../src/vnr-window.c:1488
 msgid "_Adjust window size"
 msgstr "_Подеси величину прозора"
 
-#: ../src/vnr-window.c:1514
+#: ../src/vnr-window.c:1489
 msgid "Adjust window size to fit the image"
 msgstr "Подеси величину прозора како би у њега стала слика"
 
-#: ../src/vnr-window.c:1528
+#: ../src/vnr-window.c:1503
 msgid "Rotate _Clockwise"
 msgstr "Окрени на десно"
 
-#: ../src/vnr-window.c:1529
+#: ../src/vnr-window.c:1504
 msgid "Rotate image clockwise"
 msgstr "Окреће слику на десно"
 
-#: ../src/vnr-window.c:1531
+#: ../src/vnr-window.c:1506
 msgid "Rotate _Anti-clockwise"
 msgstr "Окрени слику на _лево"
 
-#: ../src/vnr-window.c:1532
+#: ../src/vnr-window.c:1507
 msgid "Rotate image anti-clockwise"
 msgstr "Окреће слику на лево"
 
-#: ../src/vnr-window.c:1534
+#: ../src/vnr-window.c:1509
 msgid "Flip _Vertical"
 msgstr "Изврни _вертикално"
 
-#: ../src/vnr-window.c:1535
+#: ../src/vnr-window.c:1510
 msgid "Flip image vertically"
 msgstr "Изврни слику према вертикали"
 
-#: ../src/vnr-window.c:1537
+#: ../src/vnr-window.c:1512
 msgid "Flip _Horizontal"
 msgstr "Изврни _хоризонтално"
 
-#: ../src/vnr-window.c:1538
+#: ../src/vnr-window.c:1513
 msgid "Flip image horizontally"
 msgstr "Изврни слику према хоризонтали"
 
-#: ../src/vnr-window.c:1540
+#: ../src/vnr-window.c:1515
 msgid "Crop..."
 msgstr "Исеци..."
 
-#: ../src/vnr-window.c:1546
+#: ../src/vnr-window.c:1521
 msgid "Full _Screen"
 msgstr "Преко целог _екрана"
 
-#: ../src/vnr-window.c:1547
+#: ../src/vnr-window.c:1522
 msgid "Show in fullscreen mode"
 msgstr "Приказ преко целог екрана"
 
-#: ../src/vnr-window.c:1552
+#: ../src/vnr-window.c:1527
 msgid "Toolbar"
 msgstr "Трака алатки"
 
-#: ../src/vnr-window.c:1553
+#: ../src/vnr-window.c:1528
 msgid "Show Toolbar"
 msgstr "Прикажи траку алатки"
 
-#: ../src/vnr-window.c:1558
+#: ../src/vnr-window.c:1533
 msgid "Sli_deshow"
 msgstr "_Покрени приказ"
 
-#: ../src/vnr-window.c:1559
+#: ../src/vnr-window.c:1534
 msgid "Show in slideshow mode"
 msgstr "Прикажи у моду покретног приказа"
 
-#: ../src/vnr-window.c:1564
+#: ../src/vnr-window.c:1539
 msgid "_Previous Image"
 msgstr "_Претходна слика"
 
-#: ../src/vnr-window.c:1565
+#: ../src/vnr-window.c:1540
 msgid "Go to the previous image of the collection"
 msgstr "Иди на претходну слику у колекцији"
 
-#: ../src/vnr-window.c:1567
+#: ../src/vnr-window.c:1542
 msgid "_Next Image"
 msgstr "_Следећа слика"
 
-#: ../src/vnr-window.c:1568
+#: ../src/vnr-window.c:1543
 msgid "Go to the next image of the collection"
 msgstr "Иди на следећу слику у колекцији"
 
-#: ../src/vnr-window.c:1570
+#: ../src/vnr-window.c:1545
 msgid "_First Image"
 msgstr "Прв_а слика"
 
-#: ../src/vnr-window.c:1571
+#: ../src/vnr-window.c:1546
 msgid "Go to the first image of the collection"
 msgstr "Иди на прву слику у колекцији"
 
-#: ../src/vnr-window.c:1573
+#: ../src/vnr-window.c:1548
 msgid "_Last Image"
 msgstr "П_оследња слика"
 
-#: ../src/vnr-window.c:1574
+#: ../src/vnr-window.c:1549
 msgid "Go to the last image of the collection"
 msgstr "Иди на последњу слику у колекцији"
