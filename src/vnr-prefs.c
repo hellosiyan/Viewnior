@@ -156,6 +156,7 @@ vnr_prefs_set_default(VnrPrefs *prefs)
     prefs->reload_on_save = FALSE;
     prefs->show_toolbar = TRUE;
     prefs->start_maximized = FALSE;
+    prefs->start_slideshow = FALSE;
 }
 
 static GtkWidget *

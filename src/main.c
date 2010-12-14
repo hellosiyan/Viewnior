@@ -32,12 +32,14 @@
 
 static gchar **files = NULL;     //array of files specified to be opened
 static gboolean version = FALSE;
+static gboolean slideshow = FALSE;
 
 /* List of option entries
  * The only option is for specifying file to be opened. */
 static GOptionEntry opt_entries[] = {
     {G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_FILENAME_ARRAY, &files, NULL, "[FILE]"},
     {"version", 0, 0, G_OPTION_ARG_NONE, &version, NULL, NULL},
+    {"slideshow", 0, 0, G_OPTION_ARG_NONE, &slideshow, NULL, NULL},
     {NULL}
 };
 
@@ -118,6 +120,7 @@ main (int argc, char *argv[])
             vnr_window_set_list(VNR_WINDOW(window), file_list, TRUE);
         }
     }
+    VNR_WINDOW(window)->prefs->start_slideshow = slideshow;
     if ( VNR_WINDOW(window)->prefs->start_maximized ) {
     	gtk_window_maximize(window);
     }
