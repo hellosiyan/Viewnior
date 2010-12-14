@@ -103,6 +103,7 @@ AC_CONFIG_FILES([Makefile
                  data/icons/scalable/Makefile
                  data/icons/scalable/apps/Makefile
                  po/Makefile.in
+                 man/Makefile
                  shave
                  shave-libtool])
 AC_OUTPUT
