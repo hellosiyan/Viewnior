@@ -1030,15 +1030,21 @@ vnr_window_cmd_preferences(GtkAction *action, gpointer user_data)
 }
 
 static void
-vnr_window_cmd_flip_horizontal(GtkAction *action, gpointer user_data)
+vnr_window_cmd_flip_horizontal(GtkAction *action, VnrWindow *window)
 {
-    flip_pixbuf(VNR_WINDOW(user_data), TRUE);
+    if ( !gtk_action_group_get_sensitive(window->actions_static_image) )
+        return;
+	
+    flip_pixbuf(window, TRUE);
 }
 
 static void
-vnr_window_cmd_flip_vertical(GtkAction *action, gpointer user_data)
+vnr_window_cmd_flip_vertical(GtkAction *action, VnrWindow *window)
 {
-    flip_pixbuf(VNR_WINDOW(user_data), FALSE);
+    if ( !gtk_action_group_get_sensitive(window->actions_static_image) )
+        return;
+	
+    flip_pixbuf(window, FALSE);
 }
 
 static void
@@ -1435,7 +1441,10 @@ static void
 vnr_window_cmd_crop(GtkAction *action, VnrWindow *window)
 {
     VnrCrop *crop;
-
+    
+    if ( !gtk_action_group_get_sensitive(window->actions_static_image) )
+        return;
+		
     crop = (VnrCrop*) vnr_crop_new (window);
 
     if(! vnr_crop_run(crop))
@@ -1677,6 +1686,7 @@ vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
             result = TRUE;
             break;
         case GDK_Escape:
+        case 'q':
             if(window->mode != VNR_WINDOW_MODE_NORMAL)
                 vnr_window_unfullscreen(window);
             else
@@ -1693,6 +1703,15 @@ vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
             vnr_window_prev(window);
             result = TRUE;
             break;
+        case 'h':
+        	vnr_window_cmd_flip_horizontal(NULL, window);
+        	break;
+        case 'v':
+        	vnr_window_cmd_flip_vertical(NULL, window);
+        	break;
+        case 'c':
+        	vnr_window_cmd_crop(NULL, window);
+        	break;
     }
 
     if (result == FALSE && GTK_WIDGET_CLASS (vnr_window_parent_class)->key_press_event)
