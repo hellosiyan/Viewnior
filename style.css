@@ -5,7 +5,7 @@
 	outline: 0;
 }
 
-ul, ol { padding-left: 20px; list-style: circle; }
+ul, ol { padding-left: 31px; list-style: circle; }
 
 body {
 	background: #EDEDED;
@@ -55,6 +55,7 @@ a, a:visited, a:hover { text-decoration: none; color: black;}
 #navigation li a {
 	color: #333;
 	text-transform: uppercase;
+	text-shadow: 0 2px 4px #ccc;
 }
 
 #navigation li a:hover, #navigation li a.active {
@@ -63,6 +64,7 @@ a, a:visited, a:hover { text-decoration: none; color: black;}
 #logo {
 	padding-top: 5px;
 	line-height: 39px;
+	text-shadow: 0 2px 4px #ccc;
 }
 #logo em {
 	text-transform: uppercase;
@@ -84,6 +86,10 @@ a, a:visited, a:hover { text-decoration: none; color: black;}
 	color: #5bc642;
 }
 
+#content strong {	
+	text-shadow: 0 2px 4px #ccc;
+}
+
 #content .post {
 	margin-bottom: 20px;
 }
@@ -94,6 +100,7 @@ a, a:visited, a:hover { text-decoration: none; color: black;}
 	text-transform: uppercase;
 	border-bottom: 1px solid black;
 	margin-bottom: 10px;
+	text-shadow: 0 2px 4px #ccc;
 }
 
 #content .post .date {
@@ -103,6 +110,7 @@ a, a:visited, a:hover { text-decoration: none; color: black;}
 	padding-right: 20px;
 	color: #bbb;
 	font-size: 16px;
+	text-shadow: 0 2px 4px #ccc;
 }
 
 #content .post p, #content .post ul {
@@ -115,10 +123,10 @@ a, a:visited, a:hover { text-decoration: none; color: black;}
 .install_desc {
 	background-color: #222;
 	color: white;
-	font-family: monospace,courier,"Trebuchet MS", arial;
+	font-family: monospace,Monospace,courier;
 	padding: 5px;
 	font-size: 14px;
-	width: 100%;
+	width: 755px;
 }
 
 /* FOOTER */
@@ -144,6 +152,7 @@ a, a:visited, a:hover { text-decoration: none; color: black;}
 	font-size: 24px;
 	line-height	29px;
 	font-weight: bold;
+	text-shadow: 0 0 4px #000;
 }
 
 .blackout h2 a {
@@ -192,7 +201,15 @@ a, a:visited, a:hover { text-decoration: none; color: black;}
 #faq-page #content p {
 	text-indent: 0;
 }
-
+#faqs li {
+	margin-bottom: 10px;
+}
+.download {
+	margin-bottom: 20px;
+}
+.download p {
+	margin-bottom: 10px;
+}
 .download_content {
 	margin-left: 10px;
 	padding: 10px 0;
