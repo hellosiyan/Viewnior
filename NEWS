@@ -1,3 +1,18 @@
+Viewnior 1.1
+------------
+
+New features included:
+ - Full Drag'n'Drop support
+ - Toggle window autoresize after image load
+ - Remember window state (maximized) between startups
+ - Add "Last Used Mode" zoom option
+ - --slideshow argument to start in Slideshow mode
+ - Gnome 3.0 ready 
+
+Fixed:
+ - Remove deprecated gtk+/glib symbols
+ - .desktop entry issue
+
 Viewnior 1.0
 ------------
 
@@ -76,8 +91,7 @@ Viewnior 0.2
 ------------
 
 New features included:
- - New icon - big red V, biten from me,
-   the Beaver.
+ - New icon - big red V
  - Message area, where warnings pop.
  - --version argument available.
 
