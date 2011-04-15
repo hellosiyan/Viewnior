@@ -157,6 +157,7 @@ vnr_prefs_set_default(VnrPrefs *prefs)
     prefs->show_toolbar = TRUE;
     prefs->start_maximized = FALSE;
     prefs->start_slideshow = FALSE;
+    prefs->auto_resize = FALSE;
 }
 
 static GtkWidget *
@@ -329,6 +330,7 @@ vnr_prefs_load (VnrPrefs *prefs)
     prefs->show_toolbar = g_key_file_get_boolean (conf, "prefs", "show-toolbar", &error);
     prefs->start_maximized = g_key_file_get_boolean (conf, "prefs", "start-maximized", &error);
     prefs->slideshow_timeout = g_key_file_get_integer (conf, "prefs", "slideshow-timeout", &error);
+    prefs->auto_resize = g_key_file_get_boolean (conf, "prefs", "auto-resize", &error);
     prefs->behavior_wheel = g_key_file_get_integer (conf, "prefs", "behavior-wheel", &error);
     prefs->behavior_click = g_key_file_get_integer (conf, "prefs", "behavior-click", &error);
     prefs->behavior_modify = g_key_file_get_integer (conf, "prefs", "behavior-modify", &error);
@@ -415,6 +417,7 @@ vnr_prefs_save (VnrPrefs *prefs)
     g_key_file_set_boolean (conf, "prefs", "show-toolbar", prefs->show_toolbar);
     g_key_file_set_boolean (conf, "prefs", "start-maximized", prefs->start_maximized);
     g_key_file_set_integer (conf, "prefs", "slideshow-timeout", prefs->slideshow_timeout);
+    g_key_file_set_boolean (conf, "prefs", "auto-resize", prefs->auto_resize);
     g_key_file_set_integer (conf, "prefs", "behavior-wheel", prefs->behavior_wheel);
     g_key_file_set_integer (conf, "prefs", "behavior-click", prefs->behavior_click);
     g_key_file_set_integer (conf, "prefs", "behavior-modify", prefs->behavior_modify);

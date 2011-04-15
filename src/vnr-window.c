@@ -967,6 +967,15 @@ window_change_state_cb (GtkWidget * widget, GdkEventWindowState * event, gpointe
 	return TRUE;
 }
 
+
+static void
+window_destroy_cb (GtkObject *object, gpointer user_data)
+{
+    vnr_window_save_accel_map();
+    vnr_prefs_save(VNR_WINDOW(object)->prefs);
+	gtk_main_quit();
+}
+
 static void
 zoom_changed_cb (UniImageView *view, VnrWindow *window)
 {
@@ -1111,16 +1120,22 @@ vnr_window_cmd_prev (GtkAction *action, gpointer user_data)
 static void
 vnr_window_cmd_resize (GtkToggleAction *action, VnrWindow *window)
 {
-	if ( action != NULL && !gtk_toggle_action_get_active(action) )
-		return;
+    if ( action != NULL && !gtk_toggle_action_get_active(action) ) {
+        window->prefs->auto_resize = FALSE;
+        return;
+    }
 	
     gint img_h, img_w;          /* Width and Height of the pixbuf */
 
     img_w = window->current_image_width;
     img_h = window->current_image_height;
+    
+    if ( img_w == 0 || img_h == 0 )
+        return;
 
+    window->prefs->auto_resize = TRUE;
+    
     vnr_tools_fit_to_size (&img_w, &img_h, window->max_width, window->max_height);
-
     gtk_window_resize (GTK_WINDOW (window), img_w, img_h + window->menus->allocation.height);
 }
 
@@ -1752,19 +1767,9 @@ vnr_window_drag_data_received (GtkWidget *widget,
 }
 
 static void
-vnr_window_finalize (GObject *object)
-{
-    vnr_window_save_accel_map();
-    G_OBJECT_CLASS (vnr_window_parent_class)->finalize (object);
-}
-
-static void
 vnr_window_class_init (VnrWindowClass * klass)
 {
     GtkWidgetClass *widget_class = (GtkWidgetClass *) klass;
-    GObjectClass *g_object_class = (GObjectClass *) klass;
-
-    g_object_class->finalize = vnr_window_finalize;
 
     widget_class->key_press_event = vnr_window_key_press;
     widget_class->drag_data_received = vnr_window_drag_data_received;
@@ -1967,12 +1972,19 @@ vnr_window_init (VnrWindow * window)
 
     gtk_widget_hide(get_fs_controls(window));
 
-
+    // Apply toolbar preference
     action = gtk_action_group_get_action (window->action_toolbar,
                                           "ViewToolbar");
     if(!window->prefs->show_toolbar)
         gtk_widget_hide (window->toolbar);
     else
+        gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), TRUE);
+        
+    // Apply auto-resize preference
+    action = gtk_action_group_get_action (window->actions_image,
+                                          "ViewResizeWindow");
+
+    if(window->prefs->auto_resize)
         gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), TRUE);
 
     window->msg_area = vnr_message_area_new();
@@ -2000,7 +2012,7 @@ vnr_window_init (VnrWindow * window)
     vnr_window_set_drag(window);
 
     g_signal_connect (G_OBJECT (window), "destroy",
-                      G_CALLBACK (gtk_main_quit), NULL);
+                      G_CALLBACK (window_destroy_cb), NULL);
 
     g_signal_connect (G_OBJECT (window), "realize",
                       G_CALLBACK (window_realize_cb), NULL);
@@ -2108,7 +2120,7 @@ vnr_window_open (VnrWindow * window, gboolean fit_to_screen)
 		uni_image_view_set_zoom_mode (UNI_IMAGE_VIEW(window->view), window->prefs->zoom);
     }
 	
-	if ( gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(gtk_action_group_get_action(window->actions_image, "ViewResizeWindow"))) ) {
+	if ( window->prefs->auto_resize ) {
 	    vnr_window_cmd_resize(NULL, window);
 	}
 	
