@@ -60,34 +60,28 @@ static gboolean fullscreen_motion_cb(GtkWidget * widget, GdkEventMotion * ev, Vn
 static void open_with_launch_application_cb (GtkAction *action, VnrWindow *window);
 
 const gchar *ui_definition = "<ui>"
-  "<menubar name=\"MainMenu\">"
-    "<menu action=\"File\">"
-      "<menuitem action=\"FileOpen\"/>"
-      "<menuitem action=\"FileOpenDir\"/>"
-      "<menu action=\"FileOpenWith\">"
-         "<placeholder name=\"AppEntries\"/>"
-      "</menu>"
-      "<separator/>"
-      "<menuitem action=\"FileSave\"/>"
-      "<menuitem action=\"FileReload\"/>"
-      "<separator/>"
-      "<menuitem action=\"FileProperties\"/>"
-      "<separator/>"
-      "<menuitem action=\"FileClose\"/>"
+  "<popup name=\"MainMenu\">"
+    "<menuitem action=\"FileOpen\"/>"
+    "<menuitem action=\"FileOpenDir\"/>"
+    "<menu action=\"FileOpenWith\">"
+       "<placeholder name=\"AppEntries\"/>"
     "</menu>"
+    "<separator/>"
+    "<menuitem action=\"FileSave\"/>"
+    "<menuitem action=\"FileReload\"/>"
+    "<menuitem action=\"FileProperties\"/>"
+    "<separator/>"
     "<menu action=\"Edit\">"
       "<menuitem action=\"FileDelete\"/>"
       "<separator/>"
-      "<menuitem action=\"EditPreferences\"/>"
     "</menu>"
     "<menu action=\"View\">"
-      "<menuitem action=\"ViewToolbar\"/>"
-      "<separator/>"
       "<menuitem action=\"ViewZoomIn\"/>"
       "<menuitem action=\"ViewZoomOut\"/>"
       "<menuitem action=\"ViewZoomNormal\"/>"
       "<menuitem action=\"ViewZoomFit\"/>"
       "<separator/>"
+      "<menuitem action=\"ViewToolbar\"/>"
       "<menuitem name=\"Fullscreen\" action=\"ViewFullscreen\"/>"
       "<menuitem name=\"Slideshow\" action=\"ViewSlideshow\"/>"
       "<separator/>"
@@ -103,17 +97,12 @@ const gchar *ui_definition = "<ui>"
       "<menuitem action=\"ImageCrop\"/>"
       "<placeholder name=\"WallpaperEntry\"/>"
     "</menu>"
-    "<menu action=\"Go\">"
-      "<menuitem name=\"GoPrevious\" action=\"GoPrevious\"/>"
-      "<menuitem name=\"GoNext\" action=\"GoNext\"/>"
-      "<separator/>"
-      "<menuitem name=\"GoFirst\" action=\"GoFirst\"/>"
-      "<menuitem name=\"GoLast\" action=\"GoLast\"/>"
-    "</menu>"
-    "<menu action=\"Help\">"
-      "<menuitem action=\"HelpAbout\"/>"
-    "</menu>"
-  "</menubar>"
+    "<separator/>"
+    "<menuitem action=\"EditPreferences\"/>"
+    "<separator/>"
+    "<menuitem action=\"HelpAbout\"/>"
+    "<menuitem action=\"FileClose\"/>"
+  "</popup>"
   "<toolbar name=\"Toolbar\">"
     "<toolitem action=\"GoPrevious\"/>"
     "<toolitem action=\"GoNext\"/>"
@@ -125,6 +114,8 @@ const gchar *ui_definition = "<ui>"
     "<separator/>"
     "<toolitem action=\"ImageRotateCCW\"/>"
     "<toolitem action=\"ImageRotateCW\"/>"
+    "<separator expand=\"true\"/>"
+    "<toolitem action=\"Properties\"/>"
   "</toolbar>"
   "<popup name=\"PopupMenu\">"
     "<menuitem name=\"GoPrevious\" action=\"GoPrevious\"/>"
@@ -139,6 +130,7 @@ const gchar *ui_definition = "<ui>"
     "<menuitem action=\"ViewZoomNormal\"/>"
     "<placeholder name=\"WallpaperEntry\"/>"
     "<separator/>"
+    "<menuitem name=\"Toolbar\" action=\"ViewToolbar\"/>"
     "<menuitem name=\"Fullscreen\" action=\"ViewFullscreen\"/>"
     "<separator/>"
     "<menuitem action=\"FileProperties\"/>"
@@ -152,14 +144,14 @@ const gchar *ui_definition = "<ui>"
 
 #ifdef HAVE_WALLPAPER
 const gchar *ui_definition_wallpaper = "<ui>"
-  "<menubar name=\"MainMenu\">"
+  "<popup name=\"MainMenu\">"
     "<menu action=\"Image\">"
       "<placeholder name=\"WallpaperEntry\">"
         "<separator/>"
         "<menuitem name=\"Wallpaper\" action=\"SetAsWallpaper\"/>"
       "</placeholder>"
     "</menu>"
-  "</menubar>"
+  "</popup>"
   "<popup name=\"PopupMenu\">"
     "<placeholder name=\"WallpaperEntry\">"
       "<separator/>"
@@ -259,7 +251,7 @@ vnr_window_update_openwith_menu (VnrWindow *window)
 
         gtk_ui_manager_add_ui (window->ui_mngr,
                         window->open_with_menu_id,
-                        "/MainMenu/File/FileOpenWith/AppEntries",
+                        "/MainMenu/FileOpenWith/AppEntries",
                         name,
                         name,
                         GTK_UI_MANAGER_MENUITEM,
@@ -913,6 +905,40 @@ save_image_cb (GtkWidget *widget, VnrWindow *window)
 }
 
 static void
+vnr_window_main_menu_position (GtkMenu *menu, gint *x, gint *y, gboolean *push_in, gpointer user_data)
+{
+	VnrWindow *window = VNR_WINDOW(user_data);
+	GtkWidget *button = GTK_WIDGET(gtk_ui_manager_get_widget (window->ui_mngr, "/Toolbar/Properties"));
+	GdkWindow *gdk_window = gtk_widget_get_window(button);
+	
+	gdk_window_get_position(gdk_window, x, y);
+	
+	// in maximuzed and fullscreen states gdk_window_get_position returns 0 
+	if ( *x == 0 && gtk_widget_get_visible ( get_fs_controls(window)) ) {
+		*x -= get_fs_controls(window)->allocation.width;
+	} 
+	
+	*x += window->toolbar->allocation.width - button->allocation.width;
+	*y += button->allocation.height;
+}
+
+static void
+vnr_window_cmd_open_menu (GtkToggleAction *action, VnrWindow *window)
+{
+	if( !gtk_toggle_action_get_active (action)) {
+		return;
+	}
+	gtk_menu_popup(GTK_MENU(window->menu_bar), NULL, NULL, vnr_window_main_menu_position, window, 0, gtk_get_current_event_time());
+	return;
+}
+
+static void
+vnr_window_cmd_main_menu_hidden (GtkWidget *widget, gpointer user_data)
+{
+	gtk_toggle_tool_button_set_active(GTK_TOGGLE_TOOL_BUTTON(gtk_ui_manager_get_widget (VNR_WINDOW(user_data)->ui_mngr, "/Toolbar/Properties")), FALSE);
+}
+
+static void
 leave_fs_cb (GtkButton *button, VnrWindow *window)
 {
     vnr_window_unfullscreen (window);
@@ -1540,6 +1566,12 @@ static const GtkActionEntry action_entry_save[] = {
       G_CALLBACK (save_image_cb) },
 };
 
+static const GtkToggleActionEntry toggle_entry_properties[] = {
+    { "Properties", GTK_STOCK_PROPERTIES, N_("_Properties"), NULL,
+      N_("Properties"),
+      G_CALLBACK (vnr_window_cmd_open_menu) },
+};
+
 #ifdef HAVE_WALLPAPER
 static const GtkActionEntry action_entry_wallpaper[] = {
     { "SetAsWallpaper", NULL, N_("Set as _Wallpaper"), "<control>F8",
@@ -1836,6 +1868,20 @@ vnr_window_init (VnrWindow * window)
     gtk_ui_manager_insert_action_group (window->ui_mngr,
                                         window->action_save, 0);
 
+    window->action_properties = gtk_action_group_new("MenuActionProperties");
+
+
+    gtk_action_group_set_translation_domain (window->action_properties,
+                                             GETTEXT_PACKAGE);
+
+    gtk_action_group_add_toggle_actions (window->action_properties,
+                                  toggle_entry_properties,
+                                  G_N_ELEMENTS (toggle_entry_properties),
+                                  window);
+
+    gtk_ui_manager_insert_action_group (window->ui_mngr,
+                                        window->action_properties, 0);
+
     window->actions_static_image = gtk_action_group_new("MenuActionsStaticImage");
 
 
@@ -1955,11 +2001,12 @@ vnr_window_init (VnrWindow * window)
 
     window->menu_bar = gtk_ui_manager_get_widget (window->ui_mngr, "/MainMenu");
     g_assert(GTK_IS_WIDGET(window->menu_bar));
-    gtk_box_pack_start (GTK_BOX (window->menus), window->menu_bar, FALSE,FALSE,0);
+    gtk_menu_attach_to_widget (GTK_MENU(window->menu_bar), GTK_WIDGET(gtk_ui_manager_get_widget (window->ui_mngr, "/Toolbar/Properties")), NULL);
 
     window->toolbar = gtk_ui_manager_get_widget (window->ui_mngr, "/Toolbar");
     g_assert(GTK_IS_WIDGET(window->toolbar));
     gtk_toolbar_set_style(GTK_TOOLBAR(window->toolbar), GTK_TOOLBAR_ICONS);
+    g_object_set(G_OBJECT(window->toolbar), "show-arrow", FALSE, NULL);
     gtk_toolbar_insert (GTK_TOOLBAR (window->toolbar),
                         GTK_TOOL_ITEM(get_fs_controls(window)), -1);
     gtk_box_pack_start (GTK_BOX (window->menus), window->toolbar, FALSE,FALSE,0);
@@ -2025,6 +2072,9 @@ vnr_window_init (VnrWindow * window)
 
     g_signal_connect (G_OBJECT (window->view), "drag-data-get",
                       G_CALLBACK (window_drag_begin_cb), window);
+                      
+	g_signal_connect (G_OBJECT (window->menu_bar), "hide", 
+					  G_CALLBACK(vnr_window_cmd_main_menu_hidden), window);
 
     gtk_window_add_accel_group (GTK_WINDOW (window),
                 gtk_ui_manager_get_accel_group (window->ui_mngr));
