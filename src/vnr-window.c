@@ -970,6 +970,8 @@ window_realize_cb(GtkWidget *widget, gpointer user_data)
 			VNR_WINDOW(widget)->mode = VNR_WINDOW_MODE_NORMAL;
 			allow_slideshow(VNR_WINDOW(widget));
 			start_slideshow(VNR_WINDOW(widget));
+		} else if ( VNR_WINDOW(widget)->prefs->start_fullscreen && VNR_WINDOW(widget)->file_list != NULL ) {
+			vnr_window_fullscreen(VNR_WINDOW(widget));
 		}
     }
 }

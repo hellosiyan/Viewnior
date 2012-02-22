@@ -85,6 +85,7 @@ struct _VnrPrefs {
     gboolean show_toolbar;
     gboolean start_maximized;
     gboolean start_slideshow;
+    gboolean start_fullscreen;
     gboolean auto_resize;
     int slideshow_timeout;
     int jpeg_quality;

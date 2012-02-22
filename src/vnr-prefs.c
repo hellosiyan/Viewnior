@@ -165,6 +165,7 @@ vnr_prefs_set_default(VnrPrefs *prefs)
     prefs->show_toolbar = TRUE;
     prefs->start_maximized = FALSE;
     prefs->start_slideshow = FALSE;
+    prefs->start_fullscreen = FALSE;
     prefs->auto_resize = FALSE;
 }
 
