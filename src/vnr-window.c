@@ -1810,7 +1810,7 @@ vnr_window_drag_data_received (GtkWidget *widget,
     if (!gtk_targets_include_uri (&selection_data->target, 1))
         return;
 
-    if (context->suggested_action == GDK_ACTION_COPY)
+    if (context->suggested_action == GDK_ACTION_COPY || context->suggested_action == GDK_ACTION_ASK)
     {
         uri_list = vnr_tools_parse_uri_string_list_to_file_list ((gchar *) selection_data->data);
 
