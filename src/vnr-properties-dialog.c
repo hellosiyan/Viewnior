@@ -85,7 +85,7 @@ set_new_pixbuf(VnrPropertiesDialog *dialog, GdkPixbuf* original)
     vnr_tools_fit_to_size(&height, &width, 100,100);
 
     dialog->thumbnail = gdk_pixbuf_scale_simple (original, width, height,
-                                                 GDK_INTERP_BILINEAR);
+                                                 GDK_INTERP_NEAREST);
 }
 
 static void
