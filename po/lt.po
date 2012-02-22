@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-08-31 11:05+0300\n"
-"PO-Revision-Date: 2009-11-21 14:43+0000\n"
-"Last-Translator: Joshas <Unknown>\n"
+"PO-Revision-Date: 2010-12-18 17:27+0000\n"
+"Last-Translator: Mantas Kriaučiūnas <mantas@akl.lt>\n"
 "Language-Team: Lithuanian <lt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "(n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2010-12-14 22:08+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2012-02-22 22:41+0000\n"
+"X-Generator: Launchpad (build 14838)\n"
 
 #: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:1153
 msgid "Elegant Image Viewer"
@@ -33,17 +33,17 @@ msgid ""
 "  Clicking on the left half of the window shows the\n"
 "  previous image and on the right side - the next.</small> "
 msgstr ""
-"<small>  (!) Paveikslų naršymas dvikarčiu spustelėjimu :\n"
-"  Spragtelėjus kairėje lango pusėje rodomas ankstesnis\n"
-"  paveikslas, spragtelėjus dešinėje - kitas.</small> "
+"<small>  (!) Paveikslų naršymas dvigubu spustelėjimu:\n"
+"  Spustelėjus kairėje lango pusėje rodomas ankstesnis\n"
+"  paveikslas, spustelėjus dešinėje - kitas.</small> "
 
 #: ../data/vnr-preferences-dialog.ui.h:4
 msgid "Always expand images to fit screen"
-msgstr "Visada išskleisti paveikslus, kad tilptų ekrane"
+msgstr "Visada išplėsti paveikslus, kad tilptų ekrane"
 
 #: ../data/vnr-preferences-dialog.ui.h:5
 msgid "Behavior"
-msgstr "Veikimas"
+msgstr "Elgesys"
 
 #: ../data/vnr-preferences-dialog.ui.h:6
 msgid "Confirm image deletion"
@@ -63,7 +63,7 @@ msgstr "JPEG kokybė:"
 
 #: ../data/vnr-preferences-dialog.ui.h:10
 msgid "On double click: "
-msgstr "Dvikarčiu spustelėjimu: "
+msgstr "Dvigubu spustelėjimu: "
 
 #: ../data/vnr-preferences-dialog.ui.h:11
 msgid "On image modification: "
@@ -103,7 +103,7 @@ msgstr "Glodinti pakeisto mastelio paveikslėlius"
 
 #: ../data/vnr-preferences-dialog.ui.h:20
 msgid "Viewnior Preferences"
-msgstr "Programos parinktys"
+msgstr "Programos nustatymai"
 
 #: ../data/vnr-crop-dialog.ui.h:1 ../src/vnr-window.c:1516
 msgid "Crop"
@@ -281,7 +281,8 @@ msgstr "Atverti aplanką"
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Joshas https://launchpad.net/~joshas"
+"  Mantas Kriaučiūnas https://launchpad.net/~mantas\n"
+"  Vaidotas https://launchpad.net/~joshas"
 
 #: ../src/vnr-window.c:1265
 msgid "If you delete an item, it will be permanently lost."

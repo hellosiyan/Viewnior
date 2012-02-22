@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-08-31 11:05+0300\n"
-"PO-Revision-Date: 2010-10-23 13:46+0000\n"
-"Last-Translator: Fedor <Unknown>\n"
+"PO-Revision-Date: 2010-12-18 06:38+0000\n"
+"Last-Translator: Sergey Sedov <sedov@webmail.perm.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2010-12-14 22:08+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2012-02-22 22:40+0000\n"
+"X-Generator: Launchpad (build 14838)\n"
 
 #: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:1153
 msgid "Elegant Image Viewer"
@@ -285,6 +285,7 @@ msgstr ""
 "  HsH https://launchpad.net/~hsh\n"
 "  Kolesnikov Dmitrij https://launchpad.net/~virusmater\n"
 "  Sergey Sedov https://launchpad.net/~serg-sedov\n"
+"  mrakobes86 https://launchpad.net/~mrakobes86\n"
 "  stroncium https://launchpad.net/~yanis-benson\n"
 "  Денис Крюков https://launchpad.net/~dk4485"
 
@@ -299,8 +300,8 @@ msgid ""
 "Are you sure you want to\n"
 "permanently delete \"%s\"?"
 msgstr ""
-"Вы уверены, что хотите\n"
-"полностью удалить \"%s\"?"
+"Вы уверены в том, что\n"
+"хотите удалить \"%s\"?"
 
 #: ../src/vnr-window.c:1422
 msgid "_File"
@@ -308,7 +309,7 @@ msgstr "_Файл"
 
 #: ../src/vnr-window.c:1423
 msgid "_Edit"
-msgstr "_Изменить"
+msgstr "_Правка"
 
 #: ../src/vnr-window.c:1424
 msgid "_View"
@@ -320,7 +321,7 @@ msgstr "_Изображение"
 
 #: ../src/vnr-window.c:1426
 msgid "_Go"
-msgstr "_Перейти"
+msgstr "П_ереход"
 
 #: ../src/vnr-window.c:1427
 msgid "_Help"
@@ -356,7 +357,7 @@ msgstr "_О программе"
 
 #: ../src/vnr-window.c:1439
 msgid "About this application"
-msgstr "Об этой программе"
+msgstr "О программе"
 
 #: ../src/vnr-window.c:1441
 msgid "_Preferences..."

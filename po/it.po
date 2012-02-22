@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-08-31 11:05+0300\n"
-"PO-Revision-Date: 2010-03-31 08:39+0000\n"
-"Last-Translator: fasix <vito.fasano@gmail.com>\n"
+"PO-Revision-Date: 2012-02-21 10:49+0000\n"
+"Last-Translator: mattia.b89 <Unknown>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2010-12-14 22:08+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2012-02-22 22:41+0000\n"
+"X-Generator: Launchpad (build 14838)\n"
 
 #: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:1153
 msgid "Elegant Image Viewer"
@@ -66,7 +66,7 @@ msgstr "Doppio click: "
 
 #: ../data/vnr-preferences-dialog.ui.h:11
 msgid "On image modification: "
-msgstr "Imagine modificata: "
+msgstr ""
 
 #: ../data/vnr-preferences-dialog.ui.h:12
 msgid "On mouse wheel: "
@@ -86,7 +86,7 @@ msgstr "Ricarica immagine dopo il salvataggio"
 
 #: ../data/vnr-preferences-dialog.ui.h:16
 msgid "Saving"
-msgstr "Salvataggio in corso"
+msgstr "Salvataggio"
 
 #: ../data/vnr-preferences-dialog.ui.h:17
 msgid "Show hidden images"
@@ -281,7 +281,8 @@ msgstr ""
 "Launchpad Contributions:\n"
 "  Milo Casagrande https://launchpad.net/~milo\n"
 "  bautz https://launchpad.net/~bautz\n"
-"  fasix https://launchpad.net/~vito-fasano"
+"  fasix https://launchpad.net/~vito.fasano\n"
+"  mattia.b89 https://launchpad.net/~mattia-b89"
 
 #: ../src/vnr-window.c:1265
 msgid "If you delete an item, it will be permanently lost."

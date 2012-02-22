@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2010-12-14 22:08+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2012-02-22 22:40+0000\n"
+"X-Generator: Launchpad (build 14838)\n"
 
 #: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:1153
 msgid "Elegant Image Viewer"
@@ -281,7 +281,7 @@ msgstr "Otwórz katalog"
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Adam Maćkowiak https://launchpad.net/~adammac18"
+"  Adam Maćkowiak https://launchpad.net/~admc"
 
 #: ../src/vnr-window.c:1265
 msgid "If you delete an item, it will be permanently lost."

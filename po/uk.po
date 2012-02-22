@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-08-31 11:05+0300\n"
-"PO-Revision-Date: 2010-08-18 21:14+0000\n"
+"PO-Revision-Date: 2011-04-17 15:59+0000\n"
 "Last-Translator: Maks Lyashuk aka Ma)(imuM <Unknown>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2010-12-14 22:08+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2012-02-22 22:40+0000\n"
+"X-Generator: Launchpad (build 14838)\n"
 
 #: ../data/viewnior.desktop.in.in.h:1 ../src/vnr-window.c:1153
 msgid "Elegant Image Viewer"
@@ -33,13 +33,13 @@ msgid ""
 "  Clicking on the left half of the window shows the\n"
 "  previous image and on the right side - the next.</small> "
 msgstr ""
-"<small>  (!) Навігація зображень з подвійним кліком :\n"
+"<small>  (!) Навігація зображень з подвійним натисканням клавіші миші :\n"
 "   При натисканні на ліву половину вікна показує\n"
 "   попереднє зображення і на правій стороні - наступне.</small> "
 
 #: ../data/vnr-preferences-dialog.ui.h:4
 msgid "Always expand images to fit screen"
-msgstr "Завжди розширювати зображення до розмірів екрана"
+msgstr "Завжди збільшувати зображення до розміру екрана"
 
 #: ../data/vnr-preferences-dialog.ui.h:5
 msgid "Behavior"
@@ -47,11 +47,11 @@ msgstr "Поведінка"
 
 #: ../data/vnr-preferences-dialog.ui.h:6
 msgid "Confirm image deletion"
-msgstr "Запит видалення зображення"
+msgstr "Запит підтвердження видалення зображення"
 
 #: ../data/vnr-preferences-dialog.ui.h:7
 msgid "Fullscreen"
-msgstr "На повний екран"
+msgstr "На ввесь екран"
 
 #: ../data/vnr-preferences-dialog.ui.h:8
 msgid "General"
@@ -63,15 +63,15 @@ msgstr "Якість JPEG:"
 
 #: ../data/vnr-preferences-dialog.ui.h:10
 msgid "On double click: "
-msgstr "при подвійному натисканні: "
+msgstr "При подвійному натисканні: "
 
 #: ../data/vnr-preferences-dialog.ui.h:11
 msgid "On image modification: "
-msgstr "При зміні зображення: "
+msgstr "При редагуванні зображення: "
 
 #: ../data/vnr-preferences-dialog.ui.h:12
 msgid "On mouse wheel: "
-msgstr "При використанні колеса миші: "
+msgstr ""
 
 #: ../data/vnr-preferences-dialog.ui.h:13
 msgid "Open new image in: "
@@ -283,6 +283,7 @@ msgstr ""
 "Launchpad Contributions:\n"
 "  Maks Lyashuk aka Ma)(imuM https://launchpad.net/~probel\n"
 "  Roman Oleskevych https://launchpad.net/~oleskevych\n"
+"  Serhey Kusyumoff (Сергій Кусюмов) https://launchpad.net/~sergemine\n"
 "  Сергій Карпенко(Sergii Karpenko) https://launchpad.net/~karpenkoff"
 
 #: ../src/vnr-window.c:1265
