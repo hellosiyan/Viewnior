@@ -77,6 +77,13 @@ change_zoom_mode_cb (GtkComboBox *widget, gpointer user_data)
 }
 
 static void
+change_desktop_env_cb (GtkComboBox *widget, gpointer user_data)
+{
+    VNR_PREFS(user_data)->desktop = gtk_combo_box_get_active(widget);
+    vnr_prefs_save(VNR_PREFS(user_data));
+}
+
+static void
 change_jpeg_quality_cb (GtkRange *range, gpointer user_data)
 {
     VNR_PREFS(user_data)->jpeg_quality = (int) gtk_range_get_value(range);
@@ -143,6 +150,7 @@ static void
 vnr_prefs_set_default(VnrPrefs *prefs)
 {
     prefs->zoom = VNR_PREFS_ZOOM_SMART;
+    prefs->desktop = VNR_PREFS_DESKTOP_GNOME3;
     prefs->show_hidden = FALSE;
     prefs->fit_on_fullscreen = TRUE;
     prefs->smooth_images = TRUE;
@@ -171,7 +179,9 @@ build_dialog (VnrPrefs *prefs)
     GtkToggleButton *show_hidden;
     GtkToggleButton *fit_on_fullscreen;
     GtkBox *zoom_mode_box;
+    GtkBox *desktop_box;
     GtkComboBox *zoom_mode;
+    GtkComboBox *desktop_env;
     GtkToggleButton *smooth_images;
     GtkToggleButton *confirm_delete;
     GtkToggleButton *reload_on_save;
@@ -256,6 +266,21 @@ build_dialog (VnrPrefs *prefs)
 
     g_signal_connect(G_OBJECT(zoom_mode), "changed", G_CALLBACK(change_zoom_mode_cb), prefs);
 
+    /* Desktop combo box */
+    desktop_box = GTK_BOX (gtk_builder_get_object (builder, "desktop_box"));
+
+    desktop_env = (GtkComboBox*) gtk_combo_box_new_text();
+    gtk_combo_box_append_text(desktop_env, "GNOME 2");
+    gtk_combo_box_append_text(desktop_env, "GNOME 3");
+    gtk_combo_box_append_text(desktop_env, "FXCE");
+    gtk_combo_box_append_text(desktop_env, "FluxBox");
+    gtk_combo_box_set_active(desktop_env, prefs->desktop);
+
+    gtk_box_pack_end (desktop_box, GTK_WIDGET(desktop_env), FALSE, FALSE, 0);
+    gtk_widget_show(GTK_WIDGET(desktop_env));
+
+    g_signal_connect(G_OBJECT(desktop_env), "changed", G_CALLBACK(change_desktop_env_cb), prefs);
+
     /* Behavior combo boxes */
     behavior_table = GTK_TABLE (gtk_builder_get_object (builder, "behavior_table"));
 
@@ -322,6 +347,7 @@ vnr_prefs_load (VnrPrefs *prefs)
     }
 
     prefs->zoom = g_key_file_get_integer (conf, "prefs", "zoom-mode", &error);
+    prefs->desktop = g_key_file_get_integer (conf, "prefs", "desktop", &error);
     prefs->fit_on_fullscreen = g_key_file_get_boolean (conf, "prefs", "fit-on-fullscreen", &error);
     prefs->show_hidden = g_key_file_get_boolean (conf, "prefs", "show-hidden", &error);
     prefs->smooth_images = g_key_file_get_boolean (conf, "prefs", "smooth-images", &error);
@@ -409,6 +435,7 @@ vnr_prefs_save (VnrPrefs *prefs)
 
     conf = g_key_file_new();
     g_key_file_set_integer (conf, "prefs", "zoom-mode", prefs->zoom);
+    g_key_file_set_integer (conf, "prefs", "desktop", prefs->desktop);
     g_key_file_set_boolean (conf, "prefs", "fit-on-fullscreen", prefs->fit_on_fullscreen);
     g_key_file_set_boolean (conf, "prefs", "show-hidden", prefs->show_hidden);
     g_key_file_set_boolean (conf, "prefs", "smooth-images", prefs->smooth_images);

@@ -24,9 +24,6 @@
 #include <glib-object.h>
 #include <gtk/gtk.h>
 #include "vnr-prefs.h"
-#ifdef HAVE_WALLPAPER
-#include <gconf/gconf-client.h>
-#endif /* HAVE_WALLPAPER */
 
 G_BEGIN_DECLS
 
@@ -104,10 +101,7 @@ struct _VnrWindow {
     gint ss_timeout;
     GtkWidget *ss_timeout_widget;
 
-#ifdef HAVE_WALLPAPER
-    GConfClient* client;
     GtkActionGroup *action_wallpaper;
-#endif /* HAVE_WALLPAPER */
 };
 
 struct _VnrWindowClass {

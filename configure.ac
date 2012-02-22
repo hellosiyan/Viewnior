@@ -57,24 +57,6 @@ VNR_MODULES="gtk+-2.0 >= $GTK_REQUIRED \
              shared-mime-info >= $SHARED_MIME_INFO_REQUIRED \
              gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED"
 
-# ******
-# Wallpaper support
-# ******
-AC_MSG_CHECKING([whether Wallpaper change functionality is enabled])
-
-AC_ARG_ENABLE([wallpaper],
-    AS_HELP_STRING([--enable-wallpaper],[Enable Wallpaper change functionality]),
-                   ,[enable_wallpaper=no])
-
-AM_CONDITIONAL(ENABLE_WALLPAPER, test "x$enable_wallpaper" = xyes)
-
-if test x$enable_wallpaper = xyes ; then
-    AC_DEFINE(HAVE_WALLPAPER, 1, [Define to 1 if wallpaper change functionality is included])
-    VNR_MODULES="$VNR_MODULES gconf-2.0 >= $GCONF_REQUIRED"
-fi
-
-AC_MSG_RESULT([$enable_wallpaper])
-
 # ****************
 # CFLAGS/LIBS init
 # ****************
@@ -112,15 +94,7 @@ echo "
     Viewnior ........... : Version $VERSION
     Location ........... : $prefix/bin
     CFLAGS ............. : $CFLAGS
-    Wallpaper support .. : $enable_wallpaper
 "
-if test x$enable_wallpaper = xyes ; then
-    echo "Note: If you don't use GNOME, Wallpaper functionality
-will not work. Please read INSTALL file."
-else
-    echo "Note: If you use GNOME, you may wish to enable
-Wallpaper support. Please read INSTALL file."
-fi
 
 echo "
     To compile and install:

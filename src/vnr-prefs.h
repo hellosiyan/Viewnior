@@ -45,6 +45,13 @@ typedef enum{
 } VnrPrefsZoom;
 
 typedef enum{
+    VNR_PREFS_DESKTOP_GNOME2,
+    VNR_PREFS_DESKTOP_GNOME3,
+    VNR_PREFS_DESKTOP_XFCE,
+    VNR_PREFS_DESKTOP_FLUXBOX,
+} VnrPrefsDesktop;
+
+typedef enum{
     VNR_PREFS_WHEEL_NAVIGATE ,
     VNR_PREFS_WHEEL_ZOOM ,
     VNR_PREFS_WHEEL_SCROLL,
@@ -66,6 +73,7 @@ struct _VnrPrefs {
     GObject parent;
 
     VnrPrefsZoom zoom;
+    VnrPrefsDesktop desktop;
     VnrPrefsWheel behavior_wheel;
     VnrPrefsClick behavior_click;
     VnrPrefsModify behavior_modify;
