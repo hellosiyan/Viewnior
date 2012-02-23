@@ -1297,7 +1297,7 @@ vnr_set_wallpaper(GtkAction *action, VnrWindow *win)
 			case VNR_PREFS_DESKTOP_XFCE:
 				tmp = g_strdup_printf("/backdrop/screen%d/monitor0/image-path", 
 										gdk_screen_get_number(gtk_widget_get_screen(GTK_WIDGET(win))));
-				execlp("xfconf", "xfconf", 
+				execlp("xfconf-query", "xfconf-query", 
 						"--set", tmp, 
 						"--type", "string", 
 						VNR_FILE(win->file_list->data)->path, 
