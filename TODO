@@ -1,6 +1,7 @@
     TODO List
 =================
 
+ * GTK+3 migration
  * Add documentation
  * Add file monitoring
  * Add EXIF information support

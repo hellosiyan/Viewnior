@@ -1,3 +1,15 @@
+Viewnior 1.2
+------------
+
+New features included:
+ - Improved menu interface
+ - Wallpaper support for Gnome 2, Gnome 3, XFCE and FluxBox
+ - --fullscreen argument to start in Fullscreen mode
+
+Fixed:
+ - Drop images with right click
+ - Save 'Auto resize' option between sessions
+
 Viewnior 1.1
 ------------
 
