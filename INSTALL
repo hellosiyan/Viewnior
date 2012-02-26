@@ -4,16 +4,8 @@ For basic instruction how to install software from source, please read
 Optional features:
 
  * Setting image as wallpaper
-This feature is working only under GNOME! It uses GConf, so you'll have
-to install GConf's dev files (the configure script will notice if
-something is missing). This feature is turned off by default. to enable
-it, please run configure with --enable-wallpaper:
-"./configure --enable-wallpaper"
-
-NOTE TO PACKAGE MAINTAINERS: Using --enable-wallpaper will add a gconf 
-dependecy. If the distridution you are packaging for doesn't run GNOME,
-please don't force the users install all those libraries (like orbit2 .etc)
-in vain.
+This feature is working on GNOME, XFCE, LXDE and FluxBox without additional 
+configuration parameters and package dependecies.
 
 
 Installation Instructions

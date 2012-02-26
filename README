@@ -13,7 +13,7 @@ your images. Among its features are:
   * Animation support   
   * Browse only selected images
   * Navigation window
-  * Set image as wallpaper (only under GNOME, see INSTALL file)
+  * Set image as wallpaper (Gnome 2, Gnome 3, XFCE, LXDE, FluxBox)
   * Simple interface
   * Configurable mouse actions
 
@@ -29,7 +29,6 @@ Requirements
 
 This package requires the following modules to be installed: glib,
 GTK+, gio, shared-mime-info.
-Optional: for SetAsWallpaper - gconf.
 
 You can get these packages from your favourite GNOME FTP mirror or at
 http://download.gnome.org/sources or from other sources where GNOME
@@ -47,4 +46,4 @@ Elementary icon theme by ~DanRabbit (under GPL).
 object-flip-horizontal.png, object-flip-vertical.png are taken from
 Gnome icon theme (under GPL).
 
-Last Edited - 06 September 2009
+Last Edited - 26 February 2012

@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.61)
-AC_INIT([viewnior], [1.2], [xsisqox@gmail.com])
+AC_INIT([viewnior], [1.3], [xsisqox@gmail.com])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/main.c])
 AC_CONFIG_HEADERS([config.h])
@@ -46,7 +46,6 @@ AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 
 GTK_REQUIRED=2.20
 GLIB_REQUIRED=2.24
-GCONF_REQUIRED=2.22.0
 SHARED_MIME_INFO_REQUIRED=0.20
 GDKPIXBUF_REQUIRED=2.4.0
 
