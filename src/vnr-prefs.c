@@ -274,6 +274,7 @@ build_dialog (VnrPrefs *prefs)
     gtk_combo_box_append_text(desktop_env, "GNOME 2");
     gtk_combo_box_append_text(desktop_env, "GNOME 3");
     gtk_combo_box_append_text(desktop_env, "XFCE");
+    gtk_combo_box_append_text(desktop_env, "LXDE");
     gtk_combo_box_append_text(desktop_env, "FluxBox");
     gtk_combo_box_set_active(desktop_env, prefs->desktop);
 

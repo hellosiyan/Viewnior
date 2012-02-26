@@ -173,7 +173,7 @@ msgstr "תקריב תמונה"
 
 #: ../src/vnr-prefs.c:263
 msgid "Scroll image up/down"
-msgstr "גלילת התמונה מעלה\מטה"
+msgstr "גלילת התמונה מעלה\\מטה"
 
 #: ../src/vnr-prefs.c:271
 msgid "Switch zoom modes"
