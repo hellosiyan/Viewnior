@@ -1456,14 +1456,14 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
         }
         else
         {
-            GList *new, *next;
+            GList *next;
 
             next = g_list_next(window->file_list);
             if(next == NULL)
                 next = g_list_first(window->file_list);
 
             if(g_list_length(g_list_first(window->file_list)) != 1)
-                new = g_list_delete_link (window->file_list, window->file_list);
+                window->file_list = g_list_delete_link (window->file_list, window->file_list);
             else
             {
                 g_list_free(window->file_list);
@@ -1475,6 +1475,7 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
                 vnr_window_close(window);
                 gtk_action_group_set_sensitive(window->actions_collection, FALSE);
                 deny_slideshow(window);
+                vnr_window_set_list(window, NULL, FALSE);
                 vnr_message_area_show(VNR_MESSAGE_AREA (window->msg_area), TRUE,
                                       _("The given locations contain no images."),
                                       TRUE);
@@ -2286,7 +2287,7 @@ vnr_window_set_list (VnrWindow *window, GList *list, gboolean free_current)
 {
     if (free_current == TRUE && window->file_list != NULL)
         g_list_free (window->file_list);
-    if (g_list_length(g_list_first(list)) != 1)
+    if (g_list_length(g_list_first(list)) > 1)
     {
         gtk_action_group_set_sensitive(window->actions_collection, TRUE);
         allow_slideshow(window);
@@ -2296,7 +2297,6 @@ vnr_window_set_list (VnrWindow *window, GList *list, gboolean free_current)
         gtk_action_group_set_sensitive(window->actions_collection, FALSE);
         deny_slideshow(window);
     }
-    g_assert(list != NULL);
     window->file_list = list;
 }
 
