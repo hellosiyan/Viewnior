@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.61)
-AC_INIT([viewnior], [1.3], [xsisqox@gmail.com])
+AC_INIT([viewnior], [2.0], [xsisqox@gmail.com])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/main.c])
 AC_CONFIG_HEADERS([config.h])
@@ -23,7 +23,7 @@ AC_SUBST(VNR_WARNINGS)
 # ******
 # Translation
 # ******
-IT_PROG_INTLTOOL([0.35.0])
+IT_PROG_INTLTOOL([0.40.0])
 
 GETTEXT_PACKAGE=AC_PACKAGE_NAME
 AC_SUBST(GETTEXT_PACKAGE)
@@ -44,13 +44,13 @@ AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 # ******
 
 
-GTK_REQUIRED=2.20
-GLIB_REQUIRED=2.24
+GTK_REQUIRED=3.2
+GLIB_REQUIRED=2.30
 SHARED_MIME_INFO_REQUIRED=0.20
 GDKPIXBUF_REQUIRED=2.4.0
 
 
-VNR_MODULES="gtk+-2.0 >= $GTK_REQUIRED \
+VNR_MODULES="gtk+-3.0 >= $GTK_REQUIRED \
              glib-2.0 >= $GLIB_REQUIRED \
              gio-2.0 >= $GLIB_REQUIRED \
              shared-mime-info >= $SHARED_MIME_INFO_REQUIRED \
