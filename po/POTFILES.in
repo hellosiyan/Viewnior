@@ -5,8 +5,3 @@ data/viewnior.desktop.in.in
 [type: gettext/glade]data/vnr-preferences-dialog.ui
 [type: gettext/glade]data/vnr-crop-dialog.ui
 src/main.c
-src/uni-scroll-win.c
-src/vnr-file.c
-src/vnr-prefs.c
-src/vnr-properties-dialog.c
-src/vnr-window.c
