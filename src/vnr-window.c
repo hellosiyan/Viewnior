@@ -683,7 +683,7 @@ rotate_pixbuf(VnrWindow *window, GdkPixbufRotation angle)
     else if(window->prefs->behavior_modify == VNR_PREFS_MODIFY_ASK)
         vnr_message_area_show_with_button(VNR_MESSAGE_AREA(window->msg_area),
                                           FALSE,
-                                          _("Save modifications?\nThis will overwrite the image and may reduce it's quality!"),
+                                          _("Save modifications?\nThis will overwrite the image and may reduce its quality!"),
                                           FALSE, GTK_STOCK_SAVE,
                                           G_CALLBACK(save_image_cb));
 }
@@ -741,7 +741,7 @@ flip_pixbuf(VnrWindow *window, gboolean horizontal)
     else if(window->prefs->behavior_modify == VNR_PREFS_MODIFY_ASK)
         vnr_message_area_show_with_button(VNR_MESSAGE_AREA(window->msg_area),
                                           FALSE,
-                                          _("Save modifications?\nThis will overwrite the image and may reduce it's quality!"),
+                                          _("Save modifications?\nThis will overwrite the image and may reduce its quality!"),
                                           FALSE, GTK_STOCK_SAVE,
                                           G_CALLBACK(save_image_cb));
 }
@@ -1570,7 +1570,7 @@ vnr_window_cmd_crop(GtkAction *action, VnrWindow *window)
     else if(window->prefs->behavior_modify == VNR_PREFS_MODIFY_ASK)
         vnr_message_area_show_with_button(VNR_MESSAGE_AREA(window->msg_area),
                                           FALSE,
-                                          _("Save modifications?\nThis will overwrite the image and may reduce it's quality!"),
+                                          _("Save modifications?\nThis will overwrite the image and may reduce its quality!"),
                                           FALSE, GTK_STOCK_SAVE,
                                           G_CALLBACK(save_image_cb));
 
