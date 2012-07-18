@@ -633,28 +633,89 @@ uni_image_view_scroll_event (GtkWidget * widget, GdkEventScroll * ev)
     
 	if (vnr_win->prefs->behavior_wheel == VNR_PREFS_WHEEL_ZOOM || (ev->state & GDK_CONTROL_MASK) != 0)
 	{
-		if ( ev->direction == GDK_SCROLL_UP || ev->direction == GDK_SCROLL_LEFT )
-			zoom = CLAMP (view->zoom * UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
-		else
-			zoom = CLAMP (view->zoom / UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
-		
-		uni_image_view_set_zoom_with_center (view, zoom, ev->x, ev->y, FALSE);
+        switch (ev->direction)
+        {
+            case GDK_SCROLL_LEFT: 
+                // In Zoom mode left/right scroll is used for navigation
+                vnr_window_prev(vnr_win); 
+                break;
+            case GDK_SCROLL_RIGHT: 
+                vnr_window_next(vnr_win, TRUE); 
+                break;
+            case GDK_SCROLL_UP:
+                if( ev->state & GDK_SHIFT_MASK ) {
+                    vnr_window_prev(vnr_win);
+                } else {
+                    zoom = CLAMP (view->zoom * UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
+                    uni_image_view_set_zoom_with_center (view, zoom, ev->x, ev->y, FALSE);
+                }
+                break;
+            default:
+                if( ev->state & GDK_SHIFT_MASK ) {
+                    vnr_window_next(vnr_win, TRUE);
+                } else {
+                    zoom = CLAMP (view->zoom / UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
+                    uni_image_view_set_zoom_with_center (view, zoom, ev->x, ev->y, FALSE);
+                }
+        }
+
 	}
 	else if(vnr_win->prefs->behavior_wheel == VNR_PREFS_WHEEL_NAVIGATE)
 	{
-		if (ev->direction == GDK_SCROLL_UP || ev->direction == GDK_SCROLL_LEFT)
-			vnr_window_prev(vnr_win);
-		else
-			vnr_window_next(vnr_win, TRUE);
+        switch (ev->direction)
+        {
+            case GDK_SCROLL_LEFT:
+                zoom = CLAMP (view->zoom * UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
+                uni_image_view_set_zoom_with_center (view, zoom, ev->x, ev->y, FALSE);
+                break;
+
+            case GDK_SCROLL_RIGHT:
+                zoom = CLAMP (view->zoom / UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
+                uni_image_view_set_zoom_with_center (view, zoom, ev->x, ev->y, FALSE);
+                break;
+
+            case GDK_SCROLL_UP:
+                if( ev->state & GDK_SHIFT_MASK )
+                {
+                    zoom = CLAMP (view->zoom * UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
+                    uni_image_view_set_zoom_with_center (view, zoom, ev->x, ev->y, FALSE);
+                }
+                else
+                    vnr_window_prev(vnr_win);
+
+                break;
+
+            default:
+                if( ev->state & GDK_SHIFT_MASK )
+                {
+                    zoom = CLAMP (view->zoom / UNI_ZOOM_STEP, UNI_ZOOM_MIN, UNI_ZOOM_MAX);
+                    uni_image_view_set_zoom_with_center (view, zoom, ev->x, ev->y, FALSE);
+                }
+                else
+                    vnr_window_next(vnr_win, TRUE);
+        }
 	}
 	else
 	{
 		switch (ev->direction) 
 		{
-			case GDK_SCROLL_UP: uni_image_view_scroll (view, GTK_SCROLL_NONE, GTK_SCROLL_PAGE_UP); break;
-			case GDK_SCROLL_LEFT: uni_image_view_scroll (view, GTK_SCROLL_PAGE_LEFT, GTK_SCROLL_NONE); break;
-			case GDK_SCROLL_RIGHT: uni_image_view_scroll (view, GTK_SCROLL_PAGE_RIGHT, GTK_SCROLL_NONE); break;
-			default: uni_image_view_scroll (view, GTK_SCROLL_NONE, GTK_SCROLL_PAGE_DOWN); break;
+			case GDK_SCROLL_LEFT: 
+                uni_image_view_scroll (view, GTK_SCROLL_PAGE_LEFT, GTK_SCROLL_NONE); 
+                break;
+			case GDK_SCROLL_RIGHT: 
+                uni_image_view_scroll (view, GTK_SCROLL_PAGE_RIGHT, GTK_SCROLL_NONE);
+                break;
+            case GDK_SCROLL_UP:
+                if( ev->state & GDK_SHIFT_MASK )
+                    uni_image_view_scroll (view, GTK_SCROLL_PAGE_LEFT, GTK_SCROLL_NONE);
+                else
+                    uni_image_view_scroll (view, GTK_SCROLL_NONE, GTK_SCROLL_PAGE_UP);
+                break;
+            default:
+                if( ev->state & GDK_SHIFT_MASK )
+                    uni_image_view_scroll (view, GTK_SCROLL_PAGE_RIGHT, GTK_SCROLL_NONE);
+                else
+                    uni_image_view_scroll (view, GTK_SCROLL_NONE, GTK_SCROLL_PAGE_DOWN);
 		}
 	}
 
