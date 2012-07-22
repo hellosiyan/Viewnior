@@ -534,6 +534,10 @@ vnr_window_fullscreen(VnrWindow *window)
 
     update_fs_filename_label(window);
     gtk_widget_hide (window->toolbar);
+
+    if (window->prefs->show_menu_bar)
+        gtk_widget_show (window->properties_button);
+
     gtk_widget_show (window->fs_controls);
 
     stop_slideshow(window);
@@ -584,7 +588,9 @@ vnr_window_unfullscreen(VnrWindow *window)
         uni_image_view_set_zoom_mode (UNI_IMAGE_VIEW(window->view),
                                       window->prefs->zoom);
 
-    if(!window->prefs->show_menu_bar)
+    if(window->prefs->show_menu_bar)
+        gtk_widget_hide (window->properties_button);
+    else
         gtk_widget_hide (window->menu_bar);
 
     gtk_widget_hide (window->fs_controls);
@@ -979,7 +985,7 @@ static void
 vnr_window_main_menu_position (GtkMenu *menu, gint *x, gint *y, gboolean *push_in, gpointer user_data)
 {
 	VnrWindow *window = VNR_WINDOW(user_data);
-	GtkWidget *button = GTK_WIDGET(gtk_ui_manager_get_widget (window->ui_mngr, "/Toolbar/Properties"));
+    GtkWidget *button = window->properties_button;
 	GdkWindow *gdk_window = gtk_widget_get_window(button);
 	
 	gdk_window_get_position(gdk_window, x, y);
@@ -1006,7 +1012,7 @@ vnr_window_cmd_open_menu (GtkToggleAction *action, VnrWindow *window)
 static void
 vnr_window_cmd_main_menu_hidden (GtkWidget *widget, gpointer user_data)
 {
-	gtk_toggle_tool_button_set_active(GTK_TOGGLE_TOOL_BUTTON(gtk_ui_manager_get_widget (VNR_WINDOW(user_data)->ui_mngr, "/Toolbar/Properties")), FALSE);
+    gtk_toggle_tool_button_set_active(GTK_TOGGLE_TOOL_BUTTON(VNR_WINDOW(user_data)->properties_button), FALSE);
 }
 
 static void
@@ -1423,10 +1429,17 @@ vnr_window_cmd_menu_bar (GtkAction *action, VnrWindow *window)
     if(window->mode != VNR_WINDOW_MODE_NORMAL)
        return;
 
+
     if (show)
+    {
         gtk_widget_show (window->menu_bar);
+        gtk_widget_hide (window->properties_button);
+    }
     else
+    {
         gtk_widget_hide (window->menu_bar);
+        gtk_widget_show (window->properties_button);
+    }
 }
 
 static void
@@ -2130,9 +2143,12 @@ vnr_window_init (VnrWindow * window)
     g_assert(GTK_IS_WIDGET(window->menu_bar));
     gtk_box_pack_start (GTK_BOX (window->menus), window->menu_bar, FALSE,FALSE,0);
 
+    window->properties_button = gtk_ui_manager_get_widget (window->ui_mngr, "/Toolbar/Properties");
+    g_assert(GTK_IS_WIDGET(window->properties_button));
+
     window->button_menu = gtk_ui_manager_get_widget (window->ui_mngr, "/ButtonMenu");
     g_assert(GTK_IS_WIDGET(window->button_menu));
-    gtk_menu_attach_to_widget (GTK_MENU(window->button_menu), GTK_WIDGET(gtk_ui_manager_get_widget (window->ui_mngr, "/Toolbar/Properties")), NULL);
+    gtk_menu_attach_to_widget (GTK_MENU(window->button_menu), GTK_WIDGET(window->properties_button), NULL);
 
     window->toolbar = gtk_ui_manager_get_widget (window->ui_mngr, "/Toolbar");
     g_assert(GTK_IS_WIDGET(window->toolbar));
