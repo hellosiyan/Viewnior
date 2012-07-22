@@ -54,7 +54,7 @@ struct _VnrWindow {
     GtkActionGroup *actions_collection;
     GtkActionGroup *action_save;
     GtkActionGroup *action_properties;
-    GtkActionGroup *action_toolbar;
+    GtkActionGroup *actions_bars;
     GtkActionGroup *actions_open_with;
 
     guint open_with_menu_id;
@@ -63,6 +63,7 @@ struct _VnrWindow {
     GtkWidget *menus;
 
     GtkWidget *menu_bar;
+    GtkWidget *button_menu;
     GtkWidget *toolbar;
     GtkWidget *popup_menu;
 

@@ -162,6 +162,7 @@ vnr_prefs_set_default(VnrPrefs *prefs)
     prefs->jpeg_quality = 90;
     prefs->png_compression = 9;
     prefs->reload_on_save = FALSE;
+    prefs->show_menu_bar = FALSE;
     prefs->show_toolbar = TRUE;
     prefs->start_maximized = FALSE;
     prefs->start_slideshow = FALSE;
@@ -355,6 +356,7 @@ vnr_prefs_load (VnrPrefs *prefs)
     prefs->smooth_images = g_key_file_get_boolean (conf, "prefs", "smooth-images", &error);
     prefs->confirm_delete = g_key_file_get_boolean (conf, "prefs", "confirm-delete", &error);
     prefs->reload_on_save = g_key_file_get_boolean (conf, "prefs", "reload-on-save", &error);
+    prefs->show_menu_bar = g_key_file_get_boolean (conf, "prefs", "show-menu-bar", &error);
     prefs->show_toolbar = g_key_file_get_boolean (conf, "prefs", "show-toolbar", &error);
     prefs->start_maximized = g_key_file_get_boolean (conf, "prefs", "start-maximized", &error);
     prefs->slideshow_timeout = g_key_file_get_integer (conf, "prefs", "slideshow-timeout", &error);
@@ -443,6 +445,7 @@ vnr_prefs_save (VnrPrefs *prefs)
     g_key_file_set_boolean (conf, "prefs", "smooth-images", prefs->smooth_images);
     g_key_file_set_boolean (conf, "prefs", "confirm-delete", prefs->confirm_delete);
     g_key_file_set_boolean (conf, "prefs", "reload-on-save", prefs->reload_on_save);
+    g_key_file_set_boolean (conf, "prefs", "show-menu-bar", prefs->show_menu_bar);
     g_key_file_set_boolean (conf, "prefs", "show-toolbar", prefs->show_toolbar);
     g_key_file_set_boolean (conf, "prefs", "start-maximized", prefs->start_maximized);
     g_key_file_set_integer (conf, "prefs", "slideshow-timeout", prefs->slideshow_timeout);
@@ -486,6 +489,16 @@ vnr_prefs_set_show_toolbar (VnrPrefs *prefs, gboolean show_toolbar)
     if(prefs->show_toolbar != show_toolbar)
     {
         prefs->show_toolbar = show_toolbar;
+        vnr_prefs_save(prefs);
+    }
+}
+
+void
+vnr_prefs_set_show_menu_bar (VnrPrefs *prefs, gboolean show_menu_bar)
+{
+    if(prefs->show_menu_bar != show_menu_bar)
+    {
+        prefs->show_menu_bar = show_menu_bar;
         vnr_prefs_save(prefs);
     }
 }
