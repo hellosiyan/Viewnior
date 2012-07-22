@@ -1260,6 +1260,9 @@ static void
 vnr_window_cmd_open(GtkAction *action, VnrWindow *window)
 {
     GtkWidget *dialog;
+    GtkFileFilter *img_filter = NULL;
+    GtkFileFilter *all_filter = NULL;
+
     dialog = gtk_file_chooser_dialog_new (_("Open Image"),
                           GTK_WINDOW(window),
                           GTK_FILE_CHOOSER_ACTION_OPEN,
@@ -1267,8 +1270,23 @@ vnr_window_cmd_open(GtkAction *action, VnrWindow *window)
                           GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
                           NULL);
 
+    img_filter = gtk_file_filter_new ();
+    g_assert (img_filter != NULL);
+    gtk_file_filter_add_pixbuf_formats (img_filter);
+    gtk_file_filter_add_mime_type (img_filter, "image/vnd.microsoft.icon");
+    gtk_file_filter_set_name (img_filter, _("All Images"));
+    gtk_file_chooser_add_filter (GTK_FILE_CHOOSER(dialog), img_filter);
+
+    all_filter = gtk_file_filter_new ();
+    g_assert(all_filter != NULL);
+    gtk_file_filter_add_pattern (all_filter, "*");
+    gtk_file_filter_set_name (all_filter, _("All Files"));
+    gtk_file_chooser_add_filter (GTK_FILE_CHOOSER(dialog), all_filter);
+
     gtk_window_set_modal (GTK_WINDOW(dialog), FALSE);
     gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
+    
+    gtk_file_chooser_set_filter (GTK_FILE_CHOOSER(dialog), img_filter);
 
     gchar *dirname;
     if(window->file_list != NULL)
@@ -1283,6 +1301,9 @@ vnr_window_cmd_open(GtkAction *action, VnrWindow *window)
                       window);
 
     gtk_widget_show_all (GTK_WIDGET(dialog));
+
+    /* This only works when here. */
+    gtk_file_chooser_set_show_hidden (GTK_FILE_CHOOSER(dialog), window->prefs->show_hidden);
 }
 
 static void
@@ -1312,6 +1333,9 @@ vnr_window_cmd_open_dir(GtkAction *action, VnrWindow *window)
                       window);
 
     gtk_widget_show_all (GTK_WIDGET(dialog));
+
+    /* This only works when here. */
+    gtk_file_chooser_set_show_hidden (GTK_FILE_CHOOSER(dialog), window->prefs->show_hidden);
 }
 
 static void
