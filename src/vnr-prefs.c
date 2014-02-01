@@ -277,6 +277,7 @@ build_dialog (VnrPrefs *prefs)
     gtk_combo_box_append_text(desktop_env, "XFCE");
     gtk_combo_box_append_text(desktop_env, "LXDE");
     gtk_combo_box_append_text(desktop_env, "FluxBox");
+    gtk_combo_box_append_text(desktop_env, "Nitrogen");
     gtk_combo_box_set_active(desktop_env, prefs->desktop);
 
     gtk_box_pack_end (desktop_box, GTK_WIDGET(desktop_env), FALSE, FALSE, 0);

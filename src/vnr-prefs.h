@@ -50,6 +50,7 @@ typedef enum{
     VNR_PREFS_DESKTOP_XFCE,
     VNR_PREFS_DESKTOP_LXDE,
     VNR_PREFS_DESKTOP_FLUXBOX,
+    VNR_PREFS_DESKTOP_NITROGEN,
 } VnrPrefsDesktop;
 
 typedef enum{
