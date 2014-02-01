@@ -422,8 +422,7 @@ uni_image_view_scroll_to (UniImageView * view,
         if (invalidate)
             gdk_window_invalidate_rect (GTK_WIDGET (view)->window, NULL,
                                         TRUE);
-        else
-            uni_image_view_fast_scroll (view, delta_x, delta_y);
+        uni_image_view_fast_scroll (view, delta_x, delta_y);
     }
 
     if (!set_adjustments)
