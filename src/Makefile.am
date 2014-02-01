@@ -48,7 +48,7 @@ viewnior_CFLAGS =       \
     -DPACKAGE_DATA_DIR=\""$(datadir)"\" \
     -DPACKAGE_LOCALE_DIR=\""$(datadir)/locale"\"
 
-viewnior_LDADD = $(VNR_LIBS)
+viewnior_LDADD = $(LDADD) $(VNR_LIBS) -lm
 
 uni-marshal.h: uni-marshal.list $(GLIB_GENMARSHAL)
 	$(QUIET_GEN)$(GLIB_GENMARSHAL) $< --header --prefix=uni_marshal > $@
