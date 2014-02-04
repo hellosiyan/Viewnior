@@ -35,6 +35,7 @@
 #include "vnr-message-area.h"
 #include "vnr-properties-dialog.h"
 #include "vnr-crop.h"
+#include "uni-exiv2.hpp"
 
 /* Timeout to hide the toolbar in fullscreen mode */
 #define FULLSCREEN_TIMEOUT 1000
@@ -927,6 +928,9 @@ save_image_cb (GtkWidget *widget, VnrWindow *window)
     if(window->prefs->behavior_modify == VNR_PREFS_MODIFY_ASK)
         vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
 
+    /* Store exiv2 metadata to cache, so we can restore it afterwards */
+    uni_read_exiv2_to_cache(VNR_FILE(window->file_list->data)->path);
+
     if(g_strcmp0(window->writable_format_name, "jpeg" ) == 0)
     {
         gchar *quality;
@@ -953,6 +957,7 @@ save_image_cb (GtkWidget *widget, VnrWindow *window)
                          VNR_FILE(window->file_list->data)->path,
                          window->writable_format_name, &error, NULL);
     }
+    uni_write_exiv2_from_cache(VNR_FILE(window->file_list->data)->path);
 
     if(!window->cursor_is_hidden)
         gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_LEFT_PTR));

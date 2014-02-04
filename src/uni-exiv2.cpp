@@ -25,6 +25,8 @@
 
 #include "uni-exiv2.hpp"
 
+static Exiv2::Image::AutoPtr cached_image;
+
 extern "C"
 void 
 uni_exif_dictionary_map(void (*callback)(const char*, const char*, void*), void *user_data)
@@ -78,6 +80,61 @@ uni_read_exiv2_map(const char *uri, void (*callback)(const char*, const char*, v
             }
         }
     } catch (Exiv2::AnyError& e) {
-        std::cerr << "Caught Exiv2 exception: '" << e << "'\n";
+        std::cerr << "Exiv2: '" << e << "'\n";
     }
+}
+
+extern "C"
+int
+uni_read_exiv2_to_cache(const char *uri)
+{
+    Exiv2::LogMsg::setLevel(Exiv2::LogMsg::mute);
+
+    if ( cached_image.get() != NULL ) {
+        cached_image->clearMetadata();
+        cached_image.reset(NULL);
+    }
+
+    try {
+        cached_image = Exiv2::ImageFactory::open(uri);
+        if ( cached_image.get() == 0 ) {
+            return 1;
+        }
+
+        cached_image->readMetadata();
+    } catch (Exiv2::AnyError& e) {
+        std::cerr << "Exiv2: '" << e << "'\n";
+    }
+
+    return 0;
+}
+
+extern "C"
+int 
+uni_write_exiv2_from_cache(const char *uri)
+{
+    Exiv2::LogMsg::setLevel(Exiv2::LogMsg::mute);
+    
+    if ( cached_image.get() == NULL ) {
+        return 1;
+    }
+
+    try {
+        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(uri);
+        if ( image.get() == 0 ) {
+            return 2;
+        }
+
+        image->setMetadata( *cached_image );
+        image->writeMetadata();
+        
+        cached_image->clearMetadata();
+        cached_image.reset(NULL);
+
+        return 0;
+    } catch (Exiv2::AnyError& e) {
+        std::cerr << "Exiv2: '" << e << "'\n";
+    }
+
+    return 0;
 }
