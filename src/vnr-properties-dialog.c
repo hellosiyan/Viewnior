@@ -306,7 +306,7 @@ vnr_properties_dialog_update(VnrPropertiesDialog *dialog)
     vnr_properties_dialog_update_image(dialog);
     vnr_properties_dialog_update_exif(dialog);
 
-    filesize_str = g_format_size_for_display (filesize);
+    filesize_str = g_format_size (filesize);
 
     filetype_desc = g_content_type_get_description (filetype);
 
