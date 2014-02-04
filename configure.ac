@@ -16,6 +16,7 @@ AC_PROG_CC
 AM_PROG_CC_STDC
 AM_PROG_CC_C_O
 AC_HEADER_STDC
+AC_PROG_CXX
 
 VNR_WARNINGS=-Wall
 AC_SUBST(VNR_WARNINGS)
@@ -40,7 +41,7 @@ AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 # Checks for library functions.
 
 # ******
-# GNOME Libs
+# Libs
 # ******
 
 
@@ -48,13 +49,15 @@ GTK_REQUIRED=2.20
 GLIB_REQUIRED=2.24
 SHARED_MIME_INFO_REQUIRED=0.20
 GDKPIXBUF_REQUIRED=2.4.0
+EXIV2_REQUIRED=0.21
 
 
 VNR_MODULES="gtk+-2.0 >= $GTK_REQUIRED \
              glib-2.0 >= $GLIB_REQUIRED \
              gio-2.0 >= $GLIB_REQUIRED \
              shared-mime-info >= $SHARED_MIME_INFO_REQUIRED \
-             gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED"
+             gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED \
+             exiv2 >= $EXIV2_REQUIRED"
 
 # ****************
 # CFLAGS/LIBS init
@@ -64,7 +67,7 @@ PKG_CHECK_MODULES(VNR, $VNR_MODULES)
 AC_SUBST(VNR_CFLAGS)
 AC_SUBST(VNR_LIBS)
 
-SHAVE_INIT([], [enable])
+# SHAVE_INIT([], [enable])
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile
@@ -84,9 +87,9 @@ AC_CONFIG_FILES([Makefile
                  data/icons/scalable/Makefile
                  data/icons/scalable/apps/Makefile
                  po/Makefile.in
-                 man/Makefile
-                 shave
-                 shave-libtool])
+                 man/Makefile])
+#                 shave
+#                 shave-libtool])
 AC_OUTPUT
 
 echo "

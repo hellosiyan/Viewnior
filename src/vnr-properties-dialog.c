@@ -24,8 +24,12 @@
 #include "vnr-properties-dialog.h"
 #include "vnr-file.h"
 #include "vnr-tools.h"
+#include "uni-exiv2.hpp"
 
 G_DEFINE_TYPE (VnrPropertiesDialog, vnr_properties_dialog, GTK_TYPE_DIALOG);
+
+static void vnr_cb_add_exif_data_label(const char *key, const char *label, void *user_data);
+static void vnr_properties_dialog_update_exif(VnrPropertiesDialog *dialog);
 
 static gboolean
 key_press_cb (GtkWidget *widget, GdkEventKey *event, gpointer user_data)
@@ -113,6 +117,7 @@ vnr_properties_dialog_new (VnrWindow *vnr_win, GtkAction *next_action, GtkAction
     return (GtkWidget *) dialog;
 }
 
+
 static void
 vnr_properties_dialog_init (VnrPropertiesDialog * dialog)
 {
@@ -139,15 +144,20 @@ vnr_properties_dialog_init (VnrPropertiesDialog * dialog)
     gtk_label_set_ellipsize (GTK_LABEL(dialog->location_label), PANGO_ELLIPSIZE_END);
     gtk_box_pack_start (GTK_BOX (temp_box), dialog->location_label, FALSE,FALSE,0);
 
-    /* HBox containing the image and the two columns with labels */
-    dialog->layout = gtk_hbox_new(FALSE,10);
+    /* VBox containing the image and exif data */
+    dialog->layout = gtk_vbox_new(FALSE,10);
     gtk_container_set_border_width (GTK_CONTAINER(dialog->layout), 10);
     gtk_box_pack_start ( GTK_BOX (content_area) , dialog->layout, FALSE,FALSE,0);
+
+    /* HBox containing the image and the two columns with labels */
+    dialog->image_layout = gtk_hbox_new(FALSE,10);
+    gtk_container_set_border_width (GTK_CONTAINER(dialog->image_layout), 10);
+    gtk_box_pack_start ( GTK_BOX (dialog->layout) , dialog->image_layout, FALSE,FALSE,0);
 
     /* The frame around the image */
     temp_box = gtk_frame_new(NULL);
     gtk_widget_set_size_request (temp_box, 105, 105);
-    gtk_box_pack_start (GTK_BOX (dialog->layout), temp_box, FALSE,FALSE,0);
+    gtk_box_pack_start (GTK_BOX (dialog->image_layout), temp_box, FALSE,FALSE,0);
 
     dialog->image = gtk_image_new_from_stock(GTK_STOCK_MISSING_IMAGE, GTK_ICON_SIZE_DIALOG);
     gtk_container_add (GTK_CONTAINER (temp_box), dialog->image);
@@ -168,9 +178,9 @@ vnr_properties_dialog_init (VnrPropertiesDialog * dialog)
     gtk_container_add (GTK_CONTAINER (action_area), dialog->close_button);
 
 
-    /* Labels */
+    /* Image Data Labels */
     temp_box = gtk_vbox_new(FALSE,0);
-    gtk_box_pack_start (GTK_BOX (dialog->layout), temp_box, FALSE,FALSE,0);
+    gtk_box_pack_start (GTK_BOX (dialog->image_layout), temp_box, FALSE,FALSE,0);
 
     temp_label = gtk_label_new(NULL);
     gtk_label_set_markup(GTK_LABEL(temp_label), _("<b>Name:</b>"));
@@ -195,7 +205,7 @@ vnr_properties_dialog_init (VnrPropertiesDialog * dialog)
 
 
     temp_box = gtk_vbox_new(FALSE,0);
-    gtk_box_pack_start (GTK_BOX (dialog->layout), temp_box, FALSE,FALSE,0);
+    gtk_box_pack_start (GTK_BOX (dialog->image_layout), temp_box, FALSE,FALSE,0);
 
     dialog->name_label = gtk_label_new(NULL);
     gtk_label_set_selectable (GTK_LABEL(dialog->name_label), TRUE);
@@ -218,6 +228,19 @@ vnr_properties_dialog_init (VnrPropertiesDialog * dialog)
     gtk_misc_set_alignment (GTK_MISC(dialog->height_label), 0, 0);
     gtk_box_pack_start (GTK_BOX (temp_box), dialog->height_label, FALSE,FALSE,0);
 
+    /* Exif Data Labels */
+
+    temp_box = gtk_hbox_new(FALSE,10);
+    gtk_box_pack_start (GTK_BOX (dialog->layout), temp_box, FALSE,FALSE,0);
+
+    dialog->exif_names_box = gtk_vbox_new(FALSE,0);
+    gtk_box_pack_start (GTK_BOX (temp_box), dialog->exif_names_box, FALSE,FALSE,0);
+
+    dialog->exif_values_box = gtk_vbox_new(FALSE,0);
+    gtk_box_pack_start (GTK_BOX (temp_box), dialog->exif_values_box, FALSE,FALSE,0);
+
+    uni_exif_dictionary_map(vnr_cb_add_exif_data_label, (void *)dialog->exif_names_box);
+
     /* Events and rest */
 
     g_signal_connect(G_OBJECT(dialog), "delete-event",
@@ -231,6 +254,38 @@ vnr_properties_dialog_init (VnrPropertiesDialog * dialog)
     gtk_widget_show_all(action_area);
 }
 
+
+static void 
+vnr_cb_add_exif_data_label(const char *key, const char *label, void *user_data) {
+    GtkBox *box = GTK_BOX(user_data);
+    GtkWidget *temp_label;
+    gchar *formatted_label;
+
+    formatted_label = g_strdup_printf("<b>%s:</b>", label);
+
+    temp_label = gtk_label_new(NULL);
+    gtk_label_set_markup(GTK_LABEL(temp_label), formatted_label);
+    gtk_misc_set_alignment (GTK_MISC(temp_label), 0, 0);
+    gtk_box_pack_start (box, temp_label, FALSE,FALSE,0);
+
+    g_free(formatted_label);
+}
+
+
+static void 
+vnr_cb_add_exif_data_value(const char *label, const char *value, void *user_data) {
+    GtkBox *box = GTK_BOX(user_data);
+    GtkWidget *temp_label;
+
+    temp_label = gtk_label_new(NULL);
+    gtk_label_set_text(GTK_LABEL(temp_label), value);
+    gtk_label_set_selectable (GTK_LABEL(temp_label), TRUE);
+    gtk_misc_set_alignment (GTK_MISC(temp_label), 0, 0);
+    gtk_box_pack_start (box, temp_label, FALSE,FALSE,0);
+
+    gtk_widget_show(temp_label);
+}
+
 void
 vnr_properties_dialog_update(VnrPropertiesDialog *dialog)
 {
@@ -238,8 +293,6 @@ vnr_properties_dialog_update(VnrPropertiesDialog *dialog)
     goffset filesize = 0;
     gchar *filetype_desc = NULL;
     gchar *filesize_str = NULL;
-
-    vnr_properties_dialog_update_image(dialog);
 
     get_file_info ((gchar*)VNR_FILE(dialog->vnr_win->file_list->data)->path,
                    &filesize, &filetype);
@@ -250,6 +303,8 @@ vnr_properties_dialog_update(VnrPropertiesDialog *dialog)
         return;
     }
 
+    vnr_properties_dialog_update_image(dialog);
+    vnr_properties_dialog_update_exif(dialog);
 
     filesize_str = g_format_size_for_display (filesize);
 
@@ -267,6 +322,30 @@ vnr_properties_dialog_update(VnrPropertiesDialog *dialog)
     g_free(filesize_str);
     g_free((gchar*)filetype);
     g_free(filetype_desc);
+}
+
+static void
+vnr_properties_dialog_clear_exif(VnrPropertiesDialog *dialog)
+{
+    GList *children;
+    GList *iter;
+
+    children = gtk_container_get_children(GTK_CONTAINER(dialog->exif_values_box));
+    for(iter = children; iter != NULL; iter = g_list_next(iter)) {
+        gtk_widget_destroy(GTK_WIDGET(iter->data));
+    }
+    g_list_free(children);
+}
+
+static void
+vnr_properties_dialog_update_exif(VnrPropertiesDialog *dialog)
+{
+    vnr_properties_dialog_clear_exif(dialog);
+
+    uni_read_exiv2_map(
+        VNR_FILE(dialog->vnr_win->file_list->data)->path, 
+        vnr_cb_add_exif_data_value, 
+        (void*)dialog->exif_values_box);
 }
 
 void
@@ -291,6 +370,7 @@ void
 vnr_properties_dialog_clear(VnrPropertiesDialog *dialog)
 {
     set_new_pixbuf(dialog, NULL);
+    vnr_properties_dialog_clear_exif(dialog);
 
     gtk_label_set_text(GTK_LABEL(dialog->name_label), _("None"));
     gtk_label_set_text(GTK_LABEL(dialog->location_label), _("None"));

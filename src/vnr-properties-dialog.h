@@ -33,6 +33,7 @@ G_BEGIN_DECLS
 typedef struct _VnrPropertiesDialog VnrPropertiesDialog;
 typedef struct _VnrPropertiesDialogClass VnrPropertiesDialogClass;
 
+
 #define VNR_TYPE_PROPERTIES_DIALOG             (vnr_properties_dialog_get_type ())
 #define VNR_PROPERTIES_DIALOG(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), VNR_TYPE_PROPERTIES_DIALOG, VnrPropertiesDialog))
 #define VNR_PROPERTIES_DIALOG_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass),  VNR_TYPE_PROPERTIES_DIALOG, VnrPropertiesDialogClass))
@@ -44,7 +45,10 @@ struct _VnrPropertiesDialog {
     GtkDialog parent;
 
     GtkWidget* layout;
+    GtkWidget* image_layout;
     GtkWidget* image;
+    GtkWidget* exif_names_box;
+    GtkWidget* exif_values_box;
 
     GtkWidget* close_button;
     GtkWidget* next_button;

@@ -20,7 +20,8 @@ uni_headers =           \
     uni-utils.h         \
     vnr-prefs.h         \
     vnr-crop.h          \
-    vnr-tools.h
+    vnr-tools.h         \
+    uni-exiv2.hpp
 
 viewnior_SOURCES =      \
     main.c              \
@@ -39,6 +40,7 @@ viewnior_SOURCES =      \
     vnr-prefs.c         \
     vnr-crop.c          \
     vnr-tools.c         \
+    uni-exiv2.cpp       \
     $(BUILT_SOURCES)    \
     $(uni_headers)
 
@@ -47,6 +49,8 @@ viewnior_CFLAGS =       \
     $(VNR_WARNINGS)     \
     -DPACKAGE_DATA_DIR=\""$(datadir)"\" \
     -DPACKAGE_LOCALE_DIR=\""$(datadir)/locale"\"
+
+viewnior_CXXFLAGS = $(viewnior_CFLAGS)
 
 viewnior_LDADD = $(LDADD) $(VNR_LIBS) -lm
 

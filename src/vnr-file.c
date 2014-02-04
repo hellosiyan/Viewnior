@@ -128,6 +128,7 @@ vnr_file_list_compare(gconstpointer a, gconstpointer b, gpointer user_data){
                      VNR_FILE(b)->display_name_collate);
 }
 
+
 static GList *
 vnr_file_dir_content_to_list(gchar *path, gboolean sort, gboolean include_hidden)
 {
