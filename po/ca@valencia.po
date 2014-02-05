@@ -1,16 +1,16 @@
-# Turkish translation for viewnior
-# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
+# Catalan (Valencian) translation for viewnior
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the viewnior package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+# Ecron Smith <ecron_89@hotmail.com>, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-02-04 22:44+0200\n"
-"PO-Revision-Date: 2010-06-13 17:07+0000\n"
-"Last-Translator: nordstern <Unknown>\n"
-"Language-Team: Turkish <tr@li.org>\n"
+"PO-Revision-Date: 2013-10-01 07:30+0000\n"
+"Last-Translator: Ecron <Unknown>\n"
+"Language-Team: Catalan (Valencian) <ca@valencia@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,15 +24,15 @@ msgstr "Viewnior"
 
 #: ../data/viewnior.desktop.in.in.h:2 ../src/vnr-window.c:1367
 msgid "Elegant Image Viewer"
-msgstr "Zarif Resim Gösterici"
+msgstr "Un visor d'imatges elegant"
 
 #: ../data/vnr-preferences-dialog.ui.h:1
 msgid "Viewnior Preferences"
-msgstr "Viewnior Seçenekleri"
+msgstr "Preferències del Viewnior"
 
 #: ../data/vnr-preferences-dialog.ui.h:2
 msgid "Open new image in: "
-msgstr "Yeni resmi aç: "
+msgstr "Obre una nova imatge en: "
 
 #: ../data/vnr-preferences-dialog.ui.h:3
 msgid "Desktop: "
@@ -40,43 +40,43 @@ msgstr ""
 
 #: ../data/vnr-preferences-dialog.ui.h:4
 msgid "Smooth images when zoomed"
-msgstr "_"
+msgstr "Suavitza les imatges en escalar"
 
 #: ../data/vnr-preferences-dialog.ui.h:5
 msgid "Confirm image deletion"
-msgstr "Resim silmeyi onayla"
+msgstr "Confirma la supresió de la imatge"
 
 #: ../data/vnr-preferences-dialog.ui.h:6
 msgid "Show hidden images"
-msgstr "Gizli resimleri göster"
+msgstr "Mostra les imatges ocultes"
 
 #: ../data/vnr-preferences-dialog.ui.h:7
 msgid "General"
-msgstr "Genel"
+msgstr "General"
 
 #: ../data/vnr-preferences-dialog.ui.h:8
 msgid "Show next image after (in seconds): "
-msgstr "Sonraki resme geçiş süresi: "
+msgstr "Mostra la imatge següent després de (segons): "
 
 #: ../data/vnr-preferences-dialog.ui.h:9
 msgid "Always expand images to fit screen"
-msgstr "Her zaman resmi ekran boyutuna genişlet"
+msgstr "Amplia les imatges per ajustar-les a la pantalla"
 
 #: ../data/vnr-preferences-dialog.ui.h:10
 msgid "Fullscreen"
-msgstr "Tam ekran"
+msgstr "Pantalla completa"
 
 #: ../data/vnr-preferences-dialog.ui.h:11
 msgid "On mouse wheel: "
-msgstr "Fare orta tuşuna basıldığında: "
+msgstr "En fer ús de la roda del ratolí: "
 
 #: ../data/vnr-preferences-dialog.ui.h:12
 msgid "On double click: "
-msgstr "Çift tıklama: "
+msgstr "En fer doble clic: "
 
 #: ../data/vnr-preferences-dialog.ui.h:13
 msgid "On image modification: "
-msgstr "Resim Değiştirildiğinde: "
+msgstr "Quan es modifique la imatge: "
 
 #: ../data/vnr-preferences-dialog.ui.h:14
 msgid ""
@@ -84,33 +84,33 @@ msgid ""
 "  Clicking on the left half of the window shows the\n"
 "  previous image and on the right side - the next.</small> "
 msgstr ""
-"<small> (!) Resimlerin çift tıklama ile değişmesi için:\n"
-"  Pencerenin sol kısmına tıklarsanız önceki resme,\n"
-"  Sağ kısmına tıklarsanız sonraki resme geçecektir.</small> "
+"<small>  (!) Cóm navegar per les imatges amb doble clic:\n"
+"  Si clica a la mitat esquerra de la finestra es mostrarà\n"
+"  la imatge prèvia, i a la mitat dreta, la següent.</small> "
 
 #: ../data/vnr-preferences-dialog.ui.h:17
 msgid "Behavior"
-msgstr "Davranış"
+msgstr "Comportament"
 
 #: ../data/vnr-preferences-dialog.ui.h:18
 msgid "Reload image on save"
-msgstr "Resmi kayıt ettikten sonra yeniden yükle"
+msgstr "Actualitza la imatge en alçar-la"
 
 #: ../data/vnr-preferences-dialog.ui.h:19
 msgid "JPEG quality:"
-msgstr "JPEG kalitesi:"
+msgstr "Qualitat JPEG:"
 
 #: ../data/vnr-preferences-dialog.ui.h:20
 msgid "PNG compression:"
-msgstr "PNG sıkıştırması:"
+msgstr "Compressió PNG:"
 
 #: ../data/vnr-preferences-dialog.ui.h:21
 msgid "Saving"
-msgstr "Kaydediliyor"
+msgstr "Alçant"
 
 #: ../data/vnr-crop-dialog.ui.h:1
 msgid "Crop Image"
-msgstr "Resmi Kırp"
+msgstr "Escapça la imatge"
 
 #: ../data/vnr-crop-dialog.ui.h:2
 msgid "X: "
@@ -122,43 +122,45 @@ msgstr "Y: "
 
 #: ../data/vnr-crop-dialog.ui.h:4
 msgid "Width: "
-msgstr "Genişlik: "
+msgstr "Amplada: "
 
 #: ../data/vnr-crop-dialog.ui.h:5
 msgid "Height: "
-msgstr "Yükseklik: "
+msgstr "Alçada: "
 
 #: ../data/vnr-crop-dialog.ui.h:6 ../src/vnr-window.c:1811
 msgid "Crop"
-msgstr "Kırp"
+msgstr "Escapça"
 
 #: ../src/main.c:117 ../src/vnr-window.c:1615 ../src/vnr-window.c:1970
 #: ../src/vnr-window.c:2409
 msgid "The given locations contain no images."
-msgstr "Verilen yerler hiçbir görüntü içermiyor."
+msgstr "No es troben imatges als directoris especificats."
 
 #: ../src/uni-scroll-win.c:223
 msgid "Open the navigator window"
-msgstr "Dosya tarayıcısını aç"
+msgstr "Obri la finestra del navegador"
 
 #: ../src/vnr-file.c:223
 #, c-format
 msgid ""
 "Couldn't recognise the image file\n"
 "format for file '%s'"
-msgstr "'%s'  dosya biçimi tanınmıyor."
+msgstr ""
+"No s'ha pogut reconèixer el format\n"
+"de la imatge '%s'"
 
 #: ../src/vnr-prefs.c:260
 msgid "Smart Mode"
-msgstr "Akıllı Kip"
+msgstr "Mode intel·ligent"
 
 #: ../src/vnr-prefs.c:261
 msgid "1:1 Mode"
-msgstr "1:1 Oran"
+msgstr "Mode 1:1"
 
 #: ../src/vnr-prefs.c:262
 msgid "Fit To Window Mode"
-msgstr "Pencereye Sığdır"
+msgstr "Mode d'ajust a la finestra"
 
 #: ../src/vnr-prefs.c:263
 msgid "Last Used Mode"
@@ -166,103 +168,104 @@ msgstr ""
 
 #: ../src/vnr-prefs.c:292 ../src/vnr-prefs.c:304
 msgid "Navigate images"
-msgstr "Resimleri Arasında Gezin"
+msgstr "Navega per les imatges"
 
 #: ../src/vnr-prefs.c:293
 msgid "Zoom image"
-msgstr "Resmi büyüt"
+msgstr "Escala la imatge"
 
 #: ../src/vnr-prefs.c:294
 msgid "Scroll image up/down"
-msgstr "Resmi aşağı/yukarı kaydır"
+msgstr "Desplaça la imatge dalt o baix"
 
 #: ../src/vnr-prefs.c:302
 msgid "Switch zoom modes"
-msgstr "Yakınlaştırma türünü değiştir"
+msgstr "Commuta els modes d'escalat"
 
 #: ../src/vnr-prefs.c:303
 msgid "Enter fullscreen mode"
-msgstr "Tam ekran kipine gir"
+msgstr "Mode pantalla completa"
 
 #: ../src/vnr-prefs.c:312
 msgid "Ask every time"
-msgstr "Her zaman sor"
+msgstr "Pregunta-ho sempre"
 
 #: ../src/vnr-prefs.c:313
 msgid "Autosave"
-msgstr "Otomatik kaydet"
+msgstr "Alça automàticament"
 
 #: ../src/vnr-prefs.c:314
 msgid "Ignore changes"
-msgstr "Değişiklikleri yoksay"
+msgstr "Ignora els canvis"
 
 #: ../src/vnr-properties-dialog.c:113
 msgid "_Next"
-msgstr "_Sonraki"
+msgstr "Següe_nt"
 
 #: ../src/vnr-properties-dialog.c:114
 msgid "_Previous"
-msgstr "_Önceki"
+msgstr "_Prèvia"
 
 #: ../src/vnr-properties-dialog.c:129
 msgid "Image Properties"
-msgstr "Resim Özellikleri"
+msgstr "Propietats de la imatge"
 
 #: ../src/vnr-properties-dialog.c:137
 msgid "<b>Location:</b>"
-msgstr "<b>Konum:</b>"
+msgstr "<b>Ubicació:</b>"
 
 #: ../src/vnr-properties-dialog.c:186
 msgid "<b>Name:</b>"
-msgstr "<b>İsim:</b>"
+msgstr "<b>Nom:</b>"
 
 #: ../src/vnr-properties-dialog.c:190
 msgid "<b>Type:</b>"
-msgstr "<b>Tür:</b>"
+msgstr "<b>Tipus:</b>"
 
 #: ../src/vnr-properties-dialog.c:194
 msgid "<b>Size:</b>"
-msgstr "<b>Boyut:</b>"
+msgstr "<b>Mida:</b>"
 
 #: ../src/vnr-properties-dialog.c:198
 msgid "<b>Width:</b>"
-msgstr "<b>Genişlik:</b>"
+msgstr "<b>Amplada:</b>"
 
 #: ../src/vnr-properties-dialog.c:202
 msgid "<b>Height:</b>"
-msgstr "<b>Yükseklik:</b>"
+msgstr "<b>Alçada:</b>"
 
 #: ../src/vnr-properties-dialog.c:375 ../src/vnr-properties-dialog.c:376
 #: ../src/vnr-properties-dialog.c:377 ../src/vnr-properties-dialog.c:378
 #: ../src/vnr-properties-dialog.c:379 ../src/vnr-properties-dialog.c:380
 msgid "None"
-msgstr "Hiçbiri"
+msgstr "Cap"
 
 #: ../src/vnr-window.c:296
 #, c-format
 msgid "Use \"%s\" to open the selected image"
-msgstr "Seçilen resmi açmak için \"%s\" kullan"
+msgstr "Utilitzeu \"%s\" per obrir la imatge"
 
 #: ../src/vnr-window.c:466
 msgid "Show next image after: "
-msgstr "Ardından resmi göster: "
+msgstr "Mostra la imatge següent després de: "
 
 #: ../src/vnr-window.c:484 ../src/vnr-window.c:901
 msgid " second"
 msgid_plural " seconds"
-msgstr[0] " saniye"
+msgstr[0] " segon"
+msgstr[1] " segons"
 
 #: ../src/vnr-window.c:726 ../src/vnr-window.c:789
 msgid "Not enough virtual memory."
-msgstr "Yetersiz sanal bellek"
+msgstr "No n'hi ha prou memòria virtual."
 
 #: ../src/vnr-window.c:760 ../src/vnr-window.c:818 ../src/vnr-window.c:1701
 msgid ""
 "Image modifications cannot be saved.\n"
 "Writing in this format is not supported."
 msgstr ""
-"Resim üzerinde yapılan değişiklikler uygulanamadı.\n"
-"Bu dosya türünde kayıt yapılamıyor."
+"Les modificacions fetes no es poden desar.\n"
+"El Viewnior no suporta l'escriptura en aquest format."
 
 #: ../src/vnr-window.c:767 ../src/vnr-window.c:825 ../src/vnr-window.c:1708
 msgid ""
@@ -272,7 +275,7 @@ msgstr ""
 
 #: ../src/vnr-window.c:1266
 msgid "Open Image"
-msgstr "Resim Aç"
+msgstr "Obri una imatge"
 
 #: ../src/vnr-window.c:1277
 msgid "All Images"
@@ -284,17 +287,17 @@ msgstr ""
 
 #: ../src/vnr-window.c:1313
 msgid "Open Folder"
-msgstr "Dizin Aç"
+msgstr "Obri un directori"
 
 #: ../src/vnr-window.c:1373
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  nordstern https://launchpad.net/~deran-delice"
+"  Ecron https://launchpad.net/~ecron-89"
 
 #: ../src/vnr-window.c:1553
 msgid "If you delete an item, it will be permanently lost."
-msgstr "Eğer bir öğeyi silerseniz, kalıcı olarak kaybolacak."
+msgstr "Si suprimiu un element, es perdrà de forma permanent."
 
 #. I18N: The '%s' is replaced with the name of the file to be deleted.
 #: ../src/vnr-window.c:1556
@@ -303,80 +306,80 @@ msgid ""
 "Are you sure you want to\n"
 "permanently delete \"%s\"?"
 msgstr ""
-"\"%s\" dosyasını kalıcı olarak silmek\n"
-" isstediğinize emin misiniz ?"
+"Esteu segur que voleu suprimir\n"
+"de forma permanent \"%s\"?"
 
 #: ../src/vnr-window.c:1716
 msgid "_File"
-msgstr "_Dosya"
+msgstr "_Fitxer"
 
 #: ../src/vnr-window.c:1717
 msgid "_Edit"
-msgstr "_Düzenle"
+msgstr "_Edita"
 
 #: ../src/vnr-window.c:1718
 msgid "_View"
-msgstr "_Görünüm"
+msgstr "_Visualitza"
 
 #: ../src/vnr-window.c:1719
 msgid "_Image"
-msgstr "_Resim"
+msgstr "_Imatge"
 
 #: ../src/vnr-window.c:1720
 msgid "_Go"
-msgstr "_Git"
+msgstr "_Vés"
 
 #: ../src/vnr-window.c:1721
 msgid "_Help"
-msgstr "_Yardım"
+msgstr "_Ajuda"
 
 #: ../src/vnr-window.c:1723
 msgid "Open _Image..."
-msgstr "_Resim Aç"
+msgstr "Obri una _imatge..."
 
 #: ../src/vnr-window.c:1724
 msgid "Open an Image"
-msgstr "Bir resim dosyası aç"
+msgstr "Obri una imatge"
 
 #: ../src/vnr-window.c:1726
 msgid "Open _Folder..."
-msgstr "_Klasör Aç..."
+msgstr "Obri un _directori..."
 
 #: ../src/vnr-window.c:1727
 msgid "Open a Folder"
-msgstr "Bir dizin aç"
+msgstr "Obri un directori"
 
 #: ../src/vnr-window.c:1729
 msgid "_Close"
-msgstr "_Kapat"
+msgstr "_Tanca"
 
 #: ../src/vnr-window.c:1730
 msgid "Close window"
-msgstr "Pencereyi kapat"
+msgstr "Tanca la finestra"
 
 #: ../src/vnr-window.c:1732
 msgid "_About"
-msgstr "_Hakkında"
+msgstr "_Quant a"
 
 #: ../src/vnr-window.c:1733
 msgid "About this application"
-msgstr "Bu uygulama hakkında"
+msgstr "Quant a aquesta aplicació"
 
 #: ../src/vnr-window.c:1735
 msgid "_Preferences..."
-msgstr "_Tercihler"
+msgstr "_Preferències..."
 
 #: ../src/vnr-window.c:1736
 msgid "User preferences for Viewnior"
-msgstr "Viewnior için kullanıcı ayarları"
+msgstr "Preferències d'usuari per al Viewnior"
 
 #: ../src/vnr-window.c:1741
 msgid "_Save"
-msgstr "_Kaydet"
+msgstr "_Alça"
 
 #: ../src/vnr-window.c:1742
 msgid "Save changes"
-msgstr "Değişiklikleri kaydet"
+msgstr "Alça els canvis"
 
 #: ../src/vnr-window.c:1747
 msgid "_Properties"
@@ -388,128 +391,128 @@ msgstr ""
 
 #: ../src/vnr-window.c:1753
 msgid "Set as _Wallpaper"
-msgstr "_Arkaplan olarak ayarla"
+msgstr "Establix com a fons d'escriptori"
 
 #: ../src/vnr-window.c:1754
 msgid "Set the selected image as the desktop background"
-msgstr "Seçilmiş görüntüyü masaüstü artalanı olarak ayarla"
+msgstr "Establix la imatge com a fons d'escriptori"
 
 #: ../src/vnr-window.c:1759
 msgid "Open _With"
-msgstr "İl_e Aç"
+msgstr "Obri _amb"
 
 #: ../src/vnr-window.c:1760
 msgid "Open the selected image with a different application"
-msgstr "Seçilen resmi başka bir uygulama ile birlikte aç"
+msgstr "Obri la imatge amb una aplicació diferent"
 
 #: ../src/vnr-window.c:1762 ../src/vnr-window.c:1771
 msgid "_Delete"
-msgstr "_Sil"
+msgstr "_Suprimix"
 
 #: ../src/vnr-window.c:1763 ../src/vnr-window.c:1772
 msgid "Delete the current file"
-msgstr "Bu dosyayı sil"
+msgstr "Suprimix el fitxer"
 
 #: ../src/vnr-window.c:1765
 msgid "_Properties..."
-msgstr "_Özellikler..."
+msgstr "_Propietats..."
 
 #: ../src/vnr-window.c:1766
 msgid "Show information about the current file"
-msgstr "Güncel dosya bilgisini göster"
+msgstr "Mostra la informació del fitxer"
 
 #: ../src/vnr-window.c:1768
 msgid "_Reload"
-msgstr "_Yenile"
+msgstr "_Actualitza"
 
 #: ../src/vnr-window.c:1769
 msgid "Reload the current file"
-msgstr "Dosyayı yeniden yükle"
+msgstr "Actualitza el fitxer"
 
 #: ../src/vnr-window.c:1774 ../src/vnr-window.c:1786 ../src/vnr-window.c:1789
 msgid "_Zoom In"
-msgstr "_Yakınlaştır"
+msgstr "_Apropa"
 
 #: ../src/vnr-window.c:1775
 msgid "Enlarge the image"
-msgstr "Resmi genişlet"
+msgstr "Fes gran la imatge"
 
 #: ../src/vnr-window.c:1777 ../src/vnr-window.c:1792
 msgid "Zoom _Out"
-msgstr "_Uzaklaştır"
+msgstr "Allunya"
 
 #: ../src/vnr-window.c:1778 ../src/vnr-window.c:1787 ../src/vnr-window.c:1790
 #: ../src/vnr-window.c:1793
 msgid "Shrink the image"
-msgstr "Resmi daralt"
+msgstr "Encongix la imatge"
 
 #: ../src/vnr-window.c:1780
 msgid "_Normal Size"
-msgstr "_Normal Boyut"
+msgstr "Mida _normal"
 
 #: ../src/vnr-window.c:1781
 msgid "Show the image at its normal size"
-msgstr "Resmi normal boyutunda göster"
+msgstr "Mosta la imatge a la seua mida normal"
 
 #: ../src/vnr-window.c:1783
 msgid "Best _Fit"
-msgstr "Tam _Sığdır"
+msgstr "Millor ajust"
 
 #: ../src/vnr-window.c:1784
 msgid "Fit the image to the window"
-msgstr "Resmi pencereye uydur"
+msgstr "Ajusta la imatge a la finestra"
 
 #: ../src/vnr-window.c:1798
 msgid "Rotate _Clockwise"
-msgstr "_Saat Yönünde Döndür"
+msgstr "Gira cap a la dreta"
 
 #: ../src/vnr-window.c:1799
 msgid "Rotate image clockwise"
-msgstr "Resmi saat yönünde döndür"
+msgstr "Gira la imatge en el sentit de les agulles del rellotge"
 
 #: ../src/vnr-window.c:1801
 msgid "Rotate _Anti-clockwise"
-msgstr "_Saat Yönünün Tersine Döndür"
+msgstr "Gira cap a l'esquerra"
 
 #: ../src/vnr-window.c:1802
 msgid "Rotate image anti-clockwise"
-msgstr "Resmi saat yönünün tersine döndür"
+msgstr "Gira la imatge en el sentit contrari a les agulles del rellotge"
 
 #: ../src/vnr-window.c:1804
 msgid "Flip _Vertical"
-msgstr "Dikey Çe_vir"
+msgstr "Invertix _verticalment"
 
 #: ../src/vnr-window.c:1805
 msgid "Flip image vertically"
-msgstr "Görüntüyü dikey olarak çevir"
+msgstr "Invertix la imatge verticalment"
 
 #: ../src/vnr-window.c:1807
 msgid "Flip _Horizontal"
-msgstr "Yatay Ç_evir"
+msgstr "Invertix _horitzontalment"
 
 #: ../src/vnr-window.c:1808
 msgid "Flip image horizontally"
-msgstr "Görüntüyü yatay olarak çevir"
+msgstr "Invertix la imatge horitzontalment"
 
 #: ../src/vnr-window.c:1810
 msgid "Crop..."
-msgstr "Kırp..."
+msgstr "Escapça..."
 
 #: ../src/vnr-window.c:1816
 msgid "Full _Screen"
-msgstr "Tam _Ekran"
+msgstr "Pantalla _completa"
 
 #: ../src/vnr-window.c:1817
 msgid "Show in fullscreen mode"
-msgstr "Tam ekran kipinde görüntüle"
+msgstr "Mostra la imatge a pantalla completa"
 
 #: ../src/vnr-window.c:1819
 msgid "_Adjust window size"
-msgstr "_Pencere boyutunu ayarla"
+msgstr "Ajusta la mida de la finestra"
 
 #: ../src/vnr-window.c:1820
 msgid "Adjust window size to fit the image"
-msgstr "Pencere boyutunu resim boyutuna uydur"
+msgstr "Ajusta la mida de la finestra per adaptar-se a la imatge"
 
 #: ../src/vnr-window.c:1825
 msgid "Menu Bar"
@@ -521,51 +524,51 @@ msgstr ""
 
 #: ../src/vnr-window.c:1828
 msgid "Toolbar"
-msgstr "Araç çubuğu"
+msgstr "Barra d'eines"
 
 #: ../src/vnr-window.c:1829
 msgid "Show Toolbar"
-msgstr "Araç Çubuğunu Göster"
+msgstr "Mostra la barra d'eines"
 
 #: ../src/vnr-window.c:1834
 msgid "Sli_deshow"
-msgstr "_Slayt Gösterisi"
+msgstr "Presentació de _diapositives"
 
 #: ../src/vnr-window.c:1835
 msgid "Show in slideshow mode"
-msgstr "Slayt gösterisi olarak görüntüle"
+msgstr "Mostra les imatges en mode presentació"
 
 #: ../src/vnr-window.c:1840
 msgid "_Previous Image"
-msgstr "_Önceki Resim"
+msgstr "Imatge _prèvia"
 
 #: ../src/vnr-window.c:1841
 msgid "Go to the previous image of the collection"
-msgstr "Kolleksiyondaki bir önceki resme git"
+msgstr "Vés a la imatge anterior en la col·lecció"
 
 #: ../src/vnr-window.c:1843
 msgid "_Next Image"
-msgstr "_Sonraki Resim"
+msgstr "Imagte següe_nt"
 
 #: ../src/vnr-window.c:1844
 msgid "Go to the next image of the collection"
-msgstr "Kolleksiyondaki bir sonraki resme git"
+msgstr "Vés a la següent imatge en la col·lecció"
 
 #: ../src/vnr-window.c:1846
 msgid "_First Image"
-msgstr "_İlk Resim"
+msgstr "_Primera imatge"
 
 #: ../src/vnr-window.c:1847
 msgid "Go to the first image of the collection"
-msgstr "Koleksiyondaki ilk resme git"
+msgstr "Vés a la primera imatge de la col·lecció"
 
 #: ../src/vnr-window.c:1849
 msgid "_Last Image"
-msgstr "_Son Resim"
+msgstr "_Darrera imatge"
 
 #: ../src/vnr-window.c:1850
 msgid "Go to the last image of the collection"
-msgstr "Koleksiyondaki son resme git"
+msgstr "Vés a la darrera imatge de la col·lecció"
 
 #: ../src/uni-exiv2.hpp:43
 msgid "Camera make"
@@ -614,4 +617,6 @@ msgstr ""
 #~ msgid ""
 #~ "Save modifications?\n"
 #~ "This will overwrite the image and may reduce it's quality!"
-#~ msgstr "Değişiklikleri kaydet"
+#~ msgstr ""
+#~ "Voleu alçar els canvis?\n"
+#~ "Si ho feu es sobreescriurà la imatge i és possible que afecte a la qualitat!"
