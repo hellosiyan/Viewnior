@@ -27,8 +27,6 @@ config.guess
 config.sub
 configure
 compile
-shave
-shave-libtool
 libtool
 *.desktop
 *.desktop.in

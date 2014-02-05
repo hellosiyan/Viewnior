@@ -4,6 +4,7 @@
 AC_PREREQ(2.61)
 AC_INIT([viewnior], [1.3], [xsisqox@gmail.com])
 AM_INIT_AUTOMAKE
+AM_SILENT_RULES([yes])
 AC_CONFIG_SRCDIR([src/main.c])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
@@ -67,8 +68,6 @@ PKG_CHECK_MODULES(VNR, $VNR_MODULES)
 AC_SUBST(VNR_CFLAGS)
 AC_SUBST(VNR_LIBS)
 
-# SHAVE_INIT([], [enable])
-
 AC_CONFIG_FILES([Makefile
                  src/Makefile
                  data/Makefile
@@ -88,8 +87,6 @@ AC_CONFIG_FILES([Makefile
                  data/icons/scalable/apps/Makefile
                  po/Makefile.in
                  man/Makefile])
-#                 shave
-#                 shave-libtool])
 AC_OUTPUT
 
 echo "
