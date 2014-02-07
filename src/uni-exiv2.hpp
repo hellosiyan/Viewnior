@@ -32,11 +32,17 @@ extern "C" {
     
     typedef Exiv2::ExifData::const_iterator (*ExifDataFinder)(const Exiv2::ExifData& ed);
     typedef struct _ExifDataDictionary ExifDataDictionary;
+    typedef struct _IptcDataDictionary IptcDataDictionary;
 
     struct _ExifDataDictionary {
         const char *key;
         const char *label;
         ExifDataFinder finder;
+    };
+
+    struct _IptcDataDictionary {
+        const char *key;
+        const char *label;
     };
 
     ExifDataDictionary exifDataDictionary[] = {
@@ -52,6 +58,13 @@ extern "C" {
         { "Exif.Image.FocalLength", _("Focal length"), Exiv2::focalLength },
         { "Exif.Image.Software", _("Software"), NULL }
     };
+
+    IptcDataDictionary iptcDataDictionary[] = {
+        { "Iptc.Application2.Caption", _("Description") },
+        { "Iptc.Application2.Copyright", _("Copyright") },
+        { "Iptc.Application2.Byline", _("Author") }
+    };
+
 
 #endif /* __cplusplus */
 

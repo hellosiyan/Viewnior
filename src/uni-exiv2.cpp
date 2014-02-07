@@ -35,6 +35,10 @@ uni_exif_dictionary_map(void (*callback)(const char*, const char*, void*), void 
     for( i=0; i<sizeof(exifDataDictionary)/sizeof(exifDataDictionary[0]); i++ ) {
         callback(exifDataDictionary[i].key, exifDataDictionary[i].label, user_data);
     }
+
+    for( i=0; i<sizeof(iptcDataDictionary)/sizeof(iptcDataDictionary[0]); i++ ) {
+        callback(iptcDataDictionary[i].key, iptcDataDictionary[i].label, user_data);
+    }
 }
 
 extern "C" 
@@ -50,32 +54,49 @@ uni_read_exiv2_map(const char *uri, void (*callback)(const char*, const char*, v
 
         image->readMetadata();
         Exiv2::ExifData &exifData = image->exifData();
+        Exiv2::IptcData &iptcData = image->iptcData();
 
-        if ( exifData.empty() ) {
-            return;
+        if ( !exifData.empty() ) {
+            Exiv2::ExifData::const_iterator pos;
+            uint i;
+            ExifDataDictionary dict;
+            for( i=0; i<sizeof(exifDataDictionary)/sizeof(exifDataDictionary[0]); i++ ) {
+                dict = exifDataDictionary[i];
+                if ( dict.finder == NULL ) {
+                    Exiv2::ExifKey key(dict.key);
+                    pos = exifData.findKey(key);
+
+                    if ( pos == exifData.end() ) {
+                        callback(dict.label, NULL, user_data);
+                    } else {
+                        callback(dict.label, pos->print(&exifData).c_str(), user_data);
+                    }
+                } else {
+                    pos = dict.finder(exifData);
+
+                    if ( pos == exifData.end() ) {
+                        callback(dict.label, NULL, user_data);
+                    } else {
+                        callback(dict.label, pos->print(&exifData).c_str(), user_data);
+                    }
+                }
+            }
         }
 
-        Exiv2::ExifData::const_iterator pos;
-        uint i;
-        ExifDataDictionary dict;
-        for( i=0; i<sizeof(exifDataDictionary)/sizeof(exifDataDictionary[0]); i++ ) {
-            dict = exifDataDictionary[i];
-            if ( dict.finder == NULL ) {
-                Exiv2::ExifKey key(dict.key);
-                pos = exifData.findKey(key);
+        if ( !iptcData.empty() ) {
+            Exiv2::IptcData::const_iterator pos;
+            uint i;
+            IptcDataDictionary dict;
+            for( i=0; i<sizeof(iptcDataDictionary)/sizeof(iptcDataDictionary[0]); i++ ) {
+                dict = iptcDataDictionary[i];
 
-                if ( pos == exifData.end() ) {
+                Exiv2::IptcKey key(dict.key);
+                pos = iptcData.findKey(key);
+
+                if ( pos == iptcData.end() ) {
                     callback(dict.label, NULL, user_data);
                 } else {
-                    callback(dict.label, pos->print(&exifData).c_str(), user_data);
-                }
-            } else {
-                pos = dict.finder(exifData);
-
-                if ( pos == exifData.end() ) {
-                    callback(dict.label, NULL, user_data);
-                } else {
-                    callback(dict.label, pos->print(&exifData).c_str(), user_data);
+                    callback(dict.label, pos->value().toString().c_str(), user_data);
                 }
             }
         }
