@@ -47,8 +47,8 @@ struct _VnrPropertiesDialog {
     GtkWidget* layout;
     GtkWidget* image_layout;
     GtkWidget* image;
-    GtkWidget* exif_names_box;
-    GtkWidget* exif_values_box;
+    GtkWidget* meta_names_box;
+    GtkWidget* meta_values_box;
 
     GtkWidget* close_button;
     GtkWidget* next_button;

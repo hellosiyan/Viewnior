@@ -62,23 +62,16 @@ uni_read_exiv2_map(const char *uri, void (*callback)(const char*, const char*, v
             ExifDataDictionary dict;
             for( i=0; i<sizeof(exifDataDictionary)/sizeof(exifDataDictionary[0]); i++ ) {
                 dict = exifDataDictionary[i];
+                
                 if ( dict.finder == NULL ) {
                     Exiv2::ExifKey key(dict.key);
                     pos = exifData.findKey(key);
-
-                    if ( pos == exifData.end() ) {
-                        callback(dict.label, NULL, user_data);
-                    } else {
-                        callback(dict.label, pos->print(&exifData).c_str(), user_data);
-                    }
                 } else {
                     pos = dict.finder(exifData);
+                }
 
-                    if ( pos == exifData.end() ) {
-                        callback(dict.label, NULL, user_data);
-                    } else {
-                        callback(dict.label, pos->print(&exifData).c_str(), user_data);
-                    }
+                if ( pos != exifData.end() ) {
+                    callback(dict.label, pos->print(&exifData).c_str(), user_data);
                 }
             }
         }
@@ -93,9 +86,7 @@ uni_read_exiv2_map(const char *uri, void (*callback)(const char*, const char*, v
                 Exiv2::IptcKey key(dict.key);
                 pos = iptcData.findKey(key);
 
-                if ( pos == iptcData.end() ) {
-                    callback(dict.label, NULL, user_data);
-                } else {
+                if ( pos != iptcData.end() ) {
                     callback(dict.label, pos->value().toString().c_str(), user_data);
                 }
             }
