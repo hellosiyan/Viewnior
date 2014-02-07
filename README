@@ -13,7 +13,8 @@ your images. Among its features are:
   * Animation support   
   * Browse only selected images
   * Navigation window
-  * Set image as wallpaper (Gnome 2, Gnome 3, XFCE, LXDE, FluxBox)
+  * Set image as wallpaper (Gnome 2, Gnome 3, XFCE, LXDE, FluxBox, Nitrogen)
+  * EXIF and IPTC metadata
   * Simple interface
   * Configurable mouse actions
 
@@ -46,4 +47,4 @@ Elementary icon theme by ~DanRabbit (under GPL).
 object-flip-horizontal.png, object-flip-vertical.png are taken from
 Gnome icon theme (under GPL).
 
-Last Edited - 26 February 2012
+Last Edited - 07 February 2014

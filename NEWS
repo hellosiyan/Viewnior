@@ -1,3 +1,15 @@
+Viewnior 1.4
+------------
+
+New features included:
+ - Read EXIF and IPTC metadata
+ - Nitrogen support
+ - Updated translations
+
+Fixed:
+ - Preserve metadata after image modification
+ - Rendidering artifacts when panning
+
 Viewnior 1.3
 ------------
 
