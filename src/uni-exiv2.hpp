@@ -1,5 +1,5 @@
 /*
- * Copyright © 2009-2012 Siyan Panayotov <xsisqox@gmail.com>
+ * Copyright © 2009-2014 Siyan Panayotov <siyan.panayotov@gmail.com>
  *
  * Based on code by (see README for details):
  * - Björn Lindqvist <bjourne@gmail.com>
