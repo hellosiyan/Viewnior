@@ -1428,7 +1428,7 @@ vnr_set_wallpaper(GtkAction *action, VnrWindow *win)
 				break;
 			case VNR_PREFS_DESKTOP_NITROGEN:
 				execlp("nitrogen", "nitrogen", 
-						"--set-zoom-fill",
+						"--set-zoom-fill", "--save",
 						VNR_FILE(win->file_list->data)->path, 
 						NULL);
 				break;
