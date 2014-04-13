@@ -44,6 +44,9 @@ typedef enum{
     VNR_PREFS_ZOOM_LAST_USED,
 } VnrPrefsZoom;
 
+
+#ifdef HAVE_WALLPAPER
+
 typedef enum{
     VNR_PREFS_DESKTOP_GNOME2,
     VNR_PREFS_DESKTOP_GNOME3,
@@ -52,6 +55,8 @@ typedef enum{
     VNR_PREFS_DESKTOP_FLUXBOX,
     VNR_PREFS_DESKTOP_NITROGEN,
 } VnrPrefsDesktop;
+
+#endif /* HAVE_WALLPAPER */
 
 typedef enum{
     VNR_PREFS_WHEEL_NAVIGATE ,
@@ -75,7 +80,11 @@ struct _VnrPrefs {
     GObject parent;
 
     VnrPrefsZoom zoom;
+
+#ifdef HAVE_WALLPAPER
     VnrPrefsDesktop desktop;
+#endif /* HAVE_WALLPAPER */
+    
     VnrPrefsWheel behavior_wheel;
     VnrPrefsClick behavior_click;
     VnrPrefsModify behavior_modify;

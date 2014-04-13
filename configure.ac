@@ -60,6 +60,23 @@ VNR_MODULES="gtk+-2.0 >= $GTK_REQUIRED \
              gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED \
              exiv2 >= $EXIV2_REQUIRED"
 
+# ******
+# Wallpaper support
+# ******
+AC_MSG_CHECKING([whether Wallpaper change functionality is enabled])
+
+AC_ARG_ENABLE([wallpaper],
+    AS_HELP_STRING([--disable-wallpaper],[Disable Wallpaper change functionality]),
+                   ,[enable_wallpaper=yes])
+
+AM_CONDITIONAL(ENABLE_WALLPAPER, test "x$enable_wallpaper" = xyes)
+
+if test x$enable_wallpaper = xyes ; then
+    AC_DEFINE(HAVE_WALLPAPER, 1, [Define to 1 if wallpaper change functionality is included])
+fi
+
+AC_MSG_RESULT([$ENABLE_WALLPAPERlpaper])
+
 # ****************
 # CFLAGS/LIBS init
 # ****************
@@ -93,6 +110,7 @@ echo "
     Viewnior ........... : Version $VERSION
     Location ........... : $prefix/bin
     CFLAGS ............. : $CFLAGS
+    Wallpaper support .. : $enable_wallpaper
 "
 
 echo "
