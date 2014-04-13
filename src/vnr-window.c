@@ -990,8 +990,9 @@ static void
 vnr_window_main_menu_position (GtkMenu *menu, gint *x, gint *y, gboolean *push_in, gpointer user_data)
 {
 	VnrWindow *window = VNR_WINDOW(user_data);
-    GtkWidget *button = window->properties_button;
+  GtkWidget *button = window->properties_button;
 	GdkWindow *gdk_window = gtk_widget_get_window(button);
+  GtkRequisition req = {0, 0};
 	
 	gdk_window_get_position(gdk_window, x, y);
 	
@@ -999,8 +1000,10 @@ vnr_window_main_menu_position (GtkMenu *menu, gint *x, gint *y, gboolean *push_i
 	if ( *x == 0 && gtk_widget_get_visible ( get_fs_controls(window)) ) {
 		*x -= get_fs_controls(window)->allocation.width;
 	} 
+
+  gtk_widget_size_request(GTK_WIDGET(menu), &req);
 	
-	*x += window->toolbar->allocation.width - button->allocation.width;
+	*x += window->toolbar->allocation.width - req.width;
 	*y += button->allocation.height;
 }
 
