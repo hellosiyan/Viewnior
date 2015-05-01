@@ -1,5 +1,5 @@
 /*
- * Copyright © 2009-2014 Siyan Panayotov <siyan.panayotov@gmail.com>
+ * Copyright © 2009-2015 Siyan Panayotov <contact@siyanpanayotov.com>
  *
  * This file is part of Viewnior.
  *
@@ -1351,7 +1351,7 @@ vnr_window_cmd_about (GtkAction *action, VnrWindow *window)
 {
     static const char *authors[] = {
         "Programming & icon design",
-        "\tSiyan Panayotov <siyan.panayotov@gmail.com>",
+        "\tSiyan Panayotov <contact@siyanpanayotov.com>",
         "\nRefer to source code from GtkImageView",
         NULL
     };
@@ -1371,13 +1371,13 @@ vnr_window_cmd_about (GtkAction *action, VnrWindow *window)
     gtk_show_about_dialog (GTK_WINDOW (window),
                    "program-name", "Viewnior",
                    "version", VERSION,
-                   "copyright", "Copyright \xc2\xa9 2009-2014 Siyan Panayotov <siyan.panayotov@gmail.com>",
+                   "copyright", "Copyright \xc2\xa9 2009-2015 Siyan Panayotov <contact@siyanpanayotov.com>",
                    "comments",_("Elegant Image Viewer"),
                    "authors", authors,
                    "logo-icon-name", "viewnior",
                    "wrap-license", TRUE,
                    "license", license,
-                   "website", "http://xsisqox.github.io/Viewnior",
+                   "website", "http://siyanpanayotov.com/project/viewnior/",
                    "translator-credits", _( "translator-credits" ),
                    NULL);
 }

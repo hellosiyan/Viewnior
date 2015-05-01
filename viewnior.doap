@@ -4,7 +4,7 @@
          xmlns="http://usefulinc.com/ns/doap#">
 
   <name xml:lang="en">Viewnior</name>
-  <homepage rdf:resource="http://xsisqox.github.io/Viewnior" />
+  <homepage rdf:resource="http://siyanpanayotov.com/project/viewnior/" />
   <created>2009-04-16</created>
   <shortdesc xml:lang="en">Elegant Image Viewer</shortdesc>
 
@@ -23,12 +23,12 @@
     </Version>
   </release>
 
-  <download-page rdf:resource="http://xsisqox.github.io/Viewnior/download.html" />
+  <download-page rdf:resource="http://siyanpanayotov.com/project/viewnior/" />
 
   <maintainer>
     <foaf:Person>
       <foaf:name>Siyan Panayotov</foaf:name>
-      <foaf:mbox rdf:resource="mailto:siyan.panayotov@gmail.com" />
+      <foaf:mbox rdf:resource="mailto:contact@siyanpanayotov.com" />
     </foaf:Person>
   </maintainer>
 </Project>

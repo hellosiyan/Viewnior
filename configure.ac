@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.61)
-AC_INIT([viewnior], [1.4], [siyan.panayotov@gmail.com])
+AC_INIT([viewnior], [1.4], [contact@siyanpanayotov.com])
 AM_INIT_AUTOMAKE
 AM_SILENT_RULES([yes])
 AC_CONFIG_SRCDIR([src/main.c])
