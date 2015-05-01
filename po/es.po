@@ -6,18 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-07 22:09+0200\n"
-"PO-Revision-Date: 2010-12-18 02:10+0000\n"
-"Last-Translator: Adolfo Jayme <fitoschido@gmail.com>\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-02-07 22:04+0200\n"
+"PO-Revision-Date: 2014-07-29 01:10+0000\n"
+"Last-Translator: Javier García Díaz <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
-"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-02-05 19:30+0000\n"
-"X-Generator: Launchpad (build 16916)\n"
+"X-Launchpad-Export-Date: 2015-05-01 15:32+0000\n"
+"X-Generator: Launchpad (build 17474)\n"
 
 #: ../data/viewnior.desktop.in.in.h:1
 msgid "Viewnior"
@@ -37,7 +36,7 @@ msgstr "Abrir imagen nueva en: "
 
 #: ../data/vnr-preferences-dialog.ui.h:3
 msgid "Desktop: "
-msgstr ""
+msgstr "Escritorio: "
 
 #: ../data/vnr-preferences-dialog.ui.h:4
 msgid "Smooth images when zoomed"
@@ -123,11 +122,11 @@ msgstr "Y: "
 
 #: ../data/vnr-crop-dialog.ui.h:4
 msgid "Width: "
-msgstr "Ancho: "
+msgstr "Anchura: "
 
 #: ../data/vnr-crop-dialog.ui.h:5
 msgid "Height: "
-msgstr "Alto: "
+msgstr "Altura: "
 
 #: ../data/vnr-crop-dialog.ui.h:6 ../src/vnr-window.c:1816
 msgid "Crop"
@@ -165,7 +164,7 @@ msgstr "Modo ajustar a la ventana"
 
 #: ../src/vnr-prefs.c:263
 msgid "Last Used Mode"
-msgstr ""
+msgstr "Último modo usado"
 
 #: ../src/vnr-prefs.c:292 ../src/vnr-prefs.c:304
 msgid "Navigate images"
@@ -177,7 +176,7 @@ msgstr "Ampliar imagen"
 
 #: ../src/vnr-prefs.c:294
 msgid "Scroll image up/down"
-msgstr "Desplazar arriba o abajo"
+msgstr "Desplazar hacia arriba o abajo"
 
 #: ../src/vnr-prefs.c:302
 msgid "Switch zoom modes"
@@ -229,11 +228,11 @@ msgstr "<b>Tamaño:</b>"
 
 #: ../src/vnr-properties-dialog.c:197
 msgid "<b>Width:</b>"
-msgstr "<b>Ancho:</b>"
+msgstr "<b>Anchura:</b>"
 
 #: ../src/vnr-properties-dialog.c:201
 msgid "<b>Height:</b>"
-msgstr "<b>Alto:</b>"
+msgstr "<b>Altura:</b>"
 
 #: ../src/vnr-properties-dialog.c:373 ../src/vnr-properties-dialog.c:374
 #: ../src/vnr-properties-dialog.c:375 ../src/vnr-properties-dialog.c:376
@@ -248,7 +247,7 @@ msgstr "Usar «%s» para abrir la imagen seleccionada"
 
 #: ../src/vnr-window.c:467
 msgid "Show next image after: "
-msgstr "Ver siguiente imagen despues de: "
+msgstr "Ver la próxima imagen tras: "
 
 #: ../src/vnr-window.c:485 ../src/vnr-window.c:902
 msgid " second"
@@ -273,6 +272,8 @@ msgid ""
 "Save modifications?\n"
 "This will overwrite the image and may reduce its quality!"
 msgstr ""
+"¿Quiere guardar los cambios?\n"
+"Esto reemplazará la imagen y podría reducir su calidad."
 
 #: ../src/vnr-window.c:1271
 msgid "Open Image"
@@ -280,11 +281,11 @@ msgstr "Abrir imagen"
 
 #: ../src/vnr-window.c:1282
 msgid "All Images"
-msgstr ""
+msgstr "Todas las imágenes"
 
 #: ../src/vnr-window.c:1288
 msgid "All Files"
-msgstr ""
+msgstr "Todos los archivos"
 
 #: ../src/vnr-window.c:1318
 msgid "Open Folder"
@@ -294,9 +295,11 @@ msgstr "Abrir carpeta"
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Adolfo Jayme https://launchpad.net/~fitoschido\n"
+"  Adolfo Jayme https://launchpad.net/~fitojb\n"
 "  Fido https://launchpad.net/~fedevera\n"
 "  Javier García Díaz https://launchpad.net/~jgd\n"
+"  Luis Ramon Lopez https://launchpad.net/~lrlopez\n"
+"  Pablo Hugo Acevedo https://launchpad.net/~pabloha\n"
 "  Rafael Augusto Maguiña Yrivarren https://launchpad.net/~ramy\n"
 "  Xoan Sampaiño https://launchpad.net/~xoan\n"
 "  bautz https://launchpad.net/~bautz\n"
@@ -391,11 +394,11 @@ msgstr "Guardar cambios"
 
 #: ../src/vnr-window.c:1752
 msgid "_Properties"
-msgstr ""
+msgstr "_Propiedades"
 
 #: ../src/vnr-window.c:1753
 msgid "Properties"
-msgstr ""
+msgstr "Propiedades"
 
 #: ../src/vnr-window.c:1758
 msgid "Set as _Wallpaper"
@@ -524,11 +527,11 @@ msgstr "Ajustar el tamaño de la ventana para que ocupe la imagen"
 
 #: ../src/vnr-window.c:1830
 msgid "Menu Bar"
-msgstr ""
+msgstr "Barra de Menú"
 
 #: ../src/vnr-window.c:1831
 msgid "Show Menu Bar"
-msgstr ""
+msgstr "Mostrar barra de menú"
 
 #: ../src/vnr-window.c:1833
 msgid "Toolbar"
@@ -580,63 +583,56 @@ msgstr "Ir a la última imagen de la colección"
 
 #: ../src/uni-exiv2.hpp:49
 msgid "Camera make"
-msgstr ""
+msgstr "Fabricante de la cámara"
 
 #: ../src/uni-exiv2.hpp:50
 msgid "Camera model"
-msgstr ""
+msgstr "Modelo de cámara"
 
 #: ../src/uni-exiv2.hpp:51
 msgid "Date Taken"
-msgstr ""
+msgstr "Fecha en que se tomó"
 
 #: ../src/uni-exiv2.hpp:52
 msgid "Exposure time"
-msgstr ""
+msgstr "Tiempo de exposición"
 
 #: ../src/uni-exiv2.hpp:53
 msgid "Exposure mode"
-msgstr ""
+msgstr "Modo de exposición"
 
 #: ../src/uni-exiv2.hpp:54
 msgid "Aperture Value"
-msgstr ""
+msgstr "Valor de apertura"
 
 #: ../src/uni-exiv2.hpp:55
 msgid "ISO speed"
-msgstr ""
+msgstr "Velocidad ISO"
 
 #: ../src/uni-exiv2.hpp:56
 msgid "Flash"
-msgstr ""
+msgstr "Flash"
 
 #: ../src/uni-exiv2.hpp:57
 msgid "Metering mode"
-msgstr ""
+msgstr "Modo de medición"
 
 #: ../src/uni-exiv2.hpp:58
 msgid "Focal length"
-msgstr ""
+msgstr "Distancia focal"
 
 #: ../src/uni-exiv2.hpp:59
 msgid "Software"
-msgstr ""
+msgstr "Software"
 
 #: ../src/uni-exiv2.hpp:63
 msgid "Description"
-msgstr ""
+msgstr "Descripción"
 
 #: ../src/uni-exiv2.hpp:64
 msgid "Copyright"
-msgstr ""
+msgstr "Derechos de autor"
 
 #: ../src/uni-exiv2.hpp:65
 msgid "Author"
-msgstr ""
-
-#~ msgid ""
-#~ "Save modifications?\n"
-#~ "This will overwrite the image and may reduce it's quality!"
-#~ msgstr ""
-#~ "¿Guardar los cambios?\n"
-#~ "La imagen se sobreescribirá y es posible que se reduzca su calidad."
+msgstr "Autor/a"

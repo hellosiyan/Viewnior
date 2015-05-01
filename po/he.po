@@ -1,20 +1,38 @@
 # Hebrew translation for viewnior
 # This file is distributed under the same license as the viewnior package.
 # Isratine Citizen <genghiskhan@gmx.ca>, 2011.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-07 22:09+0200\n"
-"PO-Revision-Date: 2012-02-25 18:15+0200\n"
-"Last-Translator: my name <email@address.org>\n"
+"POT-Creation-Date: 2014-02-07 22:04+0200\n"
+"PO-Revision-Date: 2014-07-28 19:26+0000\n"
+"Last-Translator: GenghisKhan <genghiskhan@gmx.ca>\n"
 "Language-Team: Hebrew <he@translationproject.org>\n"
-"Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2015-05-01 15:32+0000\n"
+"X-Generator: Launchpad (build 17474)\n"
+"Language: he\n"
+
+#: ../src/vnr-prefs.c:260
+msgid "Smart Mode"
+msgstr "חכם"
+
+#: ../src/vnr-prefs.c:261
+msgid "1:1 Mode"
+msgstr "1:1"
+
+#: ../src/vnr-prefs.c:262
+msgid "Fit To Window Mode"
+msgstr "התאמה לחלון"
+
+#: ../src/vnr-prefs.c:263
+msgid "Last Used Mode"
+msgstr "אחרון שהיה בשימוש"
 
 #: ../data/viewnior.desktop.in.in.h:1
 msgid "Viewnior"
@@ -30,23 +48,23 @@ msgstr "העדפות Viewnior"
 
 #: ../data/vnr-preferences-dialog.ui.h:2
 msgid "Open new image in: "
-msgstr "פתיחת תמונה חדשה במצב: "
+msgstr "פתח תמונה חדשה במצב: "
 
 #: ../data/vnr-preferences-dialog.ui.h:3
 msgid "Desktop: "
-msgstr ""
+msgstr "שולחן עבודה: "
 
 #: ../data/vnr-preferences-dialog.ui.h:4
 msgid "Smooth images when zoomed"
-msgstr "החלקת תמונות בתקריב"
+msgstr "החלק תמונות בעת שינוי גודל"
 
 #: ../data/vnr-preferences-dialog.ui.h:5
 msgid "Confirm image deletion"
-msgstr "וידוא מחיקת תמונה"
+msgstr "ודא מחיקת תמונה"
 
 #: ../data/vnr-preferences-dialog.ui.h:6
 msgid "Show hidden images"
-msgstr "הצגת תמונות נסתרות"
+msgstr "הצג תמונות נסתרות"
 
 #: ../data/vnr-preferences-dialog.ui.h:7
 msgid "General"
@@ -54,11 +72,11 @@ msgstr "כללי"
 
 #: ../data/vnr-preferences-dialog.ui.h:8
 msgid "Show next image after (in seconds): "
-msgstr "הצגם התמונה הבאה לאחר (בשניות): "
+msgstr "הצג תמונה באה לאחר (בשניות): "
 
 #: ../data/vnr-preferences-dialog.ui.h:9
 msgid "Always expand images to fit screen"
-msgstr "הרחבה מתמדת של תמונות להתאמה למסך"
+msgstr "הרחב תמיד תמונות כדי התאמה למסך"
 
 #: ../data/vnr-preferences-dialog.ui.h:10
 msgid "Fullscreen"
@@ -66,15 +84,15 @@ msgstr "מסך מלא"
 
 #: ../data/vnr-preferences-dialog.ui.h:11
 msgid "On mouse wheel: "
-msgstr "בגלילת העכבר: "
+msgstr "בעת גלילת העכבר: "
 
 #: ../data/vnr-preferences-dialog.ui.h:12
 msgid "On double click: "
-msgstr "בלחיצה כפולה: "
+msgstr "בעת לחיצה כפולה: "
 
 #: ../data/vnr-preferences-dialog.ui.h:13
 msgid "On image modification: "
-msgstr "בשינוי תמונה: "
+msgstr "בעת שינוי תמונה: "
 
 #: ../data/vnr-preferences-dialog.ui.h:14
 msgid ""
@@ -82,9 +100,9 @@ msgid ""
 "  Clicking on the left half of the window shows the\n"
 "  previous image and on the right side - the next.</small> "
 msgstr ""
-"<small>  (!) ניווט בתמונות בלחיצה כפולה :\n"
+"<small>  (!) ניווט תמונות בעזרת לחיצה כפולה :\n"
 "  לחיצה על החצי השמאלי של החלון תציג את התמונה\n"
-"  הקודמת ובלחיצה על הצד הימני - התמונה הבאה.</small> "
+"  הקודמת ולחיצה על הצד הימני - את הבאה.</small> "
 
 #: ../data/vnr-preferences-dialog.ui.h:17
 msgid "Behavior"
@@ -92,7 +110,7 @@ msgstr "התנהגות"
 
 #: ../data/vnr-preferences-dialog.ui.h:18
 msgid "Reload image on save"
-msgstr "טעינת התמונה מחדש בשמירה"
+msgstr "טען תמונה מחדש בעת שמירה"
 
 #: ../data/vnr-preferences-dialog.ui.h:19
 msgid "JPEG quality:"
@@ -112,11 +130,11 @@ msgstr "גזיזת תמונה"
 
 #: ../data/vnr-crop-dialog.ui.h:2
 msgid "X: "
-msgstr "X: "
+msgstr "‏X‏: "
 
 #: ../data/vnr-crop-dialog.ui.h:3
 msgid "Y: "
-msgstr "Y: "
+msgstr "‏Y‏: "
 
 #: ../data/vnr-crop-dialog.ui.h:4
 msgid "Width: "
@@ -128,12 +146,12 @@ msgstr "גובה: "
 
 #: ../data/vnr-crop-dialog.ui.h:6 ../src/vnr-window.c:1816
 msgid "Crop"
-msgstr "גזיזה"
+msgstr "חתוך"
 
 #: ../src/main.c:117 ../src/vnr-window.c:1620 ../src/vnr-window.c:1975
 #: ../src/vnr-window.c:2414
 msgid "The given locations contain no images."
-msgstr "המיקום שהוזן לא מכיל תמונות."
+msgstr "המיקומים שצוינו לא מכילים תמונות."
 
 #: ../src/uni-scroll-win.c:223
 msgid "Open the navigator window"
@@ -145,47 +163,28 @@ msgid ""
 "Couldn't recognise the image file\n"
 "format for file '%s'"
 msgstr ""
-"לא ניתן לזהות את תסדיר קובץ\n"
-"התמונה עבור הקובץ '%s'"
-
-# אוחד עם: Open new image in
-#: ../src/vnr-prefs.c:260
-msgid "Smart Mode"
-msgstr "חכם"
-
-# אוחד עם: Open new image in
-#: ../src/vnr-prefs.c:261
-msgid "1:1 Mode"
-msgstr "1:1"
-
-# אוחד עם: Open new image in
-#: ../src/vnr-prefs.c:262
-msgid "Fit To Window Mode"
-msgstr "התאמת התמונה לחלון"
-
-#: ../src/vnr-prefs.c:263
-msgid "Last Used Mode"
-msgstr ""
+"לא ניתן לזהות את פורמט קובץ התמונה\n"
+"עבור הקובץ '%s'"
 
 #: ../src/vnr-prefs.c:292 ../src/vnr-prefs.c:304
 msgid "Navigate images"
-msgstr "ניווט בתמונות"
+msgstr "נווט תמונות"
 
 #: ../src/vnr-prefs.c:293
 msgid "Zoom image"
-msgstr "תקריב תמונה"
+msgstr "שנה גודל תמונה"
 
 #: ../src/vnr-prefs.c:294
 msgid "Scroll image up/down"
-msgstr "גלילת התמונה מעלה\\מטה"
+msgstr "גלול תמונה מעלה/מטה"
 
 #: ../src/vnr-prefs.c:302
 msgid "Switch zoom modes"
-msgstr "החלפת מצבי תקריב"
+msgstr "החלף מצבי זום"
 
 #: ../src/vnr-prefs.c:303
 msgid "Enter fullscreen mode"
-msgstr "כניסה למצב מסך מלא"
+msgstr "כנס למצב מסך מלא"
 
 #: ../src/vnr-prefs.c:312
 msgid "Ask every time"
@@ -193,19 +192,19 @@ msgstr "שאל בכל פעם"
 
 #: ../src/vnr-prefs.c:313
 msgid "Autosave"
-msgstr "שמירה אוטומטית"
+msgstr "שמור אוטומטית"
 
 #: ../src/vnr-prefs.c:314
 msgid "Ignore changes"
-msgstr "התעלמות משינויים"
+msgstr "התעלם משינויים"
 
 #: ../src/vnr-properties-dialog.c:112
 msgid "_Next"
-msgstr "_הבא"
+msgstr "_הבאה"
 
 #: ../src/vnr-properties-dialog.c:113
 msgid "_Previous"
-msgstr "_הקודם"
+msgstr "_הקודמת"
 
 #: ../src/vnr-properties-dialog.c:128
 msgid "Image Properties"
@@ -213,7 +212,7 @@ msgstr "מאפייני תמונה"
 
 #: ../src/vnr-properties-dialog.c:136
 msgid "<b>Location:</b>"
-msgstr "<b>מיקום הקובץ:</b>"
+msgstr "<b>מיקום:</b>"
 
 #: ../src/vnr-properties-dialog.c:185
 msgid "<b>Name:</b>"
@@ -221,11 +220,11 @@ msgstr "<b>שם:</b>"
 
 #: ../src/vnr-properties-dialog.c:189
 msgid "<b>Type:</b>"
-msgstr "<b>סוג:</b>"
+msgstr "<b>טיפוס:</b>"
 
 #: ../src/vnr-properties-dialog.c:193
 msgid "<b>Size:</b>"
-msgstr "<b>גודל:</b>"
+msgstr "<b>מידה:</b>"
 
 #: ../src/vnr-properties-dialog.c:197
 msgid "<b>Width:</b>"
@@ -244,11 +243,11 @@ msgstr "ללא"
 #: ../src/vnr-window.c:297
 #, c-format
 msgid "Use \"%s\" to open the selected image"
-msgstr "שימוש ביישום \"%s\" לפתיחת התמונה הנבחרת"
+msgstr "השתמש ביישום \"%s\" כדי לפתוח את התמונה הנבחרת"
 
 #: ../src/vnr-window.c:467
 msgid "Show next image after: "
-msgstr "הצגם התמונה הבאה לאחר: "
+msgstr "הצג תמונה באה כעבור: "
 
 #: ../src/vnr-window.c:485 ../src/vnr-window.c:902
 msgid " second"
@@ -258,37 +257,35 @@ msgstr[1] " שניות"
 
 #: ../src/vnr-window.c:727 ../src/vnr-window.c:790
 msgid "Not enough virtual memory."
-msgstr "לא קיים מספיק זיכרון וירטואלי."
+msgstr "אין מספיק זיכרון וירטואלי."
 
 #: ../src/vnr-window.c:761 ../src/vnr-window.c:819 ../src/vnr-window.c:1706
 msgid ""
 "Image modifications cannot be saved.\n"
 "Writing in this format is not supported."
 msgstr ""
-"לא ניתן לשמור את השינויים בתמונה.\n"
-"הכתיבה בסוג תסדיר זה לא נתמכת."
+"אין אפשרות לשמור את השינויים בתמונה.\n"
+"כתיבה בפורמט זה אינה נתמכת."
 
 #: ../src/vnr-window.c:768 ../src/vnr-window.c:826 ../src/vnr-window.c:1713
-#, fuzzy
 msgid ""
 "Save modifications?\n"
 "This will overwrite the image and may reduce its quality!"
 msgstr ""
-"שמירת השינויים?\n"
-"פעולה זו תמחק את התמונה והיא עשויה להפחית את איכותה!"
+"לשמור שינויים?\n"
+"פעולה זו תמחק את התמונה ועלולה להפחית את איכותה!"
 
 #: ../src/vnr-window.c:1271
 msgid "Open Image"
 msgstr "פתיחת תמונה"
 
 #: ../src/vnr-window.c:1282
-#, fuzzy
 msgid "All Images"
-msgstr "_תמונה"
+msgstr "כל התמונות"
 
 #: ../src/vnr-window.c:1288
 msgid "All Files"
-msgstr ""
+msgstr "כל הקבצים"
 
 #: ../src/vnr-window.c:1318
 msgid "Open Folder"
@@ -297,12 +294,12 @@ msgstr "פתיחת תיקייה"
 #: ../src/vnr-window.c:1378
 msgid "translator-credits"
 msgstr ""
-"תורגם על-ידי:\n"
-"  Isratine Citizen <genghiskhan@gmx.ca>"
+"Launchpad Contributions:\n"
+"  GenghisKhan https://launchpad.net/~genghiskhan"
 
 #: ../src/vnr-window.c:1558
 msgid "If you delete an item, it will be permanently lost."
-msgstr "במידה ואתם מוחקים פריט, הוא יאובד לצמיתות."
+msgstr "כאשר פריט נמחק, זה יאבד לצמיתות."
 
 #. I18N: The '%s' is replaced with the name of the file to be deleted.
 #: ../src/vnr-window.c:1561
@@ -311,7 +308,7 @@ msgid ""
 "Are you sure you want to\n"
 "permanently delete \"%s\"?"
 msgstr ""
-"האם אתם בטוחים שאתם רוצים\n"
+"האם אתה בטוח כי ברצונך\n"
 "למחוק את \"%s\" לצמיתות?"
 
 #: ../src/vnr-window.c:1721
@@ -320,7 +317,7 @@ msgstr "_קובץ"
 
 #: ../src/vnr-window.c:1722
 msgid "_Edit"
-msgstr "_עריכה"
+msgstr "ע_ריכה"
 
 #: ../src/vnr-window.c:1723
 msgid "_View"
@@ -340,7 +337,7 @@ msgstr "_עזרה"
 
 #: ../src/vnr-window.c:1728
 msgid "Open _Image..."
-msgstr "פתיחת _תמונה..."
+msgstr "_פתיחת תמונה..."
 
 #: ../src/vnr-window.c:1729
 msgid "Open an Image"
@@ -356,11 +353,11 @@ msgstr "פתיחת ספרייה"
 
 #: ../src/vnr-window.c:1734
 msgid "_Close"
-msgstr "_סגירה"
+msgstr "_סגור"
 
 #: ../src/vnr-window.c:1735
 msgid "Close window"
-msgstr "סגירת החלון"
+msgstr "סגירת חלון"
 
 #: ../src/vnr-window.c:1737
 msgid "_About"
@@ -380,41 +377,39 @@ msgstr "העדפות משתמש עבור Viewnior"
 
 #: ../src/vnr-window.c:1746
 msgid "_Save"
-msgstr "_שמירה"
+msgstr "_שמור"
 
 #: ../src/vnr-window.c:1747
 msgid "Save changes"
 msgstr "שמירת שינויים"
 
 #: ../src/vnr-window.c:1752
-#, fuzzy
 msgid "_Properties"
-msgstr "_מאפיינים..."
+msgstr "_מאפיינים"
 
 #: ../src/vnr-window.c:1753
-#, fuzzy
 msgid "Properties"
-msgstr "_מאפיינים..."
+msgstr "מאפיינים"
 
 #: ../src/vnr-window.c:1758
 msgid "Set as _Wallpaper"
-msgstr "הגדרה כ_רקע שולחן העבודה"
+msgstr "קבע בתור _רקע שולחן עבודה"
 
 #: ../src/vnr-window.c:1759
 msgid "Set the selected image as the desktop background"
-msgstr "הגדרה התמונה הנבחרת כ_רקע שולחן העבודה"
+msgstr "קבע את התמונה הנבחרת בתור _רקע שולחן עבודה"
 
 #: ../src/vnr-window.c:1764
 msgid "Open _With"
-msgstr "פתיחה _עם"
+msgstr "פתח ב_עזרת"
 
 #: ../src/vnr-window.c:1765
 msgid "Open the selected image with a different application"
-msgstr "פתיחת התמונה הנבחרת עם יישום אחר"
+msgstr "פתיחת התמונה הנבחרת בעזרת יישום אחר"
 
 #: ../src/vnr-window.c:1767 ../src/vnr-window.c:1776
 msgid "_Delete"
-msgstr "_מחיקה"
+msgstr "_מחק"
 
 #: ../src/vnr-window.c:1768 ../src/vnr-window.c:1777
 msgid "Delete the current file"
@@ -430,7 +425,7 @@ msgstr "הצגת מידע אודות הקובץ הנוכחי"
 
 #: ../src/vnr-window.c:1773
 msgid "_Reload"
-msgstr "_טעינה מחדש"
+msgstr "_טען מחדש"
 
 #: ../src/vnr-window.c:1774
 msgid "Reload the current file"
@@ -438,7 +433,7 @@ msgstr "טעינה מחדש של הקובץ הנוכחי"
 
 #: ../src/vnr-window.c:1779 ../src/vnr-window.c:1791 ../src/vnr-window.c:1794
 msgid "_Zoom In"
-msgstr "הת_קרבות"
+msgstr "זום _פנימה"
 
 #: ../src/vnr-window.c:1780
 msgid "Enlarge the image"
@@ -446,7 +441,7 @@ msgstr "הגדלת התמונה"
 
 #: ../src/vnr-window.c:1782 ../src/vnr-window.c:1797
 msgid "Zoom _Out"
-msgstr "הת_רחקות"
+msgstr "זום ה_חוצה"
 
 #: ../src/vnr-window.c:1783 ../src/vnr-window.c:1792 ../src/vnr-window.c:1795
 #: ../src/vnr-window.c:1798
@@ -463,7 +458,7 @@ msgstr "הצגת התמונה בגודל הרגיל שלה"
 
 #: ../src/vnr-window.c:1788
 msgid "Best _Fit"
-msgstr "ההתאמה ה_טובה ביותר"
+msgstr "התאם לת_צוגה"
 
 #: ../src/vnr-window.c:1789
 msgid "Fit the image to the window"
@@ -471,7 +466,7 @@ msgstr "התאמת התמונה לחלון"
 
 #: ../src/vnr-window.c:1803
 msgid "Rotate _Clockwise"
-msgstr "סיבוב _עם כיוון השעון"
+msgstr "סובב _עם כיוון השעון"
 
 #: ../src/vnr-window.c:1804
 msgid "Rotate image clockwise"
@@ -479,7 +474,7 @@ msgstr "סיבוב התמונה עם כיוון השעון"
 
 #: ../src/vnr-window.c:1806
 msgid "Rotate _Anti-clockwise"
-msgstr "סיבוב _נגד כיוון השעון"
+msgstr "סובב _נגד כיוון השעון"
 
 #: ../src/vnr-window.c:1807
 msgid "Rotate image anti-clockwise"
@@ -487,7 +482,7 @@ msgstr "סיבוב התמונה נגד כיוון השעון"
 
 #: ../src/vnr-window.c:1809
 msgid "Flip _Vertical"
-msgstr "היפוך א_נכי"
+msgstr "הפוך א_נכית"
 
 #: ../src/vnr-window.c:1810
 msgid "Flip image vertically"
@@ -495,7 +490,7 @@ msgstr "היפוך אנכי של התמונה"
 
 #: ../src/vnr-window.c:1812
 msgid "Flip _Horizontal"
-msgstr "היפוך א_ופקי"
+msgstr "הפוך א_ופקית"
 
 #: ../src/vnr-window.c:1813
 msgid "Flip image horizontally"
@@ -515,19 +510,19 @@ msgstr "הצגה במצב של מסך מלא"
 
 #: ../src/vnr-window.c:1824
 msgid "_Adjust window size"
-msgstr "_התאמת ממדי החלון"
+msgstr "ה_תאם ממדי חלון"
 
 #: ../src/vnr-window.c:1825
 msgid "Adjust window size to fit the image"
-msgstr "התאמת ממדי החלון לממדי תמונה"
+msgstr "התאמת מידת חלון לתמונה"
 
 #: ../src/vnr-window.c:1830
 msgid "Menu Bar"
-msgstr ""
+msgstr "שורת תפריט"
 
 #: ../src/vnr-window.c:1831
 msgid "Show Menu Bar"
-msgstr ""
+msgstr "הצג שורת תפריט"
 
 #: ../src/vnr-window.c:1833
 msgid "Toolbar"
@@ -547,7 +542,7 @@ msgstr "הצגה במצב של מצגת"
 
 #: ../src/vnr-window.c:1845
 msgid "_Previous Image"
-msgstr "התמונה ה_קודמת"
+msgstr "תמונה _קודמת"
 
 #: ../src/vnr-window.c:1846
 msgid "Go to the previous image of the collection"
@@ -555,7 +550,7 @@ msgstr "מעבר אל התמונה הקודמת שבאוסף"
 
 #: ../src/vnr-window.c:1848
 msgid "_Next Image"
-msgstr "התמונה ה_באה"
+msgstr "תמונה _באה"
 
 #: ../src/vnr-window.c:1849
 msgid "Go to the next image of the collection"
@@ -579,56 +574,56 @@ msgstr "מעבר אל התמונה האחרונה שבאוסף"
 
 #: ../src/uni-exiv2.hpp:49
 msgid "Camera make"
-msgstr ""
+msgstr "יצרן מצלמה"
 
 #: ../src/uni-exiv2.hpp:50
 msgid "Camera model"
-msgstr ""
+msgstr "מודל מצלמה"
 
 #: ../src/uni-exiv2.hpp:51
 msgid "Date Taken"
-msgstr ""
+msgstr "תאריך לקיחה"
 
 #: ../src/uni-exiv2.hpp:52
 msgid "Exposure time"
-msgstr ""
+msgstr "זמן חשיפה"
 
 #: ../src/uni-exiv2.hpp:53
 msgid "Exposure mode"
-msgstr ""
+msgstr "מצב חשיפה"
 
 #: ../src/uni-exiv2.hpp:54
 msgid "Aperture Value"
-msgstr ""
+msgstr "ערך פתח"
 
 #: ../src/uni-exiv2.hpp:55
 msgid "ISO speed"
-msgstr ""
+msgstr "מהירות ISO"
 
 #: ../src/uni-exiv2.hpp:56
 msgid "Flash"
-msgstr ""
+msgstr "פלאש"
 
 #: ../src/uni-exiv2.hpp:57
 msgid "Metering mode"
-msgstr ""
+msgstr "מצב מונה מטר"
 
 #: ../src/uni-exiv2.hpp:58
 msgid "Focal length"
-msgstr ""
+msgstr "רוחק מוקד"
 
 #: ../src/uni-exiv2.hpp:59
 msgid "Software"
-msgstr ""
+msgstr "תוכנה"
 
 #: ../src/uni-exiv2.hpp:63
 msgid "Description"
-msgstr ""
+msgstr "תיאור"
 
 #: ../src/uni-exiv2.hpp:64
 msgid "Copyright"
-msgstr ""
+msgstr "זכויות יוצרים"
 
 #: ../src/uni-exiv2.hpp:65
 msgid "Author"
-msgstr ""
+msgstr "מחבר"

@@ -6,18 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-07 22:09+0200\n"
-"PO-Revision-Date: 2010-03-30 23:06+0000\n"
-"Last-Translator: Roman Horník <Unknown>\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-02-07 22:04+0200\n"
+"PO-Revision-Date: 2015-01-14 08:01+0000\n"
+"Last-Translator: Petr Šimáček <petr.simacek@gmail.com>\n"
 "Language-Team: Czech <cs@li.org>\n"
-"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-02-05 19:30+0000\n"
-"X-Generator: Launchpad (build 16916)\n"
+"X-Launchpad-Export-Date: 2015-05-01 15:32+0000\n"
+"X-Generator: Launchpad (build 17474)\n"
 
 #: ../data/viewnior.desktop.in.in.h:1
 msgid "Viewnior"
@@ -37,7 +36,7 @@ msgstr "Otevřít nový obrázek: "
 
 #: ../data/vnr-preferences-dialog.ui.h:3
 msgid "Desktop: "
-msgstr ""
+msgstr "Plocha: "
 
 #: ../data/vnr-preferences-dialog.ui.h:4
 msgid "Smooth images when zoomed"
@@ -165,7 +164,7 @@ msgstr "Režim přizpůsobení velikosti okna"
 
 #: ../src/vnr-prefs.c:263
 msgid "Last Used Mode"
-msgstr ""
+msgstr "Naposledy použitý režim"
 
 #: ../src/vnr-prefs.c:292 ../src/vnr-prefs.c:304
 msgid "Navigate images"
@@ -274,6 +273,8 @@ msgid ""
 "Save modifications?\n"
 "This will overwrite the image and may reduce its quality!"
 msgstr ""
+"Uložit změny?\n"
+"Toto přepíše obrázek a může se snížit jeho kvalita."
 
 #: ../src/vnr-window.c:1271
 msgid "Open Image"
@@ -281,11 +282,11 @@ msgstr "Otevřít obrázek"
 
 #: ../src/vnr-window.c:1282
 msgid "All Images"
-msgstr ""
+msgstr "Všechny obrázky"
 
 #: ../src/vnr-window.c:1288
 msgid "All Files"
-msgstr ""
+msgstr "Všechny soubory"
 
 #: ../src/vnr-window.c:1318
 msgid "Open Folder"
@@ -295,6 +296,7 @@ msgstr "Otevřít složku"
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
+"  Petr Šimáček https://launchpad.net/~petr-simacek\n"
 "  Roman Horník https://launchpad.net/~roman.hornik"
 
 #: ../src/vnr-window.c:1558
@@ -385,11 +387,11 @@ msgstr "Uložit změny"
 
 #: ../src/vnr-window.c:1752
 msgid "_Properties"
-msgstr ""
+msgstr "_Vlastnosti"
 
 #: ../src/vnr-window.c:1753
 msgid "Properties"
-msgstr ""
+msgstr "Vlastnosti"
 
 #: ../src/vnr-window.c:1758
 msgid "Set as _Wallpaper"
@@ -518,11 +520,11 @@ msgstr "Nastavit velikost okna podle obrázku"
 
 #: ../src/vnr-window.c:1830
 msgid "Menu Bar"
-msgstr ""
+msgstr "Hlavní nabídka"
 
 #: ../src/vnr-window.c:1831
 msgid "Show Menu Bar"
-msgstr ""
+msgstr "Zobrazovat hlavní nabídku"
 
 #: ../src/vnr-window.c:1833
 msgid "Toolbar"
@@ -574,64 +576,56 @@ msgstr "Přejít na poslední obrázek ze sbírky"
 
 #: ../src/uni-exiv2.hpp:49
 msgid "Camera make"
-msgstr ""
+msgstr "Vytvoření fotoaparátu"
 
 #: ../src/uni-exiv2.hpp:50
 msgid "Camera model"
-msgstr ""
+msgstr "Model fotoaparátu"
 
 #: ../src/uni-exiv2.hpp:51
 msgid "Date Taken"
-msgstr ""
+msgstr "Datum fotografování"
 
 #: ../src/uni-exiv2.hpp:52
 msgid "Exposure time"
-msgstr ""
+msgstr "Doba expozice"
 
 #: ../src/uni-exiv2.hpp:53
 msgid "Exposure mode"
-msgstr ""
+msgstr "Režim expozice"
 
 #: ../src/uni-exiv2.hpp:54
 msgid "Aperture Value"
-msgstr ""
+msgstr "Clona"
 
 #: ../src/uni-exiv2.hpp:55
 msgid "ISO speed"
-msgstr ""
+msgstr "ISO"
 
 #: ../src/uni-exiv2.hpp:56
 msgid "Flash"
-msgstr ""
+msgstr "Blesk"
 
 #: ../src/uni-exiv2.hpp:57
 msgid "Metering mode"
-msgstr ""
+msgstr "Režim měření"
 
 #: ../src/uni-exiv2.hpp:58
 msgid "Focal length"
-msgstr ""
+msgstr "Ohnisková vzdálenost"
 
 #: ../src/uni-exiv2.hpp:59
 msgid "Software"
-msgstr ""
+msgstr "Software"
 
 #: ../src/uni-exiv2.hpp:63
 msgid "Description"
-msgstr ""
+msgstr "Popis"
 
 #: ../src/uni-exiv2.hpp:64
 msgid "Copyright"
-msgstr ""
+msgstr "Copyright"
 
 #: ../src/uni-exiv2.hpp:65
 msgid "Author"
-msgstr ""
-
-#~ msgid ""
-#~ "Save modifications?\n"
-#~ "This will overwrite the image and may reduce it's quality!"
-#~ msgstr ""
-#~ "Uložit změny?\n"
-#~ "Tímto se přepíše originální obrázek, což může mít za následek snížení "
-#~ "jeho kvality!"
+msgstr "Autor"

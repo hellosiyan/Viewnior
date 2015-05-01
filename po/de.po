@@ -6,18 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-07 22:09+0200\n"
-"PO-Revision-Date: 2012-02-27 13:54+0000\n"
-"Last-Translator: Christoph Wickert <Unknown>\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-02-07 22:04+0200\n"
+"PO-Revision-Date: 2015-02-12 13:36+0000\n"
+"Last-Translator: ErZe <guardofstone@gmail.com>\n"
 "Language-Team: German <de@li.org>\n"
-"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-02-05 19:30+0000\n"
-"X-Generator: Launchpad (build 16916)\n"
+"X-Launchpad-Export-Date: 2015-05-01 15:32+0000\n"
+"X-Generator: Launchpad (build 17474)\n"
 
 #: ../data/viewnior.desktop.in.in.h:1
 msgid "Viewnior"
@@ -37,7 +36,7 @@ msgstr "Neues Bild öffnen mit: "
 
 #: ../data/vnr-preferences-dialog.ui.h:3
 msgid "Desktop: "
-msgstr ""
+msgstr "Arbeitsfläche: "
 
 #: ../data/vnr-preferences-dialog.ui.h:4
 msgid "Smooth images when zoomed"
@@ -165,7 +164,7 @@ msgstr "In Fenster einpassen"
 
 #: ../src/vnr-prefs.c:263
 msgid "Last Used Mode"
-msgstr ""
+msgstr "Letzter benutzter Modus"
 
 #: ../src/vnr-prefs.c:292 ../src/vnr-prefs.c:304
 msgid "Navigate images"
@@ -273,6 +272,9 @@ msgid ""
 "Save modifications?\n"
 "This will overwrite the image and may reduce its quality!"
 msgstr ""
+"Änderungen speichern?\n"
+"Dies überschreibt die Bilddatei und kann die Qualität des Bildes "
+"beeinträchtigen!"
 
 #: ../src/vnr-window.c:1271
 msgid "Open Image"
@@ -280,11 +282,11 @@ msgstr "Bild öffnen"
 
 #: ../src/vnr-window.c:1282
 msgid "All Images"
-msgstr ""
+msgstr "Alle Bilder"
 
 #: ../src/vnr-window.c:1288
 msgid "All Files"
-msgstr ""
+msgstr "Alle Dateien"
 
 #: ../src/vnr-window.c:1318
 msgid "Open Folder"
@@ -295,6 +297,7 @@ msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Christoph Wickert https://launchpad.net/~cwickert\n"
+"  ErZe https://launchpad.net/~guardofstone\n"
 "  Fabian Affolter https://launchpad.net/~fab-fedoraproject\n"
 "  Jan https://launchpad.net/~jancborchardt-deactivatedaccount\n"
 "  Wieland Hoffmann https://launchpad.net/~themineo\n"
@@ -392,7 +395,7 @@ msgstr ""
 
 #: ../src/vnr-window.c:1753
 msgid "Properties"
-msgstr ""
+msgstr "Eigenschaften"
 
 #: ../src/vnr-window.c:1758
 msgid "Set as _Wallpaper"
@@ -521,11 +524,11 @@ msgstr "Fenstergröße an das Bild anpassen"
 
 #: ../src/vnr-window.c:1830
 msgid "Menu Bar"
-msgstr ""
+msgstr "Menüleiste"
 
 #: ../src/vnr-window.c:1831
 msgid "Show Menu Bar"
-msgstr ""
+msgstr "Menüleiste anzeigen"
 
 #: ../src/vnr-window.c:1833
 msgid "Toolbar"
@@ -577,23 +580,23 @@ msgstr "Zum letzten Bild der Sammlung gehen"
 
 #: ../src/uni-exiv2.hpp:49
 msgid "Camera make"
-msgstr ""
+msgstr "Kamerahersteller"
 
 #: ../src/uni-exiv2.hpp:50
 msgid "Camera model"
-msgstr ""
+msgstr "Kameramodell"
 
 #: ../src/uni-exiv2.hpp:51
 msgid "Date Taken"
-msgstr ""
+msgstr "Aufnahmedatum"
 
 #: ../src/uni-exiv2.hpp:52
 msgid "Exposure time"
-msgstr ""
+msgstr "Belichtungszeit"
 
 #: ../src/uni-exiv2.hpp:53
 msgid "Exposure mode"
-msgstr ""
+msgstr "Belichtungsmodus"
 
 #: ../src/uni-exiv2.hpp:54
 msgid "Aperture Value"
@@ -601,11 +604,11 @@ msgstr ""
 
 #: ../src/uni-exiv2.hpp:55
 msgid "ISO speed"
-msgstr ""
+msgstr "ISO Wert"
 
 #: ../src/uni-exiv2.hpp:56
 msgid "Flash"
-msgstr ""
+msgstr "Blitzlicht"
 
 #: ../src/uni-exiv2.hpp:57
 msgid "Metering mode"
@@ -613,7 +616,7 @@ msgstr ""
 
 #: ../src/uni-exiv2.hpp:58
 msgid "Focal length"
-msgstr ""
+msgstr "Brennweite"
 
 #: ../src/uni-exiv2.hpp:59
 msgid "Software"
@@ -621,20 +624,12 @@ msgstr ""
 
 #: ../src/uni-exiv2.hpp:63
 msgid "Description"
-msgstr ""
+msgstr "Beschreibung"
 
 #: ../src/uni-exiv2.hpp:64
 msgid "Copyright"
-msgstr ""
+msgstr "Copyright"
 
 #: ../src/uni-exiv2.hpp:65
 msgid "Author"
-msgstr ""
-
-#~ msgid ""
-#~ "Save modifications?\n"
-#~ "This will overwrite the image and may reduce it's quality!"
-#~ msgstr ""
-#~ "Änderungen speichern?\n"
-#~ "Dieser Vorgang überschreibt das Bild und kann seine Qualität "
-#~ "verschlechtern!"
+msgstr "Autor"

@@ -5,20 +5,20 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: viewnior\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-07 22:09+0200\n"
-"PO-Revision-Date: 2012-02-25 18:57+0000\n"
-"Last-Translator: andyun <pokazsch@yandex.ru>\n"
+"Project-Id-Version: viewnior-1.4\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-02-07 22:04+0200\n"
+"PO-Revision-Date: 2014-02-19 06:28+0000\n"
+"Last-Translator: Kyrill Detinov <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-02-05 19:30+0000\n"
-"X-Generator: Launchpad (build 16916)\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Launchpad-Export-Date: 2015-05-01 15:32+0000\n"
+"X-Generator: Launchpad (build 17474)\n"
+"Language: ru\n"
 
 #: ../data/viewnior.desktop.in.in.h:1
 msgid "Viewnior"
@@ -38,7 +38,7 @@ msgstr "Открыть новое изображение в: "
 
 #: ../data/vnr-preferences-dialog.ui.h:3
 msgid "Desktop: "
-msgstr ""
+msgstr "Среда рабочего стола: "
 
 #: ../data/vnr-preferences-dialog.ui.h:4
 msgid "Smooth images when zoomed"
@@ -166,7 +166,7 @@ msgstr "режиме подгонки к окну"
 
 #: ../src/vnr-prefs.c:263
 msgid "Last Used Mode"
-msgstr ""
+msgstr "последнем использовавшемся режиме"
 
 #: ../src/vnr-prefs.c:292 ../src/vnr-prefs.c:304
 msgid "Navigate images"
@@ -255,7 +255,7 @@ msgstr "Показать следующее изображение через: "
 msgid " second"
 msgid_plural " seconds"
 msgstr[0] " секунда"
-msgstr[1] " секунда"
+msgstr[1] " секунды"
 msgstr[2] " секунд"
 
 #: ../src/vnr-window.c:727 ../src/vnr-window.c:790
@@ -275,6 +275,8 @@ msgid ""
 "Save modifications?\n"
 "This will overwrite the image and may reduce its quality!"
 msgstr ""
+"Сохранить изменения?\n"
+"Это перезапишет изображение и может ухудшить качество!"
 
 #: ../src/vnr-window.c:1271
 msgid "Open Image"
@@ -282,11 +284,11 @@ msgstr "Открыть изображение"
 
 #: ../src/vnr-window.c:1282
 msgid "All Images"
-msgstr ""
+msgstr "Все изображения"
 
 #: ../src/vnr-window.c:1288
 msgid "All Files"
-msgstr ""
+msgstr "Все файлы"
 
 #: ../src/vnr-window.c:1318
 msgid "Open Folder"
@@ -299,6 +301,7 @@ msgstr ""
 "  Alexei https://launchpad.net/~jleexa\n"
 "  HsH https://launchpad.net/~hsh\n"
 "  Kolesnikov Dmitrij https://launchpad.net/~virusmater\n"
+"  Kyrill Detinov https://launchpad.net/~lazy-kent\n"
 "  Sergey Sedov https://launchpad.net/~serg-sedov\n"
 "  andyun https://launchpad.net/~pokazsch\n"
 "  mrakobes86 https://launchpad.net/~mrakobes86\n"
@@ -325,7 +328,7 @@ msgstr "_Файл"
 
 #: ../src/vnr-window.c:1722
 msgid "_Edit"
-msgstr "_Правка"
+msgstr "П_равка"
 
 #: ../src/vnr-window.c:1723
 msgid "_View"
@@ -341,11 +344,11 @@ msgstr "П_ереход"
 
 #: ../src/vnr-window.c:1726
 msgid "_Help"
-msgstr "_Помощь"
+msgstr "_Справка"
 
 #: ../src/vnr-window.c:1728
 msgid "Open _Image..."
-msgstr "Открыть _изображение..."
+msgstr "Открыть _изображение…"
 
 #: ../src/vnr-window.c:1729
 msgid "Open an Image"
@@ -353,7 +356,7 @@ msgstr "Открыть изображение"
 
 #: ../src/vnr-window.c:1731
 msgid "Open _Folder..."
-msgstr "Открыть папку..."
+msgstr "Открыть папку…"
 
 #: ../src/vnr-window.c:1732
 msgid "Open a Folder"
@@ -377,7 +380,7 @@ msgstr "О программе"
 
 #: ../src/vnr-window.c:1740
 msgid "_Preferences..."
-msgstr "_Параметры..."
+msgstr "_Параметры…"
 
 #: ../src/vnr-window.c:1741
 msgid "User preferences for Viewnior"
@@ -393,11 +396,11 @@ msgstr "Сохранить изменения"
 
 #: ../src/vnr-window.c:1752
 msgid "_Properties"
-msgstr ""
+msgstr "_Свойства"
 
 #: ../src/vnr-window.c:1753
 msgid "Properties"
-msgstr ""
+msgstr "Свойства"
 
 #: ../src/vnr-window.c:1758
 msgid "Set as _Wallpaper"
@@ -425,7 +428,7 @@ msgstr "Удалить текущий файл"
 
 #: ../src/vnr-window.c:1770
 msgid "_Properties..."
-msgstr "С_войства..."
+msgstr "С_войства…"
 
 #: ../src/vnr-window.c:1771
 msgid "Show information about the current file"
@@ -474,7 +477,7 @@ msgstr "Масштабировать картинку под размер окн
 
 #: ../src/vnr-window.c:1803
 msgid "Rotate _Clockwise"
-msgstr "Повернуть по _часовой стрелке"
+msgstr "Повернуть _по часовой стрелке"
 
 #: ../src/vnr-window.c:1804
 msgid "Rotate image clockwise"
@@ -482,7 +485,7 @@ msgstr "Повернуть картинку по часовой стрелке"
 
 #: ../src/vnr-window.c:1806
 msgid "Rotate _Anti-clockwise"
-msgstr "Повернуть против _часовой стрелки"
+msgstr "Повернуть п_ротив часовой стрелки"
 
 #: ../src/vnr-window.c:1807
 msgid "Rotate image anti-clockwise"
@@ -506,7 +509,7 @@ msgstr "Отразить изображение по горизонтали"
 
 #: ../src/vnr-window.c:1815
 msgid "Crop..."
-msgstr "Обрезать..."
+msgstr "Обрезать…"
 
 #: ../src/vnr-window.c:1821
 msgid "Full _Screen"
@@ -526,11 +529,11 @@ msgstr "Изменить размер окна под размер изобра�
 
 #: ../src/vnr-window.c:1830
 msgid "Menu Bar"
-msgstr ""
+msgstr "Панель меню"
 
 #: ../src/vnr-window.c:1831
 msgid "Show Menu Bar"
-msgstr ""
+msgstr "Показать панель меню"
 
 #: ../src/vnr-window.c:1833
 msgid "Toolbar"
@@ -566,7 +569,7 @@ msgstr "Перейти к следующему изображению"
 
 #: ../src/vnr-window.c:1851
 msgid "_First Image"
-msgstr "_Первое изображение"
+msgstr "П_ервое изображение"
 
 #: ../src/vnr-window.c:1852
 msgid "Go to the first image of the collection"
@@ -574,7 +577,7 @@ msgstr "Перейти к первому изображению"
 
 #: ../src/vnr-window.c:1854
 msgid "_Last Image"
-msgstr "_Последнее изображение"
+msgstr "П_оследнее изображение"
 
 #: ../src/vnr-window.c:1855
 msgid "Go to the last image of the collection"
@@ -582,63 +585,56 @@ msgstr "Перейти к последнему изображению"
 
 #: ../src/uni-exiv2.hpp:49
 msgid "Camera make"
-msgstr ""
+msgstr "Производитель"
 
 #: ../src/uni-exiv2.hpp:50
 msgid "Camera model"
-msgstr ""
+msgstr "Модель камеры"
 
 #: ../src/uni-exiv2.hpp:51
 msgid "Date Taken"
-msgstr ""
+msgstr "Дата съёмки"
 
 #: ../src/uni-exiv2.hpp:52
 msgid "Exposure time"
-msgstr ""
+msgstr "Время экспозиции"
 
 #: ../src/uni-exiv2.hpp:53
 msgid "Exposure mode"
-msgstr ""
+msgstr "Режим экспозиции"
 
 #: ../src/uni-exiv2.hpp:54
 msgid "Aperture Value"
-msgstr ""
+msgstr "Диафрагма"
 
 #: ../src/uni-exiv2.hpp:55
 msgid "ISO speed"
-msgstr ""
+msgstr "Светочувствительность"
 
 #: ../src/uni-exiv2.hpp:56
 msgid "Flash"
-msgstr ""
+msgstr "Вспышка"
 
 #: ../src/uni-exiv2.hpp:57
 msgid "Metering mode"
-msgstr ""
+msgstr "Режим замера"
 
 #: ../src/uni-exiv2.hpp:58
 msgid "Focal length"
-msgstr ""
+msgstr "Фокусное расстояние"
 
 #: ../src/uni-exiv2.hpp:59
 msgid "Software"
-msgstr ""
+msgstr "Программа"
 
 #: ../src/uni-exiv2.hpp:63
 msgid "Description"
-msgstr ""
+msgstr "Описание"
 
 #: ../src/uni-exiv2.hpp:64
 msgid "Copyright"
-msgstr ""
+msgstr "Авторские права"
 
 #: ../src/uni-exiv2.hpp:65
 msgid "Author"
-msgstr ""
-
-#~ msgid ""
-#~ "Save modifications?\n"
-#~ "This will overwrite the image and may reduce it's quality!"
-#~ msgstr ""
-#~ "Сохранить изменения?\n"
-#~ "Файл будет перезаписан и качество возможно ухудшится!"
+msgstr "Автор"

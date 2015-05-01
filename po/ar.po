@@ -6,19 +6,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-07 22:09+0200\n"
-"PO-Revision-Date: 2012-11-11 11:25+0000\n"
-"Last-Translator: Mohamed Mohsen <linuxer9@gmail.com>\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-02-07 22:04+0200\n"
+"PO-Revision-Date: 2014-12-11 16:09+0000\n"
+"Last-Translator: Faissal Chamekh <Unknown>\n"
 "Language-Team: Arabic <ar@li.org>\n"
-"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n % 100 >= "
 "3 && n % 100 <= 10 ? 3 : n % 100 >= 11 && n % 100 <= 99 ? 4 : 5;\n"
-"X-Launchpad-Export-Date: 2014-02-05 19:30+0000\n"
-"X-Generator: Launchpad (build 16916)\n"
+"X-Launchpad-Export-Date: 2015-05-01 15:32+0000\n"
+"X-Generator: Launchpad (build 17474)\n"
 
 #: ../data/viewnior.desktop.in.in.h:1
 msgid "Viewnior"
@@ -38,7 +37,7 @@ msgstr "فتح الصورة الجديدة في : "
 
 #: ../data/vnr-preferences-dialog.ui.h:3
 msgid "Desktop: "
-msgstr ""
+msgstr "سطح المكتب "
 
 #: ../data/vnr-preferences-dialog.ui.h:4
 msgid "Smooth images when zoomed"
@@ -166,7 +165,7 @@ msgstr "تناسب لوضع النافذة"
 
 #: ../src/vnr-prefs.c:263
 msgid "Last Used Mode"
-msgstr ""
+msgstr "أخر وضع مستعمل"
 
 #: ../src/vnr-prefs.c:292 ../src/vnr-prefs.c:304
 msgid "Navigate images"
@@ -277,7 +276,7 @@ msgstr ""
 msgid ""
 "Save modifications?\n"
 "This will overwrite the image and may reduce its quality!"
-msgstr ""
+msgstr "حفظ التعديلات"
 
 #: ../src/vnr-window.c:1271
 msgid "Open Image"
@@ -285,11 +284,11 @@ msgstr "فتح صورة"
 
 #: ../src/vnr-window.c:1282
 msgid "All Images"
-msgstr ""
+msgstr "كلّ الصّور"
 
 #: ../src/vnr-window.c:1288
 msgid "All Files"
-msgstr ""
+msgstr "كل الملفات"
 
 #: ../src/vnr-window.c:1318
 msgid "Open Folder"
@@ -299,6 +298,7 @@ msgstr "فتح مجلّد"
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
+"  Faissal Chamekh https://launchpad.net/~chamfay-z\n"
 "  Mohamed Mohsen https://launchpad.net/~linuxer9"
 
 #: ../src/vnr-window.c:1558
@@ -389,11 +389,11 @@ msgstr "حفظ التغييرات"
 
 #: ../src/vnr-window.c:1752
 msgid "_Properties"
-msgstr ""
+msgstr "_خصائص"
 
 #: ../src/vnr-window.c:1753
 msgid "Properties"
-msgstr ""
+msgstr "الخصائص"
 
 #: ../src/vnr-window.c:1758
 msgid "Set as _Wallpaper"
@@ -522,11 +522,11 @@ msgstr "ضبط حجم النافذة لتناسب الصورة"
 
 #: ../src/vnr-window.c:1830
 msgid "Menu Bar"
-msgstr ""
+msgstr "شريط القوائم"
 
 #: ../src/vnr-window.c:1831
 msgid "Show Menu Bar"
-msgstr ""
+msgstr "أظهر شريط القوائم"
 
 #: ../src/vnr-window.c:1833
 msgid "Toolbar"
@@ -538,11 +538,11 @@ msgstr "إظهار شريط الأدوات"
 
 #: ../src/vnr-window.c:1839
 msgid "Sli_deshow"
-msgstr ""
+msgstr "عرض المصغرات"
 
 #: ../src/vnr-window.c:1840
 msgid "Show in slideshow mode"
-msgstr ""
+msgstr "عرض بوضع المصغرات"
 
 #: ../src/vnr-window.c:1845
 msgid "_Previous Image"
@@ -578,63 +578,56 @@ msgstr "اذهب للصورة الأخيرة في المجموعة"
 
 #: ../src/uni-exiv2.hpp:49
 msgid "Camera make"
-msgstr ""
+msgstr "مصنّع الكاميرا"
 
 #: ../src/uni-exiv2.hpp:50
 msgid "Camera model"
-msgstr ""
+msgstr "طراز الكاميرا"
 
 #: ../src/uni-exiv2.hpp:51
 msgid "Date Taken"
-msgstr ""
+msgstr "تاريخ أخذ الصورة"
 
 #: ../src/uni-exiv2.hpp:52
 msgid "Exposure time"
-msgstr ""
+msgstr "زمن التعرض"
 
 #: ../src/uni-exiv2.hpp:53
 msgid "Exposure mode"
-msgstr ""
+msgstr "نمط التعرض"
 
 #: ../src/uni-exiv2.hpp:54
 msgid "Aperture Value"
-msgstr ""
+msgstr "قيمة الفتحة"
 
 #: ../src/uni-exiv2.hpp:55
 msgid "ISO speed"
-msgstr ""
+msgstr "السرعة القياسية"
 
 #: ../src/uni-exiv2.hpp:56
 msgid "Flash"
-msgstr ""
+msgstr "الوميض"
 
 #: ../src/uni-exiv2.hpp:57
 msgid "Metering mode"
-msgstr ""
+msgstr "نمط القياس"
 
 #: ../src/uni-exiv2.hpp:58
 msgid "Focal length"
-msgstr ""
+msgstr "الطول ا لبؤرى"
 
 #: ../src/uni-exiv2.hpp:59
 msgid "Software"
-msgstr ""
+msgstr "البرنامج"
 
 #: ../src/uni-exiv2.hpp:63
 msgid "Description"
-msgstr ""
+msgstr "الوصف"
 
 #: ../src/uni-exiv2.hpp:64
 msgid "Copyright"
-msgstr ""
+msgstr "حقوق النسخ"
 
 #: ../src/uni-exiv2.hpp:65
 msgid "Author"
-msgstr ""
-
-#~ msgid ""
-#~ "Save modifications?\n"
-#~ "This will overwrite the image and may reduce it's quality!"
-#~ msgstr ""
-#~ "هل تريد حفظ التعديلات ؟\n"
-#~ "هذا سيكتب على الصورة الحالية وربما يقلل من جودتها !"
+msgstr "المؤلف"
