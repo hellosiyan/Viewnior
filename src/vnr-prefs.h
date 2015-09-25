@@ -55,6 +55,7 @@ typedef enum{
     VNR_PREFS_DESKTOP_PUPPY,
     VNR_PREFS_DESKTOP_FLUXBOX,
     VNR_PREFS_DESKTOP_NITROGEN,
+    VNR_PREFS_DESKTOP_CINNAMON,
 } VnrPrefsDesktop;
 
 typedef enum{
@@ -81,7 +82,7 @@ struct _VnrPrefs {
     VnrPrefsZoom zoom;
 
     VnrPrefsDesktop desktop;
-    
+
     VnrPrefsWheel behavior_wheel;
     VnrPrefsClick behavior_click;
     VnrPrefsModify behavior_modify;
