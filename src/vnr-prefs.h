@@ -54,6 +54,7 @@ typedef enum{
     VNR_PREFS_DESKTOP_LXDE,
     VNR_PREFS_DESKTOP_FLUXBOX,
     VNR_PREFS_DESKTOP_NITROGEN,
+    VNR_PREFS_DESKTOP_CINNAMON,
 } VnrPrefsDesktop;
 
 #endif /* HAVE_WALLPAPER */
@@ -84,7 +85,7 @@ struct _VnrPrefs {
 #ifdef HAVE_WALLPAPER
     VnrPrefsDesktop desktop;
 #endif /* HAVE_WALLPAPER */
-    
+
     VnrPrefsWheel behavior_wheel;
     VnrPrefsClick behavior_click;
     VnrPrefsModify behavior_modify;
