@@ -168,7 +168,7 @@ vnr_prefs_set_default(VnrPrefs *prefs)
     prefs->start_slideshow = FALSE;
     prefs->start_fullscreen = FALSE;
     prefs->auto_resize = FALSE;
-    prefs->desktop = VNR_PREFS_DESKTOP_GNOME3;
+    prefs->desktop = VNR_PREFS_DESKTOP_AUTO;
 }
 
 static GtkWidget *
@@ -274,8 +274,10 @@ build_dialog (VnrPrefs *prefs)
     desktop_box = GTK_BOX (gtk_builder_get_object (builder, "desktop_box"));
 
     desktop_env = (GtkComboBox*) gtk_combo_box_new_text();
+    gtk_combo_box_append_text(desktop_env, _("Autodetect"));
     gtk_combo_box_append_text(desktop_env, "GNOME 2");
     gtk_combo_box_append_text(desktop_env, "GNOME 3");
+    gtk_combo_box_append_text(desktop_env, "MATE");
     gtk_combo_box_append_text(desktop_env, "XFCE");
     gtk_combo_box_append_text(desktop_env, "LXDE");
     gtk_combo_box_append_text(desktop_env, "PUPPY");
