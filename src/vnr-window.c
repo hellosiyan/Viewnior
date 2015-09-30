@@ -17,6 +17,7 @@
  * along with Viewnior.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <stdlib.h>
 #include <libintl.h>
 #include <glib/gi18n.h>
 #define _(String) gettext (String)
@@ -1394,7 +1395,55 @@ vnr_set_wallpaper(GtkAction *action, VnrWindow *win)
 	if ( pid == 0 ) {
 		gchar * tmp;
 
-		switch(win->prefs->desktop) {
+	VnrPrefsDesktop override = -1;
+
+	// Desktop environment auto detection
+	if (win->prefs->desktop == VNR_PREFS_DESKTOP_AUTO)
+	{
+		gchar *xdg_current_desktop = g_ascii_strup(getenv("XDG_CURRENT_DESKTOP"), -1);
+		gchar *xdg_session_desktop = g_ascii_strup(getenv("XDG_SESSION_DESKTOP"), -1);
+		gchar *desktop_session = g_ascii_strdown(getenv("DESKTOP_SESSION"), -1);
+		gchar *gdmsession = g_ascii_strdown(getenv("GDMSESSION"), -1);
+
+		// g_strcmp0 returns 0 on equal strings
+		if (!g_strcmp0(xdg_current_desktop, "GNOME") || !g_strcmp0(xdg_session_desktop, "GNOME"))
+		{
+			if (!g_strcmp0(gdmsession, "gnome-shell"))
+				override = VNR_PREFS_DESKTOP_GNOME3;
+			else if (!g_strcmp0(gdmsession, "gnome-classic") || !g_strcmp0(gdmsession, "gnome-fallback"))
+				override = VNR_PREFS_DESKTOP_GNOME2;
+			else if (!g_strcmp0(gdmsession, "cinnamon"))
+				override = VNR_PREFS_DESKTOP_CINNAMON;
+		}
+		else if (!g_strcmp0(xdg_current_desktop, "XFCE") || !g_strcmp0(xdg_session_desktop, "XFCE"))
+			override = VNR_PREFS_DESKTOP_XFCE;
+		else if (!g_strcmp0(xdg_current_desktop, "MATE") || !g_strcmp0(xdg_session_desktop, "MATE"))
+			override = VNR_PREFS_DESKTOP_MATE;
+		else if (!g_strcmp0(xdg_current_desktop, "LXDE") || !g_strcmp0(xdg_session_desktop, "LXDE"))
+			override = VNR_PREFS_DESKTOP_LXDE;
+		else if (!g_strcmp0(desktop_session, "fluxbox"))
+			override = VNR_PREFS_DESKTOP_FLUXBOX;
+
+		g_free(xdg_current_desktop);
+		g_free(xdg_session_desktop);
+		g_free(desktop_session);
+		g_free(gdmsession);
+
+		if (override == -1)
+		{
+			fprintf(stderr, _("No desktop environment detected.\n"));
+			return;
+		}
+		else
+		{
+			win->prefs->desktop = override;
+			vnr_prefs_save(win->prefs);
+		}
+	}
+	else override = win->prefs->desktop;
+
+
+		switch(override) {
 			case VNR_PREFS_DESKTOP_GNOME2:
 				execlp("gconftool-2", "gconftool-2",
 						"--set", "/desktop/gnome/background/picture_filename",
@@ -1402,6 +1451,7 @@ vnr_set_wallpaper(GtkAction *action, VnrWindow *win)
 						VNR_FILE(win->file_list->data)->path,
 						NULL);
 				break;
+			case VNR_PREFS_DESKTOP_MATE:
 			case VNR_PREFS_DESKTOP_GNOME3:
 				tmp = g_strdup_printf("file://%s", VNR_FILE(win->file_list->data)->path);
 				execlp("gsettings", "gsettings",
