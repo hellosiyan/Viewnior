@@ -20,6 +20,8 @@
 #ifndef __VNR_PREFS_H__
 #define __VNR_PREFS_H__
 
+#include "config.h"
+
 #include <glib.h>
 #include <gtk/gtk.h>
 #include <gio/gio.h>
