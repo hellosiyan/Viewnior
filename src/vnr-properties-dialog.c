@@ -99,8 +99,7 @@ vnr_properties_dialog_new (VnrWindow *vnr_win, GtkAction *next_action, GtkAction
 {
     VnrPropertiesDialog *dialog;
 
-    dialog = g_object_new (VNR_TYPE_PROPERTIES_DIALOG,
-                           "has-separator", FALSE, NULL);
+    dialog = g_object_new (VNR_TYPE_PROPERTIES_DIALOG, NULL);
 
     dialog->thumbnail = NULL;
     dialog->vnr_win = vnr_win;
