@@ -581,6 +581,14 @@ uni_image_view_button_press (GtkWidget * widget, GdkEventButton * ev)
                 gtk_get_current_event_time());
 
     }
+    else if(ev->type == GDK_BUTTON_PRESS && ev->button == 8)
+    {
+        vnr_window_prev(vnr_win);
+    }
+    else if(ev->type == GDK_BUTTON_PRESS && ev->button == 9)
+    {
+        vnr_window_next(vnr_win, TRUE);
+    }
     return 0;
 }
 
