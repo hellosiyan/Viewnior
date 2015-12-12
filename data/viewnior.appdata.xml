@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 Ryan Lerch <rlerch@redhat.com> -->
+<component type="desktop">
+  <id>viewnior.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <summary>Simple image viewer and editor</summary>
+  <description>
+    <p>
+      Viewnior is a simple and elegant image viewer with a minimal interface that
+      provides as much screen real estate as possible to view your images.
+      It has a wide range of features, including: fullscreen and slideshow modes,
+      the ability to rotate, flip and crop images, support for animations (GIF),
+      support for reading image metadata, and the ability to configure mouse actions.
+    </p>
+  </description>
+  <url type="homepage">http://siyanpanayotov.com/project/viewnior/</url>
+  <screenshots>
+    <screenshot type="default">http://siyanpanayotov.com/wp-content/uploads/2014/04/vnr_normal_mode_2.png</screenshot>
+    <screenshot>http://siyanpanayotov.com/wp-content/uploads/2014/04/vnr_pref_window.png</screenshot>
+    <screenshot>http://siyanpanayotov.com/wp-content/uploads/2014/04/vnr_navigation_window.png</screenshot>
+  </screenshots>
+  <updatecontact>hello_at_siyanpanayotov.com</updatecontact>
+</application>
