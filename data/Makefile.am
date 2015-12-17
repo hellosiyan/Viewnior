@@ -11,12 +11,12 @@ desktopdir = $(datadir)/applications
 
 desktop_DATA = $(DESKTOP_FILES)
 
-appdatadir = $(datadir)/appdata
-appdata_DATA = viewnior.appdata.xml
 
 gladedir = $(datadir)/viewnior
 glade_DATA = vnr-preferences-dialog.ui \
              vnr-crop-dialog.ui
+
+APPDATA_FILES = viewnior.appdata.xml
 
 PIXMAPS_FILES = \
 	pixmaps/object-rotate-right.png \
@@ -27,6 +27,6 @@ PIXMAPS_FILES = \
 pixmaps_DATA = $(PIXMAPS_FILES)
 pixmapsdir = $(datadir)/viewnior/pixmaps
 
-EXTRA_DIST = $(DESKTOP_IN_FILES) $(pixmaps_DATA) $(glade_DATA) $(appdata_DATA)
+EXTRA_DIST = $(DESKTOP_IN_FILES) $(pixmaps_DATA) $(glade_DATA) $(APPDATA_FILES)
 
-CLEANFILES = viewnior.desktop.in viewnior.desktop
+DISTCLEANFILES = $(DESKTOP_FILES) viewnior.desktop.in
