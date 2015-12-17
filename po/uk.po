@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-02-07 22:04+0200\n"
-"PO-Revision-Date: 2013-11-29 00:05+0000\n"
-"Last-Translator: Serhiy Zahoriya <Unknown>\n"
+"PO-Revision-Date: 2015-10-15 19:44+0000\n"
+"Last-Translator: Max Lyashuk aka Ma)(imuM <probel@mail.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-05-01 15:32+0000\n"
-"X-Generator: Launchpad (build 17474)\n"
+"X-Launchpad-Export-Date: 2015-12-17 15:24+0000\n"
+"X-Generator: Launchpad (build 17865)\n"
 
 #: ../data/viewnior.desktop.in.in.h:1
 msgid "Viewnior"
@@ -37,7 +37,7 @@ msgstr "Відкрити нове зображення в: "
 
 #: ../data/vnr-preferences-dialog.ui.h:3
 msgid "Desktop: "
-msgstr ""
+msgstr "Стільниця: "
 
 #: ../data/vnr-preferences-dialog.ui.h:4
 msgid "Smooth images when zoomed"
@@ -165,7 +165,7 @@ msgstr "За розміром вікна"
 
 #: ../src/vnr-prefs.c:263
 msgid "Last Used Mode"
-msgstr ""
+msgstr "Режим останнього використання"
 
 #: ../src/vnr-prefs.c:292 ../src/vnr-prefs.c:304
 msgid "Navigate images"
@@ -274,6 +274,8 @@ msgid ""
 "Save modifications?\n"
 "This will overwrite the image and may reduce its quality!"
 msgstr ""
+"Зберегти зміни?\n"
+"Ця дія перезапише зображення і, ймовірно, воно стане гіршої якості!"
 
 #: ../src/vnr-window.c:1271
 msgid "Open Image"
@@ -281,11 +283,11 @@ msgstr "Відкрити зображення"
 
 #: ../src/vnr-window.c:1282
 msgid "All Images"
-msgstr ""
+msgstr "Усі зображення"
 
 #: ../src/vnr-window.c:1288
 msgid "All Files"
-msgstr ""
+msgstr "Усі файли"
 
 #: ../src/vnr-window.c:1318
 msgid "Open Folder"
@@ -295,7 +297,7 @@ msgstr "Відкрити теку"
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Maks Lyashuk aka Ma)(imuM https://launchpad.net/~probel\n"
+"  Max Lyashuk aka Ma)(imuM https://launchpad.net/~probel\n"
 "  Roman Oleskevych https://launchpad.net/~oleskevych\n"
 "  Serhey Kusyumoff (Сергій Кусюмов) https://launchpad.net/~sergemine\n"
 "  Serhiy Zahoriya https://launchpad.net/~xintx-ua\n"
@@ -389,11 +391,11 @@ msgstr "Зберегти зміни"
 
 #: ../src/vnr-window.c:1752
 msgid "_Properties"
-msgstr ""
+msgstr "_Властивості"
 
 #: ../src/vnr-window.c:1753
 msgid "Properties"
-msgstr ""
+msgstr "Властивості"
 
 #: ../src/vnr-window.c:1758
 msgid "Set as _Wallpaper"
@@ -522,11 +524,11 @@ msgstr "Відрегулюйте розмір вікна за розміром �
 
 #: ../src/vnr-window.c:1830
 msgid "Menu Bar"
-msgstr ""
+msgstr "Смужка меню"
 
 #: ../src/vnr-window.c:1831
 msgid "Show Menu Bar"
-msgstr ""
+msgstr "Показувати смужку меню"
 
 #: ../src/vnr-window.c:1833
 msgid "Toolbar"
@@ -578,56 +580,56 @@ msgstr "Перейти до останнього зображення колек
 
 #: ../src/uni-exiv2.hpp:49
 msgid "Camera make"
-msgstr ""
+msgstr "Виробник камери"
 
 #: ../src/uni-exiv2.hpp:50
 msgid "Camera model"
-msgstr ""
+msgstr "Модель камери"
 
 #: ../src/uni-exiv2.hpp:51
 msgid "Date Taken"
-msgstr ""
+msgstr "Дата зйомки"
 
 #: ../src/uni-exiv2.hpp:52
 msgid "Exposure time"
-msgstr ""
+msgstr "Витримка"
 
 #: ../src/uni-exiv2.hpp:53
 msgid "Exposure mode"
-msgstr ""
+msgstr "Режим експозиції"
 
 #: ../src/uni-exiv2.hpp:54
 msgid "Aperture Value"
-msgstr ""
+msgstr "Розмір діафрагми"
 
 #: ../src/uni-exiv2.hpp:55
 msgid "ISO speed"
-msgstr ""
+msgstr "Швидкість ISO"
 
 #: ../src/uni-exiv2.hpp:56
 msgid "Flash"
-msgstr ""
+msgstr "Спалах"
 
 #: ../src/uni-exiv2.hpp:57
 msgid "Metering mode"
-msgstr ""
+msgstr "Режим вимірювання"
 
 #: ../src/uni-exiv2.hpp:58
 msgid "Focal length"
-msgstr ""
+msgstr "Фокусна відстань"
 
 #: ../src/uni-exiv2.hpp:59
 msgid "Software"
-msgstr ""
+msgstr "Проґрамне забезпечення"
 
 #: ../src/uni-exiv2.hpp:63
 msgid "Description"
-msgstr ""
+msgstr "Опис"
 
 #: ../src/uni-exiv2.hpp:64
 msgid "Copyright"
-msgstr ""
+msgstr "Авторські права"
 
 #: ../src/uni-exiv2.hpp:65
 msgid "Author"
-msgstr ""
+msgstr "Автор"

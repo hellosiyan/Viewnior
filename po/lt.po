@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-02-07 22:04+0200\n"
-"PO-Revision-Date: 2014-02-13 15:36+0000\n"
-"Last-Translator: Mantas Kriaučiūnas <mantas@akl.lt>\n"
+"PO-Revision-Date: 2015-10-08 22:16+0000\n"
+"Last-Translator: Moo <hazap@hotmail.com>\n"
 "Language-Team: Lithuanian <lt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "(n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-05-01 15:32+0000\n"
-"X-Generator: Launchpad (build 17474)\n"
+"X-Launchpad-Export-Date: 2015-12-17 15:24+0000\n"
+"X-Generator: Launchpad (build 17865)\n"
 
 #: ../data/viewnior.desktop.in.in.h:1
 msgid "Viewnior"
@@ -37,7 +37,7 @@ msgstr "Atverti naują paveikslą: "
 
 #: ../data/vnr-preferences-dialog.ui.h:3
 msgid "Desktop: "
-msgstr ""
+msgstr "Darbalaukis: "
 
 #: ../data/vnr-preferences-dialog.ui.h:4
 msgid "Smooth images when zoomed"
@@ -165,7 +165,7 @@ msgstr "Priderinti prie lango veiksena"
 
 #: ../src/vnr-prefs.c:263
 msgid "Last Used Mode"
-msgstr ""
+msgstr "Paskutinė naudota veiksena"
 
 #: ../src/vnr-prefs.c:292 ../src/vnr-prefs.c:304
 msgid "Navigate images"
@@ -274,6 +274,8 @@ msgid ""
 "Save modifications?\n"
 "This will overwrite the image and may reduce its quality!"
 msgstr ""
+"Įrašyti modifikacijas?\n"
+"Tai perrašys paveikslą ir gali sumažinti jo kokybę!"
 
 #: ../src/vnr-window.c:1271
 msgid "Open Image"
@@ -281,11 +283,11 @@ msgstr "Atverti paveikslą"
 
 #: ../src/vnr-window.c:1282
 msgid "All Images"
-msgstr ""
+msgstr "Visi paveikslai"
 
 #: ../src/vnr-window.c:1288
 msgid "All Files"
-msgstr ""
+msgstr "Visi failai"
 
 #: ../src/vnr-window.c:1318
 msgid "Open Folder"
@@ -296,6 +298,7 @@ msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Mantas Kriaučiūnas https://launchpad.net/~mantas\n"
+"  Moo https://launchpad.net/~mooo\n"
 "  Vaidotas https://launchpad.net/~joshas"
 
 #: ../src/vnr-window.c:1558
@@ -575,7 +578,7 @@ msgstr "Rodyti paskutinį rinkinio paveikslą"
 
 #: ../src/uni-exiv2.hpp:49
 msgid "Camera make"
-msgstr ""
+msgstr "Fotoaparato gamintojas"
 
 #: ../src/uni-exiv2.hpp:50
 msgid "Camera model"
@@ -583,19 +586,19 @@ msgstr "Fotoaparato modelis"
 
 #: ../src/uni-exiv2.hpp:51
 msgid "Date Taken"
-msgstr ""
+msgstr "Fotografavimo data"
 
 #: ../src/uni-exiv2.hpp:52
 msgid "Exposure time"
-msgstr ""
+msgstr "Išlaikymas"
 
 #: ../src/uni-exiv2.hpp:53
 msgid "Exposure mode"
-msgstr ""
+msgstr "Išlaikymo veiksena"
 
 #: ../src/uni-exiv2.hpp:54
 msgid "Aperture Value"
-msgstr ""
+msgstr "Diafragmos reikšmė"
 
 #: ../src/uni-exiv2.hpp:55
 msgid "ISO speed"
@@ -607,7 +610,7 @@ msgstr "Blykstė"
 
 #: ../src/uni-exiv2.hpp:57
 msgid "Metering mode"
-msgstr ""
+msgstr "Matavimo veiksena"
 
 #: ../src/uni-exiv2.hpp:58
 msgid "Focal length"
