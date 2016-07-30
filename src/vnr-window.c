@@ -1426,6 +1426,11 @@ vnr_set_wallpaper(GtkAction *action, VnrWindow *win)
 						VNR_FILE(win->file_list->data)->path, 
 						NULL);
 				break;
+			case VNR_PREFS_DESKTOP_PUPPY:
+				execlp("set_bg", "set_bg", 
+						VNR_FILE(win->file_list->data)->path, 
+						NULL);
+				break;
 			case VNR_PREFS_DESKTOP_FLUXBOX:
 				execlp("fbsetbg", "fbsetbg", 
 						"-f", VNR_FILE(win->file_list->data)->path, 
