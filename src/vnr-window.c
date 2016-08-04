@@ -1100,9 +1100,10 @@ zoom_changed_cb (UniImageView *view, VnrWindow *window)
     if(gtk_action_group_get_sensitive (window->actions_image))
     {
         get_position_of_element_in_list(window->file_list, &position, &total);
-        buf = g_strdup_printf ("%s%s - %i/%i - %i%%", (window->modifications)?"*":"",
+        buf = g_strdup_printf ("%s%s - %i/%i - %ix%i - %i%%", (window->modifications)?"*":"",
                                VNR_FILE(window->file_list->data)->display_name,
                                position, total,
+                               window->current_image_width, window->current_image_height,
                                (int)(view->zoom*100.));
 
         gtk_window_set_title (GTK_WINDOW(window), buf);
