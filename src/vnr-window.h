@@ -53,6 +53,8 @@ struct _VnrWindow {
     GtkActionGroup *actions_static_image;
     GtkActionGroup *actions_collection;
     GtkActionGroup *action_save;
+    GtkActionGroup *action_copyto;
+    GtkActionGroup *action_rename;
     GtkActionGroup *action_properties;
     GtkActionGroup *actions_bars;
     GtkActionGroup *actions_open_with;
