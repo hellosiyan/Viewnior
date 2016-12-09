@@ -1928,6 +1928,7 @@ vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
             break;
         case GDK_Escape:
         case 'q':
+        case GDK_Return:
             if(window->mode != VNR_WINDOW_MODE_NORMAL)
                 vnr_window_unfullscreen(window);
             else
