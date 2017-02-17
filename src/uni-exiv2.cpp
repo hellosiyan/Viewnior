@@ -25,6 +25,8 @@
 
 #include "uni-exiv2.hpp"
 
+#define ARRAY_SIZE(array) (sizeof array/sizeof(array[0]))
+
 static Exiv2::Image::AutoPtr cached_image;
 
 extern "C"
@@ -32,11 +34,11 @@ void
 uni_exif_dictionary_map(void (*callback)(const char*, const char*, void*), void *user_data)
 {
     uint i;
-    for( i=0; i<sizeof(exifDataDictionary)/sizeof(exifDataDictionary[0]); i++ ) {
+    for( i=0; i < ARRAY_SIZE(exifDataDictionary); i++ ) {
         callback(exifDataDictionary[i].key, exifDataDictionary[i].label, user_data);
     }
 
-    for( i=0; i<sizeof(iptcDataDictionary)/sizeof(iptcDataDictionary[0]); i++ ) {
+    for( i=0; i < ARRAY_SIZE(iptcDataDictionary); i++ ) {
         callback(iptcDataDictionary[i].key, iptcDataDictionary[i].label, user_data);
     }
 }
@@ -57,12 +59,11 @@ uni_read_exiv2_map(const char *uri, void (*callback)(const char*, const char*, v
         Exiv2::IptcData &iptcData = image->iptcData();
 
         if ( !exifData.empty() ) {
-            Exiv2::ExifData::const_iterator pos;
             uint i;
-            ExifDataDictionary dict;
-            for( i=0; i<sizeof(exifDataDictionary)/sizeof(exifDataDictionary[0]); i++ ) {
-                dict = exifDataDictionary[i];
-                
+            for( i=0; i < ARRAY_SIZE(exifDataDictionary); i++ ) {
+                ExifDataDictionary dict = exifDataDictionary[i];
+            
+		Exiv2::ExifData::const_iterator pos;
                 if ( dict.finder == NULL ) {
                     Exiv2::ExifKey key(dict.key);
                     pos = exifData.findKey(key);
@@ -77,13 +78,12 @@ uni_read_exiv2_map(const char *uri, void (*callback)(const char*, const char*, v
         }
 
         if ( !iptcData.empty() ) {
-            Exiv2::IptcData::const_iterator pos;
             uint i;
-            IptcDataDictionary dict;
-            for( i=0; i<sizeof(iptcDataDictionary)/sizeof(iptcDataDictionary[0]); i++ ) {
-                dict = iptcDataDictionary[i];
+            for( i=0; i < ARRAY_SIZE(iptcDataDictionary); i++ ) {
+                IptcDataDictionary dict = iptcDataDictionary[i];
 
                 Exiv2::IptcKey key(dict.key);
+                Exiv2::IptcData::const_iterator pos;
                 pos = iptcData.findKey(key);
 
                 if ( pos != iptcData.end() ) {
@@ -102,7 +102,6 @@ uni_read_exiv2_comments(const char *uri, void (*callback)(const char*, const cha
     Exiv2::LogMsg::setLevel(Exiv2::LogMsg::mute);
 
     int ret = 0;
-
     try {
 
         Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(uri);
@@ -128,11 +127,11 @@ uni_read_exiv2_comments(const char *uri, void (*callback)(const char*, const cha
 	};
 
 	uint i;
-        for( i=0; i<sizeof(exifCommentsDict)/sizeof(ExifDataDictionary); i++ ) {
+        for( i=0; i < ARRAY_SIZE(exifCommentsDict); i++ ) {
            ExifDataDictionary dict = exifCommentsDict[i];
 
-           Exiv2::ExifKey ekey = Exiv2::ExifKey( dict.key );
-           Exiv2::ExifData::iterator pos = exifData.findKey( ekey );
+           Exiv2::ExifKey key = Exiv2::ExifKey( dict.key );
+           Exiv2::ExifData::iterator pos = exifData.findKey( key );
 	   if (pos != exifData.end()) {
 	      callback( dict.label, pos->print(&exifData).c_str(), user_data );
 	      ret++;
