@@ -36,6 +36,7 @@ typedef struct _VnrWindowClass VnrWindowClass;
 #define VNR_IS_WINDOW(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), VNR_TYPE_WINDOW))
 #define VNR_IS_WINDOW_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass),  VNR_TYPE_WINDOW))
 #define VNR_WINDOW_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj),  VNR_TYPE_WINDOW, VnrWindowClass))
+#define VNR_WINDOW_MAX_DESC_LEN     256
 
 typedef enum {
     VNR_WINDOW_MODE_NORMAL,
@@ -69,6 +70,7 @@ struct _VnrWindow {
     GtkWidget *popup_menu;
 
     GtkWidget *msg_area;
+    GtkWidget *description;
     GtkWidget *props_dlg;
 
     GtkWidget *view;

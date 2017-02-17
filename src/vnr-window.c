@@ -2243,6 +2243,9 @@ vnr_window_init (VnrWindow * window)
     gtk_box_pack_start (GTK_BOX (window->layout), window->msg_area, FALSE,FALSE,0);
     gtk_widget_show(GTK_WIDGET (window->msg_area));
 
+    window->description = gtk_label_new(NULL);
+    gtk_box_pack_end (GTK_BOX (window->layout), window->description, FALSE,FALSE,0);
+
     window->view = uni_anim_view_new ();
     gtk_widget_set_can_focus(window->view, TRUE);
     window->scroll_view = uni_scroll_win_new (UNI_IMAGE_VIEW (window->view));
@@ -2286,6 +2289,41 @@ vnr_window_init (VnrWindow * window)
      vnr_window_load_accel_map();
 }
 
+static void
+vnr_window_set_description_cb( const char *label, const char* value, void* user_data ) {
+	gchar* buftxt = (gchar*) user_data;
+
+	int buflen = strlen(buftxt);
+
+	int len = strlen(label) + strlen(value) + 4;
+	gchar newtxt[len];
+
+	if ( buflen + len < VNR_WINDOW_MAX_DESC_LEN ) {
+	   if ( buflen == 0 ) {
+	      sprintf( newtxt, "%s: %s", label, value );
+	   } else {
+	      sprintf( newtxt, " | %s: %s", label, value );
+           }
+	   strcat( buftxt, newtxt );
+	}
+}
+
+static void
+vnr_window_read_description( VnrWindow *window, VnrFile *file ) {
+   gchar buftxt[VNR_WINDOW_MAX_DESC_LEN] = "";
+
+   int ok = uni_read_exiv2_comments( file->path,
+			    vnr_window_set_description_cb,
+		    	    (void*) buftxt );
+
+   if (ok) {
+      gtk_label_set_text( GTK_LABEL( window->description ), buftxt );
+      gtk_widget_show( window->description );
+   } else {
+      gtk_widget_hide( window->description );
+   }
+}
+
 /*************************************************************/
 /***** Actions ***********************************************/
 /*************************************************************/
@@ -2316,6 +2354,8 @@ vnr_window_open (VnrWindow * window, gboolean fit_to_screen)
             vnr_properties_dialog_clear(VNR_PROPERTIES_DIALOG(window->props_dlg));
         return FALSE;
     }
+
+    vnr_window_read_description( window, file );
 
     if(vnr_message_area_is_visible(VNR_MESSAGE_AREA(window->msg_area)))
     {

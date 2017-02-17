@@ -74,6 +74,10 @@ void    uni_read_exiv2_map          (const char *uri,
                                      void (*callback)(const char*, const char*, void*), 
                                      void *user_data);
 
+int	uni_read_exiv2_comments     (const char *uri,
+		                     void (*callback)(const char*, const char*, void*),
+				     void *user_data);
+
 int     uni_read_exiv2_to_cache     (const char *uri);
 int     uni_write_exiv2_from_cache  (const char *uri);
 

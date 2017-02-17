@@ -98,6 +98,55 @@ uni_read_exiv2_map(const char *uri, void (*callback)(const char*, const char*, v
 
 extern "C"
 int
+uni_read_exiv2_comments(const char *uri, void (*callback)(const char*, const char*, void*), void *user_data) {
+    Exiv2::LogMsg::setLevel(Exiv2::LogMsg::mute);
+
+    int ret = 0;
+
+    try {
+
+        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(uri);
+        if ( image.get() == 0 )
+            return 0;
+
+        image->readMetadata();
+
+	// JPEG comment
+	std::string comment = image->comment();
+	if ( ! comment.empty() ) {
+		callback( "comment", image->comment().c_str(), user_data );
+		ret++;
+	}
+
+       	Exiv2::ExifData &exifData = image->exifData();
+	if ( exifData.empty() )
+		return ret;
+
+	ExifDataDictionary exifCommentsDict[] = {
+		{ "Exif.Image.ImageDescription", "Description", NULL },
+		{ "Exif.Photo.UserComment", "UserComment", NULL }
+	};
+
+	uint i;
+        for( i=0; i<sizeof(exifCommentsDict)/sizeof(ExifDataDictionary); i++ ) {
+           ExifDataDictionary dict = exifCommentsDict[i];
+
+           Exiv2::ExifKey ekey = Exiv2::ExifKey( dict.key );
+           Exiv2::ExifData::iterator pos = exifData.findKey( ekey );
+	   if (pos != exifData.end()) {
+	      callback( dict.label, pos->print(&exifData).c_str(), user_data );
+	      ret++;
+	   }
+	}
+    } catch (Exiv2::AnyError& e) {
+        std::cerr << "Exiv2: '" << e << "'\n";
+    }
+
+    return ret;
+}
+
+extern "C"
+int
 uni_read_exiv2_to_cache(const char *uri)
 {
     Exiv2::LogMsg::setLevel(Exiv2::LogMsg::mute);
