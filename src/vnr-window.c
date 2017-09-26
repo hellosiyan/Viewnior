@@ -1944,6 +1944,14 @@ vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
             vnr_window_prev(window);
             result = TRUE;
             break;
+        case GDK_KEY_Home:
+            vnr_window_first(window);
+            result = TRUE;
+            break;
+        case GDK_KEY_End:
+            vnr_window_last(window);
+            result = TRUE;
+            break;
         case 'h':
         	vnr_window_cmd_flip_horizontal(NULL, window);
         	break;
