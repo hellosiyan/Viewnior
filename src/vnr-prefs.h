@@ -87,7 +87,7 @@ struct _VnrPrefs {
 #ifdef HAVE_WALLPAPER
     VnrPrefsDesktop desktop;
 #endif /* HAVE_WALLPAPER */
-    
+
     VnrPrefsWheel behavior_wheel;
     VnrPrefsClick behavior_click;
     VnrPrefsModify behavior_modify;
@@ -102,6 +102,7 @@ struct _VnrPrefs {
     gboolean start_slideshow;
     gboolean start_fullscreen;
     gboolean auto_resize;
+    gboolean dark_background;
     int slideshow_timeout;
     int jpeg_quality;
     int png_compression;

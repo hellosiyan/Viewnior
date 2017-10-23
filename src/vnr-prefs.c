@@ -41,6 +41,13 @@ toggle_show_hidden_cb (GtkToggleButton *togglebutton, gpointer user_data)
 }
 
 static void
+toggle_dark_background_cb (GtkToggleButton *togglebutton, gpointer user_data)
+{
+    VNR_PREFS(user_data)->dark_background = gtk_toggle_button_get_active(togglebutton);
+    vnr_prefs_save(VNR_PREFS(user_data));
+}
+
+static void
 toggle_fit_on_fullscreen_cb (GtkToggleButton *togglebutton, gpointer user_data)
 {
     VNR_PREFS(user_data)->fit_on_fullscreen = gtk_toggle_button_get_active(togglebutton);
@@ -155,6 +162,7 @@ vnr_prefs_set_default(VnrPrefs *prefs)
 {
     prefs->zoom = VNR_PREFS_ZOOM_SMART;
     prefs->show_hidden = FALSE;
+    prefs->dark_background = FALSE;
     prefs->fit_on_fullscreen = TRUE;
     prefs->smooth_images = TRUE;
     prefs->confirm_delete = TRUE;
@@ -185,6 +193,7 @@ build_dialog (VnrPrefs *prefs)
 
     GObject *close_button;
     GtkToggleButton *show_hidden;
+    GtkToggleButton *dark_background;
     GtkToggleButton *fit_on_fullscreen;
     GtkBox *zoom_mode_box;
     GtkComboBox *zoom_mode;
@@ -225,6 +234,11 @@ build_dialog (VnrPrefs *prefs)
     show_hidden = GTK_TOGGLE_BUTTON (gtk_builder_get_object (builder, "show_hidden"));
     gtk_toggle_button_set_active( show_hidden, prefs->show_hidden );
     g_signal_connect(G_OBJECT(show_hidden), "toggled", G_CALLBACK(toggle_show_hidden_cb), prefs);
+
+    /* Show dark background checkbox */
+    dark_background = GTK_TOGGLE_BUTTON (gtk_builder_get_object (builder, "dark_background"));
+    gtk_toggle_button_set_active( dark_background, prefs->dark_background );
+    g_signal_connect(G_OBJECT(dark_background), "toggled", G_CALLBACK(toggle_dark_background_cb), prefs);
 
     /* Fit on fullscreen checkbox */
     fit_on_fullscreen = GTK_TOGGLE_BUTTON (gtk_builder_get_object (builder, "fit_on_fullscreen"));
@@ -365,6 +379,7 @@ vnr_prefs_load (VnrPrefs *prefs)
     prefs->zoom = g_key_file_get_integer (conf, "prefs", "zoom-mode", &error);
     prefs->fit_on_fullscreen = g_key_file_get_boolean (conf, "prefs", "fit-on-fullscreen", &error);
     prefs->show_hidden = g_key_file_get_boolean (conf, "prefs", "show-hidden", &error);
+    prefs->dark_background = g_key_file_get_boolean (conf, "prefs", "dark-background", &error);
     prefs->smooth_images = g_key_file_get_boolean (conf, "prefs", "smooth-images", &error);
     prefs->confirm_delete = g_key_file_get_boolean (conf, "prefs", "confirm-delete", &error);
     prefs->reload_on_save = g_key_file_get_boolean (conf, "prefs", "reload-on-save", &error);
@@ -456,6 +471,7 @@ vnr_prefs_save (VnrPrefs *prefs)
     g_key_file_set_integer (conf, "prefs", "zoom-mode", prefs->zoom);
     g_key_file_set_boolean (conf, "prefs", "fit-on-fullscreen", prefs->fit_on_fullscreen);
     g_key_file_set_boolean (conf, "prefs", "show-hidden", prefs->show_hidden);
+    g_key_file_set_boolean (conf, "prefs", "dark-background", prefs->dark_background);
     g_key_file_set_boolean (conf, "prefs", "smooth-images", prefs->smooth_images);
     g_key_file_set_boolean (conf, "prefs", "confirm-delete", prefs->confirm_delete);
     g_key_file_set_boolean (conf, "prefs", "reload-on-save", prefs->reload_on_save);
