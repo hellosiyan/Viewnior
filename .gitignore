@@ -33,3 +33,5 @@ libtool
 .deps
 
 viewnior-*.tar.gz
+*.sublime-project
+*.sublime-workspace
