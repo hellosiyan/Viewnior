@@ -1382,8 +1382,6 @@ vnr_window_cmd_about (GtkAction *action, VnrWindow *window)
                    NULL);
 }
 
-#ifdef HAVE_WALLPAPER
-
 static void
 vnr_set_wallpaper(GtkAction *action, VnrWindow *win)
 {
@@ -1449,8 +1447,6 @@ vnr_set_wallpaper(GtkAction *action, VnrWindow *win)
 		wait(NULL);	
 	}
 }
-
-#endif /* HAVE_WALLPAPER */
 
 static void
 vnr_window_cmd_fullscreen (GtkAction *action, VnrWindow *window)
@@ -1766,15 +1762,11 @@ static const GtkToggleActionEntry toggle_entry_properties[] = {
       G_CALLBACK (vnr_window_cmd_open_menu) },
 };
 
-#ifdef HAVE_WALLPAPER
-
 static const GtkActionEntry action_entry_wallpaper[] = {
     { "SetAsWallpaper", NULL, N_("Set as _Wallpaper"), "<control>F8",
       N_("Set the selected image as the desktop background"),
       G_CALLBACK (vnr_set_wallpaper) },
 };
-
-#endif /* HAVE_WALLPAPER */
 
 static const GtkActionEntry action_entries_image[] = {
     { "FileOpenWith", NULL, N_("Open _With"), NULL,
@@ -2162,7 +2154,6 @@ vnr_window_init (VnrWindow * window)
             g_error_free (error);
     }
 
-#ifdef HAVE_WALLPAPER
     window->action_wallpaper = gtk_action_group_new("ActionWallpaper");
 
     gtk_action_group_set_translation_domain (window->action_wallpaper,
@@ -2183,7 +2174,6 @@ vnr_window_init (VnrWindow * window)
             g_error_free (error);
     }
     gtk_action_group_set_sensitive(window->action_wallpaper, FALSE);
-#endif /* HAVE_WALPAPER */
 
     gtk_action_group_set_sensitive(window->actions_collection, FALSE);
     gtk_action_group_set_sensitive(window->actions_image, FALSE);
@@ -2336,9 +2326,7 @@ vnr_window_open (VnrWindow * window, gboolean fit_to_screen)
     }
 
     gtk_action_group_set_sensitive(window->actions_image, TRUE);
-#ifdef HAVE_WALLPAPER
     gtk_action_group_set_sensitive(window->action_wallpaper, TRUE);
-#endif /* HAVE_WALLPAPER */
 
     format = gdk_pixbuf_get_file_info (file->path, NULL, NULL);
 

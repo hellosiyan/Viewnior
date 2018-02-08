@@ -76,16 +76,12 @@ change_zoom_mode_cb (GtkComboBox *widget, gpointer user_data)
     vnr_prefs_save(VNR_PREFS(user_data));
 }
 
-#ifdef HAVE_WALLPAPER
-
 static void
 change_desktop_env_cb (GtkComboBox *widget, gpointer user_data)
 {
     VNR_PREFS(user_data)->desktop = gtk_combo_box_get_active(widget);
     vnr_prefs_save(VNR_PREFS(user_data));
 }
-
-#endif /* HAVE_WALLPAPER */
 
 static void
 change_jpeg_quality_cb (GtkRange *range, gpointer user_data)
@@ -171,9 +167,7 @@ vnr_prefs_set_default(VnrPrefs *prefs)
     prefs->start_slideshow = FALSE;
     prefs->start_fullscreen = FALSE;
     prefs->auto_resize = FALSE;
-#ifdef HAVE_WALLPAPER
     prefs->desktop = VNR_PREFS_DESKTOP_GNOME3;
-#endif /* HAVE_WALLPAPER */
 }
 
 static GtkWidget *
@@ -199,10 +193,8 @@ build_dialog (VnrPrefs *prefs)
     GtkRange *jpeg_scale;
     GtkRange *png_scale;
 
-#ifdef HAVE_WALLPAPER
     GtkBox *desktop_box;
     GtkComboBox *desktop_env;
-#endif /* HAVE_WALLPAPER */
 
     builder = gtk_builder_new ();
     gtk_builder_add_from_file (builder, UI_PATH, &error);
@@ -277,7 +269,6 @@ build_dialog (VnrPrefs *prefs)
 
     g_signal_connect(G_OBJECT(zoom_mode), "changed", G_CALLBACK(change_zoom_mode_cb), prefs);
 
-#ifdef HAVE_WALLPAPER
     /* Desktop combo box */
     desktop_box = GTK_BOX (gtk_builder_get_object (builder, "desktop_box"));
 
@@ -295,7 +286,6 @@ build_dialog (VnrPrefs *prefs)
     gtk_widget_show(GTK_WIDGET(desktop_env));
 
     g_signal_connect(G_OBJECT(desktop_env), "changed", G_CALLBACK(change_desktop_env_cb), prefs);
-#endif /* HAVE_WALLPAPER */
 
     /* Behavior combo boxes */
     behavior_table = GTK_TABLE (gtk_builder_get_object (builder, "behavior_table"));
@@ -378,9 +368,7 @@ vnr_prefs_load (VnrPrefs *prefs)
     prefs->behavior_modify = g_key_file_get_integer (conf, "prefs", "behavior-modify", &error);
     prefs->jpeg_quality = g_key_file_get_integer (conf, "prefs", "jpeg-quality", &error);
     prefs->png_compression = g_key_file_get_integer (conf, "prefs", "png-compression", &error);
-#ifdef HAVE_WALLPAPER
     prefs->desktop = g_key_file_get_integer (conf, "prefs", "desktop", &error);
-#endif /* HAVE_WALLPAPER */
 
     if(error != NULL)
     {
@@ -469,11 +457,7 @@ vnr_prefs_save (VnrPrefs *prefs)
     g_key_file_set_integer (conf, "prefs", "behavior-modify", prefs->behavior_modify);
     g_key_file_set_integer (conf, "prefs", "jpeg-quality", prefs->jpeg_quality);
     g_key_file_set_integer (conf, "prefs", "png-compression", prefs->png_compression);
-#ifdef HAVE_WALLPAPER
     g_key_file_set_integer (conf, "prefs", "desktop", prefs->desktop);
-#else
-    g_key_file_set_integer (conf, "prefs", "desktop", 0);
-#endif/* HAVE_WALLPAPER */
 
     if(g_mkdir_with_parents (dir, 0700) != 0)
         g_warning("Error creating config file's parent directory (%s)\n", dir);
