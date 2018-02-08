@@ -29,7 +29,6 @@ configure
 compile
 libtool
 *.desktop
-*.desktop.in
 .deps
 
 viewnior-*.tar.gz
