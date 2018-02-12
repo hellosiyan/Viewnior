@@ -56,6 +56,8 @@ struct _UniScrollWin {
 
     /* The normal and the highlighted nav_button pixbuf. */
     GdkPixbuf *nav_button;
+
+    gboolean show_scrollbar;
 };
 
 struct _UniScrollWinClass {
@@ -66,6 +68,9 @@ GType       uni_scroll_win_get_type (void) G_GNUC_CONST;
 
 /* Constructors */
 GtkWidget*   uni_scroll_win_new     (UniImageView * view);
+
+gboolean uni_scroll_win_image_fits         (UniScrollWin * window);
+void     uni_scroll_win_set_show_scrollbar (UniScrollWin * window, gboolean show);
 
 G_END_DECLS
 #endif /* __UNI_SCROLL_WIN_H__ */

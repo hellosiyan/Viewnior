@@ -59,38 +59,28 @@ G_DEFINE_TYPE (UniScrollWin, uni_scroll_win, GTK_TYPE_TABLE);
 /***** Static stuff ******************************************/
 /*************************************************************/
 static void
-uni_scroll_win_adjustment_changed (GtkAdjustment * adj, UniScrollWin * window)
+uni_scroll_win_show_scrollbar (UniScrollWin * window, gboolean show)
 {
-    GtkAdjustment *hadj, *vadj;
-    hadj = gtk_range_get_adjustment (GTK_RANGE (window->hscroll));
-    vadj = gtk_range_get_adjustment (GTK_RANGE (window->vscroll));
-
-    /* We compare with the allocation size for the window instead of
-       hadj->page_size and vadj->page_size. If the scrollbars are
-       shown the views size is about 15 pixels shorter and thinner,
-       which makes the page sizes inaccurate. The scroll windows
-       allocation, on the other hand, always gives the correct number
-       of pixels that COULD be shown if the scrollbars weren't
-       there.
-     */
-    int width = GTK_WIDGET (window)->allocation.width;
-    int height = GTK_WIDGET (window)->allocation.height;
-
-    gboolean hide_hscr = (hadj->upper <= width);
-    gboolean hide_vscr = (vadj->upper <= height);
-
-    if (hide_hscr && hide_vscr)
-    {
-        gtk_widget_hide (window->vscroll);
-        gtk_widget_hide (window->hscroll);
-        gtk_widget_hide (window->nav_box);
-    }
-    else
+    if (show)
     {
         gtk_widget_show_now (window->vscroll);
         gtk_widget_show_now (window->hscroll);
         gtk_widget_show_now (window->nav_box);
     }
+    else
+    {
+        gtk_widget_hide (window->vscroll);
+        gtk_widget_hide (window->hscroll);
+        gtk_widget_hide (window->nav_box);
+    }
+}
+
+
+static void
+uni_scroll_win_adjustment_changed (GtkAdjustment * adj, UniScrollWin * window)
+{
+    uni_scroll_win_show_scrollbar (window,
+        window->show_scrollbar && !uni_scroll_win_image_fits (window));
 }
 
 static void
@@ -181,6 +171,7 @@ uni_scroll_win_init (UniScrollWin * window)
     window->vscroll = NULL;
     window->nav_box = NULL;
     window->nav = NULL;
+    window->show_scrollbar = FALSE;
 
     // Setup the navigator button.
     window->nav_button = gdk_pixbuf_new_from_xpm_data (nav_button);
@@ -269,4 +260,49 @@ uni_scroll_win_new (UniImageView * view)
                                   "view", view,
                                   NULL);
     return GTK_WIDGET (data);
+}
+
+
+/**
+ * uni_scroll_win_image_fits:
+ * @window: the #UniScrollWin to inspect.
+ * @returns: A boolean indicating if the image fits in the window
+ *
+ * Check if the current image fits in the window without the need to scoll.
+ * The check is performed as if scrollbars are not visible.
+ **/
+gboolean
+uni_scroll_win_image_fits (UniScrollWin * window)
+{
+    GtkAdjustment *hadj, *vadj;
+    hadj = gtk_range_get_adjustment (GTK_RANGE (window->hscroll));
+    vadj = gtk_range_get_adjustment (GTK_RANGE (window->vscroll));
+
+    /* We compare with the allocation size for the window instead of
+       hadj->page_size and vadj->page_size. If the scrollbars are
+       shown the views size is about 15 pixels shorter and thinner,
+       which makes the page sizes inaccurate. The scroll windows
+       allocation, on the other hand, always gives the correct number
+       of pixels that COULD be shown if the scrollbars weren't
+       there.
+     */
+    int width = GTK_WIDGET (window)->allocation.width;
+    int height = GTK_WIDGET (window)->allocation.height;
+
+    return hadj->upper <= width && vadj->upper <= height;
+}
+
+/**
+ * uni_scroll_win_set_show_scrollbar:
+ * @window: the #UniScrollWin to adjust.
+ *
+ * Show or hide the scrollbar.
+ * The scrollbar will only be shown if the image doesn't fit in the window.
+ **/
+void
+uni_scroll_win_set_show_scrollbar (UniScrollWin * window, gboolean show)
+{
+    window->show_scrollbar = show;
+    uni_scroll_win_show_scrollbar (window,
+        window->show_scrollbar && !uni_scroll_win_image_fits (window));
 }

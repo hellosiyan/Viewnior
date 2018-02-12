@@ -163,6 +163,7 @@ vnr_prefs_set_default(VnrPrefs *prefs)
     prefs->reload_on_save = FALSE;
     prefs->show_menu_bar = FALSE;
     prefs->show_toolbar = TRUE;
+    prefs->show_scrollbar = TRUE;
     prefs->start_maximized = FALSE;
     prefs->start_slideshow = FALSE;
     prefs->start_fullscreen = FALSE;
@@ -360,6 +361,7 @@ vnr_prefs_load (VnrPrefs *prefs)
     prefs->reload_on_save = g_key_file_get_boolean (conf, "prefs", "reload-on-save", &error);
     prefs->show_menu_bar = g_key_file_get_boolean (conf, "prefs", "show-menu-bar", &error);
     prefs->show_toolbar = g_key_file_get_boolean (conf, "prefs", "show-toolbar", &error);
+    prefs->show_scrollbar = g_key_file_get_boolean (conf, "prefs", "show-scrollbar", &error);
     prefs->start_maximized = g_key_file_get_boolean (conf, "prefs", "start-maximized", &error);
     prefs->slideshow_timeout = g_key_file_get_integer (conf, "prefs", "slideshow-timeout", &error);
     prefs->auto_resize = g_key_file_get_boolean (conf, "prefs", "auto-resize", &error);
@@ -449,6 +451,7 @@ vnr_prefs_save (VnrPrefs *prefs)
     g_key_file_set_boolean (conf, "prefs", "reload-on-save", prefs->reload_on_save);
     g_key_file_set_boolean (conf, "prefs", "show-menu-bar", prefs->show_menu_bar);
     g_key_file_set_boolean (conf, "prefs", "show-toolbar", prefs->show_toolbar);
+    g_key_file_set_boolean (conf, "prefs", "show-scrollbar", prefs->show_scrollbar);
     g_key_file_set_boolean (conf, "prefs", "start-maximized", prefs->start_maximized);
     g_key_file_set_integer (conf, "prefs", "slideshow-timeout", prefs->slideshow_timeout);
     g_key_file_set_boolean (conf, "prefs", "auto-resize", prefs->auto_resize);
@@ -492,6 +495,16 @@ vnr_prefs_set_show_toolbar (VnrPrefs *prefs, gboolean show_toolbar)
     if(prefs->show_toolbar != show_toolbar)
     {
         prefs->show_toolbar = show_toolbar;
+        vnr_prefs_save(prefs);
+    }
+}
+
+void
+vnr_prefs_set_show_scrollbar (VnrPrefs *prefs, gboolean show_scrollbar)
+{
+    if(prefs->show_scrollbar != show_scrollbar)
+    {
+        prefs->show_scrollbar = show_scrollbar;
         vnr_prefs_save(prefs);
     }
 }

@@ -82,6 +82,7 @@ const gchar *ui_definition = "<ui>"
     "<menu action=\"View\">"
       "<menuitem action=\"ViewMenuBar\"/>"
       "<menuitem action=\"ViewToolbar\"/>"
+      "<menuitem action=\"ViewScrollbar\"/>"
       "<separator/>"
       "<menuitem action=\"ViewZoomIn\"/>"
       "<menuitem action=\"ViewZoomOut\"/>"
@@ -137,6 +138,7 @@ const gchar *ui_definition = "<ui>"
       "<separator/>"
       "<menuitem action=\"ViewMenuBar\"/>"
       "<menuitem action=\"ViewToolbar\"/>"
+      "<menuitem action=\"ViewScrollbar\"/>"
       "<menuitem name=\"Fullscreen\" action=\"ViewFullscreen\"/>"
       "<menuitem name=\"Slideshow\" action=\"ViewSlideshow\"/>"
       "<separator/>"
@@ -187,6 +189,7 @@ const gchar *ui_definition = "<ui>"
     "<separator/>"
     "<menuitem name=\"MenuBar\" action=\"ViewMenuBar\"/>"
     "<menuitem name=\"Toolbar\" action=\"ViewToolbar\"/>"
+    "<menuitem name=\"Scrollbar\" action=\"ViewScrollbar\"/>"
     "<menuitem name=\"Fullscreen\" action=\"ViewFullscreen\"/>"
     "<separator/>"
     "<menuitem action=\"FileProperties\"/>"
@@ -489,16 +492,6 @@ get_fs_controls(VnrWindow *window)
 
     gtk_widget_show_all (window->fs_controls);
     return window->fs_controls;
-}
-
-static gboolean
-scrollbars_visible (VnrWindow *window)
-{
-    if (!gtk_widget_get_visible (GTK_WIDGET (UNI_SCROLL_WIN(window->scroll_view)->hscroll)) &&
-        !gtk_widget_get_visible (GTK_WIDGET (UNI_SCROLL_WIN(window->scroll_view)->vscroll)))
-        return FALSE;
-
-    return TRUE;
 }
 
 static void
@@ -1501,6 +1494,16 @@ vnr_window_cmd_toolbar (GtkAction *action, VnrWindow *window)
 }
 
 static void
+vnr_window_cmd_scrollbar (GtkAction *action, VnrWindow *window)
+{
+    gboolean show;
+
+    show = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
+    vnr_prefs_set_show_scrollbar (window->prefs, show);
+    uni_scroll_win_set_show_scrollbar (UNI_SCROLL_WIN (window->scroll_view), show);
+}
+
+static void
 vnr_window_cmd_slideshow (GtkAction *action, VnrWindow *window)
 {
     if(!window->slideshow)
@@ -1842,6 +1845,9 @@ static const GtkToggleActionEntry toggle_entries_window[] = {
     { "ViewToolbar", NULL, N_("Toolbar"), NULL,
       N_("Show Toolbar"),
       G_CALLBACK (vnr_window_cmd_toolbar) },
+    { "ViewScrollbar", NULL, N_("Scrollbar"), NULL,
+      N_("Show Scrollbar"),
+      G_CALLBACK (vnr_window_cmd_scrollbar) },
 };
 
 static const GtkToggleActionEntry toggle_entries_collection[] = {
@@ -1884,7 +1890,7 @@ vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
                 break;
             } /* else fall-trough is intended */
         case GDK_Up:
-            if (scrollbars_visible (window))
+            if (!uni_scroll_win_image_fits (UNI_SCROLL_WIN (window->scroll_view)))
             {
                 /* break to let scrollview handle the key */
                 break;
@@ -1904,7 +1910,7 @@ vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
                 break;
             } /* else fall-trough is intended */
         case GDK_Down:
-            if (scrollbars_visible (window))
+            if (!uni_scroll_win_image_fits (UNI_SCROLL_WIN (window->scroll_view)))
             {
                 /* break to let scrollview handle the key */
                 break;
@@ -2234,7 +2240,7 @@ vnr_window_init (VnrWindow * window)
         gtk_widget_hide (window->toolbar);
     else
         gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), TRUE);
-        
+
     // Apply auto-resize preference
     action = gtk_action_group_get_action (window->actions_image,
                                           "ViewResizeWindow");
@@ -2250,6 +2256,13 @@ vnr_window_init (VnrWindow * window)
     window->view = uni_anim_view_new ();
     gtk_widget_set_can_focus(window->view, TRUE);
     window->scroll_view = uni_scroll_win_new (UNI_IMAGE_VIEW (window->view));
+
+    // Apply scrollbar preference
+    action = gtk_action_group_get_action (window->actions_bars,
+                                          "ViewScrollbar");
+    uni_scroll_win_set_show_scrollbar (UNI_SCROLL_WIN (window->scroll_view), window->prefs->show_scrollbar);
+    gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), window->prefs->show_scrollbar);
+
     gtk_box_pack_end (GTK_BOX (window->layout), window->scroll_view, TRUE,TRUE,0);
     gtk_widget_show_all(GTK_WIDGET (window->scroll_view));
 
