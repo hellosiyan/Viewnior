@@ -133,7 +133,7 @@ change_spin_value_cb (GtkSpinButton *spinbutton, gpointer user_data)
 static gboolean
 key_press_cb (GtkWidget *widget, GdkEventKey *event, gpointer user_data)
 {
-    if(event->keyval == GDK_Escape)
+    if(event->keyval == GDK_KEY_Escape)
     {
         gtk_widget_hide(widget);
         return TRUE;

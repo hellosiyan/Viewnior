@@ -1897,14 +1897,14 @@ vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
     msg_area_focus_child = gtk_container_get_focus_child(GTK_CONTAINER(window->msg_area));
 
     switch(event->keyval){
-        case GDK_Left:
+        case GDK_KEY_Left:
             if (event->state & GDK_MOD1_MASK)
             {
                 vnr_window_cmd_prev (NULL, window);
                 result = TRUE;
                 break;
             } /* else fall-trough is intended */
-        case GDK_Up:
+        case GDK_KEY_Up:
             if (!uni_scroll_win_image_fits (UNI_SCROLL_WIN (window->scroll_view)))
             {
                 /* break to let scrollview handle the key */
@@ -1916,14 +1916,14 @@ vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
             vnr_window_cmd_prev (NULL, window);
             result = TRUE;
             break;
-        case GDK_Right:
+        case GDK_KEY_Right:
             if (event->state & GDK_MOD1_MASK)
             {
                 vnr_window_cmd_next (NULL, window);
                 result = TRUE;
                 break;
             } /* else fall-trough is intended */
-        case GDK_Down:
+        case GDK_KEY_Down:
             if (!uni_scroll_win_image_fits (UNI_SCROLL_WIN (window->scroll_view)))
             {
                 /* break to let scrollview handle the key */
@@ -1935,28 +1935,28 @@ vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
             vnr_window_cmd_next (NULL, window);
             result = TRUE;
             break;
-        case GDK_Page_Up:
+        case GDK_KEY_Page_Up:
             vnr_window_cmd_prev (NULL, window);
             result = TRUE;
             break;
-        case GDK_Page_Down:
+        case GDK_KEY_Page_Down:
             vnr_window_cmd_next (NULL, window);
             result = TRUE;
             break;
-        case GDK_Escape:
+        case GDK_KEY_Escape:
         case 'q':
             if(window->mode != VNR_WINDOW_MODE_NORMAL)
                 vnr_window_unfullscreen(window);
             else
                 gtk_main_quit();
             break;
-        case GDK_space:
+        case GDK_KEY_space:
             if (toolbar_focus_child != NULL || msg_area_focus_child != NULL)
                 break;
             vnr_window_next(window, TRUE);
             result = TRUE;
             break;
-        case GDK_BackSpace:
+        case GDK_KEY_BackSpace:
             vnr_window_prev(window);
             result = TRUE;
             break;
