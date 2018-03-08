@@ -47,7 +47,7 @@ static void
 vnr_crop_clear_rectangle(VnrCrop *crop)
 {
     if(crop->do_redraw)
-        gdk_draw_rectangle (GDK_DRAWABLE(crop->image->window), crop->gc, FALSE,
+        gdk_draw_rectangle (GDK_DRAWABLE(gtk_widget_get_window(crop->image)), crop->gc, FALSE,
                             crop->sub_x, crop->sub_y,
                             crop->sub_width, crop->sub_height);
 }
@@ -56,7 +56,7 @@ static void
 vnr_crop_draw_rectangle(VnrCrop *crop)
 {
     if(crop->do_redraw)
-        gdk_draw_rectangle (GDK_DRAWABLE(crop->image->window), crop->gc, FALSE,
+        gdk_draw_rectangle (GDK_DRAWABLE(gtk_widget_get_window(crop->image)), crop->gc, FALSE,
                             crop->sub_x, crop->sub_y,
                             crop->sub_width, crop->sub_height);
 }
@@ -265,10 +265,11 @@ spin_height_cb (GtkSpinButton *spinbutton, VnrCrop *crop)
 static gboolean
 drawable_expose_cb (GtkWidget *widget, GdkEventExpose *event, VnrCrop *crop)
 {
-    gdk_draw_pixbuf (GDK_DRAWABLE(widget->window), NULL, crop->preview_pixbuf,
+    GdkWindow *window = gtk_widget_get_window(widget);
+    gdk_draw_pixbuf (GDK_DRAWABLE(window), NULL, crop->preview_pixbuf,
                      0, 0, 0, 0, -1, -1, GDK_RGB_DITHER_NORMAL, 0, 0);
 
-    crop->gc = gdk_gc_new(GDK_DRAWABLE(widget->window));
+    crop->gc = gdk_gc_new(GDK_DRAWABLE(window));
     gdk_gc_set_function (crop->gc, GDK_INVERT);
     gdk_gc_set_line_attributes (crop->gc,
                                 2,

@@ -363,7 +363,7 @@ vnr_window_load_accel_map()
 static void
 vnr_window_hide_cursor(VnrWindow *window)
 {
-    gdk_window_set_cursor (GTK_WIDGET(window)->window, gdk_cursor_new(GDK_BLANK_CURSOR));
+    gdk_window_set_cursor (gtk_widget_get_window(GTK_WIDGET(window)), gdk_cursor_new(GDK_BLANK_CURSOR));
     window->cursor_is_hidden = TRUE;
     gdk_flush();
 }
@@ -371,7 +371,7 @@ vnr_window_hide_cursor(VnrWindow *window)
 static void
 vnr_window_show_cursor(VnrWindow *window)
 {
-    gdk_window_set_cursor (GTK_WIDGET(window)->window, gdk_cursor_new(GDK_LEFT_PTR));
+    gdk_window_set_cursor (gtk_widget_get_window(GTK_WIDGET(window)), gdk_cursor_new(GDK_LEFT_PTR));
     window->cursor_is_hidden = FALSE;
     gdk_flush();
 }
@@ -703,7 +703,7 @@ rotate_pixbuf(VnrWindow *window, GdkPixbufRotation angle)
     GdkPixbuf *result;
 
     if(!window->cursor_is_hidden)
-        gdk_window_set_cursor(GTK_WIDGET(window)->window,
+        gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(window)),
                               gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
     gdk_flush();
@@ -725,7 +725,7 @@ rotate_pixbuf(VnrWindow *window, GdkPixbufRotation angle)
     uni_anim_view_set_static(UNI_ANIM_VIEW(window->view), result);
 
     if(!window->cursor_is_hidden)
-        gdk_window_set_cursor(GTK_WIDGET(window)->window,
+        gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(window)),
                               gdk_cursor_new(GDK_LEFT_PTR));
     g_object_unref(result);
 
@@ -769,7 +769,7 @@ flip_pixbuf(VnrWindow *window, gboolean horizontal)
     GdkPixbuf *result;
 
     if(!window->cursor_is_hidden)
-        gdk_window_set_cursor (GTK_WIDGET(window)->window,
+        gdk_window_set_cursor (gtk_widget_get_window(GTK_WIDGET(window)),
                                gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
     gdk_flush();
@@ -791,7 +791,7 @@ flip_pixbuf(VnrWindow *window, gboolean horizontal)
         vnr_properties_dialog_update_image(VNR_PROPERTIES_DIALOG(window->props_dlg));
 
     if(!window->cursor_is_hidden)
-        gdk_window_set_cursor (GTK_WIDGET(window)->window,
+        gdk_window_set_cursor (gtk_widget_get_window(GTK_WIDGET(window)),
                                gdk_cursor_new(GDK_LEFT_PTR));
     g_object_unref(result);
 
@@ -914,7 +914,7 @@ save_image_cb (GtkWidget *widget, VnrWindow *window)
 {
     GError *error = NULL;
     if(!window->cursor_is_hidden)
-        gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_WATCH));
+        gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(window)), gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
     gdk_flush();
 
@@ -953,7 +953,7 @@ save_image_cb (GtkWidget *widget, VnrWindow *window)
     uni_write_exiv2_from_cache(VNR_FILE(window->file_list->data)->path);
 
     if(!window->cursor_is_hidden)
-        gdk_window_set_cursor(GTK_WIDGET(window)->window, gdk_cursor_new(GDK_LEFT_PTR));
+        gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(window)), gdk_cursor_new(GDK_LEFT_PTR));
 
     if(error != NULL)
     {
@@ -986,18 +986,25 @@ vnr_window_main_menu_position (GtkMenu *menu, gint *x, gint *y, gboolean *push_i
   GtkWidget *button = window->properties_button;
 	GdkWindow *gdk_window = gtk_widget_get_window(button);
   GtkRequisition req = {0, 0};
-	
+  GtkAllocation toolbar_allocation;
+  GtkAllocation button_allocation;
+
 	gdk_window_get_position(gdk_window, x, y);
-	
-	// in maximuzed and fullscreen states gdk_window_get_position returns 0 
+
+	// in maximuzed and fullscreen states gdk_window_get_position returns 0
 	if ( *x == 0 && gtk_widget_get_visible ( get_fs_controls(window)) ) {
-		*x -= get_fs_controls(window)->allocation.width;
-	} 
+    GtkAllocation allocation;
+
+    gtk_widget_get_allocation(get_fs_controls(window), &allocation);
+		*x -= allocation.width;
+	}
 
   gtk_widget_size_request(GTK_WIDGET(menu), &req);
-	
-	*x += window->toolbar->allocation.width - req.width;
-	*y += button->allocation.height;
+  gtk_widget_get_allocation(window->toolbar, &toolbar_allocation);
+  gtk_widget_get_allocation(button, &button_allocation);
+
+	*x += toolbar_allocation.width - req.width;
+	*y += button_allocation.height;
 }
 
 static void
@@ -1028,7 +1035,7 @@ window_realize_cb(GtkWidget *widget, gpointer user_data)
     g_signal_handlers_disconnect_by_func(widget, window_realize_cb, user_data);
 
     if(!vnr_message_area_is_critical(VNR_MESSAGE_AREA(VNR_WINDOW(widget)->msg_area)))
-    {	
+    {
     	if ( VNR_WINDOW(widget)->prefs->start_maximized ) {
 	        vnr_window_open(VNR_WINDOW(widget), FALSE);
     	} 
@@ -1039,7 +1046,7 @@ window_realize_cb(GtkWidget *widget, gpointer user_data)
 		    screen = gtk_window_get_screen (GTK_WINDOW (widget));
 		    gdk_screen_get_monitor_geometry (screen,
 		                                     gdk_screen_get_monitor_at_window (screen,
-		                                        widget->window),
+		                                     gtk_widget_get_window (widget)),
 		                                     &monitor);
 
 		    VNR_WINDOW(widget)->max_width = monitor.width * 0.9 - 100;
@@ -1227,6 +1234,8 @@ vnr_window_cmd_prev (GtkAction *action, gpointer user_data)
 static void
 vnr_window_cmd_resize (GtkToggleAction *action, VnrWindow *window)
 {
+    GtkAllocation allocation;
+
     if ( action != NULL && !gtk_toggle_action_get_active(action) ) {
         window->prefs->auto_resize = FALSE;
         return;
@@ -1243,7 +1252,8 @@ vnr_window_cmd_resize (GtkToggleAction *action, VnrWindow *window)
     window->prefs->auto_resize = TRUE;
     
     vnr_tools_fit_to_size (&img_w, &img_h, window->max_width, window->max_height);
-    gtk_window_resize (GTK_WINDOW (window), img_w, img_h + window->menus->allocation.height);
+    gtk_widget_get_allocation (window->menus, &allocation);
+    gtk_window_resize (GTK_WINDOW (window), img_w, img_h + allocation.height);
 }
 
 static void
@@ -1641,7 +1651,7 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
             {
                 vnr_window_set_list(window, next, FALSE);
                 if(window->prefs->confirm_delete && !window->cursor_is_hidden)
-                    gdk_window_set_cursor(GTK_WIDGET(dlg)->window,
+                    gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(dlg)),
                                           gdk_cursor_new(GDK_WATCH));
 
                 gdk_flush();
@@ -1649,7 +1659,7 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
                 vnr_window_close(window);
                 vnr_window_open(window, FALSE);
                 if(window->prefs->confirm_delete && !window->cursor_is_hidden)
-                    gdk_window_set_cursor(GTK_WIDGET(dlg)->window,
+                    gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(dlg)),
                                           gdk_cursor_new(GDK_LEFT_PTR));
             }
         }
@@ -1880,6 +1890,11 @@ vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
 {
     gint result = FALSE;
     VnrWindow *window = VNR_WINDOW(widget);
+    GtkWidget *toolbar_focus_child;
+    GtkWidget *msg_area_focus_child;
+
+    toolbar_focus_child = gtk_container_get_focus_child(GTK_CONTAINER(window->toolbar));
+    msg_area_focus_child = gtk_container_get_focus_child(GTK_CONTAINER(window->msg_area));
 
     switch(event->keyval){
         case GDK_Left:
@@ -1895,8 +1910,7 @@ vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
                 /* break to let scrollview handle the key */
                 break;
             }
-            if (GTK_CONTAINER(window->toolbar)->focus_child != NULL ||
-                GTK_CONTAINER(window->msg_area)->focus_child != NULL)
+            if (toolbar_focus_child != NULL || msg_area_focus_child != NULL)
                 break;
 
             vnr_window_cmd_prev (NULL, window);
@@ -1915,8 +1929,7 @@ vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
                 /* break to let scrollview handle the key */
                 break;
             }
-            if (GTK_CONTAINER(window->toolbar)->focus_child != NULL ||
-                GTK_CONTAINER(window->msg_area)->focus_child != NULL)
+            if (toolbar_focus_child != NULL || msg_area_focus_child != NULL)
                 break;
 
             vnr_window_cmd_next (NULL, window);
@@ -1938,8 +1951,7 @@ vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
                 gtk_main_quit();
             break;
         case GDK_space:
-            if (GTK_CONTAINER(window->toolbar)->focus_child != NULL ||
-                GTK_CONTAINER(window->msg_area)->focus_child != NULL)
+            if (toolbar_focus_child != NULL || msg_area_focus_child != NULL)
                 break;
             vnr_window_next(window, TRUE);
             result = TRUE;
@@ -1981,14 +1993,18 @@ vnr_window_drag_data_received (GtkWidget *widget,
                                guint info, guint time)
 {
     GSList *uri_list = NULL;
+    GdkAtom target = gtk_selection_data_get_target (selection_data);
+    GdkDragAction suggested_action;
 
-    if (!gtk_targets_include_uri (&selection_data->target, 1))
+    if (!gtk_targets_include_uri (&target, 1))
         return;
 
-    if (context->suggested_action == GDK_ACTION_COPY || context->suggested_action == GDK_ACTION_ASK)
+    suggested_action = gdk_drag_context_get_suggested_action (context);
+    if (suggested_action == GDK_ACTION_COPY || suggested_action == GDK_ACTION_ASK)
     {
-        uri_list = vnr_tools_parse_uri_string_list_to_file_list ((gchar *) selection_data->data);
+        const guchar *data = gtk_selection_data_get_data (selection_data);
 
+        uri_list = vnr_tools_parse_uri_string_list_to_file_list ((gchar *) data);
         if(uri_list == NULL)
         {
             vnr_window_close(VNR_WINDOW (widget));
@@ -2357,6 +2373,7 @@ vnr_window_open (VnrWindow * window, gboolean fit_to_screen)
 
     if(fit_to_screen)
     {
+        GtkAllocation allocation;
         gint img_h, img_w;          /* Width and Height of the pixbuf */
 
         img_w = window->current_image_width;
@@ -2364,7 +2381,8 @@ vnr_window_open (VnrWindow * window, gboolean fit_to_screen)
 
         vnr_tools_fit_to_size (&img_w, &img_h, window->max_width, window->max_height);
 
-        gtk_window_resize (GTK_WINDOW (window), img_w, img_h + window->menus->allocation.height);
+        gtk_widget_get_allocation (window->menus, &allocation);
+        gtk_window_resize (GTK_WINDOW (window), img_w, img_h + allocation.height);
     }
     
     last_fit_mode = UNI_IMAGE_VIEW(window->view)->fitting;
@@ -2447,7 +2465,7 @@ vnr_window_open_from_list(VnrWindow *window, GSList *uri_list)
     {
         vnr_window_set_list(window, file_list, TRUE);
         if(!window->cursor_is_hidden)
-            gdk_window_set_cursor(GTK_WIDGET(window)->window,
+            gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(window)),
                                   gdk_cursor_new(GDK_WATCH));
         /* This makes the cursor show NOW */
         gdk_flush();
@@ -2455,7 +2473,7 @@ vnr_window_open_from_list(VnrWindow *window, GSList *uri_list)
         vnr_window_close(window);
         vnr_window_open(window, FALSE);
         if(!window->cursor_is_hidden)
-            gdk_window_set_cursor(GTK_WIDGET(window)->window,
+            gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(window)),
                                   gdk_cursor_new(GDK_LEFT_PTR));
     }
 }
@@ -2509,14 +2527,14 @@ vnr_window_next (VnrWindow *window, gboolean rem_timeout){
     window->file_list = next;
 
     if(!window->cursor_is_hidden)
-        gdk_window_set_cursor(GTK_WIDGET(window)->window,
+        gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(window)),
                               gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
     gdk_flush();
 
     vnr_window_open(window, FALSE);
     if(!window->cursor_is_hidden)
-        gdk_window_set_cursor(GTK_WIDGET(window)->window,
+        gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(window)),
                               gdk_cursor_new(GDK_LEFT_PTR));
 
     if(window->mode == VNR_WINDOW_MODE_SLIDESHOW && rem_timeout)
@@ -2548,14 +2566,14 @@ vnr_window_prev (VnrWindow *window){
     window->file_list = prev;
 
     if(!window->cursor_is_hidden)
-        gdk_window_set_cursor(GTK_WIDGET(window)->window,
+        gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(window)),
                               gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
     gdk_flush();
 
     vnr_window_open(window, FALSE);
     if(!window->cursor_is_hidden)
-        gdk_window_set_cursor(GTK_WIDGET(window)->window,
+        gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(window)),
                               gdk_cursor_new(GDK_LEFT_PTR));
 
     if(window->mode == VNR_WINDOW_MODE_SLIDESHOW)
@@ -2580,14 +2598,14 @@ vnr_window_first (VnrWindow *window){
     window->file_list = prev;
 
     if(!window->cursor_is_hidden)
-        gdk_window_set_cursor(GTK_WIDGET(window)->window,
+        gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(window)),
                               gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
     gdk_flush();
 
     vnr_window_open(window, FALSE);
     if(!window->cursor_is_hidden)
-        gdk_window_set_cursor(GTK_WIDGET(window)->window,
+        gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(window)),
                               gdk_cursor_new(GDK_LEFT_PTR));
     return TRUE;
 }
@@ -2606,14 +2624,14 @@ vnr_window_last (VnrWindow *window){
     window->file_list = prev;
 
     if(!window->cursor_is_hidden)
-        gdk_window_set_cursor(GTK_WIDGET(window)->window,
+        gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(window)),
                               gdk_cursor_new(GDK_WATCH));
     /* This makes the cursor show NOW */
     gdk_flush();
 
     vnr_window_open(window, FALSE);
     if(!window->cursor_is_hidden)
-        gdk_window_set_cursor(GTK_WIDGET(window)->window,
+        gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(window)),
                               gdk_cursor_new(GDK_LEFT_PTR));
     return TRUE;
 }
