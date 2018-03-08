@@ -1,14 +1,14 @@
 # please keep this list sorted alphabetically
-#
 ar
 bg
 bs
-cs
 ca
 ca@valencia
+cs
 da
 de
 el
+en_GB
 es
 fi
 fr
@@ -30,3 +30,4 @@ sv
 tr
 uk
 zh_CN
+zh_TW

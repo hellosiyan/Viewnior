@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-12-17 15:24+0000\n"
-"X-Generator: Launchpad (build 17865)\n"
+"X-Launchpad-Export-Date: 2018-03-04 17:52+0000\n"
+"X-Generator: Launchpad (build 18566)\n"
 
 #: ../data/viewnior.desktop.in.in.h:1
 msgid "Viewnior"
@@ -295,8 +295,8 @@ msgstr ""
 "Launchpad Contributions:\n"
 "  Leonardo Corato https://launchpad.net/~leocor\n"
 "  Milo Casagrande https://launchpad.net/~milo\n"
-"  bautz https://launchpad.net/~bautz\n"
-"  fasix https://launchpad.net/~vito.fasano"
+"  Vito Fasano https://launchpad.net/~vito.fasano\n"
+"  bautz https://launchpad.net/~bautz"
 
 #: ../src/vnr-window.c:1558
 msgid "If you delete an item, it will be permanently lost."

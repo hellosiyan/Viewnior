@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n % 100 >= "
 "3 && n % 100 <= 10 ? 3 : n % 100 >= 11 && n % 100 <= 99 ? 4 : 5;\n"
-"X-Launchpad-Export-Date: 2015-12-17 15:24+0000\n"
-"X-Generator: Launchpad (build 17865)\n"
+"X-Launchpad-Export-Date: 2018-03-04 17:52+0000\n"
+"X-Generator: Launchpad (build 18566)\n"
 
 #: ../data/viewnior.desktop.in.in.h:1
 msgid "Viewnior"
@@ -298,7 +298,7 @@ msgstr "فتح مجلّد"
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Faissal Chamekh https://launchpad.net/~chamfay-z\n"
+"  Faissal Chamekh https://launchpad.net/~chamfay\n"
 "  Mohamed Mohsen https://launchpad.net/~linuxer9"
 
 #: ../src/vnr-window.c:1558
