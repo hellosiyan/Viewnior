@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2014 Ryan Lerch <rlerch@redhat.com> -->
 <component type="desktop">
   <id>viewnior.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
+​  <project_license>GPL-3.0+</project_license>
+  <name>Viewnior</name>
   <summary>Simple image viewer and editor</summary>
   <description>
     <p>
@@ -13,11 +14,13 @@
       support for reading image metadata, and the ability to configure mouse actions.
     </p>
   </description>
-  <url type="homepage">http://siyanpanayotov.com/project/viewnior/</url>
+  <url type="homepage">https://siyanpanayotov.com/project/viewnior</url>
+  <url type="bugtracker">https://github.com/hellosiyan/Viewnior/issues</url>
+  <url type="translate">https://translations.launchpad.net/viewnior</url>
   <screenshots>
-    <screenshot type="default">http://siyanpanayotov.com/wp-content/uploads/2014/04/vnr_normal_mode_2.png</screenshot>
-    <screenshot>http://siyanpanayotov.com/wp-content/uploads/2014/04/vnr_pref_window.png</screenshot>
-    <screenshot>http://siyanpanayotov.com/wp-content/uploads/2014/04/vnr_navigation_window.png</screenshot>
+    <screenshot type="default"><image>https://siyanpanayotov.com/images/vnr_normal_mode_2.png</image></screenshot>
+    <screenshot><image>https://siyanpanayotov.com/images/vnr_pref_window.png</image></screenshot>
+    <screenshot><image>https://siyanpanayotov.com/images/vnr_navigation_window.png</image></screenshot>
   </screenshots>
-  <updatecontact>hello_at_siyanpanayotov.com</updatecontact>
+  <update_contact>contact_AT_siyanpanayotov.com</updatecontact>
 </application>
