@@ -1444,6 +1444,11 @@ vnr_set_wallpaper(GtkAction *action, VnrWindow *win)
 						NULL);
 				break;
 			case VNR_PREFS_DESKTOP_MATE:
+				execlp("gsettings", "gsettings",
+						"set", "org.mate.background",
+						"picture-filename", VNR_FILE(win->file_list->data)->path,
+						NULL);
+				break;
 			case VNR_PREFS_DESKTOP_GNOME3:
 				tmp = g_strdup_printf("file://%s", VNR_FILE(win->file_list->data)->path);
 				execlp("gsettings", "gsettings",
