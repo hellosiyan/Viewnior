@@ -100,3 +100,53 @@ uni_rectangle_get_rects_around (GdkRectangle * outer,
             outer->width,
             (outer->y + outer->height) - (inner->y + inner->height)};
 }
+
+VnrPrefsDesktop
+uni_detect_desktop_environment ()
+{
+    VnrPrefsDesktop environment = VNR_PREFS_DESKTOP_GNOME3;
+
+    gchar *xdg_current_desktop = g_ascii_strup(getenv("XDG_CURRENT_DESKTOP"), -1);
+    gchar *xdg_session_desktop = g_ascii_strup(getenv("XDG_SESSION_DESKTOP"), -1);
+    gchar *desktop_session = g_ascii_strdown(getenv("DESKTOP_SESSION"), -1);
+    gchar *gdmsession = g_ascii_strdown(getenv("GDMSESSION"), -1);
+
+    if (!g_strcmp0(xdg_current_desktop, "GNOME") || !g_strcmp0(xdg_session_desktop, "GNOME"))
+    {
+        if (!g_strcmp0(gdmsession, "gnome-classic") || !g_strcmp0(gdmsession, "gnome-fallback"))
+        {
+            environment = VNR_PREFS_DESKTOP_GNOME2;
+        }
+        else if (!g_strcmp0(gdmsession, "cinnamon"))
+        {
+            environment = VNR_PREFS_DESKTOP_CINNAMON;
+        }
+    }
+    else if (!g_strcmp0(xdg_current_desktop, "XFCE") || !g_strcmp0(xdg_session_desktop, "XFCE"))
+    {
+        environment = VNR_PREFS_DESKTOP_XFCE;
+    }
+    else if (!g_strcmp0(xdg_current_desktop, "MATE") || !g_strcmp0(xdg_session_desktop, "MATE"))
+    {
+        environment = VNR_PREFS_DESKTOP_MATE;
+    }
+    else if (!g_strcmp0(xdg_current_desktop, "LXDE") || !g_strcmp0(xdg_session_desktop, "LXDE"))
+    {
+        environment = VNR_PREFS_DESKTOP_LXDE;
+    }
+    else if (!g_strcmp0(desktop_session, "fluxbox"))
+    {
+        environment = VNR_PREFS_DESKTOP_FLUXBOX;
+    }
+    else
+    {
+        g_warning("Cannot detect desktop environment. Defaulting to GNOME 3.\n");
+    }
+
+    g_free(xdg_current_desktop);
+    g_free(xdg_session_desktop);
+    g_free(desktop_session);
+    g_free(gdmsession);
+
+    return environment;
+}

@@ -37,6 +37,7 @@
 #include "vnr-properties-dialog.h"
 #include "vnr-crop.h"
 #include "uni-exiv2.hpp"
+#include "uni-utils.h"
 
 /* Timeout to hide the toolbar in fullscreen mode */
 #define FULLSCREEN_TIMEOUT 1000
@@ -1387,55 +1388,14 @@ vnr_set_wallpaper(GtkAction *action, VnrWindow *win)
     if ( pid == 0 ) {
         gchar * tmp;
 
-    VnrPrefsDesktop override = -1;
+        VnrPrefsDesktop desktop_environment = win->prefs->desktop;
 
-    // Desktop environment auto detection
-    if (win->prefs->desktop == VNR_PREFS_DESKTOP_AUTO)
-    {
-        gchar *xdg_current_desktop = g_ascii_strup(getenv("XDG_CURRENT_DESKTOP"), -1);
-        gchar *xdg_session_desktop = g_ascii_strup(getenv("XDG_SESSION_DESKTOP"), -1);
-        gchar *desktop_session = g_ascii_strdown(getenv("DESKTOP_SESSION"), -1);
-        gchar *gdmsession = g_ascii_strdown(getenv("GDMSESSION"), -1);
-
-        // g_strcmp0 returns 0 on equal strings
-        if (!g_strcmp0(xdg_current_desktop, "GNOME") || !g_strcmp0(xdg_session_desktop, "GNOME"))
+        if (desktop_environment == VNR_PREFS_DESKTOP_AUTO)
         {
-            if (!g_strcmp0(gdmsession, "gnome-shell"))
-                override = VNR_PREFS_DESKTOP_GNOME3;
-            else if (!g_strcmp0(gdmsession, "gnome-classic") || !g_strcmp0(gdmsession, "gnome-fallback"))
-                override = VNR_PREFS_DESKTOP_GNOME2;
-            else if (!g_strcmp0(gdmsession, "cinnamon"))
-                override = VNR_PREFS_DESKTOP_CINNAMON;
+            desktop_environment = uni_detect_desktop_environment();
         }
-        else if (!g_strcmp0(xdg_current_desktop, "XFCE") || !g_strcmp0(xdg_session_desktop, "XFCE"))
-            override = VNR_PREFS_DESKTOP_XFCE;
-        else if (!g_strcmp0(xdg_current_desktop, "MATE") || !g_strcmp0(xdg_session_desktop, "MATE"))
-            override = VNR_PREFS_DESKTOP_MATE;
-        else if (!g_strcmp0(xdg_current_desktop, "LXDE") || !g_strcmp0(xdg_session_desktop, "LXDE"))
-            override = VNR_PREFS_DESKTOP_LXDE;
-        else if (!g_strcmp0(desktop_session, "fluxbox"))
-            override = VNR_PREFS_DESKTOP_FLUXBOX;
 
-        g_free(xdg_current_desktop);
-        g_free(xdg_session_desktop);
-        g_free(desktop_session);
-        g_free(gdmsession);
-
-        if (override == -1)
-        {
-            fprintf(stderr, _("No desktop environment detected.\n"));
-            return;
-        }
-        else
-        {
-            win->prefs->desktop = override;
-            vnr_prefs_save(win->prefs);
-        }
-    }
-    else override = win->prefs->desktop;
-
-
-        switch(override) {
+        switch(desktop_environment) {
             case VNR_PREFS_DESKTOP_GNOME2:
                 execlp("gconftool-2", "gconftool-2",
                         "--set", "/desktop/gnome/background/picture_filename",

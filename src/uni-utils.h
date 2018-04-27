@@ -24,6 +24,7 @@
 #define __UNI_UTILS_H__
 
 #include <gdk/gdk.h>
+#include "vnr-prefs.h"
 
 #define CHECK_SIZE  8
 #define CHECK_LIGHT 0x00cccccc
@@ -51,5 +52,7 @@ void    uni_draw_rect                   (GdkDrawable * drawable,
 void    uni_rectangle_get_rects_around  (GdkRectangle * outer,
                                          GdkRectangle * inner,
                                          GdkRectangle around[4]);
+
+VnrPrefsDesktop uni_detect_desktop_environment ();
 
 #endif /* __UNI_UTILS_H__ */
