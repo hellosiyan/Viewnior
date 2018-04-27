@@ -384,10 +384,6 @@ msgstr "保存更改"
 msgid "Properties"
 msgstr "属性"
 
-#: ../src/vnr-window.c:1753
-msgid "Properties"
-msgstr "属性"
-
 #: ../src/vnr-window.c:1758
 msgid "Set as _Wallpaper"
 msgstr "设为桌面壁纸(_W)"
