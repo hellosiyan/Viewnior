@@ -709,8 +709,8 @@ rotate_pixbuf(VnrWindow *window, GdkPixbufRotation angle)
     /* This makes the cursor show NOW */
     gdk_flush();
 
-	/* Stop slideshow while editing the image */
-	stop_slideshow(window);
+    /* Stop slideshow while editing the image */
+    stop_slideshow(window);
 
     result = gdk_pixbuf_rotate_simple(UNI_IMAGE_VIEW(window->view)->pixbuf,
                                       angle);
@@ -983,32 +983,32 @@ save_image_cb (GtkWidget *widget, VnrWindow *window)
 static void
 vnr_window_main_menu_position (GtkMenu *menu, gint *x, gint *y, gboolean *push_in, gpointer user_data)
 {
-	VnrWindow *window = VNR_WINDOW(user_data);
+    VnrWindow *window = VNR_WINDOW(user_data);
   GtkWidget *button = window->properties_button;
-	GdkWindow *gdk_window = gtk_widget_get_window(button);
+    GdkWindow *gdk_window = gtk_widget_get_window(button);
   GtkRequisition req = {0, 0};
 
-	gdk_window_get_position(gdk_window, x, y);
+    gdk_window_get_position(gdk_window, x, y);
 
-	// in maximuzed and fullscreen states gdk_window_get_position returns 0
-	if ( *x == 0 && gtk_widget_get_visible ( get_fs_controls(window)) ) {
-		*x -= get_fs_controls(window)->allocation.width;
-	}
+    // in maximuzed and fullscreen states gdk_window_get_position returns 0
+    if ( *x == 0 && gtk_widget_get_visible ( get_fs_controls(window)) ) {
+        *x -= get_fs_controls(window)->allocation.width;
+    }
 
   gtk_widget_size_request(GTK_WIDGET(menu), &req);
 
-	*x += window->toolbar->allocation.width - req.width;
-	*y += button->allocation.height;
+    *x += window->toolbar->allocation.width - req.width;
+    *y += button->allocation.height;
 }
 
 static void
 vnr_window_cmd_open_menu (GtkToggleAction *action, VnrWindow *window)
 {
-	if( !gtk_toggle_action_get_active (action)) {
-		return;
-	}
+    if( !gtk_toggle_action_get_active (action)) {
+        return;
+    }
     gtk_menu_popup(GTK_MENU(window->button_menu), NULL, NULL, vnr_window_main_menu_position, window, 0, gtk_get_current_event_time());
-	return;
+    return;
 }
 
 static void
@@ -1030,48 +1030,48 @@ window_realize_cb(GtkWidget *widget, gpointer user_data)
 
     if(!vnr_message_area_is_critical(VNR_MESSAGE_AREA(VNR_WINDOW(widget)->msg_area)))
     {
-    	if ( VNR_WINDOW(widget)->prefs->start_maximized ) {
-	        vnr_window_open(VNR_WINDOW(widget), FALSE);
-    	}
-    	else
-    	{
-		    GdkScreen *screen;
-		    GdkRectangle monitor;
-		    screen = gtk_window_get_screen (GTK_WINDOW (widget));
-		    gdk_screen_get_monitor_geometry (screen,
-		                                     gdk_screen_get_monitor_at_window (screen,
-		                                        widget->window),
-		                                     &monitor);
+        if ( VNR_WINDOW(widget)->prefs->start_maximized ) {
+            vnr_window_open(VNR_WINDOW(widget), FALSE);
+        }
+        else
+        {
+            GdkScreen *screen;
+            GdkRectangle monitor;
+            screen = gtk_window_get_screen (GTK_WINDOW (widget));
+            gdk_screen_get_monitor_geometry (screen,
+                                             gdk_screen_get_monitor_at_window (screen,
+                                                widget->window),
+                                             &monitor);
 
-		    VNR_WINDOW(widget)->max_width = monitor.width * 0.9 - 100;
-		    VNR_WINDOW(widget)->max_height = monitor.height * 0.9 - 100;
+            VNR_WINDOW(widget)->max_width = monitor.width * 0.9 - 100;
+            VNR_WINDOW(widget)->max_height = monitor.height * 0.9 - 100;
 
-		    vnr_window_open(VNR_WINDOW(widget), TRUE);
-		}
-		if ( VNR_WINDOW(widget)->prefs->start_slideshow && VNR_WINDOW(widget)->file_list != NULL ) {
-			vnr_window_fullscreen(VNR_WINDOW(widget));
-			VNR_WINDOW(widget)->mode = VNR_WINDOW_MODE_NORMAL;
-			allow_slideshow(VNR_WINDOW(widget));
-			start_slideshow(VNR_WINDOW(widget));
-		} else if ( VNR_WINDOW(widget)->prefs->start_fullscreen && VNR_WINDOW(widget)->file_list != NULL ) {
-			vnr_window_fullscreen(VNR_WINDOW(widget));
-		}
+            vnr_window_open(VNR_WINDOW(widget), TRUE);
+        }
+        if ( VNR_WINDOW(widget)->prefs->start_slideshow && VNR_WINDOW(widget)->file_list != NULL ) {
+            vnr_window_fullscreen(VNR_WINDOW(widget));
+            VNR_WINDOW(widget)->mode = VNR_WINDOW_MODE_NORMAL;
+            allow_slideshow(VNR_WINDOW(widget));
+            start_slideshow(VNR_WINDOW(widget));
+        } else if ( VNR_WINDOW(widget)->prefs->start_fullscreen && VNR_WINDOW(widget)->file_list != NULL ) {
+            vnr_window_fullscreen(VNR_WINDOW(widget));
+        }
     }
 }
 
 static gboolean
 window_change_state_cb (GtkWidget * widget, GdkEventWindowState * event, gpointer user_data)
 {
-	if ( event->changed_mask & GDK_WINDOW_STATE_MAXIMIZED ) {
-		/* Detect maximized state only */
-		if ( event->new_window_state & GDK_WINDOW_STATE_MAXIMIZED  ) {
-			VNR_WINDOW(widget)->prefs->start_maximized = TRUE;
-		} else {
-			VNR_WINDOW(widget)->prefs->start_maximized = FALSE;
-		}
-		vnr_prefs_save(VNR_WINDOW(widget)->prefs);
-	}
-	return TRUE;
+    if ( event->changed_mask & GDK_WINDOW_STATE_MAXIMIZED ) {
+        /* Detect maximized state only */
+        if ( event->new_window_state & GDK_WINDOW_STATE_MAXIMIZED  ) {
+            VNR_WINDOW(widget)->prefs->start_maximized = TRUE;
+        } else {
+            VNR_WINDOW(widget)->prefs->start_maximized = FALSE;
+        }
+        vnr_prefs_save(VNR_WINDOW(widget)->prefs);
+    }
+    return TRUE;
 }
 
 
@@ -1080,7 +1080,7 @@ window_destroy_cb (GtkObject *object, gpointer user_data)
 {
     vnr_window_save_accel_map();
     vnr_prefs_save(VNR_WINDOW(object)->prefs);
-	gtk_main_quit();
+    gtk_main_quit();
 }
 
 static void
@@ -1108,20 +1108,20 @@ zoom_changed_cb (UniImageView *view, VnrWindow *window)
 
 static void
 window_drag_begin_cb (GtkWidget *widget,
-			  GdkDragContext *drag_context,
-			  GtkSelectionData *data,
-			  guint info,
-			  guint time,
-			  gpointer user_data)
+              GdkDragContext *drag_context,
+              GtkSelectionData *data,
+              guint info,
+              guint time,
+              gpointer user_data)
 {
-	gchar *uris[2];
+    gchar *uris[2];
 
-	uris[0] = g_filename_to_uri((gchar*)VNR_FILE(VNR_WINDOW(user_data)->file_list->data)->path, NULL, NULL);
-	uris[1] = NULL;
+    uris[0] = g_filename_to_uri((gchar*)VNR_FILE(VNR_WINDOW(user_data)->file_list->data)->path, NULL, NULL);
+    uris[1] = NULL;
 
-	gtk_selection_data_set_uris (data, uris);
+    gtk_selection_data_set_uris (data, uris);
 
-	g_free(uris[0]);
+    g_free(uris[0]);
 }
 
 static void
@@ -1380,128 +1380,128 @@ vnr_window_cmd_about (GtkAction *action, VnrWindow *window)
 static void
 vnr_set_wallpaper(GtkAction *action, VnrWindow *win)
 {
-	pid_t pid;
+    pid_t pid;
 
-	pid = fork();
+    pid = fork();
 
-	if ( pid == 0 ) {
-		gchar * tmp;
+    if ( pid == 0 ) {
+        gchar * tmp;
 
-	VnrPrefsDesktop override = -1;
+    VnrPrefsDesktop override = -1;
 
-	// Desktop environment auto detection
-	if (win->prefs->desktop == VNR_PREFS_DESKTOP_AUTO)
-	{
-		gchar *xdg_current_desktop = g_ascii_strup(getenv("XDG_CURRENT_DESKTOP"), -1);
-		gchar *xdg_session_desktop = g_ascii_strup(getenv("XDG_SESSION_DESKTOP"), -1);
-		gchar *desktop_session = g_ascii_strdown(getenv("DESKTOP_SESSION"), -1);
-		gchar *gdmsession = g_ascii_strdown(getenv("GDMSESSION"), -1);
+    // Desktop environment auto detection
+    if (win->prefs->desktop == VNR_PREFS_DESKTOP_AUTO)
+    {
+        gchar *xdg_current_desktop = g_ascii_strup(getenv("XDG_CURRENT_DESKTOP"), -1);
+        gchar *xdg_session_desktop = g_ascii_strup(getenv("XDG_SESSION_DESKTOP"), -1);
+        gchar *desktop_session = g_ascii_strdown(getenv("DESKTOP_SESSION"), -1);
+        gchar *gdmsession = g_ascii_strdown(getenv("GDMSESSION"), -1);
 
-		// g_strcmp0 returns 0 on equal strings
-		if (!g_strcmp0(xdg_current_desktop, "GNOME") || !g_strcmp0(xdg_session_desktop, "GNOME"))
-		{
-			if (!g_strcmp0(gdmsession, "gnome-shell"))
-				override = VNR_PREFS_DESKTOP_GNOME3;
-			else if (!g_strcmp0(gdmsession, "gnome-classic") || !g_strcmp0(gdmsession, "gnome-fallback"))
-				override = VNR_PREFS_DESKTOP_GNOME2;
-			else if (!g_strcmp0(gdmsession, "cinnamon"))
-				override = VNR_PREFS_DESKTOP_CINNAMON;
-		}
-		else if (!g_strcmp0(xdg_current_desktop, "XFCE") || !g_strcmp0(xdg_session_desktop, "XFCE"))
-			override = VNR_PREFS_DESKTOP_XFCE;
-		else if (!g_strcmp0(xdg_current_desktop, "MATE") || !g_strcmp0(xdg_session_desktop, "MATE"))
-			override = VNR_PREFS_DESKTOP_MATE;
-		else if (!g_strcmp0(xdg_current_desktop, "LXDE") || !g_strcmp0(xdg_session_desktop, "LXDE"))
-			override = VNR_PREFS_DESKTOP_LXDE;
-		else if (!g_strcmp0(desktop_session, "fluxbox"))
-			override = VNR_PREFS_DESKTOP_FLUXBOX;
+        // g_strcmp0 returns 0 on equal strings
+        if (!g_strcmp0(xdg_current_desktop, "GNOME") || !g_strcmp0(xdg_session_desktop, "GNOME"))
+        {
+            if (!g_strcmp0(gdmsession, "gnome-shell"))
+                override = VNR_PREFS_DESKTOP_GNOME3;
+            else if (!g_strcmp0(gdmsession, "gnome-classic") || !g_strcmp0(gdmsession, "gnome-fallback"))
+                override = VNR_PREFS_DESKTOP_GNOME2;
+            else if (!g_strcmp0(gdmsession, "cinnamon"))
+                override = VNR_PREFS_DESKTOP_CINNAMON;
+        }
+        else if (!g_strcmp0(xdg_current_desktop, "XFCE") || !g_strcmp0(xdg_session_desktop, "XFCE"))
+            override = VNR_PREFS_DESKTOP_XFCE;
+        else if (!g_strcmp0(xdg_current_desktop, "MATE") || !g_strcmp0(xdg_session_desktop, "MATE"))
+            override = VNR_PREFS_DESKTOP_MATE;
+        else if (!g_strcmp0(xdg_current_desktop, "LXDE") || !g_strcmp0(xdg_session_desktop, "LXDE"))
+            override = VNR_PREFS_DESKTOP_LXDE;
+        else if (!g_strcmp0(desktop_session, "fluxbox"))
+            override = VNR_PREFS_DESKTOP_FLUXBOX;
 
-		g_free(xdg_current_desktop);
-		g_free(xdg_session_desktop);
-		g_free(desktop_session);
-		g_free(gdmsession);
+        g_free(xdg_current_desktop);
+        g_free(xdg_session_desktop);
+        g_free(desktop_session);
+        g_free(gdmsession);
 
-		if (override == -1)
-		{
-			fprintf(stderr, _("No desktop environment detected.\n"));
-			return;
-		}
-		else
-		{
-			win->prefs->desktop = override;
-			vnr_prefs_save(win->prefs);
-		}
-	}
-	else override = win->prefs->desktop;
+        if (override == -1)
+        {
+            fprintf(stderr, _("No desktop environment detected.\n"));
+            return;
+        }
+        else
+        {
+            win->prefs->desktop = override;
+            vnr_prefs_save(win->prefs);
+        }
+    }
+    else override = win->prefs->desktop;
 
 
-		switch(override) {
-			case VNR_PREFS_DESKTOP_GNOME2:
-				execlp("gconftool-2", "gconftool-2",
-						"--set", "/desktop/gnome/background/picture_filename",
-						"--type", "string",
-						VNR_FILE(win->file_list->data)->path,
-						NULL);
-				break;
-			case VNR_PREFS_DESKTOP_MATE:
-				execlp("gsettings", "gsettings",
-						"set", "org.mate.background",
-						"picture-filename", VNR_FILE(win->file_list->data)->path,
-						NULL);
-				break;
-			case VNR_PREFS_DESKTOP_GNOME3:
-				tmp = g_strdup_printf("file://%s", VNR_FILE(win->file_list->data)->path);
-				execlp("gsettings", "gsettings",
-						"set", "org.gnome.desktop.background",
-						"picture-uri", tmp,
-						NULL);
-				break;
-			case VNR_PREFS_DESKTOP_XFCE:
-				tmp = g_strdup_printf("/backdrop/screen%d/monitor0/workspace0/last-image",
-										gdk_screen_get_number(gtk_widget_get_screen(GTK_WIDGET(win))));
-				execlp("xfconf-query", "xfconf-query",
-						"-c", "xfce4-desktop",
-						"-p", tmp,
-						"--type", "string",
-						"--set",
-						VNR_FILE(win->file_list->data)->path,
-						NULL);
-				break;
-			case VNR_PREFS_DESKTOP_LXDE:
-				execlp("pcmanfm", "pcmanfm",
-						"--set-wallpaper",
-						VNR_FILE(win->file_list->data)->path,
-						NULL);
-				break;
-			case VNR_PREFS_DESKTOP_PUPPY:
-				execlp("set_bg", "set_bg",
-						VNR_FILE(win->file_list->data)->path,
-						NULL);
-				break;
-			case VNR_PREFS_DESKTOP_FLUXBOX:
-				execlp("fbsetbg", "fbsetbg",
-						"-f", VNR_FILE(win->file_list->data)->path,
-						NULL);
-				break;
-			case VNR_PREFS_DESKTOP_NITROGEN:
-				execlp("nitrogen", "nitrogen",
-						"--set-zoom-fill", "--save",
-						VNR_FILE(win->file_list->data)->path,
-						NULL);
-				break;
-			case VNR_PREFS_DESKTOP_CINNAMON:
-				tmp = g_strdup_printf("file://%s", VNR_FILE(win->file_list->data)->path);
-				execlp("gsettings", "gsettings",
-						"set", "org.cinnamon.desktop.background",
-						"picture-uri", tmp,
-						NULL);
-				break;
-			default:
-				_exit(0);
-		}
-	} else {
-		wait(NULL);
-	}
+        switch(override) {
+            case VNR_PREFS_DESKTOP_GNOME2:
+                execlp("gconftool-2", "gconftool-2",
+                        "--set", "/desktop/gnome/background/picture_filename",
+                        "--type", "string",
+                        VNR_FILE(win->file_list->data)->path,
+                        NULL);
+                break;
+            case VNR_PREFS_DESKTOP_MATE:
+                execlp("gsettings", "gsettings",
+                        "set", "org.mate.background",
+                        "picture-filename", VNR_FILE(win->file_list->data)->path,
+                        NULL);
+                break;
+            case VNR_PREFS_DESKTOP_GNOME3:
+                tmp = g_strdup_printf("file://%s", VNR_FILE(win->file_list->data)->path);
+                execlp("gsettings", "gsettings",
+                        "set", "org.gnome.desktop.background",
+                        "picture-uri", tmp,
+                        NULL);
+                break;
+            case VNR_PREFS_DESKTOP_XFCE:
+                tmp = g_strdup_printf("/backdrop/screen%d/monitor0/workspace0/last-image",
+                                        gdk_screen_get_number(gtk_widget_get_screen(GTK_WIDGET(win))));
+                execlp("xfconf-query", "xfconf-query",
+                        "-c", "xfce4-desktop",
+                        "-p", tmp,
+                        "--type", "string",
+                        "--set",
+                        VNR_FILE(win->file_list->data)->path,
+                        NULL);
+                break;
+            case VNR_PREFS_DESKTOP_LXDE:
+                execlp("pcmanfm", "pcmanfm",
+                        "--set-wallpaper",
+                        VNR_FILE(win->file_list->data)->path,
+                        NULL);
+                break;
+            case VNR_PREFS_DESKTOP_PUPPY:
+                execlp("set_bg", "set_bg",
+                        VNR_FILE(win->file_list->data)->path,
+                        NULL);
+                break;
+            case VNR_PREFS_DESKTOP_FLUXBOX:
+                execlp("fbsetbg", "fbsetbg",
+                        "-f", VNR_FILE(win->file_list->data)->path,
+                        NULL);
+                break;
+            case VNR_PREFS_DESKTOP_NITROGEN:
+                execlp("nitrogen", "nitrogen",
+                        "--set-zoom-fill", "--save",
+                        VNR_FILE(win->file_list->data)->path,
+                        NULL);
+                break;
+            case VNR_PREFS_DESKTOP_CINNAMON:
+                tmp = g_strdup_printf("file://%s", VNR_FILE(win->file_list->data)->path);
+                execlp("gsettings", "gsettings",
+                        "set", "org.cinnamon.desktop.background",
+                        "picture-uri", tmp,
+                        NULL);
+                break;
+            default:
+                _exit(0);
+        }
+    } else {
+        wait(NULL);
+    }
 }
 
 static void
@@ -2019,14 +2019,14 @@ vnr_window_key_press (GtkWidget *widget, GdkEventKey *event)
             result = TRUE;
             break;
         case 'h':
-        	vnr_window_cmd_flip_horizontal(NULL, window);
-        	break;
+            vnr_window_cmd_flip_horizontal(NULL, window);
+            break;
         case 'v':
-        	vnr_window_cmd_flip_vertical(NULL, window);
-        	break;
+            vnr_window_cmd_flip_vertical(NULL, window);
+            break;
         case 'c':
-        	vnr_window_cmd_crop(NULL, window);
-        	break;
+            vnr_window_cmd_crop(NULL, window);
+            break;
     }
 
     if (result == FALSE && GTK_WIDGET_CLASS (vnr_window_parent_class)->key_press_event)
@@ -2356,8 +2356,8 @@ vnr_window_init (VnrWindow * window)
     g_signal_connect (G_OBJECT (window->view), "drag-data-get",
                       G_CALLBACK (window_drag_begin_cb), window);
 
-	g_signal_connect (G_OBJECT (window->button_menu), "hide",
-					  G_CALLBACK(vnr_window_cmd_main_menu_hidden), window);
+    g_signal_connect (G_OBJECT (window->button_menu), "hide",
+                      G_CALLBACK(vnr_window_cmd_main_menu_hidden), window);
 
     gtk_window_add_accel_group (GTK_WINDOW (window),
                 gtk_ui_manager_get_accel_group (window->ui_mngr));
@@ -2439,21 +2439,21 @@ vnr_window_open (VnrWindow * window, gboolean fit_to_screen)
 
     if(window->mode != VNR_WINDOW_MODE_NORMAL && window->prefs->fit_on_fullscreen)
     {
-		uni_image_view_set_zoom_mode (UNI_IMAGE_VIEW(window->view), VNR_PREFS_ZOOM_FIT);
+        uni_image_view_set_zoom_mode (UNI_IMAGE_VIEW(window->view), VNR_PREFS_ZOOM_FIT);
     }
     else if(window->prefs->zoom == VNR_PREFS_ZOOM_LAST_USED )
     {
-		uni_image_view_set_fitting (UNI_IMAGE_VIEW(window->view), last_fit_mode);
-		zoom_changed_cb(UNI_IMAGE_VIEW(window->view), window);
+        uni_image_view_set_fitting (UNI_IMAGE_VIEW(window->view), last_fit_mode);
+        zoom_changed_cb(UNI_IMAGE_VIEW(window->view), window);
     }
     else
     {
-		uni_image_view_set_zoom_mode (UNI_IMAGE_VIEW(window->view), window->prefs->zoom);
+        uni_image_view_set_zoom_mode (UNI_IMAGE_VIEW(window->view), window->prefs->zoom);
     }
 
-	if ( window->prefs->auto_resize ) {
-	    vnr_window_cmd_resize(NULL, window);
-	}
+    if ( window->prefs->auto_resize ) {
+        vnr_window_cmd_resize(NULL, window);
+    }
 
     if(gtk_widget_get_visible(window->props_dlg))
         vnr_properties_dialog_update(VNR_PROPERTIES_DIALOG(window->props_dlg));
