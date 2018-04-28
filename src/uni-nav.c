@@ -95,16 +95,19 @@ gtk_image_get_current_rectangle (UniNav * nav)
 static void
 uni_nav_draw_rectangle (UniNav * nav, gboolean clear_last)
 {
+    GdkWindow * window;
     GdkRectangle rect;
+
+    window = gtk_widget_get_window (nav->preview);
     rect = gtk_image_get_current_rectangle (nav);
 
     /* Clear the last drawn rectangle. */
     if (clear_last)
-        gdk_draw_rectangle (nav->preview->window, nav->gc, FALSE,
+        gdk_draw_rectangle (window, nav->gc, FALSE,
                             nav->last_rect.x, nav->last_rect.y,
                             nav->last_rect.width, nav->last_rect.height);
 
-    gdk_draw_rectangle (nav->preview->window, nav->gc, FALSE,
+    gdk_draw_rectangle (window, nav->gc, FALSE,
                         rect.x, rect.y, rect.width, rect.height);
     nav->last_rect = rect;
 }
@@ -174,12 +177,16 @@ static gboolean
 uni_nav_expose_drawing_area (GtkWidget * widget,
                              GdkEventExpose * ev, UniNav * nav)
 {
+    GdkWindow * window;
+    GtkStyle * style;
+
     if (!nav->pixbuf)
         return FALSE;
 
-    gdk_draw_pixbuf (nav->preview->window,
-                     nav->preview->style->white_gc,
-                     nav->pixbuf,
+    window = gtk_widget_get_window (nav->preview);
+    style = gtk_widget_get_style (nav->preview);
+
+    gdk_draw_pixbuf (window, style->white_gc, nav->pixbuf,
                      0, 0, 0, 0, -1, -1, GDK_RGB_DITHER_MAX, 0, 0);
     uni_nav_draw_rectangle (nav, FALSE);
     uni_nav_update_position (nav);
@@ -209,7 +216,7 @@ uni_nav_motion_notify (GtkWidget * widget, GdkEventMotion * ev)
 {
     UniNav *nav = UNI_NAV (widget);
     int mx, my;
-    gdk_window_get_pointer (widget->window, &mx, &my, NULL);
+    gdk_window_get_pointer (gtk_widget_get_window (widget), &mx, &my, NULL);
 
     /* Make coordinates relative to window. */
     mx -= 4;
@@ -293,7 +300,7 @@ uni_nav_realize (GtkWidget * widget)
 {
     GTK_WIDGET_CLASS (uni_nav_parent_class)->realize (widget);
     UniNav *nav = UNI_NAV (widget);
-    nav->gc = gdk_gc_new (widget->window);
+    nav->gc = gdk_gc_new (gtk_widget_get_window (widget));
     gdk_gc_set_function (nav->gc, GDK_INVERT);
     gdk_gc_set_line_attributes (nav->gc,
                                 3,
@@ -420,6 +427,7 @@ void
 uni_nav_grab (UniNav * nav)
 {
     GtkWidget *preview = nav->preview;
+    GdkWindow *window;
 
     gtk_grab_add (preview);
 
@@ -427,12 +435,12 @@ uni_nav_grab (UniNav * nav)
     int mask = (GDK_POINTER_MOTION_MASK
                 | GDK_POINTER_MOTION_HINT_MASK
                 | GDK_BUTTON_RELEASE_MASK | GDK_EXTENSION_EVENTS_ALL);
-    gdk_pointer_grab (preview->window, TRUE, mask, preview->window, cursor,
-                      0);
+    window = gtk_widget_get_window (preview);
+    gdk_pointer_grab (window, TRUE, mask, window, cursor, 0);
     gdk_cursor_unref (cursor);
 
     /* Capture keyboard events. */
-    gdk_keyboard_grab (preview->window, TRUE, GDK_CURRENT_TIME);
+    gdk_keyboard_grab (window, TRUE, GDK_CURRENT_TIME);
     gtk_widget_grab_focus (preview);
 }
 

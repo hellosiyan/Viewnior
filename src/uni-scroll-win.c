@@ -275,8 +275,11 @@ gboolean
 uni_scroll_win_image_fits (UniScrollWin * window)
 {
     GtkAdjustment *hadj, *vadj;
+    GtkAllocation allocation;
+
     hadj = gtk_range_get_adjustment (GTK_RANGE (window->hscroll));
     vadj = gtk_range_get_adjustment (GTK_RANGE (window->vscroll));
+    gtk_widget_get_allocation (GTK_WIDGET (window), &allocation);
 
     /* We compare with the allocation size for the window instead of
        hadj->page_size and vadj->page_size. If the scrollbars are
@@ -286,10 +289,8 @@ uni_scroll_win_image_fits (UniScrollWin * window)
        of pixels that COULD be shown if the scrollbars weren't
        there.
      */
-    int width = GTK_WIDGET (window)->allocation.width;
-    int height = GTK_WIDGET (window)->allocation.height;
-
-    return hadj->upper <= width && vadj->upper <= height;
+    return gtk_adjustment_get_upper (hadj) <= allocation.width &&
+           gtk_adjustment_get_upper (vadj) <= allocation.height;
 }
 
 /**
