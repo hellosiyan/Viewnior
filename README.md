@@ -7,7 +7,7 @@ This is Viewnior, an image viewer program. Created to be simple, fast and elegan
   * Animation support
   * Browse only selected images
   * Navigation window
-  * Set image as wallpaper (Gnome 2, Gnome 3, XFCE, LXDE, FluxBox, Nitrogen, Puppylinux)
+  * Set image as wallpaper (Gnome 2, Gnome 3, XFCE, MATE, Cinnamon, LXDE, FluxBox, Nitrogen, Puppylinux)
   * EXIF and IPTC metadata
   * Simple interface
   * Configurable mouse actions
@@ -34,4 +34,4 @@ This program is released under the terms of the [GNU General Public License](htt
 
 object-rotate-left.png, object-rotate-right.png are taken from Elementary icon theme by ~DanRabbit (under GPL). object-flip-horizontal.png, object-flip-vertical.png are taken from Gnome icon theme (under GPL).
 
-*Last Edited - 04 March 2018*
+*Last Edited - 28 April 2018*
