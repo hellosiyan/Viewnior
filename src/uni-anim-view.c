@@ -147,7 +147,7 @@ uni_anim_view_init_signals (UniAnimViewClass * klass)
      *
      * Stops the animation if it was playing or resumes it, if it was
      * playing. ::toggle-running is a keybinding signal emitted when
-     * %GDK_p is pressed on the widget and should not be used by
+     * %GDK_KEY_p is pressed on the widget and should not be used by
      * clients of this library.
      **/
     uni_anim_view_signals[TOGGLE_RUNNING] =
@@ -163,7 +163,7 @@ uni_anim_view_init_signals (UniAnimViewClass * klass)
      *
      * Steps the animation one frame forward. If the animation is
      * playing it will first be stopped. ::step is a keybinding signal
-     * emitted when %GDK_j is pressed on the widget and should not be
+     * emitted when %GDK_KEY_j is pressed on the widget and should not be
      * used by clients of this library.
      **/
     uni_anim_view_signals[STEP] =
@@ -190,10 +190,10 @@ uni_anim_view_class_init (UniAnimViewClass * klass)
     GtkBindingSet *binding_set = gtk_binding_set_by_class (klass);
 
     /* Stop */
-    gtk_binding_entry_add_signal (binding_set, GDK_p, 0, "toggle_running", 0);
+    gtk_binding_entry_add_signal (binding_set, GDK_KEY_p, 0, "toggle_running", 0);
 
     /* Step */
-    gtk_binding_entry_add_signal (binding_set, GDK_j, 0, "step", 0);
+    gtk_binding_entry_add_signal (binding_set, GDK_KEY_j, 0, "step", 0);
 }
 
 /**

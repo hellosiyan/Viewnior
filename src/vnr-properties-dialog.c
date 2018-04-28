@@ -33,7 +33,7 @@ static void vnr_properties_dialog_update_metadata(VnrPropertiesDialog *dialog);
 static gboolean
 key_press_cb (GtkWidget *widget, GdkEventKey *event, gpointer user_data)
 {
-    if(event->keyval == GDK_Escape)
+    if(event->keyval == GDK_KEY_Escape)
     {
         gtk_widget_hide(widget);
         return TRUE;

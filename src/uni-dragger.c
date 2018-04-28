@@ -84,6 +84,9 @@ uni_dragger_button_release (UniDragger * tool, GdkEventButton * ev)
 gboolean
 uni_dragger_motion_notify (UniDragger * tool, GdkEventMotion * ev)
 {
+    GtkAdjustment * vadj;
+    GtkAdjustment * hadj;
+
     if (tool->pressed)
         tool->dragging = TRUE;
     else
@@ -96,10 +99,12 @@ uni_dragger_motion_notify (UniDragger * tool, GdkEventMotion * ev)
     uni_dragger_get_drag_delta (tool, &dx, &dy);
     if (abs (dx) < 1 && abs (dy) < 1)
         return FALSE;
-        
+
+    vadj = UNI_IMAGE_VIEW(tool->view)->vadj;
+    hadj = UNI_IMAGE_VIEW(tool->view)->hadj;
     if ( pow(dx, 2) + pow(dy, 2) > 7 && UNI_IMAGE_VIEW(tool->view)->pixbuf != NULL && 
-    		UNI_IMAGE_VIEW(tool->view)->vadj->upper <= UNI_IMAGE_VIEW(tool->view)->vadj->page_size && 
-    		UNI_IMAGE_VIEW(tool->view)->hadj->upper <= UNI_IMAGE_VIEW(tool->view)->hadj->page_size ) 
+    		gtk_adjustment_get_upper(vadj) <= gtk_adjustment_get_page_size(vadj) && 
+    		gtk_adjustment_get_upper(hadj) <= gtk_adjustment_get_page_size(hadj) ) 
     {
 		uni_dragger_button_release (tool, (GdkEventButton*)ev);
     	gtk_drag_begin (GTK_WIDGET(tool->view),
