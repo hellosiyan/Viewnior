@@ -100,6 +100,7 @@ struct _VnrPrefs {
     gboolean start_slideshow;
     gboolean start_fullscreen;
     gboolean auto_resize;
+    gboolean dark_background;
     int slideshow_timeout;
     int jpeg_quality;
     int png_compression;
