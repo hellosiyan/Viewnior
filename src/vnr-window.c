@@ -1,5 +1,5 @@
 /*
- * Copyright © 2009-2015 Siyan Panayotov <contact@siyanpanayotov.com>
+ * Copyright © 2009-2018 Siyan Panayotov <contact@siyanpanayotov.com>
  *
  * This file is part of Viewnior.
  *
@@ -1377,7 +1377,7 @@ vnr_window_cmd_about (GtkAction *action, VnrWindow *window)
     gtk_show_about_dialog (GTK_WINDOW (window),
                    "program-name", "Viewnior",
                    "version", VERSION,
-                   "copyright", "Copyright \xc2\xa9 2009-2015 Siyan Panayotov <contact@siyanpanayotov.com>",
+                   "copyright", "Copyright \xc2\xa9 2009-2018 Siyan Panayotov <contact@siyanpanayotov.com>",
                    "comments",_("Elegant Image Viewer"),
                    "authors", authors,
                    "logo-icon-name", "viewnior",
