@@ -106,10 +106,10 @@ uni_detect_desktop_environment ()
 {
     VnrPrefsDesktop environment = VNR_PREFS_DESKTOP_GNOME3;
 
-    gchar *xdg_current_desktop = g_ascii_strup(getenv("XDG_CURRENT_DESKTOP"), -1);
-    gchar *xdg_session_desktop = g_ascii_strup(getenv("XDG_SESSION_DESKTOP"), -1);
-    gchar *desktop_session = g_ascii_strdown(getenv("DESKTOP_SESSION"), -1);
-    gchar *gdmsession = g_ascii_strdown(getenv("GDMSESSION"), -1);
+    gchar *xdg_current_desktop = g_ascii_strup(g_getenv("XDG_CURRENT_DESKTOP"), -1);
+    gchar *xdg_session_desktop = g_ascii_strup(g_getenv("XDG_SESSION_DESKTOP"), -1);
+    gchar *desktop_session = g_ascii_strdown(g_getenv("DESKTOP_SESSION"), -1);
+    gchar *gdmsession = g_ascii_strdown(g_getenv("GDMSESSION"), -1);
 
     if (!g_strcmp0(xdg_current_desktop, "GNOME") || !g_strcmp0(xdg_session_desktop, "GNOME"))
     {
