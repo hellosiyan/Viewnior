@@ -12,6 +12,7 @@ viewnior_sources = [
     'uni-image-view.c',
     'vnr-message-area.c',
     'vnr-properties-dialog.c',
+    'vnr-tree.c',
     'vnr-file.c',
     'uni-utils.c',
     'vnr-prefs.c',

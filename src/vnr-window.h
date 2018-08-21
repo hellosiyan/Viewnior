@@ -74,7 +74,7 @@ struct _VnrWindow {
     GtkWidget *view;
     GtkWidget *scroll_view;
 
-    GList *file_list;
+    GNode *tree;
 
     VnrPrefs *prefs;
 
@@ -117,10 +117,10 @@ GtkWindow*  vnr_window_new      (void);
 
 /* Actions */
 gboolean vnr_window_open     (VnrWindow *win, gboolean fit_to_screen);
-void     vnr_window_open_from_list (VnrWindow *window, GSList *uri_list);
+void     vnr_window_open_from_list (VnrWindow *window, GSList *uri_list, gboolean open_recursively);
 void     vnr_window_close    (VnrWindow *win);
 
-void     vnr_window_set_list (VnrWindow *win, GList *list, gboolean free_current);
+void     vnr_window_set_tree (VnrWindow *win, GNode *tree, gboolean free_current);
 gboolean vnr_window_next     (VnrWindow *win, gboolean rem_timeout);
 gboolean vnr_window_prev     (VnrWindow *win);
 gboolean vnr_window_first    (VnrWindow *win);
@@ -128,6 +128,8 @@ gboolean vnr_window_last     (VnrWindow *win);
 void     deny_slideshow      (VnrWindow *window);
 void     vnr_window_apply_preferences (VnrWindow *window);
 void     vnr_window_toggle_fullscreen (VnrWindow *win);
+
+void tree_changed_callback(gboolean deleted, char* path, GNode *changed_node, GNode *root, gpointer data);
 
 G_END_DECLS
 #endif /* __VNR_WINDOW_H__ */
