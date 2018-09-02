@@ -1270,10 +1270,32 @@ vnr_window_cmd_reload (GtkAction *action, VnrWindow *window)
     vnr_window_open(window, FALSE);
 }
 
+
+static void
+update_preview_cb(GtkFileChooser *file_chooser, gpointer data)
+{
+    GtkWidget *preview = GTK_WIDGET(data);
+    char *filename = gtk_file_chooser_get_preview_filename(file_chooser);
+
+    if(filename != NULL) {
+        GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file_at_size(filename, 256, 256, NULL);
+        gboolean has_preview = pixbuf != NULL;
+        g_free(filename);
+
+        gtk_image_set_from_pixbuf(GTK_IMAGE(preview), pixbuf);
+        if(pixbuf) {
+            g_object_unref(pixbuf);
+        }
+
+        gtk_file_chooser_set_preview_widget_active(file_chooser, has_preview);
+    }
+}
+
 static void
 vnr_window_cmd_open(GtkAction *action, VnrWindow *window)
 {
     GtkWidget *dialog;
+    GtkWidget *preview;
     GtkFileFilter *img_filter = NULL;
     GtkFileFilter *all_filter = NULL;
 
@@ -1301,6 +1323,11 @@ vnr_window_cmd_open(GtkAction *action, VnrWindow *window)
     gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
 
     gtk_file_chooser_set_filter (GTK_FILE_CHOOSER(dialog), img_filter);
+
+    preview = gtk_image_new();
+    gtk_file_chooser_set_preview_widget(GTK_FILE_CHOOSER(dialog), preview);
+    g_signal_connect(GTK_FILE_CHOOSER(dialog), "update-preview",
+                     G_CALLBACK(update_preview_cb), preview);
 
     gchar *dirname;
     if(window->file_list != NULL)
