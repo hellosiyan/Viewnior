@@ -27,8 +27,11 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 #include <errno.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <sys/wait.h>
 #include "vnr-window.h"
+#include "vnr-tree.h"
 #include "uni-scroll-win.h"
 #include "uni-anim-view.h"
 #include "vnr-tools.h"
@@ -244,7 +247,7 @@ vnr_window_update_openwith_menu (VnrWindow *window)
     GList *apps;
     guint action_id = 0;
 
-    file = g_file_new_for_path ((gchar*)VNR_FILE(window->file_list->data)->path);
+    file = g_file_new_for_path ((gchar*)VNR_FILE(window->tree->data)->path);
     file_info = g_file_query_info (file,
                        G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
                        0, NULL, NULL);
@@ -387,9 +390,9 @@ update_fs_filename_label(VnrWindow *window)
     gint position, total;
     char *buf = NULL;
 
-    get_position_of_element_in_list(window->file_list, &position, &total);
+    get_leaf_position(window->tree, &position, &total);
     buf = g_strdup_printf ("%s - %i/%i",
-                           VNR_FILE(window->file_list->data)->display_name,
+                           VNR_FILE(window->tree->data)->display_name,
                            position, total);
 
     gtk_label_set_text(GTK_LABEL(window->fs_filename_label), buf);
@@ -400,7 +403,7 @@ update_fs_filename_label(VnrWindow *window)
 static gboolean
 next_image_src(VnrWindow *window)
 {
-    if(g_list_length(g_list_first(window->file_list)) <= 1)
+    if(get_total_number_of_leaves(window->tree) <= 1)
         return FALSE;
     else
         vnr_window_next(window, FALSE);
@@ -476,7 +479,6 @@ get_fs_controls(VnrWindow *window)
     window->toggle_btn = widget;
 
     /* Create spin button to adjust slideshow's timeout */
-    //spinner_adj = (GtkAdjustment *) gtk_adjustment_new (5, 1.0, 30.0, 1.0, 1.0, 0);
     spinner_adj = (GtkAdjustment *) gtk_adjustment_new (window->prefs->slideshow_timeout, 1.0, 30.0, 1.0, 1.0, 0);
     widget = gtk_spin_button_new (spinner_adj, 1.0, 0);
     gtk_spin_button_set_snap_to_ticks (GTK_SPIN_BUTTON(widget), TRUE);
@@ -677,26 +679,23 @@ restart_slideshow(VnrWindow *window)
                                                    window);
 }
 
-static void
-allow_slideshow(VnrWindow *window)
+void
+allow_or_deny_slideshow(VnrWindow *window, gboolean allow)
 {
-    if(window->slideshow)
-        return;
+    if(window->slideshow != allow) {
+        window->slideshow = allow;
+        gtk_widget_set_sensitive(window->toggle_btn, allow);
+    }
+}
 
-    window->slideshow = TRUE;
-
-    gtk_widget_set_sensitive(window->toggle_btn, TRUE);
+static void
+allow_slideshow(VnrWindow *window) {
+    allow_or_deny_slideshow(window, TRUE);
 }
 
 void
-deny_slideshow(VnrWindow *window)
-{
-    if(!window->slideshow)
-        return;
-
-    window->slideshow = FALSE;
-
-    gtk_widget_set_sensitive(window->toggle_btn, FALSE);
+deny_slideshow(VnrWindow *window) {
+    allow_or_deny_slideshow(window, FALSE);
 }
 
 static void
@@ -834,7 +833,7 @@ open_with_launch_application_cb (GtkAction *action, VnrWindow *window)
     GFile *file;
     GList *files = NULL;
 
-    file = g_file_new_for_path ((gchar*)VNR_FILE(window->file_list->data)->path);
+    file = g_file_new_for_path ((gchar*)VNR_FILE(window->tree->data)->path);
 
     app = g_object_get_data (G_OBJECT (action), "app");
     files = g_list_append (files, file);
@@ -920,11 +919,13 @@ save_image_cb (GtkWidget *widget, VnrWindow *window)
     /* This makes the cursor show NOW */
     gdk_flush();
 
-    if(window->prefs->behavior_modify == VNR_PREFS_MODIFY_ASK)
+    if(window->prefs->behavior_modify == VNR_PREFS_MODIFY_ASK) {
         vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
+    }
 
+    char* path = VNR_FILE(window->tree->data)->path;
     /* Store exiv2 metadata to cache, so we can restore it afterwards */
-    uni_read_exiv2_to_cache(VNR_FILE(window->file_list->data)->path);
+    uni_read_exiv2_to_cache(path);
 
     if(g_strcmp0(window->writable_format_name, "jpeg" ) == 0)
     {
@@ -932,7 +933,7 @@ save_image_cb (GtkWidget *widget, VnrWindow *window)
         quality = g_strdup_printf ("%i", window->prefs->jpeg_quality);
 
         gdk_pixbuf_save (uni_image_view_get_pixbuf(UNI_IMAGE_VIEW(window->view)),
-                         VNR_FILE(window->file_list->data)->path, "jpeg",
+                         path, "jpeg",
                          &error, "quality", quality, NULL);
         g_free(quality);
     }
@@ -942,17 +943,17 @@ save_image_cb (GtkWidget *widget, VnrWindow *window)
         compression = g_strdup_printf ("%i", window->prefs->png_compression);
 
         gdk_pixbuf_save (uni_image_view_get_pixbuf(UNI_IMAGE_VIEW(window->view)),
-                         VNR_FILE(window->file_list->data)->path, "png",
+                         path, "png",
                          &error, "compression", compression, NULL);
         g_free(compression);
     }
     else
     {
         gdk_pixbuf_save (uni_image_view_get_pixbuf(UNI_IMAGE_VIEW(window->view)),
-                         VNR_FILE(window->file_list->data)->path,
+                         path,
                          window->writable_format_name, &error, NULL);
     }
-    uni_write_exiv2_from_cache(VNR_FILE(window->file_list->data)->path);
+    uni_write_exiv2_from_cache(path);
 
     if(!window->cursor_is_hidden)
         gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(window)), gdk_cursor_new(GDK_LEFT_PTR));
@@ -985,25 +986,25 @@ static void
 vnr_window_main_menu_position (GtkMenu *menu, gint *x, gint *y, gboolean *push_in, gpointer user_data)
 {
     VnrWindow *window = VNR_WINDOW(user_data);
-  GtkWidget *button = window->properties_button;
+    GtkWidget *button = window->properties_button;
     GdkWindow *gdk_window = gtk_widget_get_window(button);
-  GtkRequisition req = {0, 0};
-  GtkAllocation toolbar_allocation;
-  GtkAllocation button_allocation;
+    GtkRequisition req = {0, 0};
+    GtkAllocation toolbar_allocation;
+    GtkAllocation button_allocation;
 
     gdk_window_get_position(gdk_window, x, y);
 
-    // in maximuzed and fullscreen states gdk_window_get_position returns 0
-    if ( *x == 0 && gtk_widget_get_visible ( get_fs_controls(window)) ) {
-    GtkAllocation allocation;
+    // In maximized and fullscreen states gdk_window_get_position returns 0
+    if (*x == 0 && gtk_widget_get_visible(get_fs_controls(window))) {
+        GtkAllocation allocation;
 
-    gtk_widget_get_allocation(get_fs_controls(window), &allocation);
+        gtk_widget_get_allocation(get_fs_controls(window), &allocation);
         *x -= allocation.width;
     }
 
-  gtk_widget_size_request(GTK_WIDGET(menu), &req);
-  gtk_widget_get_allocation(window->toolbar, &toolbar_allocation);
-  gtk_widget_get_allocation(button, &button_allocation);
+    gtk_widget_size_request(GTK_WIDGET(menu), &req);
+    gtk_widget_get_allocation(window->toolbar, &toolbar_allocation);
+    gtk_widget_get_allocation(button, &button_allocation);
 
     *x += toolbar_allocation.width - req.width;
     *y += button_allocation.height;
@@ -1012,11 +1013,15 @@ vnr_window_main_menu_position (GtkMenu *menu, gint *x, gint *y, gboolean *push_i
 static void
 vnr_window_cmd_open_menu (GtkToggleAction *action, VnrWindow *window)
 {
-    if( !gtk_toggle_action_get_active (action)) {
-        return;
+    if(gtk_toggle_action_get_active (action)) {
+        gtk_menu_popup(GTK_MENU(window->button_menu),
+                       NULL,
+                       NULL,
+                       vnr_window_main_menu_position,
+                       window,
+                       0,
+                       gtk_get_current_event_time());
     }
-    gtk_menu_popup(GTK_MENU(window->button_menu), NULL, NULL, vnr_window_main_menu_position, window, 0, gtk_get_current_event_time());
-    return;
 }
 
 static void
@@ -1040,28 +1045,27 @@ window_realize_cb(GtkWidget *widget, gpointer user_data)
     {
         if ( VNR_WINDOW(widget)->prefs->start_maximized ) {
             vnr_window_open(VNR_WINDOW(widget), FALSE);
-        } 
-        else 
+        }
+        else
         {
             GdkScreen *screen;
             GdkRectangle monitor;
             screen = gtk_window_get_screen (GTK_WINDOW (widget));
             gdk_screen_get_monitor_geometry (screen,
-                                             gdk_screen_get_monitor_at_window (screen,
-                                             gtk_widget_get_window (widget)),
+                                             gdk_screen_get_monitor_at_window (screen, gtk_widget_get_window (widget)),
                                              &monitor);
 
-            VNR_WINDOW(widget)->max_width = monitor.width * 0.9 - 100;
+            VNR_WINDOW(widget)->max_width  = monitor.width  * 0.9 - 100;
             VNR_WINDOW(widget)->max_height = monitor.height * 0.9 - 100;
 
             vnr_window_open(VNR_WINDOW(widget), TRUE);
         }
-        if ( VNR_WINDOW(widget)->prefs->start_slideshow && VNR_WINDOW(widget)->file_list != NULL ) {
+        if ( VNR_WINDOW(widget)->prefs->start_slideshow && VNR_WINDOW(widget)->tree != NULL ) {
             vnr_window_fullscreen(VNR_WINDOW(widget));
             VNR_WINDOW(widget)->mode = VNR_WINDOW_MODE_NORMAL;
             allow_slideshow(VNR_WINDOW(widget));
             start_slideshow(VNR_WINDOW(widget));
-        } else if ( VNR_WINDOW(widget)->prefs->start_fullscreen && VNR_WINDOW(widget)->file_list != NULL ) {
+        } else if ( VNR_WINDOW(widget)->prefs->start_fullscreen && VNR_WINDOW(widget)->tree != NULL ) {
             vnr_window_fullscreen(VNR_WINDOW(widget));
         }
     }
@@ -1092,24 +1096,29 @@ window_destroy_cb (GtkObject *object, gpointer user_data)
 }
 
 static void
+set_window_title(UniImageView *view, VnrWindow *window)
+{
+    char *buf = NULL;
+    gint position, total;
+    get_leaf_position(window->tree, &position, &total);
+
+    buf = g_strdup_printf ("%s%s - %i/%i - %ix%i - %i%%", (window->modifications)?"*":"",
+                           VNR_FILE(window->tree->data)->display_name,
+                           position, total,
+                           window->current_image_width, window->current_image_height,
+                           (int)(view->zoom*100.));
+
+    gtk_window_set_title (GTK_WINDOW(window), buf);
+    g_free(buf);
+}
+
+static void
 zoom_changed_cb (UniImageView *view, VnrWindow *window)
 {
-    gint position, total;
-    char *buf = NULL;
-
     /* Change the info, only if there is an image
      * (vnr_window_close isn't called on the current image) */
-    if(gtk_action_group_get_sensitive (window->actions_image))
-    {
-        get_position_of_element_in_list(window->file_list, &position, &total);
-        buf = g_strdup_printf ("%s%s - %i/%i - %ix%i - %i%%", (window->modifications)?"*":"",
-                               VNR_FILE(window->file_list->data)->display_name,
-                               position, total,
-                               window->current_image_width, window->current_image_height,
-                               (int)(view->zoom*100.));
-
-        gtk_window_set_title (GTK_WINDOW(window), buf);
-        g_free(buf);
+    if(gtk_action_group_get_sensitive (window->actions_image)) {
+        set_window_title(view, window);
     }
 }
 
@@ -1124,7 +1133,7 @@ window_drag_begin_cb (GtkWidget *widget,
 {
     gchar *uris[2];
 
-    uris[0] = g_filename_to_uri((gchar*)VNR_FILE(VNR_WINDOW(user_data)->file_list->data)->path, NULL, NULL);
+    uris[0] = g_filename_to_uri((gchar*)VNR_FILE(VNR_WINDOW(user_data)->tree->data)->path, NULL, NULL);
     uris[1] = NULL;
 
     gtk_selection_data_set_uris (data, uris);
@@ -1140,9 +1149,16 @@ file_open_dialog_response_cb (GtkWidget *dialog,
     if (response_id == GTK_RESPONSE_ACCEPT)
     {
         GSList *uri_list = NULL;
+        gboolean open_recursively = FALSE;
         uri_list = gtk_file_chooser_get_filenames (GTK_FILE_CHOOSER (dialog));
         g_return_if_fail(uri_list != NULL);
-        vnr_window_open_from_list(window, uri_list);
+
+        GtkWidget *toggle_btn = gtk_file_chooser_get_extra_widget(GTK_FILE_CHOOSER(dialog));
+        if(toggle_btn != NULL) {
+            open_recursively = gtk_toggle_button_get_active((GtkToggleButton *) toggle_btn);
+        }
+
+        vnr_window_open_from_list(window, uri_list, open_recursively);
     }
 
     gtk_widget_destroy (dialog);
@@ -1157,19 +1173,15 @@ vnr_window_cmd_preferences(GtkAction *action, gpointer user_data)
 static void
 vnr_window_cmd_flip_horizontal(GtkAction *action, VnrWindow *window)
 {
-    if ( !gtk_action_group_get_sensitive(window->actions_static_image) )
-        return;
-
-    flip_pixbuf(window, TRUE);
+    if(gtk_action_group_get_sensitive(window->actions_static_image))
+        flip_pixbuf(window, TRUE);
 }
 
 static void
 vnr_window_cmd_flip_vertical(GtkAction *action, VnrWindow *window)
 {
-    if ( !gtk_action_group_get_sensitive(window->actions_static_image) )
-        return;
-
-    flip_pixbuf(window, FALSE);
+    if(gtk_action_group_get_sensitive(window->actions_static_image))
+        flip_pixbuf(window, FALSE);
 }
 
 static void
@@ -1270,10 +1282,47 @@ vnr_window_cmd_reload (GtkAction *action, VnrWindow *window)
     vnr_window_open(window, FALSE);
 }
 
+
+static gboolean
+file_size_is_small(char *filename) {
+
+    struct stat st;
+    int four_mb = 4 * 1024 * 1024;
+
+    if(filename != NULL && stat(filename, &st) == 0) {
+        return st.st_size < four_mb;
+    }
+    return FALSE;
+}
+
+static void
+update_preview_cb(GtkFileChooser *file_chooser, gpointer data)
+{
+    GtkWidget *preview = GTK_WIDGET(data);
+    char *filename = gtk_file_chooser_get_preview_filename(file_chooser);
+    gboolean has_preview = FALSE;
+
+    if(file_size_is_small(filename)) {
+        GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file_at_size(filename, 256, 256, NULL);
+        has_preview = pixbuf != NULL;
+
+        gtk_image_set_from_pixbuf(GTK_IMAGE(preview), pixbuf);
+        if(pixbuf) {
+            g_object_unref(pixbuf);
+        }
+    }
+    gtk_file_chooser_set_preview_widget_active(file_chooser, has_preview);
+    if(filename != NULL) {
+        g_free(filename);
+    }
+}
+
 static void
 vnr_window_cmd_open(GtkAction *action, VnrWindow *window)
 {
     GtkWidget *dialog;
+    GtkWidget *open_recursively_checkbox;
+    GtkWidget *preview;
     GtkFileFilter *img_filter = NULL;
     GtkFileFilter *all_filter = NULL;
 
@@ -1302,10 +1351,18 @@ vnr_window_cmd_open(GtkAction *action, VnrWindow *window)
 
     gtk_file_chooser_set_filter (GTK_FILE_CHOOSER(dialog), img_filter);
 
+    open_recursively_checkbox = gtk_check_button_new_with_label(_("Include subfolders"));
+    gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(dialog), open_recursively_checkbox);
+
+    preview = gtk_image_new();
+    gtk_file_chooser_set_preview_widget(GTK_FILE_CHOOSER(dialog), preview);
+    g_signal_connect(GTK_FILE_CHOOSER(dialog), "update-preview",
+                     G_CALLBACK(update_preview_cb), preview);
+
     gchar *dirname;
-    if(window->file_list != NULL)
+    if(window->tree != NULL)
     {
-        dirname = g_path_get_dirname (VNR_FILE(window->file_list->data)->path);
+        dirname = g_path_get_dirname (VNR_FILE(window->tree->data)->path);
         gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER(dialog), dirname);
         g_free(dirname);
     }
@@ -1324,6 +1381,7 @@ static void
 vnr_window_cmd_open_dir(GtkAction *action, VnrWindow *window)
 {
     GtkWidget *dialog;
+    GtkWidget *open_recursively_checkbox;
     dialog = gtk_file_chooser_dialog_new (_("Open Folder"),
                           GTK_WINDOW(window),
                           GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
@@ -1334,10 +1392,13 @@ vnr_window_cmd_open_dir(GtkAction *action, VnrWindow *window)
     gtk_window_set_modal (GTK_WINDOW(dialog), FALSE);
     gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
 
+    open_recursively_checkbox = gtk_check_button_new_with_label(_("Include subfolders"));
+    gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(dialog), open_recursively_checkbox);
+
     gchar *dirname;
-    if(window->file_list != NULL)
+    if(window->tree != NULL)
     {
-        dirname = g_path_get_dirname (VNR_FILE(window->file_list->data)->path);
+        dirname = g_path_get_dirname (VNR_FILE(window->tree->data)->path);
         gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER(dialog), dirname);
         g_free(dirname);
     }
@@ -1391,12 +1452,11 @@ vnr_window_cmd_about (GtkAction *action, VnrWindow *window)
 static void
 vnr_set_wallpaper(GtkAction *action, VnrWindow *win)
 {
-    pid_t pid;
-
-    pid = fork();
+    pid_t pid = fork();
 
     if ( pid == 0 ) {
-        gchar * tmp;
+        gchar *tmp;
+        gchar *path = VNR_FILE(win->tree->data)->path;
 
         VnrPrefsDesktop desktop_environment = win->prefs->desktop;
 
@@ -1408,63 +1468,63 @@ vnr_set_wallpaper(GtkAction *action, VnrWindow *win)
         switch(desktop_environment) {
             case VNR_PREFS_DESKTOP_GNOME2:
                 execlp("gconftool-2", "gconftool-2",
-                        "--set", "/desktop/gnome/background/picture_filename",
-                        "--type", "string",
-                        VNR_FILE(win->file_list->data)->path,
-                        NULL);
+                       "--set", "/desktop/gnome/background/picture_filename",
+                       "--type", "string",
+                       path,
+                       NULL);
                 break;
             case VNR_PREFS_DESKTOP_MATE:
                 execlp("gsettings", "gsettings",
-                        "set", "org.mate.background",
-                        "picture-filename", VNR_FILE(win->file_list->data)->path,
-                        NULL);
+                       "set", "org.mate.background",
+                       "picture-filename", path,
+                       NULL);
                 break;
             case VNR_PREFS_DESKTOP_GNOME3:
-                tmp = g_strdup_printf("file://%s", VNR_FILE(win->file_list->data)->path);
+                tmp = g_strdup_printf("file://%s", path);
                 execlp("gsettings", "gsettings",
-                        "set", "org.gnome.desktop.background",
-                        "picture-uri", tmp,
-                        NULL);
+                       "set", "org.gnome.desktop.background",
+                       "picture-uri", tmp,
+                       NULL);
                 break;
             case VNR_PREFS_DESKTOP_XFCE:
                 tmp = g_strdup_printf("/backdrop/screen%d/monitor0/workspace0/last-image",
-                                        gdk_screen_get_number(gtk_widget_get_screen(GTK_WIDGET(win))));
+                                      gdk_screen_get_number(gtk_widget_get_screen(GTK_WIDGET(win))));
                 execlp("xfconf-query", "xfconf-query",
-                        "-c", "xfce4-desktop",
-                        "-p", tmp,
-                        "--type", "string",
-                        "--set",
-                        VNR_FILE(win->file_list->data)->path,
-                        NULL);
+                       "-c", "xfce4-desktop",
+                       "-p", tmp,
+                       "--type", "string",
+                       "--set",
+                       path,
+                       NULL);
                 break;
             case VNR_PREFS_DESKTOP_LXDE:
                 execlp("pcmanfm", "pcmanfm",
-                        "--set-wallpaper",
-                        VNR_FILE(win->file_list->data)->path,
-                        NULL);
+                       "--set-wallpaper",
+                       path,
+                       NULL);
                 break;
             case VNR_PREFS_DESKTOP_PUPPY:
                 execlp("set_bg", "set_bg",
-                        VNR_FILE(win->file_list->data)->path,
-                        NULL);
+                       path,
+                       NULL);
                 break;
             case VNR_PREFS_DESKTOP_FLUXBOX:
                 execlp("fbsetbg", "fbsetbg",
-                        "-f", VNR_FILE(win->file_list->data)->path,
-                        NULL);
+                       "-f", path,
+                       NULL);
                 break;
             case VNR_PREFS_DESKTOP_NITROGEN:
                 execlp("nitrogen", "nitrogen",
-                        "--set-zoom-fill", "--save",
-                        VNR_FILE(win->file_list->data)->path,
-                        NULL);
+                       "--set-zoom-fill", "--save",
+                       path,
+                       NULL);
                 break;
             case VNR_PREFS_DESKTOP_CINNAMON:
-                tmp = g_strdup_printf("file://%s", VNR_FILE(win->file_list->data)->path);
+                tmp = g_strdup_printf("file://%s", path);
                 execlp("gsettings", "gsettings",
-                        "set", "org.cinnamon.desktop.background",
-                        "picture-uri", tmp,
-                        NULL);
+                       "set", "org.cinnamon.desktop.background",
+                       "picture-uri", tmp,
+                       NULL);
                 break;
             default:
                 _exit(0);
@@ -1593,9 +1653,9 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
     if(window->fs_source != NULL)
         restart_autohide_timeout = TRUE;
 
-    g_return_if_fail (window->file_list != NULL);
+    g_return_if_fail (window->tree != NULL);
 
-    file_path = VNR_FILE(window->file_list->data)->path;
+    file_path = VNR_FILE(window->tree->data)->path;
 
     if(window->prefs->confirm_delete)
     {
@@ -1604,7 +1664,7 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
         /* I18N: The '%s' is replaced with the name of the file to be deleted. */
         prompt = g_strdup_printf (_("Are you sure you want to\n"
                                     "permanently delete \"%s\"?"),
-                                  VNR_FILE(window->file_list->data)->display_name);
+                                  VNR_FILE(window->tree->data)->display_name);
         markup = g_strdup_printf ("<span weight=\"bold\" size=\"larger\">%s</span>\n\n%s",
                                   prompt, warning);
 
@@ -1624,7 +1684,7 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
                                 NULL);
     }
 
-    if(!window->prefs->confirm_delete || gtk_dialog_run(GTK_DIALOG(dlg)) == GTK_RESPONSE_YES )
+    if(!window->prefs->confirm_delete || gtk_dialog_run(GTK_DIALOG(dlg)) == GTK_RESPONSE_YES)
     {
         GFile *file;
         GError *error = NULL;
@@ -1635,23 +1695,21 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
         if( error != NULL )
         {
             vnr_message_area_show(VNR_MESSAGE_AREA (window->msg_area), TRUE,
-                                   error->message, FALSE);
+                                  error->message, FALSE);
             restart_slideshow = FALSE;
         }
         else
         {
-            GList *next;
+            GNode *next;
 
-            next = g_list_next(window->file_list);
-            if(next == NULL)
-                next = g_list_first(window->file_list);
-
-            if(g_list_length(g_list_first(window->file_list)) != 1)
-                window->file_list = g_list_delete_link (window->file_list, window->file_list);
-            else
-            {
-                g_list_free(window->file_list);
+            next = get_next_in_tree(window->tree);
+            if(get_total_number_of_leaves(window->tree) == 1) {
+                free_whole_tree(window->tree);
                 next = NULL;
+            } else {
+
+                g_node_unlink(window->tree);
+                free_current_tree(window->tree);
             }
 
             if(next == NULL)
@@ -1659,7 +1717,7 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
                 vnr_window_close(window);
                 gtk_action_group_set_sensitive(window->actions_collection, FALSE);
                 deny_slideshow(window);
-                vnr_window_set_list(window, NULL, FALSE);
+                vnr_window_set_tree(window, NULL, FALSE);
                 vnr_message_area_show(VNR_MESSAGE_AREA (window->msg_area), TRUE,
                                       _("The given locations contain no images."),
                                       TRUE);
@@ -1671,7 +1729,7 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
             }
             else
             {
-                vnr_window_set_list(window, next, FALSE);
+                vnr_window_set_tree(window, next, FALSE);
                 if(window->prefs->confirm_delete && !window->cursor_is_hidden)
                     gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(dlg)),
                                           gdk_cursor_new(GDK_WATCH));
@@ -1700,7 +1758,7 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
     {
         g_free(prompt);
         g_free(markup);
-        gtk_widget_destroy( dlg );
+        gtk_widget_destroy(dlg);
     }
 }
 
@@ -1762,12 +1820,12 @@ vnr_window_cmd_crop(GtkAction *action, VnrWindow *window)
 }
 
 static const GtkActionEntry action_entries_window[] = {
-    { "File",  NULL, N_("_File") },
-    { "Edit",  NULL, N_("_Edit") },
-    { "View",  NULL, N_("_View") },
-    { "Image",  NULL, N_("_Image") },
-    { "Go",    NULL, N_("_Go") },
-    { "Help",  NULL, N_("_Help") },
+    { "File",  NULL, N_("_File")  },
+    { "Edit",  NULL, N_("_Edit")  },
+    { "View",  NULL, N_("_View")  },
+    { "Image", NULL, N_("_Image") },
+    { "Go",    NULL, N_("_Go")    },
+    { "Help",  NULL, N_("_Help")  },
 
     { "FileOpen", GTK_STOCK_FILE, N_("Open _Image..."), "<control>O",
       N_("Open an Image"),
@@ -2038,7 +2096,7 @@ vnr_window_drag_data_received (GtkWidget *widget,
             return;
         }
 
-        vnr_window_open_from_list(VNR_WINDOW (widget), uri_list);
+        vnr_window_open_from_list(VNR_WINDOW (widget), uri_list, FALSE);
     }
 }
 
@@ -2064,7 +2122,7 @@ vnr_window_init (VnrWindow * window)
     GtkAction *action;
 
     window->writable_format_name = NULL;
-    window->file_list = NULL;
+    window->tree = NULL;
     window->fs_controls = NULL;
     window->fs_source = NULL;
     window->ss_timeout = 5;
@@ -2338,7 +2396,7 @@ vnr_window_init (VnrWindow * window)
     gtk_window_add_accel_group (GTK_WINDOW (window),
                 gtk_ui_manager_get_accel_group (window->ui_mngr));
 
-     vnr_window_load_accel_map();
+    vnr_window_load_accel_map();
 }
 
 /*************************************************************/
@@ -2352,11 +2410,12 @@ vnr_window_open (VnrWindow * window, gboolean fit_to_screen)
     GdkPixbufFormat *format;
     UniFittingMode last_fit_mode;
     GError *error = NULL;
+    gboolean is_static;
 
-    if(window->file_list == NULL)
+    if(window->tree == NULL)
         return FALSE;
 
-    file = VNR_FILE(window->file_list->data);
+    file = VNR_FILE(window->tree->data);
 
     update_fs_filename_label(window);
 
@@ -2409,11 +2468,8 @@ vnr_window_open (VnrWindow * window, gboolean fit_to_screen)
 
     last_fit_mode = UNI_IMAGE_VIEW(window->view)->fitting;
 
-    /* Return TRUE if the image is static */
-    if ( uni_anim_view_set_anim (UNI_ANIM_VIEW (window->view), pixbuf) )
-        gtk_action_group_set_sensitive(window->actions_static_image, TRUE);
-    else
-        gtk_action_group_set_sensitive(window->actions_static_image, FALSE);
+    is_static = uni_anim_view_set_anim (UNI_ANIM_VIEW (window->view), pixbuf);
+    gtk_action_group_set_sensitive(window->actions_static_image, is_static);
 
     if(window->mode != VNR_WINDOW_MODE_NORMAL && window->prefs->fit_on_fullscreen)
     {
@@ -2443,21 +2499,28 @@ vnr_window_open (VnrWindow * window, gboolean fit_to_screen)
 }
 
 void
-vnr_window_open_from_list(VnrWindow *window, GSList *uri_list)
+vnr_window_open_from_list(VnrWindow *window, GSList *uri_list, gboolean open_recursively)
 {
-    GList *file_list = NULL;
+    GNode *tree = NULL;
     GError *error = NULL;
 
-    if (g_slist_length(uri_list) == 1)
-    {
-        vnr_file_load_single_uri (uri_list->data, &file_list, window->prefs->show_hidden, &error);
-    }
-    else
-    {
-        vnr_file_load_uri_list (uri_list, &file_list, window->prefs->show_hidden, &error);
+    if (g_slist_length(uri_list) == 1) {
+        tree = create_tree_from_single_uri(uri_list->data,
+                                           window->prefs->show_hidden,
+                                           open_recursively,
+                                           tree_changed_callback,
+                                           window,
+                                           &error);
+    } else {
+        tree = create_tree_from_uri_list(uri_list,
+                                         window->prefs->show_hidden,
+                                         open_recursively,
+                                         tree_changed_callback,
+                                         window,
+                                         &error);
     }
 
-    if(error != NULL && file_list != NULL)
+    if(error != NULL && tree != NULL)
     {
         vnr_window_close(window);
         gtk_action_group_set_sensitive(window->actions_collection, FALSE);
@@ -2465,7 +2528,7 @@ vnr_window_open_from_list(VnrWindow *window, GSList *uri_list)
         vnr_message_area_show(VNR_MESSAGE_AREA (window->msg_area),
                               TRUE, error->message, TRUE);
 
-        vnr_window_set_list(window, file_list, TRUE);
+        vnr_window_set_tree(window, tree, TRUE);
     }
     else if(error != NULL)
     {
@@ -2474,7 +2537,7 @@ vnr_window_open_from_list(VnrWindow *window, GSList *uri_list)
         vnr_message_area_show(VNR_MESSAGE_AREA (window->msg_area),
                               TRUE, error->message, TRUE);
     }
-    else if(file_list == NULL)
+    else if(tree == NULL)
     {
         vnr_window_close(window);
         gtk_action_group_set_sensitive(window->actions_collection, FALSE);
@@ -2485,7 +2548,7 @@ vnr_window_open_from_list(VnrWindow *window, GSList *uri_list)
     }
     else
     {
-        vnr_window_set_list(window, file_list, TRUE);
+        vnr_window_set_tree(window, tree, TRUE);
         if(!window->cursor_is_hidden)
             gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(window)),
                                   gdk_cursor_new(GDK_WATCH));
@@ -2511,11 +2574,11 @@ vnr_window_close(VnrWindow *window)
 }
 
 void
-vnr_window_set_list (VnrWindow *window, GList *list, gboolean free_current)
+vnr_window_set_tree (VnrWindow *window, GNode *tree, gboolean free_current)
 {
-    if (free_current == TRUE && window->file_list != NULL)
-        g_list_free (window->file_list);
-    if (g_list_length(g_list_first(list)) > 1)
+    if (free_current == TRUE && window->tree != NULL)
+        free_whole_tree(window->tree);
+    if (get_total_number_of_leaves(tree) > 1)
     {
         gtk_action_group_set_sensitive(window->actions_collection, TRUE);
         allow_slideshow(window);
@@ -2525,28 +2588,21 @@ vnr_window_set_list (VnrWindow *window, GList *list, gboolean free_current)
         gtk_action_group_set_sensitive(window->actions_collection, FALSE);
         deny_slideshow(window);
     }
-    window->file_list = list;
+    window->tree = tree;
 }
 
 gboolean
-vnr_window_next (VnrWindow *window, gboolean rem_timeout){
-    GList *next;
+vnr_window_next (VnrWindow *window, gboolean rem_timeout) {
 
     /* Don't reload current image
      * if the list contains only one (or no) image */
-    if (g_list_length(g_list_first(window->file_list)) <2)
+    if (get_total_number_of_leaves(window->tree) <= 1)
         return FALSE;
 
     if(window->mode == VNR_WINDOW_MODE_SLIDESHOW && rem_timeout)
         g_source_remove (window->ss_source_tag);
 
-    next = g_list_next(window->file_list);
-    if(next == NULL)
-    {
-        next = g_list_first(window->file_list);
-    }
-
-    window->file_list = next;
+    window->tree = get_next_in_tree(window->tree);
 
     if(!window->cursor_is_hidden)
         gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(window)),
@@ -2568,24 +2624,17 @@ vnr_window_next (VnrWindow *window, gboolean rem_timeout){
 }
 
 gboolean
-vnr_window_prev (VnrWindow *window){
-    GList *prev;
+vnr_window_prev (VnrWindow *window) {
 
     /* Don't reload current image
      * if the list contains only one (or no) image */
-    if (g_list_length(g_list_first(window->file_list)) <2)
+    if (get_total_number_of_leaves(window->tree) <= 1)
         return FALSE;
 
     if(window->mode == VNR_WINDOW_MODE_SLIDESHOW)
         g_source_remove (window->ss_source_tag);
 
-    prev = g_list_previous(window->file_list);
-    if(prev == NULL)
-    {
-        prev = g_list_last(window->file_list);
-    }
-
-    window->file_list = prev;
+    window->tree = get_prev_in_tree(window->tree);
 
     if(!window->cursor_is_hidden)
         gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(window)),
@@ -2608,16 +2657,13 @@ vnr_window_prev (VnrWindow *window){
 
 gboolean
 vnr_window_first (VnrWindow *window){
-    GList *prev;
-
-    prev = g_list_first(window->file_list);
 
     if(vnr_message_area_is_critical(VNR_MESSAGE_AREA(window->msg_area)))
     {
         vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
     }
 
-    window->file_list = prev;
+    window->tree = get_first_in_tree(window->tree);
 
     if(!window->cursor_is_hidden)
         gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(window)),
@@ -2634,16 +2680,13 @@ vnr_window_first (VnrWindow *window){
 
 gboolean
 vnr_window_last (VnrWindow *window){
-    GList *prev;
-
-    prev = g_list_last(window->file_list);
 
     if(vnr_message_area_is_critical(VNR_MESSAGE_AREA(window->msg_area)))
     {
         vnr_message_area_hide(VNR_MESSAGE_AREA(window->msg_area));
     }
 
-    window->file_list = prev;
+    window->tree = get_last_in_tree(window->tree);
 
     if(!window->cursor_is_hidden)
         gdk_window_set_cursor(gtk_widget_get_window(GTK_WIDGET(window)),
@@ -2682,12 +2725,26 @@ vnr_window_apply_preferences (VnrWindow *window)
 void
 vnr_window_toggle_fullscreen (VnrWindow *window)
 {
-    gboolean fullscreen;
-
-    fullscreen = (window->mode == VNR_WINDOW_MODE_NORMAL)?TRUE:FALSE;
+    gboolean fullscreen = window->mode == VNR_WINDOW_MODE_NORMAL;
 
     if (fullscreen)
         vnr_window_fullscreen (window);
     else
         vnr_window_unfullscreen (window);
+}
+
+void tree_changed_callback(gboolean deleted, char* path, GNode *changed_node, GNode *root, gpointer data) {
+    VnrWindow *window = data;
+
+    if(changed_node == window->tree && deleted) {
+        // The changed_node is the same as the currently opened file. This can only
+        // mean that the currently opened file was deleted. Go to the first file in
+        // the tree structure as fallback.
+        window->tree = root;
+        vnr_window_first(window);
+    }
+
+    if(window != NULL) {
+        set_window_title(UNI_IMAGE_VIEW(window->view), window);
+    }
 }

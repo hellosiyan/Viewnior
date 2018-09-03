@@ -1,6 +1,6 @@
 # Viewnior - Fast and elegant image viewer
 
-This is Viewnior, an image viewer program. Created to be simple, fast and elegant. It's minimalistic interface provides more screenspace for your images. Among its features are:
+This is Viewnior, an image viewer program. Created to be simple, fast and elegant. Its minimalistic interface provides more screenspace for your images. Among its features are:
 
   * Fullscreen & Slideshow
   * Rotate, flip, crop, save, delete images
@@ -11,8 +11,10 @@ This is Viewnior, an image viewer program. Created to be simple, fast and elegan
   * EXIF and IPTC metadata
   * Simple interface
   * Configurable mouse actions
+  * Recursively opens images in subfolders
+  * Updates when images are added or removed from folder
 
-Most of the Viewnior's sources handling image viewing are adopted from the GtkImageView library by Björn Lindqvist. The files were cleaned up and modified, so that unused functionalities were removed (GtkImageToolSelector, GtkImageToolPainter, GtkZooms). Prefixes were changed from gtk_ to uni_ for clarity.
+Most of the Viewnior's sources handling image viewing are adopted from the GtkImageView library by Björn Lindqvist. The files were cleaned up and modified, so that unused functionality were removed (GtkImageToolSelector, GtkImageToolPainter, GtkZooms). Prefixes were changed from gtk_ to uni_ for clarity.
 
 ## Requirements
 
@@ -34,4 +36,4 @@ This program is released under the terms of the [GNU General Public License](htt
 
 object-rotate-left.png, object-rotate-right.png are taken from Elementary icon theme by ~DanRabbit (under GPL). object-flip-horizontal.png, object-flip-vertical.png are taken from Gnome icon theme (under GPL).
 
-*Last Edited - 28 April 2018*
+*Last Edited - 21 August 2018*
