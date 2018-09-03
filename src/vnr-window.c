@@ -27,6 +27,8 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 #include <errno.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <sys/wait.h>
 #include "vnr-window.h"
 #include "vnr-tree.h"
@@ -1281,23 +1283,37 @@ vnr_window_cmd_reload (GtkAction *action, VnrWindow *window)
 }
 
 
+static gboolean
+file_size_is_small(char *filename) {
+
+    struct stat st;
+    int four_mb = 4 * 1024 * 1024;
+
+    if(filename != NULL && stat(filename, &st) == 0) {
+        return st.st_size < four_mb;
+    }
+    return FALSE;
+}
+
 static void
 update_preview_cb(GtkFileChooser *file_chooser, gpointer data)
 {
     GtkWidget *preview = GTK_WIDGET(data);
     char *filename = gtk_file_chooser_get_preview_filename(file_chooser);
+    gboolean has_preview = FALSE;
 
-    if(filename != NULL) {
+    if(file_size_is_small(filename)) {
         GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file_at_size(filename, 256, 256, NULL);
-        gboolean has_preview = pixbuf != NULL;
-        g_free(filename);
+        has_preview = pixbuf != NULL;
 
         gtk_image_set_from_pixbuf(GTK_IMAGE(preview), pixbuf);
         if(pixbuf) {
             g_object_unref(pixbuf);
         }
-
-        gtk_file_chooser_set_preview_widget_active(file_chooser, has_preview);
+    }
+    gtk_file_chooser_set_preview_widget_active(file_chooser, has_preview);
+    if(filename != NULL) {
+        g_free(filename);
     }
 }
 
