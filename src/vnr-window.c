@@ -2306,6 +2306,9 @@ vnr_window_init (VnrWindow * window)
 
     gtk_widget_grab_focus(window->view);
 
+    // Initialize slideshow timeout
+    window->ss_timeout = window->prefs->slideshow_timeout;
+
     /* Care for Properties dialog */
     window->props_dlg = vnr_properties_dialog_new(window,
                              gtk_action_group_get_action (window->actions_collection,
