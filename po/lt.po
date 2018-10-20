@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-02-07 22:04+0200\n"
-"PO-Revision-Date: 2015-10-08 22:16+0000\n"
-"Last-Translator: Moo <hazap@hotmail.com>\n"
+"PO-Revision-Date: 2018-07-27 16:15+0300\n"
+"Last-Translator: Moo\n"
 "Language-Team: Lithuanian <lt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"(n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Launchpad-Export-Date: 2018-03-04 17:52+0000\n"
-"X-Generator: Launchpad (build 18566)\n"
+"X-Generator: Poedit 2.0.6\n"
+"Language: lt\n"
 
 #: ../data/viewnior.desktop.in.in.h:1
 msgid "Viewnior"
@@ -29,11 +30,11 @@ msgstr "Elegantiška paveikslų žiūryklė"
 
 #: ../data/vnr-preferences-dialog.ui.h:1
 msgid "Viewnior Preferences"
-msgstr "Programos nustatymai"
+msgstr "Viewnior nuostatos"
 
 #: ../data/vnr-preferences-dialog.ui.h:2
 msgid "Open new image in: "
-msgstr "Atverti naują paveikslą: "
+msgstr "Atverti naują paveikslą naudojant: "
 
 #: ../data/vnr-preferences-dialog.ui.h:3
 msgid "Desktop: "
@@ -41,23 +42,23 @@ msgstr "Darbalaukis: "
 
 #: ../data/vnr-preferences-dialog.ui.h:4
 msgid "Smooth images when zoomed"
-msgstr "Glodinti pakeisto mastelio paveikslėlius"
+msgstr "Glodinti pakeisto mastelio paveikslus"
 
 #: ../data/vnr-preferences-dialog.ui.h:5
 msgid "Confirm image deletion"
-msgstr "Patvirtinkite paveikslo šalinimą"
+msgstr "Patvirtinti paveikslo ištrynimą"
 
 #: ../data/vnr-preferences-dialog.ui.h:6
 msgid "Show hidden images"
-msgstr "Rodyti slepiamus paveikslus"
+msgstr "Rodyti paslėptus paveikslus"
 
 #: ../data/vnr-preferences-dialog.ui.h:7
 msgid "General"
-msgstr "Bendri"
+msgstr "Bendra"
 
 #: ../data/vnr-preferences-dialog.ui.h:8
 msgid "Show next image after (in seconds): "
-msgstr "Rodyti tolesnį paveikslą po (sekundėmis): "
+msgstr "Rodyti kitą paveikslą po (sekundėmis): "
 
 #: ../data/vnr-preferences-dialog.ui.h:9
 msgid "Always expand images to fit screen"
@@ -73,11 +74,11 @@ msgstr "Pasukus pelės ratuką: "
 
 #: ../data/vnr-preferences-dialog.ui.h:12
 msgid "On double click: "
-msgstr "Dvigubu spustelėjimu: "
+msgstr "Spustelėjus du kartus: "
 
 #: ../data/vnr-preferences-dialog.ui.h:13
 msgid "On image modification: "
-msgstr "Pasikeitus paveikslėliui: "
+msgstr "Pasikeitus paveikslui: "
 
 #: ../data/vnr-preferences-dialog.ui.h:14
 msgid ""
@@ -85,17 +86,17 @@ msgid ""
 "  Clicking on the left half of the window shows the\n"
 "  previous image and on the right side - the next.</small> "
 msgstr ""
-"<small>  (!) Paveikslų naršymas dvigubu spustelėjimu:\n"
+"<small>  (!) Paveikslų naršymas dvikarčiu spustelėjimu:\n"
 "  Spustelėjus kairėje lango pusėje rodomas ankstesnis\n"
 "  paveikslas, spustelėjus dešinėje - kitas.</small> "
 
 #: ../data/vnr-preferences-dialog.ui.h:17
 msgid "Behavior"
-msgstr "Elgesys"
+msgstr "Elgsena"
 
 #: ../data/vnr-preferences-dialog.ui.h:18
 msgid "Reload image on save"
-msgstr "Įrašius paveikslą įkelti iš naujo"
+msgstr "Įrašius paveikslą įkelti jį iš naujo"
 
 #: ../data/vnr-preferences-dialog.ui.h:19
 msgid "JPEG quality:"
@@ -103,11 +104,11 @@ msgstr "JPEG kokybė:"
 
 #: ../data/vnr-preferences-dialog.ui.h:20
 msgid "PNG compression:"
-msgstr "PNG suspaudimas:"
+msgstr "PNG glaudinimas:"
 
 #: ../data/vnr-preferences-dialog.ui.h:21
 msgid "Saving"
-msgstr "Įrašoma"
+msgstr "Įrašymas"
 
 #: ../data/vnr-crop-dialog.ui.h:1
 msgid "Crop Image"
@@ -148,12 +149,12 @@ msgid ""
 "Couldn't recognise the image file\n"
 "format for file '%s'"
 msgstr ""
-"Nepavyko atpažinti paveikslo\n"
-"failo formato failui '%s'"
+"Nepavyko atpažinti failo \"%s\"\n"
+"paveikslo failo formato"
 
 #: ../src/vnr-prefs.c:260
 msgid "Smart Mode"
-msgstr "Išmani veiksena"
+msgstr "Išmanioji veiksena"
 
 #: ../src/vnr-prefs.c:261
 msgid "1:1 Mode"
@@ -161,7 +162,7 @@ msgstr "1:1 veiksena"
 
 #: ../src/vnr-prefs.c:262
 msgid "Fit To Window Mode"
-msgstr "Priderinti prie lango veiksena"
+msgstr "Talpinimo į langą veiksena"
 
 #: ../src/vnr-prefs.c:263
 msgid "Last Used Mode"
@@ -185,7 +186,7 @@ msgstr "Perjungti mastelio keitimo veikseną"
 
 #: ../src/vnr-prefs.c:303
 msgid "Enter fullscreen mode"
-msgstr "Įjungti viso ekrano režimą"
+msgstr "Įjungti viso ekrano veikseną"
 
 #: ../src/vnr-prefs.c:312
 msgid "Ask every time"
@@ -193,7 +194,7 @@ msgstr "Klausti kiekvieną kartą"
 
 #: ../src/vnr-prefs.c:313
 msgid "Autosave"
-msgstr "Automatinis įrašymas"
+msgstr "Automatiškai įrašyti"
 
 #: ../src/vnr-prefs.c:314
 msgid "Ignore changes"
@@ -239,12 +240,12 @@ msgstr "<b>Aukštis:</b>"
 #: ../src/vnr-properties-dialog.c:375 ../src/vnr-properties-dialog.c:376
 #: ../src/vnr-properties-dialog.c:377 ../src/vnr-properties-dialog.c:378
 msgid "None"
-msgstr "Nieko"
+msgstr "Nėra"
 
 #: ../src/vnr-window.c:297
 #, c-format
 msgid "Use \"%s\" to open the selected image"
-msgstr "Atverti pasirinktą paveikslą su „%s“"
+msgstr "Atverti pasirinktą paveikslą naudojant „%s“"
 
 #: ../src/vnr-window.c:467
 msgid "Show next image after: "
@@ -253,8 +254,8 @@ msgstr "Rodyti kitą paveikslą po: "
 #: ../src/vnr-window.c:485 ../src/vnr-window.c:902
 msgid " second"
 msgid_plural " seconds"
-msgstr[0] " sekundė"
-msgstr[1] " sekundės"
+msgstr[0] " sekundės"
+msgstr[1] " sekundžių"
 msgstr[2] " sekundžių"
 
 #: ../src/vnr-window.c:727 ../src/vnr-window.c:790
@@ -266,7 +267,7 @@ msgid ""
 "Image modifications cannot be saved.\n"
 "Writing in this format is not supported."
 msgstr ""
-"Negalima įrašyti paveikslėlio pakeitimų.\n"
+"Negalima įrašyti paveikslo pakeitimų.\n"
 "Įrašymas šiuo formatu nepalaikomas."
 
 #: ../src/vnr-window.c:768 ../src/vnr-window.c:826 ../src/vnr-window.c:1713
@@ -275,7 +276,7 @@ msgid ""
 "This will overwrite the image and may reduce its quality!"
 msgstr ""
 "Įrašyti modifikacijas?\n"
-"Tai perrašys paveikslą ir gali sumažinti jo kokybę!"
+"Tai perrašys paveikslą ir gali pabloginti jo kokybę!"
 
 #: ../src/vnr-window.c:1271
 msgid "Open Image"
@@ -312,8 +313,8 @@ msgid ""
 "Are you sure you want to\n"
 "permanently delete \"%s\"?"
 msgstr ""
-"Ar Jūs tikrai norite \n"
-"negrįžtamai pašalinti „%s“?"
+"Ar tikrai norite \n"
+"negrįžtamai ištrinti „%s“?"
 
 #: ../src/vnr-window.c:1721
 msgid "_File"
@@ -337,7 +338,7 @@ msgstr "_Eiti"
 
 #: ../src/vnr-window.c:1726
 msgid "_Help"
-msgstr "_Pagalba"
+msgstr "Ž_inynas"
 
 #: ../src/vnr-window.c:1728
 msgid "Open _Image..."
@@ -373,15 +374,15 @@ msgstr "Apie šią programą"
 
 #: ../src/vnr-window.c:1740
 msgid "_Preferences..."
-msgstr "_Parinktys..."
+msgstr "_Nuostatos..."
 
 #: ../src/vnr-window.c:1741
 msgid "User preferences for Viewnior"
-msgstr "Vartotojo parinktys programai"
+msgstr "Viewnior naudotojo nuostatos"
 
 #: ../src/vnr-window.c:1746
 msgid "_Save"
-msgstr "_Įrašyti"
+msgstr "Į_rašyti"
 
 #: ../src/vnr-window.c:1747
 msgid "Save changes"
@@ -397,43 +398,43 @@ msgstr "Savybės"
 
 #: ../src/vnr-window.c:1758
 msgid "Set as _Wallpaper"
-msgstr "Parinkti _darbalaukio fonu"
+msgstr "Nustatyti kaip _darbalaukio foną"
 
 #: ../src/vnr-window.c:1759
 msgid "Set the selected image as the desktop background"
-msgstr "Nustatyti parinktą paveikslą kaip darbalaukio foną"
+msgstr "Nustatyti pasirinktą paveikslą kaip darbalaukio foną"
 
 #: ../src/vnr-window.c:1764
 msgid "Open _With"
-msgstr "Atverti _su"
+msgstr "Atverti nau_dojant"
 
 #: ../src/vnr-window.c:1765
 msgid "Open the selected image with a different application"
-msgstr "Atverti parinktą paveikslą su kita programa"
+msgstr "Atverti pasirinktą paveikslą naudojant kitą programą"
 
 #: ../src/vnr-window.c:1767 ../src/vnr-window.c:1776
 msgid "_Delete"
-msgstr "_Pašalinti"
+msgstr "_Ištrinti"
 
 #: ../src/vnr-window.c:1768 ../src/vnr-window.c:1777
 msgid "Delete the current file"
-msgstr "Pašalinti parinktą failą"
+msgstr "Ištrinti esamą failą"
 
 #: ../src/vnr-window.c:1770
 msgid "_Properties..."
-msgstr "_Savybės"
+msgstr "_Savybės..."
 
 #: ../src/vnr-window.c:1771
 msgid "Show information about the current file"
-msgstr "Rodyti informaciją apie šį failą"
+msgstr "Rodyti informaciją apie esamą failą"
 
 #: ../src/vnr-window.c:1773
 msgid "_Reload"
-msgstr "_Įkelti iš naujo"
+msgstr "Į_kelti iš naujo"
 
 #: ../src/vnr-window.c:1774
 msgid "Reload the current file"
-msgstr "Įkelti šį failą iš naujo"
+msgstr "Įkelti esamą failą iš naujo"
 
 #: ../src/vnr-window.c:1779 ../src/vnr-window.c:1791 ../src/vnr-window.c:1794
 msgid "_Zoom In"
@@ -466,7 +467,7 @@ msgstr "_Geriausias priderinimas"
 
 #: ../src/vnr-window.c:1789
 msgid "Fit the image to the window"
-msgstr "Priderinti paveikslo dydį langui"
+msgstr "Priderinti paveikslo dydį prie lango"
 
 #: ../src/vnr-window.c:1803
 msgid "Rotate _Clockwise"
@@ -518,7 +519,7 @@ msgstr "_Priderinti lango dydį"
 
 #: ../src/vnr-window.c:1825
 msgid "Adjust window size to fit the image"
-msgstr "Priderinti lango dydį paveikslui"
+msgstr "Priderinti lango dydį prie paveikslo"
 
 #: ../src/vnr-window.c:1830
 msgid "Menu Bar"
@@ -538,11 +539,11 @@ msgstr "Rodyti įrankių juostą"
 
 #: ../src/vnr-window.c:1839
 msgid "Sli_deshow"
-msgstr "_Pristatymas"
+msgstr "Skai_drių rodymas"
 
 #: ../src/vnr-window.c:1840
 msgid "Show in slideshow mode"
-msgstr "Rodyti pristatymo veiksenoje"
+msgstr "Rodyti skaidrių rodymo veiksenoje"
 
 #: ../src/vnr-window.c:1845
 msgid "_Previous Image"
@@ -618,7 +619,7 @@ msgstr "Židinio nuotolis"
 
 #: ../src/uni-exiv2.hpp:59
 msgid "Software"
-msgstr "Programa"
+msgstr "Programinė įranga"
 
 #: ../src/uni-exiv2.hpp:63
 msgid "Description"
