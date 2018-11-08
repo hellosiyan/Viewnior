@@ -27,6 +27,8 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 #include <errno.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <sys/wait.h>
 #include "vnr-window.h"
 #include "uni-scroll-win.h"
@@ -1270,10 +1272,46 @@ vnr_window_cmd_reload (GtkAction *action, VnrWindow *window)
     vnr_window_open(window, FALSE);
 }
 
+
+static gboolean
+file_size_is_small(char *filename) {
+
+    struct stat st;
+    int four_mb = 4 * 1024 * 1024;
+
+    if(filename != NULL && stat(filename, &st) == 0) {
+        return st.st_size < four_mb;
+    }
+    return FALSE;
+}
+
+static void
+update_preview_cb(GtkFileChooser *file_chooser, gpointer data)
+{
+    GtkWidget *preview = GTK_WIDGET(data);
+    char *filename = gtk_file_chooser_get_preview_filename(file_chooser);
+    gboolean has_preview = FALSE;
+
+    if(file_size_is_small(filename)) {
+        GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file_at_size(filename, 256, 256, NULL);
+        has_preview = pixbuf != NULL;
+
+        gtk_image_set_from_pixbuf(GTK_IMAGE(preview), pixbuf);
+        if(pixbuf) {
+            g_object_unref(pixbuf);
+        }
+    }
+    gtk_file_chooser_set_preview_widget_active(file_chooser, has_preview);
+    if(filename != NULL) {
+        g_free(filename);
+    }
+}
+
 static void
 vnr_window_cmd_open(GtkAction *action, VnrWindow *window)
 {
     GtkWidget *dialog;
+    GtkWidget *preview;
     GtkFileFilter *img_filter = NULL;
     GtkFileFilter *all_filter = NULL;
 
@@ -1301,6 +1339,11 @@ vnr_window_cmd_open(GtkAction *action, VnrWindow *window)
     gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
 
     gtk_file_chooser_set_filter (GTK_FILE_CHOOSER(dialog), img_filter);
+
+    preview = gtk_image_new();
+    gtk_file_chooser_set_preview_widget(GTK_FILE_CHOOSER(dialog), preview);
+    g_signal_connect(GTK_FILE_CHOOSER(dialog), "update-preview",
+                     G_CALLBACK(update_preview_cb), preview);
 
     gchar *dirname;
     if(window->file_list != NULL)
