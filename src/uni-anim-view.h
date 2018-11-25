@@ -9,6 +9,7 @@
  * Viewnior is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
+
  * (at your option) any later version.
  *
  * Viewnior is distributed in the hope that it will be useful,
@@ -81,8 +82,6 @@ void        uni_anim_view_set_static        (UniAnimView * aview,
 
 void        uni_anim_view_set_is_playing    (UniAnimView * aview,
                                              gboolean playing);
-
-gboolean    uni_anim_view_get_is_playing    (UniAnimView * aview);
 
 G_END_DECLS
 #endif /* __UNI_ANIM_VIEW_H__ */

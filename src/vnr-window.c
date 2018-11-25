@@ -387,7 +387,7 @@ update_fs_filename_label(VnrWindow *window)
         return;
 
     gint position, total;
-    char *buf = NULL;
+    char *buf;
 
     get_position_of_element_in_list(window->file_list, &position, &total);
     buf = g_strdup_printf ("%s - %i/%i",
@@ -1141,10 +1141,10 @@ file_open_dialog_response_cb (GtkWidget *dialog,
 {
     if (response_id == GTK_RESPONSE_ACCEPT)
     {
-        GSList *uri_list = NULL;
-        uri_list = gtk_file_chooser_get_filenames (GTK_FILE_CHOOSER (dialog));
+        GSList *uri_list = gtk_file_chooser_get_filenames (GTK_FILE_CHOOSER (dialog));
         g_return_if_fail(uri_list != NULL);
         vnr_window_open_from_list(window, uri_list);
+        g_slist_free_full(uri_list, g_free);
     }
 
     gtk_widget_destroy (dialog);
@@ -1312,8 +1312,8 @@ vnr_window_cmd_open(GtkAction *action, VnrWindow *window)
 {
     GtkWidget *dialog;
     GtkWidget *preview;
-    GtkFileFilter *img_filter = NULL;
-    GtkFileFilter *all_filter = NULL;
+    GtkFileFilter *img_filter;
+    GtkFileFilter *all_filter;
 
     dialog = gtk_file_chooser_dialog_new (_("Open Image"),
                           GTK_WINDOW(window),
@@ -1345,10 +1345,9 @@ vnr_window_cmd_open(GtkAction *action, VnrWindow *window)
     g_signal_connect(GTK_FILE_CHOOSER(dialog), "update-preview",
                      G_CALLBACK(update_preview_cb), preview);
 
-    gchar *dirname;
     if(window->file_list != NULL)
     {
-        dirname = g_path_get_dirname (VNR_FILE(window->file_list->data)->path);
+        gchar *dirname = g_path_get_dirname (VNR_FILE(window->file_list->data)->path);
         gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER(dialog), dirname);
         g_free(dirname);
     }
@@ -1377,10 +1376,9 @@ vnr_window_cmd_open_dir(GtkAction *action, VnrWindow *window)
     gtk_window_set_modal (GTK_WINDOW(dialog), FALSE);
     gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
 
-    gchar *dirname;
     if(window->file_list != NULL)
     {
-        dirname = g_path_get_dirname (VNR_FILE(window->file_list->data)->path);
+        gchar *dirname = g_path_get_dirname (VNR_FILE(window->file_list->data)->path);
         gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER(dialog), dirname);
         g_free(dirname);
     }
@@ -1581,10 +1579,10 @@ vnr_window_cmd_scrollbar (GtkAction *action, VnrWindow *window)
 static void
 vnr_window_cmd_slideshow (GtkAction *action, VnrWindow *window)
 {
+    g_assert(window != NULL && VNR_IS_WINDOW(window));
+
     if(!window->slideshow)
         return;
-
-    g_assert(window != NULL && VNR_IS_WINDOW(window));
 
     gboolean slideshow;
 

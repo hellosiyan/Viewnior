@@ -45,16 +45,14 @@ static GList *
 vnr_file_get_supported_mime_types (void)
 {
     GSList *format_list, *it;
-    gchar **mime_types;
-    int i;
 
     if (!supported_mime_types) {
         format_list = gdk_pixbuf_get_formats ();
 
         for (it = format_list; it != NULL; it = it->next) {
-            mime_types =
-                gdk_pixbuf_format_get_mime_types ((GdkPixbufFormat *) it->data);
+            gchar **mime_types = gdk_pixbuf_format_get_mime_types((GdkPixbufFormat *) it->data);
 
+            int i;
             for (i = 0; mime_types[i] != NULL; i++) {
                 supported_mime_types =
                     g_list_prepend (supported_mime_types,
@@ -136,8 +134,6 @@ vnr_file_dir_content_to_list(gchar *path, gboolean sort, gboolean include_hidden
     GFile *file;
     GFileEnumerator *f_enum ;
     GFileInfo *file_info;
-    VnrFile *vnr_file;
-    const char *mimetype;
 
     file = g_file_new_for_path(path);
     f_enum = g_file_enumerate_children(file, G_FILE_ATTRIBUTE_STANDARD_NAME","
@@ -150,9 +146,9 @@ vnr_file_dir_content_to_list(gchar *path, gboolean sort, gboolean include_hidden
 
 
     while(file_info != NULL){
-        vnr_file = vnr_file_new();
+        VnrFile *vnr_file = vnr_file_new();
 
-        mimetype =g_file_info_get_content_type(file_info);
+        const char *mimetype =g_file_info_get_content_type(file_info);
 
         if(vnr_file_is_supported_mime_type(mimetype) && (include_hidden || !g_file_info_get_is_hidden (file_info)) ){
             vnr_file_set_display_name(vnr_file, (char*)g_file_info_get_display_name (file_info));
@@ -232,16 +228,14 @@ vnr_file_load_single_uri(char *p_path, GList **file_list, gboolean include_hidde
 void
 vnr_file_load_uri_list (GSList *uri_list, GList **file_list, gboolean include_hidden, GError **error)
 {
-    GFile *file;
-    GFileInfo *fileinfo;
     GFileType filetype;
     gchar *p_path;
 
     while(uri_list != NULL)
     {
         p_path = uri_list->data;
-        file = g_file_new_for_path(p_path);
-        fileinfo = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_TYPE","
+        GFile *file = g_file_new_for_path(p_path);
+        GFileInfo *fileinfo = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_TYPE","
                                       G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME","
                                       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE","
                                       G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN,

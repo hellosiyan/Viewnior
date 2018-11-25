@@ -219,7 +219,7 @@ uni_pixbuf_draw_cache_intersect_draw (UniPixbufDrawCache * cache,
 
     /* If there is no intersection, we have to scale the whole area
        from the source pixbuf. */
-    GdkRectangle inter;
+    GdkRectangle inter = {0, 0, 0, 0};
     GdkRectangle around[4] = {
         this,
         {0, 0, 0, 0},

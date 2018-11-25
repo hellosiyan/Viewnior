@@ -79,7 +79,7 @@ uni_nav_get_zoom2nav_factor (UniNav * nav)
 static GdkRectangle
 gtk_image_get_current_rectangle (UniNav * nav)
 {
-    GdkRectangle rect;
+    GdkRectangle rect = {0, 0, 0, 0};
     uni_image_view_get_viewport (nav->view, &rect);
 
     /* Convert Zoom space to Nav space coordinates. */
