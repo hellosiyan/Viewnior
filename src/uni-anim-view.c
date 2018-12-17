@@ -1,5 +1,5 @@
 /*
- * Copyright © 2009-2015 Siyan Panayotov <contact@siyanpanayotov.com>
+ * Copyright © 2009-2018 Siyan Panayotov <contact@siyanpanayotov.com>
  *
  *
  * Based on code by (see README for details):
@@ -336,18 +336,4 @@ uni_anim_view_set_is_playing (UniAnimView * aview, gboolean playing)
     }
     else if (playing && aview->anim)
         uni_anim_view_updator (aview);
-}
-
-/**
- * uni_anim_view_get_is_playing:
- * @aview: A #UniImageView.
- * @returns: %TRUE if an animation is playing, %FALSE otherwise.
- *
- * Returns whether the animation is playing or not. If there is no
- * current animation, this method will always returns %FALSE.
- **/
-gboolean
-uni_anim_view_get_is_playing (UniAnimView * aview)
-{
-    return aview->timer_id && aview->anim;
 }

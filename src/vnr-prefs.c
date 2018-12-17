@@ -1,5 +1,5 @@
 /*
- * Copyright © 2009-2015 Siyan Panayotov <contact@siyanpanayotov.com>
+ * Copyright © 2009-2018 Siyan Panayotov <contact@siyanpanayotov.com>
  *
  * This file is part of Viewnior.
  *
@@ -489,8 +489,10 @@ vnr_prefs_save (VnrPrefs *prefs)
 
     if(rcfile != NULL)
     {
-        fputs(g_key_file_to_data (conf, NULL, NULL), rcfile);
+        gchar *data = g_key_file_to_data (conf, NULL, NULL);
+        fputs(data, rcfile);
         fclose(rcfile);
+        g_free(data);
     }
     else
         g_warning("Saving config file: Unable to open the configuration file for writing!\n");

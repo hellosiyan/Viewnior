@@ -1,5 +1,5 @@
 /*
- * Copyright © 2009-2015 Siyan Panayotov <contact@siyanpanayotov.com>
+ * Copyright © 2009-2018 Siyan Panayotov <contact@siyanpanayotov.com>
  *
  * Based on code by (see README for details):
  * - Björn Lindqvist <bjourne@gmail.com>
@@ -26,20 +26,6 @@
 #include "uni-exiv2.hpp"
 
 static Exiv2::Image::AutoPtr cached_image;
-
-extern "C"
-void 
-uni_exif_dictionary_map(void (*callback)(const char*, const char*, void*), void *user_data)
-{
-    uint i;
-    for( i=0; i<sizeof(exifDataDictionary)/sizeof(exifDataDictionary[0]); i++ ) {
-        callback(exifDataDictionary[i].key, exifDataDictionary[i].label, user_data);
-    }
-
-    for( i=0; i<sizeof(iptcDataDictionary)/sizeof(iptcDataDictionary[0]); i++ ) {
-        callback(iptcDataDictionary[i].key, iptcDataDictionary[i].label, user_data);
-    }
-}
 
 extern "C" 
 void 

@@ -1,3 +1,18 @@
+Viewnior 1.7
+------------
+
+New features included:
+ - Show image dimensions to title bar
+ - Add option to hide the scrollbars
+ - Wallpaper support for Cinnamon, Puppylinux, and autodetect DE
+ - Updated translations
+
+Fixed:
+ - Setting wallpaper on XFCE 4.12+ and MATE
+
+Misc:
+ - Move to the Meson Build system
+
 Viewnior 1.6
 ------------
 

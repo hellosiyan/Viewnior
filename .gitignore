@@ -30,6 +30,8 @@ compile
 libtool
 *.desktop
 .deps
+.idea
+builddir/
 
 viewnior-*.tar.gz
 *.sublime-project

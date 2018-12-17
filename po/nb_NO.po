@@ -1,23 +1,19 @@
-# Chinese (Traditional) translation for viewnior
-# Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
+# Norwegian (Bokmål) translation for viewnior
+# Copyright (c) 2018 Nichlas Severinsen
 # This file is distributed under the same license as the viewnior package.
-# Hsiu-Ming Chang <cges30901@gmail.com>, 2018.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-02-07 22:04+0200\n"
-"PO-Revision-Date: 2018-11-12 22:37+0800\n"
-"Last-Translator: Hsiu-Ming Chang <cges30901@gmail.com>\n"
-"Language-Team: Chinese (Traditional) <zh_TW@li.org>\n"
+"POT-Creation-Date: 2018-10-08 13:00+0200\n"
+"PO-Revision-Date: 2018-10-08 13:20+0200\n"
+"Last-Translator: Nichlas Severinsen <Unknown>\n"
+"Language-Team: <Unknown>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2018-03-04 17:52+0000\n"
-"X-Generator: Poedit 2.2\n"
-"Language: zh_TW\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: ../data/viewnior.desktop.in.in.h:1
 msgid "Viewnior"
@@ -25,59 +21,59 @@ msgstr "Viewnior"
 
 #: ../data/viewnior.desktop.in.in.h:2 ../src/vnr-window.c:1372
 msgid "Elegant Image Viewer"
-msgstr "優雅的圖片檢視器"
+msgstr "Elegant Bildeviser"
 
 #: ../data/vnr-preferences-dialog.ui.h:1
 msgid "Viewnior Preferences"
-msgstr "Viewnior 偏好設定"
+msgstr "Viewnior Preferanser"
 
 #: ../data/vnr-preferences-dialog.ui.h:2
 msgid "Open new image in: "
-msgstr "開啟新的圖片使用："
+msgstr "Åpne nytt bilde i: "
 
 #: ../data/vnr-preferences-dialog.ui.h:3
 msgid "Desktop: "
-msgstr "桌面： "
+msgstr "Skrivebord: "
 
 #: ../data/vnr-preferences-dialog.ui.h:4
 msgid "Smooth images when zoomed"
-msgstr "縮放圖片時平滑處理"
+msgstr "Jevn bilder ved zooming"
 
 #: ../data/vnr-preferences-dialog.ui.h:5
 msgid "Confirm image deletion"
-msgstr "刪除圖片時確認"
+msgstr "Bekreft bildesletting"
 
 #: ../data/vnr-preferences-dialog.ui.h:6
 msgid "Show hidden images"
-msgstr "顯示隱藏圖片"
+msgstr "Vis skjulte bilder"
 
 #: ../data/vnr-preferences-dialog.ui.h:7
 msgid "General"
-msgstr "一般"
+msgstr "Generell"
 
 #: ../data/vnr-preferences-dialog.ui.h:8
 msgid "Show next image after (in seconds): "
-msgstr "在幾秒後顯示下一張圖片："
+msgstr "Vis neste bilde etter (i sekunder): "
 
 #: ../data/vnr-preferences-dialog.ui.h:9
 msgid "Always expand images to fit screen"
-msgstr "總是放大圖片來符合螢幕"
+msgstr "Tilpass bildet til skjermoppløsningen"
 
 #: ../data/vnr-preferences-dialog.ui.h:10
 msgid "Fullscreen"
-msgstr "全螢幕"
+msgstr "Fullskjerm"
 
 #: ../data/vnr-preferences-dialog.ui.h:11
 msgid "On mouse wheel: "
-msgstr "滑鼠滾輪滾動時： "
+msgstr "Ved musehjul: "
 
 #: ../data/vnr-preferences-dialog.ui.h:12
 msgid "On double click: "
-msgstr "按兩下時： "
+msgstr "Ved dobbeltklikk: "
 
 #: ../data/vnr-preferences-dialog.ui.h:13
 msgid "On image modification: "
-msgstr "圖片修改時： "
+msgstr "Ved bildemodifisering: "
 
 #: ../data/vnr-preferences-dialog.ui.h:14
 msgid ""
@@ -85,33 +81,33 @@ msgid ""
 "  Clicking on the left half of the window shows the\n"
 "  previous image and on the right side - the next.</small> "
 msgstr ""
-"<small>  (!) 透過按兩下來瀏覽圖片：\n"
-"  在視窗的左半邊按兩下來瀏覽上一張圖片，\n"
-"  在視窗的右半邊按兩下來瀏覽下一張圖片。</small> "
+"<small>  (!) Navigering av bilder med dobbeltklikk :\n"
+"  Ved å trykke på venstre halvdel av vinduet vises\n"
+"  det forrige bildet, og på høyre side - det neste.</small> "
 
 #: ../data/vnr-preferences-dialog.ui.h:17
 msgid "Behavior"
-msgstr "行為"
+msgstr "Oppførsel"
 
 #: ../data/vnr-preferences-dialog.ui.h:18
 msgid "Reload image on save"
-msgstr "儲存圖片後重新載入"
+msgstr "Oppdater bildet ved lagring"
 
 #: ../data/vnr-preferences-dialog.ui.h:19
 msgid "JPEG quality:"
-msgstr "JPEG 品質："
+msgstr "JPEG kvalitet:"
 
 #: ../data/vnr-preferences-dialog.ui.h:20
 msgid "PNG compression:"
-msgstr "PNG 壓縮："
+msgstr "PNG komprimering:"
 
 #: ../data/vnr-preferences-dialog.ui.h:21
 msgid "Saving"
-msgstr "儲存"
+msgstr "Lagrer"
 
 #: ../data/vnr-crop-dialog.ui.h:1
 msgid "Crop Image"
-msgstr "裁剪圖片"
+msgstr "Beskjær Bilde"
 
 #: ../data/vnr-crop-dialog.ui.h:2
 msgid "X: "
@@ -123,24 +119,24 @@ msgstr "Y: "
 
 #: ../data/vnr-crop-dialog.ui.h:4
 msgid "Width: "
-msgstr "寬度： "
+msgstr "Bredde: "
 
 #: ../data/vnr-crop-dialog.ui.h:5
 msgid "Height: "
-msgstr "高度： "
+msgstr "Høyde: "
 
 #: ../data/vnr-crop-dialog.ui.h:6 ../src/vnr-window.c:1816
 msgid "Crop"
-msgstr "裁剪"
+msgstr "Beskjær"
 
 #: ../src/main.c:117 ../src/vnr-window.c:1620 ../src/vnr-window.c:1975
 #: ../src/vnr-window.c:2414
 msgid "The given locations contain no images."
-msgstr "指定的位置並未包含圖片。"
+msgstr "Den gitte lokasjonen inneholder ingen bilder."
 
 #: ../src/uni-scroll-win.c:223
 msgid "Open the navigator window"
-msgstr "開啟導覽器視窗"
+msgstr "Åpne navigasjonsvinduet"
 
 #: ../src/vnr-file.c:223
 #, c-format
@@ -148,156 +144,159 @@ msgid ""
 "Couldn't recognise the image file\n"
 "format for file '%s'"
 msgstr ""
-"無法辨識圖片檔案\n"
-"「%s」的檔案格式"
+"Kunne ikke gjenkjenne bildeformatet\n"
+"for filen '%s'"
 
 #: ../src/vnr-prefs.c:260
 msgid "Smart Mode"
-msgstr "智慧模式"
+msgstr "Smart Modus"
 
 #: ../src/vnr-prefs.c:261
 msgid "1:1 Mode"
-msgstr "1:1 模式"
+msgstr "1:1 Modus"
 
 #: ../src/vnr-prefs.c:262
 msgid "Fit To Window Mode"
-msgstr "符合視窗模式"
+msgstr "Tilpass Vinduet Modus"
 
 #: ../src/vnr-prefs.c:263
 msgid "Last Used Mode"
-msgstr "上次使用的模式"
+msgstr "Sist Brukte Modus"
 
 #: ../src/vnr-prefs.c:292 ../src/vnr-prefs.c:304
 msgid "Navigate images"
-msgstr "瀏覽圖片"
+msgstr "Naviger bilder"
 
 #: ../src/vnr-prefs.c:293
 msgid "Zoom image"
-msgstr "縮放圖片"
+msgstr "Zoom bilder"
 
 #: ../src/vnr-prefs.c:294
 msgid "Scroll image up/down"
-msgstr "向上/下捲動圖片"
+msgstr "Bla bildet opp/ned"
 
 #: ../src/vnr-prefs.c:302
 msgid "Switch zoom modes"
-msgstr "切換縮放模式"
+msgstr "Bytt zoom modus"
 
 #: ../src/vnr-prefs.c:303
 msgid "Enter fullscreen mode"
-msgstr "進入全螢幕模式"
+msgstr "Gå inn i fullskjerm modus"
 
 #: ../src/vnr-prefs.c:312
 msgid "Ask every time"
-msgstr "每次詢問"
+msgstr "Spør hver gang"
 
 #: ../src/vnr-prefs.c:313
 msgid "Autosave"
-msgstr "自動儲存"
+msgstr "Autolagre"
 
 #: ../src/vnr-prefs.c:314
 msgid "Ignore changes"
-msgstr "忽略變更"
+msgstr "Ignorer forandringer"
 
 #: ../src/vnr-properties-dialog.c:112
 msgid "_Next"
-msgstr "下一張(_N)"
+msgstr "_Neste"
 
 #: ../src/vnr-properties-dialog.c:113
 msgid "_Previous"
-msgstr "上一張(_P)"
+msgstr "_Forrige"
 
 #: ../src/vnr-properties-dialog.c:128
 msgid "Image Properties"
-msgstr "圖片屬性"
+msgstr "Bildeegenskaper"
 
 #: ../src/vnr-properties-dialog.c:136
 msgid "<b>Location:</b>"
-msgstr "<b>位置：</b>"
+msgstr "<b>Lokasjon:</b>"
 
 #: ../src/vnr-properties-dialog.c:185
 msgid "<b>Name:</b>"
-msgstr "<b>名稱：</b>"
+msgstr "<b>Navn:</b>"
 
 #: ../src/vnr-properties-dialog.c:189
 msgid "<b>Type:</b>"
-msgstr "<b>類型：</b>"
+msgstr "<b>Type:</b>"
 
 #: ../src/vnr-properties-dialog.c:193
 msgid "<b>Size:</b>"
-msgstr "<b>大小：</b>"
+msgstr "<b>Størrelse:</b>"
 
 #: ../src/vnr-properties-dialog.c:197
 msgid "<b>Width:</b>"
-msgstr "<b>寬度：</b>"
+msgstr "<b>Bredde:</b>"
 
 #: ../src/vnr-properties-dialog.c:201
 msgid "<b>Height:</b>"
-msgstr "<b>高度：</b>"
+msgstr "<b>Høyde:</b>"
 
 #: ../src/vnr-properties-dialog.c:373 ../src/vnr-properties-dialog.c:374
 #: ../src/vnr-properties-dialog.c:375 ../src/vnr-properties-dialog.c:376
 #: ../src/vnr-properties-dialog.c:377 ../src/vnr-properties-dialog.c:378
 msgid "None"
-msgstr "無"
+msgstr "Ingen"
 
 #: ../src/vnr-window.c:297
 #, c-format
 msgid "Use \"%s\" to open the selected image"
-msgstr "使用「%s」開啟選擇的圖片"
+msgstr "Bruk \"%s\" for å åpne valgt bilde"
 
 #: ../src/vnr-window.c:467
 msgid "Show next image after: "
-msgstr "多久之後顯示下一張圖片："
+msgstr "Vis neste bilde etter: "
 
 #: ../src/vnr-window.c:485 ../src/vnr-window.c:902
 msgid " second"
 msgid_plural " seconds"
-msgstr[0] " 秒"
+msgstr[0] " sekund"
+msgstr[1] " sekunder"
 
 #: ../src/vnr-window.c:727 ../src/vnr-window.c:790
 msgid "Not enough virtual memory."
-msgstr "沒有足夠的虛擬記憶體。"
+msgstr "Ikke nok virtuelt minne."
 
 #: ../src/vnr-window.c:761 ../src/vnr-window.c:819 ../src/vnr-window.c:1706
 msgid ""
 "Image modifications cannot be saved.\n"
 "Writing in this format is not supported."
 msgstr ""
-"無法儲存圖片的修改。\n"
-"不支援這個格式的寫入。"
+"Bildeforandringer kan ikke bli lagret.\n"
+"Skriving av dette formatet er ikke støttet."
 
 #: ../src/vnr-window.c:768 ../src/vnr-window.c:826 ../src/vnr-window.c:1713
 msgid ""
 "Save modifications?\n"
 "This will overwrite the image and may reduce its quality!"
 msgstr ""
-"要儲存修改嗎？\n"
-"這將會覆寫圖片並且可能降低品質！"
+"Lagre modifikasjoner?\n"
+"Dette vil overskrive bildet og kan redusere kvaliteten!"
 
 #: ../src/vnr-window.c:1271
 msgid "Open Image"
-msgstr "開啟圖片"
+msgstr "Åpne Bilde"
 
 #: ../src/vnr-window.c:1282
 msgid "All Images"
-msgstr "所有圖片"
+msgstr "Alle Bilder"
 
 #: ../src/vnr-window.c:1288
 msgid "All Files"
-msgstr "所有檔案"
+msgstr "Alle Filer"
 
 #: ../src/vnr-window.c:1318
 msgid "Open Folder"
-msgstr "開啟資料夾"
+msgstr "Åpne Mappe"
 
 #: ../src/vnr-window.c:1378
 msgid "translator-credits"
-msgstr "Hsiu-Ming Chang <cges30901@gmail.com>, 2018."
+msgstr ""
+"Oversettere:\n"
+"  Nichlas Severinsen https://nsz.no"
 
 #: ../src/vnr-window.c:1558
 msgid "If you delete an item, it will be permanently lost."
-msgstr "如果你刪除這個項目，它會永久遺失。"
+msgstr "Hvis du sletter et element, blir det borte permanent."
 
 #. I18N: The '%s' is replaced with the name of the file to be deleted.
 #: ../src/vnr-window.c:1561
@@ -306,322 +305,322 @@ msgid ""
 "Are you sure you want to\n"
 "permanently delete \"%s\"?"
 msgstr ""
-"你確定要永久刪除\n"
-"「%s」嗎？"
+"Er du sikker på at du vil\n"
+"slette \"%s\" permanent?"
 
 #: ../src/vnr-window.c:1721
 msgid "_File"
-msgstr "檔案(_F)"
+msgstr "_Fil"
 
 #: ../src/vnr-window.c:1722
 msgid "_Edit"
-msgstr "編輯(_E)"
+msgstr "_Rediger"
 
 #: ../src/vnr-window.c:1723
 msgid "_View"
-msgstr "檢視 (_V)"
+msgstr "_Vis"
 
 #: ../src/vnr-window.c:1724
 msgid "_Image"
-msgstr "圖片(_I)"
+msgstr "_Bilde"
 
 #: ../src/vnr-window.c:1725
 msgid "_Go"
-msgstr "前往(_G)"
+msgstr "_Gå"
 
 #: ../src/vnr-window.c:1726
 msgid "_Help"
-msgstr "說明 (_H)"
+msgstr "_Hjelp"
 
 #: ../src/vnr-window.c:1728
 msgid "Open _Image..."
-msgstr "開啟圖片(_I)..."
+msgstr "Åpne _bilde..."
 
 #: ../src/vnr-window.c:1729
 msgid "Open an Image"
-msgstr "開啟圖片"
+msgstr "Åpne et bilde"
 
 #: ../src/vnr-window.c:1731
 msgid "Open _Folder..."
-msgstr "開啟資料夾(_F)..."
+msgstr "Åpne _Mappe..."
 
 #: ../src/vnr-window.c:1732
 msgid "Open a Folder"
-msgstr "開啟資料夾"
+msgstr "Åpne en Mappe"
 
 #: ../src/vnr-window.c:1734
 msgid "_Close"
-msgstr "關閉(_C)"
+msgstr "_Lukk"
 
 #: ../src/vnr-window.c:1735
 msgid "Close window"
-msgstr "關閉視窗"
+msgstr "Lukk Vindu"
 
 #: ../src/vnr-window.c:1737
 msgid "_About"
-msgstr "關於(_A)"
+msgstr "_Om"
 
 #: ../src/vnr-window.c:1738
 msgid "About this application"
-msgstr "關於此應用程式"
+msgstr "Om denne applikasjonen"
 
 #: ../src/vnr-window.c:1740
 msgid "_Preferences..."
-msgstr "偏好設定 (_P)..."
+msgstr "_Preferanser..."
 
 #: ../src/vnr-window.c:1741
 msgid "User preferences for Viewnior"
-msgstr "Viewnior 的使用者偏好設定"
+msgstr "Brukerpreferanser for Viewnior"
 
 #: ../src/vnr-window.c:1746
 msgid "_Save"
-msgstr "儲存(_S)"
+msgstr "_Lagre"
 
 #: ../src/vnr-window.c:1747
 msgid "Save changes"
-msgstr "儲存變更"
+msgstr "Lagre forandringer"
 
 #: ../src/vnr-window.c:1752
 msgid "_Properties"
-msgstr "屬性(_P)"
+msgstr "_Egenskaper"
 
 #: ../src/vnr-window.c:1753
 msgid "Properties"
-msgstr "屬性"
+msgstr "Egenskaper"
 
 #: ../src/vnr-window.c:1758
 msgid "Set as _Wallpaper"
-msgstr "設為桌布(_W)"
+msgstr "Sett som _Bakgrunn"
 
 #: ../src/vnr-window.c:1759
 msgid "Set the selected image as the desktop background"
-msgstr "將選取的圖片設為桌面背景"
+msgstr "Sett det valgte bilde som skrivebordsbakgrunn"
 
 #: ../src/vnr-window.c:1764
 msgid "Open _With"
-msgstr "以…開啟(_W)"
+msgstr "Åpne _Med"
 
 #: ../src/vnr-window.c:1765
 msgid "Open the selected image with a different application"
-msgstr "使用不同的應用程式開啟選擇的圖片"
+msgstr "Åpne det valge bildet med en annen applikasjon"
 
 #: ../src/vnr-window.c:1767 ../src/vnr-window.c:1776
 msgid "_Delete"
-msgstr "刪除(_D)"
+msgstr "_Slett"
 
 #: ../src/vnr-window.c:1768 ../src/vnr-window.c:1777
 msgid "Delete the current file"
-msgstr "刪除目前的檔案"
+msgstr "Slett den nåværende filen"
 
 #: ../src/vnr-window.c:1770
 msgid "_Properties..."
-msgstr "屬性(_P)..."
+msgstr "_Egenskaper..."
 
 #: ../src/vnr-window.c:1771
 msgid "Show information about the current file"
-msgstr "顯示目前檔案的資訊"
+msgstr "Vis informasjon om den nåværende filen"
 
 #: ../src/vnr-window.c:1773
 msgid "_Reload"
-msgstr "重新載入(_R)"
+msgstr "_Last inn på nytt"
 
 #: ../src/vnr-window.c:1774
 msgid "Reload the current file"
-msgstr "重新載入目前的檔案"
+msgstr "Last inn den nåværende filen på nytt"
 
 #: ../src/vnr-window.c:1779 ../src/vnr-window.c:1791 ../src/vnr-window.c:1794
 msgid "_Zoom In"
-msgstr "放大(_Z)"
+msgstr "_Zoom Inn"
 
 #: ../src/vnr-window.c:1780
 msgid "Enlarge the image"
-msgstr "放大該圖片"
+msgstr "Forstørr Bildet"
 
 #: ../src/vnr-window.c:1782 ../src/vnr-window.c:1797
 msgid "Zoom _Out"
-msgstr "縮小(_O)"
+msgstr "Zoom _Ut"
 
 #: ../src/vnr-window.c:1783 ../src/vnr-window.c:1792 ../src/vnr-window.c:1795
 #: ../src/vnr-window.c:1798
 msgid "Shrink the image"
-msgstr "縮小該圖片"
+msgstr "Krymp bildet"
 
 #: ../src/vnr-window.c:1785
 msgid "_Normal Size"
-msgstr "正常大小(_N)"
+msgstr "_Normal Størrelse"
 
 #: ../src/vnr-window.c:1786
 msgid "Show the image at its normal size"
-msgstr "以圖片的正常大小顯示"
+msgstr "Vis bildet i normal størrelse"
 
 #: ../src/vnr-window.c:1788
 msgid "Best _Fit"
-msgstr "最適大小(_F)"
+msgstr "Best _Passform"
 
 #: ../src/vnr-window.c:1789
 msgid "Fit the image to the window"
-msgstr "圖片符合視窗大小"
+msgstr "Tilpass bildet til vinduet"
 
 #: ../src/vnr-window.c:1803
 msgid "Rotate _Clockwise"
-msgstr "順時針旋轉(_C)"
+msgstr "Roter _Med klokka"
 
 #: ../src/vnr-window.c:1804
 msgid "Rotate image clockwise"
-msgstr "順時針旋轉"
+msgstr "Roter bildet med klokka"
 
 #: ../src/vnr-window.c:1806
 msgid "Rotate _Anti-clockwise"
-msgstr "逆時針旋轉(_A)"
+msgstr "Roter _Mot klokka"
 
 #: ../src/vnr-window.c:1807
 msgid "Rotate image anti-clockwise"
-msgstr "逆時針旋轉"
+msgstr "Roter bildet mot klokka"
 
 #: ../src/vnr-window.c:1809
 msgid "Flip _Vertical"
-msgstr "垂直翻轉(_V)"
+msgstr "Flip _Vertikalt"
 
 #: ../src/vnr-window.c:1810
 msgid "Flip image vertically"
-msgstr "垂直翻轉圖片"
+msgstr "Flip bildet vertikalt"
 
 #: ../src/vnr-window.c:1812
 msgid "Flip _Horizontal"
-msgstr "水平翻轉(_H)"
+msgstr "Flip _Horisontalt"
 
 #: ../src/vnr-window.c:1813
 msgid "Flip image horizontally"
-msgstr "水平翻轉圖片"
+msgstr "Flip bildet horisontalt"
 
 #: ../src/vnr-window.c:1815
 msgid "Crop..."
-msgstr "裁剪..."
+msgstr "Beskjær..."
 
 #: ../src/vnr-window.c:1821
 msgid "Full _Screen"
-msgstr "全螢幕(_S)"
+msgstr "Full _Skjerm"
 
 #: ../src/vnr-window.c:1822
 msgid "Show in fullscreen mode"
-msgstr "以全螢幕模式顯示"
+msgstr "Vis i fullskjerm modus"
 
 #: ../src/vnr-window.c:1824
 msgid "_Adjust window size"
-msgstr "調整視窗大小(_A)"
+msgstr "_Juster vinduets størrelse"
 
 #: ../src/vnr-window.c:1825
 msgid "Adjust window size to fit the image"
-msgstr "調整視窗大小來符合圖片"
+msgstr "Juster vindusstørrelsen for å passe bildet"
 
 #: ../src/vnr-window.c:1830
 msgid "Menu Bar"
-msgstr "選單列"
+msgstr "Meny"
 
 #: ../src/vnr-window.c:1831
 msgid "Show Menu Bar"
-msgstr "顯示選單列"
+msgstr "Vis Meny"
 
 #: ../src/vnr-window.c:1833
 msgid "Toolbar"
-msgstr "工具列"
+msgstr "Verktøykasse"
 
 #: ../src/vnr-window.c:1834
 msgid "Show Toolbar"
-msgstr "顯示工具列"
+msgstr "Vis Verktøykasse"
 
 #: ../src/vnr-window.c:1839
 msgid "Sli_deshow"
-msgstr "投影片(_D)"
+msgstr "Bil_defremvisning"
 
 #: ../src/vnr-window.c:1840
 msgid "Show in slideshow mode"
-msgstr "以投影片模式顯示"
+msgstr "Vis i bildefremvisnings modus"
 
 #: ../src/vnr-window.c:1845
 msgid "_Previous Image"
-msgstr "上一張圖片(_P)"
+msgstr "_Forrige Bilde"
 
 #: ../src/vnr-window.c:1846
 msgid "Go to the previous image of the collection"
-msgstr "前往圖片集的上一張圖片"
+msgstr "Gå til det forrige bildet av samlingen"
 
 #: ../src/vnr-window.c:1848
 msgid "_Next Image"
-msgstr "下一張圖片(_N)"
+msgstr "_Neste Bilde"
 
 #: ../src/vnr-window.c:1849
 msgid "Go to the next image of the collection"
-msgstr "前往圖片集的下一張圖片"
+msgstr "Gå til det neste bildet av samlingen"
 
 #: ../src/vnr-window.c:1851
 msgid "_First Image"
-msgstr "第一張圖片(_F)"
+msgstr "_Første Bilde"
 
 #: ../src/vnr-window.c:1852
 msgid "Go to the first image of the collection"
-msgstr "前往圖片集的第一張圖片"
+msgstr "Gå til det første bildet av samlingen"
 
 #: ../src/vnr-window.c:1854
 msgid "_Last Image"
-msgstr "最後一張圖片(_L)"
+msgstr "_Siste Bilde"
 
 #: ../src/vnr-window.c:1855
 msgid "Go to the last image of the collection"
-msgstr "前往圖片集的最後一張圖片"
+msgstr "Gå til det siste bildet av samlingen"
 
 #: ../src/uni-exiv2.hpp:49
 msgid "Camera make"
-msgstr "相機製造商"
+msgstr "Kamera merke"
 
 #: ../src/uni-exiv2.hpp:50
 msgid "Camera model"
-msgstr "相機型號"
+msgstr "Kamera modell"
 
 #: ../src/uni-exiv2.hpp:51
 msgid "Date Taken"
-msgstr "拍攝時間"
+msgstr "Dato Tatt"
 
 #: ../src/uni-exiv2.hpp:52
 msgid "Exposure time"
-msgstr "曝光時間"
+msgstr "Eksponeringstid"
 
 #: ../src/uni-exiv2.hpp:53
 msgid "Exposure mode"
-msgstr "曝光模式"
+msgstr "Eksponeringsmodus"
 
 #: ../src/uni-exiv2.hpp:54
 msgid "Aperture Value"
-msgstr "光圈值"
+msgstr "Blenderåpning"
 
 #: ../src/uni-exiv2.hpp:55
 msgid "ISO speed"
-msgstr "ISO 速度"
+msgstr "ISO hastighet"
 
 #: ../src/uni-exiv2.hpp:56
 msgid "Flash"
-msgstr "閃光燈"
+msgstr "Blits"
 
 #: ../src/uni-exiv2.hpp:57
 msgid "Metering mode"
-msgstr "測光模式"
+msgstr "Målemodus"
 
 #: ../src/uni-exiv2.hpp:58
 msgid "Focal length"
-msgstr "焦距長度"
+msgstr "Brennvidde"
 
 #: ../src/uni-exiv2.hpp:59
 msgid "Software"
-msgstr "軟體"
+msgstr "Programvare"
 
 #: ../src/uni-exiv2.hpp:63
 msgid "Description"
-msgstr "描述"
+msgstr "Beskrivelse"
 
 #: ../src/uni-exiv2.hpp:64
 msgid "Copyright"
-msgstr "版權"
+msgstr "Opphavsrett"
 
 #: ../src/uni-exiv2.hpp:65
 msgid "Author"
-msgstr "作者"
+msgstr "Forfatter"

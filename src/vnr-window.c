@@ -1,5 +1,5 @@
 /*
- * Copyright © 2009-2015 Siyan Panayotov <contact@siyanpanayotov.com>
+ * Copyright © 2009-2018 Siyan Panayotov <contact@siyanpanayotov.com>
  *
  * This file is part of Viewnior.
  *
@@ -27,6 +27,8 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 #include <errno.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <sys/wait.h>
 #include "vnr-window.h"
 #include "uni-scroll-win.h"
@@ -386,7 +388,7 @@ update_fs_filename_label(VnrWindow *window)
         return;
 
     gint position, total;
-    char *buf = NULL;
+    char *buf;
 
     get_position_of_element_in_list(window->file_list, &position, &total);
     buf = g_strdup_printf ("%s - %i/%i",
@@ -1148,10 +1150,10 @@ file_open_dialog_response_cb (GtkWidget *dialog,
 {
     if (response_id == GTK_RESPONSE_ACCEPT)
     {
-        GSList *uri_list = NULL;
-        uri_list = gtk_file_chooser_get_filenames (GTK_FILE_CHOOSER (dialog));
+        GSList *uri_list = gtk_file_chooser_get_filenames (GTK_FILE_CHOOSER (dialog));
         g_return_if_fail(uri_list != NULL);
         vnr_window_open_from_list(window, uri_list);
+        g_slist_free_full(uri_list, g_free);
     }
 
     gtk_widget_destroy (dialog);
@@ -1279,12 +1281,48 @@ vnr_window_cmd_reload (GtkAction *action, VnrWindow *window)
     vnr_window_open(window, FALSE);
 }
 
+
+static gboolean
+file_size_is_small(char *filename) {
+
+    struct stat st;
+    int four_mb = 4 * 1024 * 1024;
+
+    if(filename != NULL && stat(filename, &st) == 0) {
+        return st.st_size < four_mb;
+    }
+    return FALSE;
+}
+
+static void
+update_preview_cb(GtkFileChooser *file_chooser, gpointer data)
+{
+    GtkWidget *preview = GTK_WIDGET(data);
+    char *filename = gtk_file_chooser_get_preview_filename(file_chooser);
+    gboolean has_preview = FALSE;
+
+    if(file_size_is_small(filename)) {
+        GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file_at_size(filename, 256, 256, NULL);
+        has_preview = pixbuf != NULL;
+
+        gtk_image_set_from_pixbuf(GTK_IMAGE(preview), pixbuf);
+        if(pixbuf) {
+            g_object_unref(pixbuf);
+        }
+    }
+    gtk_file_chooser_set_preview_widget_active(file_chooser, has_preview);
+    if(filename != NULL) {
+        g_free(filename);
+    }
+}
+
 static void
 vnr_window_cmd_open(GtkAction *action, VnrWindow *window)
 {
     GtkWidget *dialog;
-    GtkFileFilter *img_filter = NULL;
-    GtkFileFilter *all_filter = NULL;
+    GtkWidget *preview;
+    GtkFileFilter *img_filter;
+    GtkFileFilter *all_filter;
 
     dialog = gtk_file_chooser_dialog_new (_("Open Image"),
                           GTK_WINDOW(window),
@@ -1311,10 +1349,14 @@ vnr_window_cmd_open(GtkAction *action, VnrWindow *window)
 
     gtk_file_chooser_set_filter (GTK_FILE_CHOOSER(dialog), img_filter);
 
-    gchar *dirname;
+    preview = gtk_image_new();
+    gtk_file_chooser_set_preview_widget(GTK_FILE_CHOOSER(dialog), preview);
+    g_signal_connect(GTK_FILE_CHOOSER(dialog), "update-preview",
+                     G_CALLBACK(update_preview_cb), preview);
+
     if(window->file_list != NULL)
     {
-        dirname = g_path_get_dirname (VNR_FILE(window->file_list->data)->path);
+        gchar *dirname = g_path_get_dirname (VNR_FILE(window->file_list->data)->path);
         gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER(dialog), dirname);
         g_free(dirname);
     }
@@ -1343,10 +1385,9 @@ vnr_window_cmd_open_dir(GtkAction *action, VnrWindow *window)
     gtk_window_set_modal (GTK_WINDOW(dialog), FALSE);
     gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
 
-    gchar *dirname;
     if(window->file_list != NULL)
     {
-        dirname = g_path_get_dirname (VNR_FILE(window->file_list->data)->path);
+        gchar *dirname = g_path_get_dirname (VNR_FILE(window->file_list->data)->path);
         gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER(dialog), dirname);
         g_free(dirname);
     }
@@ -1386,7 +1427,7 @@ vnr_window_cmd_about (GtkAction *action, VnrWindow *window)
     gtk_show_about_dialog (GTK_WINDOW (window),
                    "program-name", "Viewnior",
                    "version", VERSION,
-                   "copyright", "Copyright \xc2\xa9 2009-2015 Siyan Panayotov <contact@siyanpanayotov.com>",
+                   "copyright", "Copyright \xc2\xa9 2009-2018 Siyan Panayotov <contact@siyanpanayotov.com>",
                    "comments",_("Elegant Image Viewer"),
                    "authors", authors,
                    "logo-icon-name", "viewnior",
@@ -1547,10 +1588,10 @@ vnr_window_cmd_scrollbar (GtkAction *action, VnrWindow *window)
 static void
 vnr_window_cmd_slideshow (GtkAction *action, VnrWindow *window)
 {
+    g_assert(window != NULL && VNR_IS_WINDOW(window));
+
     if(!window->slideshow)
         return;
-
-    g_assert(window != NULL && VNR_IS_WINDOW(window));
 
     gboolean slideshow;
 
@@ -2314,6 +2355,9 @@ vnr_window_init (VnrWindow * window)
     gtk_widget_show_all(GTK_WIDGET (window->scroll_view));
 
     gtk_widget_grab_focus(window->view);
+
+    // Initialize slideshow timeout
+    window->ss_timeout = window->prefs->slideshow_timeout;
 
     /* Care for Properties dialog */
     window->props_dlg = vnr_properties_dialog_new(window,
