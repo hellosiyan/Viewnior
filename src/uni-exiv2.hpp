@@ -56,7 +56,9 @@ extern "C" {
         { "Exif.Photo.Flash", _("Flash"), NULL },
         { "Exif.Photo.MeteringMode", _("Metering mode"), Exiv2::meteringMode },
         { "Exif.Image.FocalLength", _("Focal length"), Exiv2::focalLength },
-        { "Exif.Image.Software", _("Software"), NULL }
+        { "Exif.Image.Software", _("Software"), NULL },
+        { "Exif.Image.ImageDescription", _("Image description"), NULL },
+        { "Exif.Photo.UserComment", _("User comment"), NULL }
     };
 
     IptcDataDictionary iptcDataDictionary[] = {

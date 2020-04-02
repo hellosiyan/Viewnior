@@ -25,10 +25,12 @@
 
 #include "uni-exiv2.hpp"
 
+#define ARRAY_SIZE(array) (sizeof array/sizeof(array[0]))
+
 static Exiv2::Image::AutoPtr cached_image;
 
-extern "C" 
-void 
+extern "C"
+void
 uni_read_exiv2_map(const char *uri, void (*callback)(const char*, const char*, void*), void *user_data)
 {
     Exiv2::LogMsg::setLevel(Exiv2::LogMsg::mute);
@@ -43,12 +45,10 @@ uni_read_exiv2_map(const char *uri, void (*callback)(const char*, const char*, v
         Exiv2::IptcData &iptcData = image->iptcData();
 
         if ( !exifData.empty() ) {
-            Exiv2::ExifData::const_iterator pos;
-            uint i;
-            ExifDataDictionary dict;
-            for( i=0; i<sizeof(exifDataDictionary)/sizeof(exifDataDictionary[0]); i++ ) {
-                dict = exifDataDictionary[i];
-                
+            for ( uint i = 0; i < ARRAY_SIZE(exifDataDictionary); i++ ) {
+                ExifDataDictionary dict = exifDataDictionary[i];
+
+                Exiv2::ExifData::const_iterator pos;
                 if ( dict.finder == NULL ) {
                     Exiv2::ExifKey key(dict.key);
                     pos = exifData.findKey(key);
@@ -62,14 +62,17 @@ uni_read_exiv2_map(const char *uri, void (*callback)(const char*, const char*, v
             }
         }
 
+        std::string comment = image->comment();
+        if ( ! comment.empty() ) {
+            callback( _("Comment"), comment.c_str(), user_data );
+        }
+
         if ( !iptcData.empty() ) {
-            Exiv2::IptcData::const_iterator pos;
-            uint i;
-            IptcDataDictionary dict;
-            for( i=0; i<sizeof(iptcDataDictionary)/sizeof(iptcDataDictionary[0]); i++ ) {
-                dict = iptcDataDictionary[i];
+            for ( uint i = 0; i < ARRAY_SIZE(iptcDataDictionary); i++ ) {
+                IptcDataDictionary dict = iptcDataDictionary[i];
 
                 Exiv2::IptcKey key(dict.key);
+                Exiv2::IptcData::const_iterator pos;
                 pos = iptcData.findKey(key);
 
                 if ( pos != iptcData.end() ) {
@@ -108,11 +111,11 @@ uni_read_exiv2_to_cache(const char *uri)
 }
 
 extern "C"
-int 
+int
 uni_write_exiv2_from_cache(const char *uri)
 {
     Exiv2::LogMsg::setLevel(Exiv2::LogMsg::mute);
-    
+
     if ( cached_image.get() == NULL ) {
         return 1;
     }
@@ -125,7 +128,7 @@ uni_write_exiv2_from_cache(const char *uri)
 
         image->setMetadata( *cached_image );
         image->writeMetadata();
-        
+
         cached_image->clearMetadata();
         cached_image.reset(NULL);
 

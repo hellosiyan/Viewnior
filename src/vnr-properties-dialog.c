@@ -21,6 +21,9 @@
 #include <glib/gi18n.h>
 #define _(String) gettext (String)
 
+#include <sys/stat.h>
+#include <time.h>
+#include <locale.h>
 #include "vnr-properties-dialog.h"
 #include "vnr-file.h"
 #include "vnr-tools.h"
@@ -104,8 +107,7 @@ vnr_properties_dialog_new (VnrWindow *vnr_win, GtkAction *next_action, GtkAction
     dialog->thumbnail = NULL;
     dialog->vnr_win = vnr_win;
 
-	gtk_activatable_set_related_action (GTK_ACTIVATABLE(dialog->next_button), next_action);
-
+    gtk_activatable_set_related_action (GTK_ACTIVATABLE(dialog->next_button), next_action);
     gtk_activatable_set_related_action (GTK_ACTIVATABLE(dialog->prev_button), prev_action);
 
     gtk_button_set_label (GTK_BUTTON(dialog->next_button), _("_Next"));
@@ -200,6 +202,10 @@ vnr_properties_dialog_init (VnrPropertiesDialog * dialog)
     gtk_label_set_markup(GTK_LABEL(temp_label), _("<b>Height:</b>"));
     gtk_misc_set_alignment (GTK_MISC(temp_label), 0, 0);
     gtk_box_pack_start (GTK_BOX (temp_box), temp_label, FALSE,FALSE,0);
+    temp_label = gtk_label_new(NULL);
+    gtk_label_set_markup(GTK_LABEL(temp_label), _("<b>Modified:</b>"));
+    gtk_misc_set_alignment (GTK_MISC(temp_label), 0, 0);
+    gtk_box_pack_start (GTK_BOX (temp_box), temp_label, FALSE,FALSE,0);
 
 
     temp_box = gtk_vbox_new(FALSE,0);
@@ -225,6 +231,10 @@ vnr_properties_dialog_init (VnrPropertiesDialog * dialog)
     gtk_label_set_selectable (GTK_LABEL(dialog->height_label), TRUE);
     gtk_misc_set_alignment (GTK_MISC(dialog->height_label), 0, 0);
     gtk_box_pack_start (GTK_BOX (temp_box), dialog->height_label, FALSE,FALSE,0);
+    dialog->modified_label = gtk_label_new(NULL);
+    gtk_label_set_selectable (GTK_LABEL(dialog->modified_label), TRUE);
+    gtk_misc_set_alignment (GTK_MISC(dialog->modified_label), 0, 0);
+    gtk_box_pack_start (GTK_BOX (temp_box), dialog->modified_label, FALSE,FALSE,0);
 
     /* Metadata Labels */
 
@@ -345,22 +355,42 @@ vnr_properties_dialog_update_metadata(VnrPropertiesDialog *dialog)
         (void*)dialog);
 }
 
+static void
+vnr_get_modified_time(struct stat filestat, char* buffer, int bufsize)
+{
+    char* saved_locale = strdup(setlocale(LC_TIME, NULL));
+    setlocale(LC_TIME, "");
+    strftime(buffer, bufsize, "%Ec", localtime(&filestat.st_mtime));
+
+    setlocale(LC_TIME, saved_locale);
+    free(saved_locale);
+}
+
 void
 vnr_properties_dialog_update_image(VnrPropertiesDialog *dialog)
 {
-    gchar *width_str, *height_str;
+    gchar *width_str, *height_str, *modified_str;
+
+    struct stat filestat;
+    stat((gchar*)VNR_FILE(dialog->vnr_win->tree->data)->path, &filestat);
+    int bufsize = 80;
+    char buffer[bufsize];
+    vnr_get_modified_time(filestat, buffer, bufsize);
 
     set_new_pixbuf(dialog, uni_image_view_get_pixbuf(UNI_IMAGE_VIEW(dialog->vnr_win->view)));
-    gtk_image_set_from_pixbuf (GTK_IMAGE(dialog->image) , dialog->thumbnail);
+    gtk_image_set_from_pixbuf (GTK_IMAGE(dialog->image), dialog->thumbnail);
 
-    width_str = g_strdup_printf("%i px", dialog->vnr_win->current_image_width);
+    width_str  = g_strdup_printf("%i px", dialog->vnr_win->current_image_width);
     height_str = g_strdup_printf("%i px", dialog->vnr_win->current_image_height);
+    modified_str = g_strdup_printf("%s", buffer);
 
     gtk_label_set_text(GTK_LABEL(dialog->width_label), width_str);
     gtk_label_set_text(GTK_LABEL(dialog->height_label), height_str);
+    gtk_label_set_text(GTK_LABEL(dialog->modified_label), modified_str);
 
     g_free(width_str);
     g_free(height_str);
+    g_free(modified_str);
 }
 
 void
@@ -369,12 +399,13 @@ vnr_properties_dialog_clear(VnrPropertiesDialog *dialog)
     set_new_pixbuf(dialog, NULL);
     vnr_properties_dialog_clear_metadata(dialog);
 
-    gtk_label_set_text(GTK_LABEL(dialog->name_label), _("None"));
     gtk_label_set_text(GTK_LABEL(dialog->location_label), _("None"));
+    gtk_label_set_text(GTK_LABEL(dialog->name_label), _("None"));
     gtk_label_set_text(GTK_LABEL(dialog->type_label), _("None"));
     gtk_label_set_text(GTK_LABEL(dialog->size_label), _("None"));
     gtk_label_set_text(GTK_LABEL(dialog->width_label), _("None"));
     gtk_label_set_text(GTK_LABEL(dialog->height_label), _("None"));
+    gtk_label_set_text(GTK_LABEL(dialog->modified_label), _("None"));
 }
 
 void

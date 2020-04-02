@@ -54,12 +54,13 @@ struct _VnrPropertiesDialog {
     GtkWidget* next_button;
     GtkWidget* prev_button;
 
+    GtkWidget* location_label;
     GtkWidget* name_label;
+    GtkWidget* type_label;
     GtkWidget* size_label;
     GtkWidget* width_label;
     GtkWidget* height_label;
-    GtkWidget* type_label;
-    GtkWidget* location_label;
+    GtkWidget* modified_label;
 
     GdkPixbuf *thumbnail;
 
