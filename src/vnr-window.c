@@ -1258,6 +1258,7 @@ vnr_window_cmd_resize (GtkToggleAction *action, VnrWindow *window)
     vnr_tools_fit_to_size (&img_w, &img_h, window->max_width, window->max_height);
     gtk_widget_get_allocation (window->menus, &allocation);
     gtk_window_resize (GTK_WINDOW (window), img_w, img_h + allocation.height);
+    gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ALWAYS);
 }
 
 static void
