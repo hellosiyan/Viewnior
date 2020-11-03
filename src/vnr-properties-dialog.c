@@ -317,7 +317,7 @@ vnr_properties_dialog_clear_metadata(VnrPropertiesDialog *dialog)
     g_list_free(children);
 }
 
-static void 
+static void
 vnr_cb_add_metadata(const char *label, const char *value, void *user_data) {
     VnrPropertiesDialog *dialog = VNR_PROPERTIES_DIALOG(user_data);
     GtkWidget *temp_label;
@@ -350,8 +350,8 @@ vnr_properties_dialog_update_metadata(VnrPropertiesDialog *dialog)
     vnr_properties_dialog_clear_metadata(dialog);
 
     uni_read_exiv2_map(
-        VNR_FILE(dialog->vnr_win->file_list->data)->path, 
-        vnr_cb_add_metadata, 
+        VNR_FILE(dialog->vnr_win->file_list->data)->path,
+        vnr_cb_add_metadata,
         (void*)dialog);
 }
 
@@ -372,7 +372,7 @@ vnr_properties_dialog_update_image(VnrPropertiesDialog *dialog)
     gchar *width_str, *height_str, *modified_str;
 
     struct stat filestat;
-    stat((gchar*)VNR_FILE(dialog->vnr_win->tree->data)->path, &filestat);
+    stat((gchar*)VNR_FILE(dialog->vnr_win->file_list->data)->path, &filestat);
     int bufsize = 80;
     char buffer[bufsize];
     vnr_get_modified_time(filestat, buffer, bufsize);
