@@ -96,6 +96,7 @@ struct _VnrPrefs {
     gboolean show_menu_bar;
     gboolean show_toolbar;
     gboolean show_scrollbar;
+    gboolean show_statusbar;
     gboolean start_maximized;
     gboolean start_slideshow;
     gboolean start_fullscreen;
@@ -118,10 +119,11 @@ GType     vnr_prefs_get_type (void) G_GNUC_CONST;
 
 GObject*  vnr_prefs_new (GtkWidget *window);
 void      vnr_prefs_show_dialog (VnrPrefs *prefs);
-void      vnr_prefs_set_slideshow_timeout   (VnrPrefs *prefs, int value);
-void      vnr_prefs_set_show_menu_bar   (VnrPrefs *prefs, gboolean show_menu_bar);
-void      vnr_prefs_set_show_toolbar    (VnrPrefs *prefs, gboolean show_toolbar);
+void      vnr_prefs_set_slideshow_timeout (VnrPrefs *prefs, int value);
+void      vnr_prefs_set_show_menu_bar     (VnrPrefs *prefs, gboolean show_menu_bar);
+void      vnr_prefs_set_show_toolbar      (VnrPrefs *prefs, gboolean show_toolbar);
 void      vnr_prefs_set_show_scrollbar    (VnrPrefs *prefs, gboolean show_scollbar);
+void      vnr_prefs_set_show_statusbar    (VnrPrefs *prefs, gboolean show_statusbar);
 gboolean  vnr_prefs_save (VnrPrefs *prefs);
 
 G_END_DECLS
