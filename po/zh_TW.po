@@ -1,14 +1,14 @@
 # Chinese (Traditional) translation for viewnior
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the viewnior package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
+# Hsiu-Ming Chang <cges30901@gmail.com>, 2018.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: viewnior\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-02-07 22:04+0200\n"
-"PO-Revision-Date: 2016-10-16 06:12+0000\n"
+"PO-Revision-Date: 2018-11-12 22:37+0800\n"
 "Last-Translator: Hsiu-Ming Chang <cges30901@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <zh_TW@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Launchpad-Export-Date: 2018-03-04 17:52+0000\n"
-"X-Generator: Launchpad (build 18566)\n"
+"X-Generator: Poedit 2.2\n"
+"Language: zh_TW\n"
 
 #: ../data/viewnior.desktop.in.in.h:1
 msgid "Viewnior"
@@ -32,7 +33,7 @@ msgstr "Viewnior 偏好設定"
 
 #: ../data/vnr-preferences-dialog.ui.h:2
 msgid "Open new image in: "
-msgstr ""
+msgstr "開啟新的圖片使用："
 
 #: ../data/vnr-preferences-dialog.ui.h:3
 msgid "Desktop: "
@@ -40,7 +41,7 @@ msgstr "桌面： "
 
 #: ../data/vnr-preferences-dialog.ui.h:4
 msgid "Smooth images when zoomed"
-msgstr ""
+msgstr "縮放圖片時平滑處理"
 
 #: ../data/vnr-preferences-dialog.ui.h:5
 msgid "Confirm image deletion"
@@ -56,7 +57,7 @@ msgstr "一般"
 
 #: ../data/vnr-preferences-dialog.ui.h:8
 msgid "Show next image after (in seconds): "
-msgstr ""
+msgstr "在幾秒後顯示下一張圖片："
 
 #: ../data/vnr-preferences-dialog.ui.h:9
 msgid "Always expand images to fit screen"
@@ -84,6 +85,9 @@ msgid ""
 "  Clicking on the left half of the window shows the\n"
 "  previous image and on the right side - the next.</small> "
 msgstr ""
+"<small>  (!) 透過按兩下來瀏覽圖片：\n"
+"  在視窗的左半邊按兩下來瀏覽上一張圖片，\n"
+"  在視窗的右半邊按兩下來瀏覽下一張圖片。</small> "
 
 #: ../data/vnr-preferences-dialog.ui.h:17
 msgid "Behavior"
@@ -91,7 +95,7 @@ msgstr "行為"
 
 #: ../data/vnr-preferences-dialog.ui.h:18
 msgid "Reload image on save"
-msgstr "儲存圖片後重新讀取"
+msgstr "儲存圖片後重新載入"
 
 #: ../data/vnr-preferences-dialog.ui.h:19
 msgid "JPEG quality:"
@@ -132,11 +136,11 @@ msgstr "裁剪"
 #: ../src/main.c:117 ../src/vnr-window.c:1620 ../src/vnr-window.c:1975
 #: ../src/vnr-window.c:2414
 msgid "The given locations contain no images."
-msgstr "提供的位置並未包含圖片。"
+msgstr "指定的位置並未包含圖片。"
 
 #: ../src/uni-scroll-win.c:223
 msgid "Open the navigator window"
-msgstr ""
+msgstr "開啟導覽器視窗"
 
 #: ../src/vnr-file.c:223
 #, c-format
@@ -165,7 +169,7 @@ msgstr "上次使用的模式"
 
 #: ../src/vnr-prefs.c:292 ../src/vnr-prefs.c:304
 msgid "Navigate images"
-msgstr ""
+msgstr "瀏覽圖片"
 
 #: ../src/vnr-prefs.c:293
 msgid "Zoom image"
@@ -197,11 +201,11 @@ msgstr "忽略變更"
 
 #: ../src/vnr-properties-dialog.c:112
 msgid "_Next"
-msgstr "下一個(_N)"
+msgstr "下一張(_N)"
 
 #: ../src/vnr-properties-dialog.c:113
 msgid "_Previous"
-msgstr "上一個(_P)"
+msgstr "上一張(_P)"
 
 #: ../src/vnr-properties-dialog.c:128
 msgid "Image Properties"
@@ -244,7 +248,7 @@ msgstr "使用「%s」開啟選擇的圖片"
 
 #: ../src/vnr-window.c:467
 msgid "Show next image after: "
-msgstr ""
+msgstr "多久之後顯示下一張圖片："
 
 #: ../src/vnr-window.c:485 ../src/vnr-window.c:902
 msgid " second"
@@ -261,7 +265,7 @@ msgid ""
 "Writing in this format is not supported."
 msgstr ""
 "無法儲存圖片的修改。\n"
-"這個格式的寫入不被支援。"
+"不支援這個格式的寫入。"
 
 #: ../src/vnr-window.c:768 ../src/vnr-window.c:826 ../src/vnr-window.c:1713
 msgid ""
@@ -269,7 +273,7 @@ msgid ""
 "This will overwrite the image and may reduce its quality!"
 msgstr ""
 "要儲存修改嗎？\n"
-"這將會覆寫圖片並且可能降低它的品質！"
+"這將會覆寫圖片並且可能降低品質！"
 
 #: ../src/vnr-window.c:1271
 msgid "Open Image"
@@ -289,9 +293,7 @@ msgstr "開啟資料夾"
 
 #: ../src/vnr-window.c:1378
 msgid "translator-credits"
-msgstr ""
-"Launchpad Contributions:\n"
-"  Hsiu-Ming Chang https://launchpad.net/~cges30901"
+msgstr "Hsiu-Ming Chang <cges30901@gmail.com>, 2018."
 
 #: ../src/vnr-window.c:1558
 msgid "If you delete an item, it will be permanently lost."
@@ -421,11 +423,11 @@ msgstr "顯示目前檔案的資訊"
 
 #: ../src/vnr-window.c:1773
 msgid "_Reload"
-msgstr "重新讀取(_R)"
+msgstr "重新載入(_R)"
 
 #: ../src/vnr-window.c:1774
 msgid "Reload the current file"
-msgstr "重新讀取目前的檔案"
+msgstr "重新載入目前的檔案"
 
 #: ../src/vnr-window.c:1779 ../src/vnr-window.c:1791 ../src/vnr-window.c:1794
 msgid "_Zoom In"
@@ -450,7 +452,7 @@ msgstr "正常大小(_N)"
 
 #: ../src/vnr-window.c:1786
 msgid "Show the image at its normal size"
-msgstr "以圖片的原始尺寸顯示"
+msgstr "以圖片的正常大小顯示"
 
 #: ../src/vnr-window.c:1788
 msgid "Best _Fit"
@@ -458,7 +460,7 @@ msgstr "最適大小(_F)"
 
 #: ../src/vnr-window.c:1789
 msgid "Fit the image to the window"
-msgstr "圖片符合視窗尺寸"
+msgstr "圖片符合視窗大小"
 
 #: ../src/vnr-window.c:1803
 msgid "Rotate _Clockwise"
@@ -538,35 +540,35 @@ msgstr "以投影片模式顯示"
 
 #: ../src/vnr-window.c:1845
 msgid "_Previous Image"
-msgstr "上一個圖片(_P)"
+msgstr "上一張圖片(_P)"
 
 #: ../src/vnr-window.c:1846
 msgid "Go to the previous image of the collection"
-msgstr "移至圖片集的上一張圖片"
+msgstr "前往圖片集的上一張圖片"
 
 #: ../src/vnr-window.c:1848
 msgid "_Next Image"
-msgstr "下一個圖片(_N)"
+msgstr "下一張圖片(_N)"
 
 #: ../src/vnr-window.c:1849
 msgid "Go to the next image of the collection"
-msgstr "移至圖片集的下一張圖片"
+msgstr "前往圖片集的下一張圖片"
 
 #: ../src/vnr-window.c:1851
 msgid "_First Image"
-msgstr "第一個圖片(_F)"
+msgstr "第一張圖片(_F)"
 
 #: ../src/vnr-window.c:1852
 msgid "Go to the first image of the collection"
-msgstr "移至圖片集的第一張圖片"
+msgstr "前往圖片集的第一張圖片"
 
 #: ../src/vnr-window.c:1854
 msgid "_Last Image"
-msgstr "最後一個圖片(_L)"
+msgstr "最後一張圖片(_L)"
 
 #: ../src/vnr-window.c:1855
 msgid "Go to the last image of the collection"
-msgstr "移至圖片集的最後一張圖片"
+msgstr "前往圖片集的最後一張圖片"
 
 #: ../src/uni-exiv2.hpp:49
 msgid "Camera make"

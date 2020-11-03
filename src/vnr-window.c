@@ -388,7 +388,7 @@ update_fs_filename_label(VnrWindow *window)
         return;
 
     gint position, total;
-    char *buf = NULL;
+    char *buf;
 
     get_leaf_position(window->tree, &position, &total);
     buf = g_strdup_printf ("%s - %i/%i",
@@ -1148,9 +1148,8 @@ file_open_dialog_response_cb (GtkWidget *dialog,
 {
     if (response_id == GTK_RESPONSE_ACCEPT)
     {
-        GSList *uri_list = NULL;
         gboolean open_recursively = FALSE;
-        uri_list = gtk_file_chooser_get_filenames (GTK_FILE_CHOOSER (dialog));
+        GSList *uri_list = gtk_file_chooser_get_filenames (GTK_FILE_CHOOSER (dialog));
         g_return_if_fail(uri_list != NULL);
 
         GtkWidget *toggle_btn = gtk_file_chooser_get_extra_widget(GTK_FILE_CHOOSER(dialog));
@@ -1159,6 +1158,7 @@ file_open_dialog_response_cb (GtkWidget *dialog,
         }
 
         vnr_window_open_from_list(window, uri_list, open_recursively);
+        g_slist_free_full(uri_list, g_free);
     }
 
     gtk_widget_destroy (dialog);
@@ -1323,8 +1323,8 @@ vnr_window_cmd_open(GtkAction *action, VnrWindow *window)
     GtkWidget *dialog;
     GtkWidget *open_recursively_checkbox;
     GtkWidget *preview;
-    GtkFileFilter *img_filter = NULL;
-    GtkFileFilter *all_filter = NULL;
+    GtkFileFilter *img_filter;
+    GtkFileFilter *all_filter;
 
     dialog = gtk_file_chooser_dialog_new (_("Open Image"),
                           GTK_WINDOW(window),
@@ -1359,10 +1359,9 @@ vnr_window_cmd_open(GtkAction *action, VnrWindow *window)
     g_signal_connect(GTK_FILE_CHOOSER(dialog), "update-preview",
                      G_CALLBACK(update_preview_cb), preview);
 
-    gchar *dirname;
     if(window->tree != NULL)
     {
-        dirname = g_path_get_dirname (VNR_FILE(window->tree->data)->path);
+        gchar *dirname = g_path_get_dirname (VNR_FILE(window->tree->data)->path);
         gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER(dialog), dirname);
         g_free(dirname);
     }
@@ -1395,10 +1394,9 @@ vnr_window_cmd_open_dir(GtkAction *action, VnrWindow *window)
     open_recursively_checkbox = gtk_check_button_new_with_label(_("Include subfolders"));
     gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(dialog), open_recursively_checkbox);
 
-    gchar *dirname;
     if(window->tree != NULL)
     {
-        dirname = g_path_get_dirname (VNR_FILE(window->tree->data)->path);
+        gchar *dirname = g_path_get_dirname (VNR_FILE(window->tree->data)->path);
         gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER(dialog), dirname);
         g_free(dirname);
     }
@@ -1598,10 +1596,10 @@ vnr_window_cmd_scrollbar (GtkAction *action, VnrWindow *window)
 static void
 vnr_window_cmd_slideshow (GtkAction *action, VnrWindow *window)
 {
+    g_assert(window != NULL && VNR_IS_WINDOW(window));
+
     if(!window->slideshow)
         return;
-
-    g_assert(window != NULL && VNR_IS_WINDOW(window));
 
     gboolean slideshow;
 

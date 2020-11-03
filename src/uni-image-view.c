@@ -255,7 +255,7 @@ uni_image_view_repaint_area (UniImageView * view, GdkRectangle * paint_rect)
     view->is_rendering = TRUE;
 
     // Image area is the area on the widget occupied by the pixbuf.
-    GdkRectangle image_area;
+    GdkRectangle image_area = {0, 0, 0, 0};
     Size alloc = uni_image_view_get_allocated_size (view);
     uni_image_view_get_draw_rect (view, &image_area);
     if (image_area.x > 0 ||
@@ -267,7 +267,7 @@ uni_image_view_repaint_area (UniImageView * view, GdkRectangle * paint_rect)
     GtkWidget *widget = GTK_WIDGET (view);
 
     // Paint area is the area on the widget that should be redrawn.
-    GdkRectangle paint_area;
+    GdkRectangle paint_area = {0, 0, 0, 0};
     gboolean intersects = gdk_rectangle_intersect (&image_area,
                                                    paint_rect,
                                                    &paint_area);

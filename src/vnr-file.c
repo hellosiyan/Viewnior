@@ -52,6 +52,7 @@ static void vnr_file_set_file_info(VnrFile *vnrfile,
     vnrfile->path = g_strdup(path);
     vnrfile->is_directory = is_directory;
     vnr_file_set_display_name(vnrfile, display_name);
+
 }
 
 VnrFile* vnr_file_create_new(gchar *path,
