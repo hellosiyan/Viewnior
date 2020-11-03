@@ -19,6 +19,9 @@
 
 #include "utils.h"
 
+char* output = NULL;
+GNode* monitor_test_tree = NULL;
+
 char *testdir_path;
 const int TIMEOUT = 5;
 int file_system_changes = 0;

@@ -43,8 +43,8 @@
 
 extern char* testdir_path;
 extern int errors;
-char* output;
-GNode* monitor_test_tree;
+extern char* output;
+extern GNode* monitor_test_tree;
 
 typedef enum {SINGLE_FILE, SINGLE_FOLDER, VALID_LIST, SEMI_INVALID_LIST, COMPLETELY_INVALID_LIST} inputtype;
 
