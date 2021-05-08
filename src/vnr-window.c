@@ -2062,6 +2062,9 @@ vnr_window_drag_data_received (GtkWidget *widget,
     if (!gtk_targets_include_uri (&target, 1))
         return;
 
+    if (gtk_drag_get_source_widget (context))
+        return;
+
     suggested_action = gdk_drag_context_get_suggested_action (context);
     if (suggested_action == GDK_ACTION_COPY || suggested_action == GDK_ACTION_ASK)
     {
