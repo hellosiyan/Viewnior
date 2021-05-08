@@ -17,9 +17,6 @@
  * along with Viewnior.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __VNR_IMAGE_H__
-#define __VNR_IMAGE_H__
-
 #include <glib.h>
 #include <gio/gio.h>
 #include <gtk/gtk.h>
@@ -209,4 +206,3 @@ vnr_tools_apply_embedded_orientation (GdkPixbufAnimation **anim)
 
     *anim = GDK_PIXBUF_ANIMATION(s_anim);
 }
-#endif /* __VNR_IMAGE_H__ */
