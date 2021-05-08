@@ -17,8 +17,8 @@ install_data(
 )
 
 install_data(
-  'viewnior.appdata.xml',
-  install_dir: join_paths(datadir, 'appdata')
+  'viewnior.metainfo.xml',
+  install_dir: join_paths(datadir, 'metainfo')
 )
 
 desktop = i18n.merge_file(
