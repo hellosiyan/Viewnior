@@ -1,5 +1,5 @@
 /*
- * Copyright © 2009-2018 Siyan Panayotov <contact@siyanpanayotov.com>
+ * Copyright © 2009-2018 Siyan Panayotov <siyan.panayotov@gmail.com>
  *
  * This file is part of Viewnior.
  *
@@ -17,14 +17,16 @@
  * along with Viewnior.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __VNR_TOOLS_H__
-#define __VNR_TOOLS_H__
+#ifndef __TREE_PRINTER_H__
+#define __TREE_PRINTER_H__
 
-void    vnr_tools_fit_to_size (gint * w, gint * h, gint mw, gint mh);
-void    vnr_tools_fit_to_size_double (gdouble * w, gdouble * h, gint mw, gint mh);
+#include <glib.h>
 
-GSList *vnr_tools_get_list_from_array (gchar **files);
-GSList *vnr_tools_parse_uri_string_list_to_file_list (const gchar *uri_list);
-void    vnr_tools_apply_embedded_orientation (GdkPixbufAnimation **anim);
+#define KWHT  "\033[1m\033[37m"
+#define RESET "\x1B[0m"
+#define OUTPUTSIZE 2048
 
-#endif /* __VNR_TOOLS_H__ */
+char* create_string(char* base_str, char* append_str);
+void  pretty_print_tree(GNode *tree, char* out);
+
+#endif /* __TREE_PRINTER_H__ */

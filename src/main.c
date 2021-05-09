@@ -23,6 +23,7 @@
 #include <config.h>
 #include <gtk/gtk.h>
 #include "config.h"
+#include "vnr-tree.h"
 #include "vnr-window.h"
 #include "vnr-message-area.h"
 #include "vnr-file.h"
@@ -34,6 +35,7 @@ static gchar **files = NULL;     //array of files specified to be opened
 static gboolean version = FALSE;
 static gboolean slideshow = FALSE;
 static gboolean fullscreen = FALSE;
+static gboolean recursive = FALSE;
 
 /* List of option entries
  * The only option is for specifying file to be opened. */
@@ -42,18 +44,17 @@ static GOptionEntry opt_entries[] = {
     {"version", 0, 0, G_OPTION_ARG_NONE, &version, NULL, NULL},
     {"slideshow", 0, 0, G_OPTION_ARG_NONE, &slideshow, NULL, NULL},
     {"fullscreen", 0, 0, G_OPTION_ARG_NONE, &fullscreen, NULL, NULL},
+    {"recursive", 0, 0, G_OPTION_ARG_NONE, &recursive, NULL, NULL},
     {NULL}
 };
 
-int
-main (int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     GError *error = NULL;
     GOptionContext *opt_context;
     GtkWindow *window;
 
     GSList *uri_list = NULL;
-    GList *file_list = NULL;
+    GNode *tree = NULL;
 
 
     bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
@@ -65,15 +66,12 @@ main (int argc, char *argv[])
     g_option_context_add_group (opt_context, gtk_get_option_group (TRUE));
     g_option_context_parse (opt_context, &argc, &argv, &error);
 
-    if (error != NULL)
-    {
+    if(error != NULL) {
         printf
             ("%s\nRun 'viewnior --help' to see a full list of available command line options.\n",
              error->message);
         return 1;
-    }
-    else if(version)
-    {
+    } else if(version) {
         printf("%s\n", PACKAGE_STRING);
         return 0;
     }
@@ -86,47 +84,36 @@ main (int argc, char *argv[])
 
     uri_list = vnr_tools_get_list_from_array (files);
 
-    if(uri_list != NULL)
-    {
-        if (g_slist_length(uri_list) == 1)
-        {
-            vnr_file_load_single_uri (uri_list->data, &file_list, VNR_WINDOW(window)->prefs->show_hidden, &error);
-        }
-        else
-        {
-            vnr_file_load_uri_list (uri_list, &file_list, VNR_WINDOW(window)->prefs->show_hidden, &error);
+    if(uri_list != NULL) {
+        if(g_slist_length(uri_list) == 1) {
+            tree = create_tree_from_single_uri (uri_list->data, VNR_WINDOW(window)->prefs->show_hidden, recursive, tree_changed_callback, window, &error);
+        } else {
+            tree = create_tree_from_uri_list (uri_list, VNR_WINDOW(window)->prefs->show_hidden, recursive, tree_changed_callback, window, &error);
         }
 
-        if(error != NULL && file_list != NULL)
-        {
+        if(error != NULL && tree != NULL) {
             deny_slideshow(VNR_WINDOW(window));
             vnr_message_area_show(VNR_MESSAGE_AREA (VNR_WINDOW(window)->msg_area),
                                   TRUE, error->message, TRUE);
-            vnr_window_set_list(VNR_WINDOW(window), file_list, TRUE);
-        }
-        else if(error != NULL)
-        {
+            vnr_window_set_tree(VNR_WINDOW(window), tree, TRUE);
+        } else if(error != NULL) {
             deny_slideshow(VNR_WINDOW(window));
             vnr_message_area_show(VNR_MESSAGE_AREA (VNR_WINDOW(window)->msg_area),
                                   TRUE, error->message, TRUE);
-        }
-        else if(file_list == NULL)
-        {
+        } else if(tree == NULL) {
             deny_slideshow(VNR_WINDOW(window));
             vnr_message_area_show(VNR_MESSAGE_AREA (VNR_WINDOW(window)->msg_area),
                                   TRUE, _("The given locations contain no images."),
                                   TRUE);
-        }
-        else
-        {
-            vnr_window_set_list(VNR_WINDOW(window), file_list, TRUE);
+        } else {
+            vnr_window_set_tree(VNR_WINDOW(window), tree, TRUE);
         }
     }
-    
+
     VNR_WINDOW(window)->prefs->start_slideshow = slideshow;
     VNR_WINDOW(window)->prefs->start_fullscreen = fullscreen;
-    if ( VNR_WINDOW(window)->prefs->start_maximized ) {
-    	gtk_window_maximize(window);
+    if(VNR_WINDOW(window)->prefs->start_maximized) {
+        gtk_window_maximize(window);
     }
     gtk_widget_show (GTK_WIDGET (window));
     gtk_main ();

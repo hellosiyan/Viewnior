@@ -258,7 +258,7 @@ vnr_properties_dialog_update(VnrPropertiesDialog *dialog)
     gchar *filetype_desc = NULL;
     gchar *filesize_str = NULL;
 
-    get_file_info ((gchar*)VNR_FILE(dialog->vnr_win->file_list->data)->path,
+    get_file_info ((gchar*)VNR_FILE(dialog->vnr_win->tree->data)->path,
                    &filesize, &filetype);
 
     if(filetype == NULL && filesize == 0)
@@ -275,10 +275,10 @@ vnr_properties_dialog_update(VnrPropertiesDialog *dialog)
     filetype_desc = g_content_type_get_description (filetype);
 
     gtk_label_set_text(GTK_LABEL(dialog->name_label),
-                       (gchar*)VNR_FILE(dialog->vnr_win->file_list->data)->display_name);
+                       (gchar*)VNR_FILE(dialog->vnr_win->tree->data)->display_name);
 
     gtk_label_set_text(GTK_LABEL(dialog->location_label),
-                       (gchar*)VNR_FILE(dialog->vnr_win->file_list->data)->path);
+                       (gchar*)VNR_FILE(dialog->vnr_win->tree->data)->path);
 
     gtk_label_set_text(GTK_LABEL(dialog->type_label), filetype_desc);
     gtk_label_set_text(GTK_LABEL(dialog->size_label), filesize_str);
@@ -307,7 +307,7 @@ vnr_properties_dialog_clear_metadata(VnrPropertiesDialog *dialog)
     g_list_free(children);
 }
 
-static void 
+static void
 vnr_cb_add_metadata(const char *label, const char *value, void *user_data) {
     VnrPropertiesDialog *dialog = VNR_PROPERTIES_DIALOG(user_data);
     GtkWidget *temp_label;
@@ -340,8 +340,8 @@ vnr_properties_dialog_update_metadata(VnrPropertiesDialog *dialog)
     vnr_properties_dialog_clear_metadata(dialog);
 
     uni_read_exiv2_map(
-        VNR_FILE(dialog->vnr_win->file_list->data)->path, 
-        vnr_cb_add_metadata, 
+        VNR_FILE(dialog->vnr_win->tree->data)->path,
+        vnr_cb_add_metadata,
         (void*)dialog);
 }
 
