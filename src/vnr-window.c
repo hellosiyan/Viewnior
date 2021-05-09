@@ -43,6 +43,7 @@
 
 /* Timeout to hide the toolbar in fullscreen mode */
 #define FULLSCREEN_TIMEOUT 1000
+#define DARK_BACKGROUND_COLOR "#222222"
 
 G_DEFINE_TYPE (VnrWindow, vnr_window, GTK_TYPE_WINDOW);
 
@@ -581,7 +582,15 @@ vnr_window_unfullscreen(VnrWindow *window)
                                           "ViewFullscreen");
 
     gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), FALSE);
-    gtk_widget_modify_bg(window->view, GTK_STATE_NORMAL, NULL);
+
+    if (window->prefs->dark_background) {
+        GdkColor color;
+        gdk_color_parse (DARK_BACKGROUND_COLOR, &color);
+        gtk_widget_modify_bg(window->view, GTK_STATE_NORMAL, &color);
+    }
+    else {
+        gtk_widget_modify_bg(window->view, GTK_STATE_NORMAL, NULL);
+    }
 
     if (window->prefs->fit_on_fullscreen)
         uni_image_view_set_zoom_mode (UNI_IMAGE_VIEW(window->view),
@@ -2709,6 +2718,12 @@ vnr_window_last (VnrWindow *window){
 void
 vnr_window_apply_preferences (VnrWindow *window)
 {
+    if ( window->prefs->dark_background ) {
+        GdkColor color;
+        gdk_color_parse(DARK_BACKGROUND_COLOR, &color);
+        gtk_widget_modify_bg(window->view, GTK_STATE_NORMAL, &color);
+    }
+
     if(window->prefs->smooth_images && UNI_IMAGE_VIEW(window->view)->interp != GDK_INTERP_BILINEAR)
     {
         UNI_IMAGE_VIEW(window->view)->interp = GDK_INTERP_BILINEAR;
