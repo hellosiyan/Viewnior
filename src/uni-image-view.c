@@ -306,7 +306,7 @@ uni_image_view_repaint_area (UniImageView * view, GdkRectangle * paint_rect)
 static void
 uni_image_view_fast_scroll (UniImageView * view, int delta_x, int delta_y)
 {
-    GdkDrawable *drawable = gtk_widget_get_window (GTK_WIDGET (view));
+    GdkWindow *drawable = gtk_widget_get_window (GTK_WIDGET (view));
 
     int src_x, src_y;
     int dest_x, dest_y;

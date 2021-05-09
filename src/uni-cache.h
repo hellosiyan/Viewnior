@@ -84,7 +84,7 @@ void    uni_pixbuf_draw_cache_free          (UniPixbufDrawCache * cache);
 void    uni_pixbuf_draw_cache_invalidate    (UniPixbufDrawCache * cache);
 void    uni_pixbuf_draw_cache_draw          (UniPixbufDrawCache * cache,
                                              UniPixbufDrawOpts * opts,
-                                             GdkDrawable * drawable);
+                                             GdkWindow * window);
 
 UniPixbufDrawMethod uni_pixbuf_draw_cache_get_method (UniPixbufDrawOpts * old,
                                                       UniPixbufDrawOpts *

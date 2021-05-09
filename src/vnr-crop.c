@@ -44,21 +44,18 @@ static gboolean drawable_motion_cb (GtkWidget *widget,
 /***** Private actions ***************************************/
 /*************************************************************/
 static void
-vnr_crop_clear_rectangle(VnrCrop *crop)
+vnr_crop_draw_rectangle(VnrCrop *crop)
 {
     if(crop->do_redraw)
-        gdk_draw_rectangle (GDK_DRAWABLE(gtk_widget_get_window(crop->image)), crop->gc, FALSE,
+        gdk_draw_rectangle (gtk_widget_get_window(crop->image), crop->gc, FALSE,
                             crop->sub_x, crop->sub_y,
                             crop->sub_width, crop->sub_height);
 }
 
-static void
-vnr_crop_draw_rectangle(VnrCrop *crop)
+static inline void
+vnr_crop_clear_rectangle(VnrCrop *crop)
 {
-    if(crop->do_redraw)
-        gdk_draw_rectangle (GDK_DRAWABLE(gtk_widget_get_window(crop->image)), crop->gc, FALSE,
-                            crop->sub_x, crop->sub_y,
-                            crop->sub_width, crop->sub_height);
+    vnr_crop_draw_rectangle (crop);
 }
 
 static void
@@ -266,10 +263,10 @@ static gboolean
 drawable_expose_cb (GtkWidget *widget, GdkEventExpose *event, VnrCrop *crop)
 {
     GdkWindow *window = gtk_widget_get_window(widget);
-    gdk_draw_pixbuf (GDK_DRAWABLE(window), NULL, crop->preview_pixbuf,
+    gdk_draw_pixbuf (window, NULL, crop->preview_pixbuf,
                      0, 0, 0, 0, -1, -1, GDK_RGB_DITHER_NORMAL, 0, 0);
 
-    crop->gc = gdk_gc_new(GDK_DRAWABLE(window));
+    crop->gc = gdk_gc_new(window);
     gdk_gc_set_function (crop->gc, GDK_INVERT);
     gdk_gc_set_line_attributes (crop->gc,
                                 2,
