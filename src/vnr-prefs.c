@@ -192,20 +192,20 @@ build_dialog (VnrPrefs *prefs)
     GtkToggleButton *dark_background;
     GtkToggleButton *fit_on_fullscreen;
     GtkBox *zoom_mode_box;
-    GtkComboBox *zoom_mode;
+    GtkComboBoxText *zoom_mode;
     GtkToggleButton *smooth_images;
     GtkToggleButton *confirm_delete;
     GtkToggleButton *reload_on_save;
     GtkSpinButton *slideshow_timeout;
     GtkTable *behavior_table;
-    GtkComboBox *action_wheel;
-    GtkComboBox *action_click;
-    GtkComboBox *action_modify;
+    GtkComboBoxText *action_wheel;
+    GtkComboBoxText *action_click;
+    GtkComboBoxText *action_modify;
     GtkRange *jpeg_scale;
     GtkRange *png_scale;
 
     GtkBox *desktop_box;
-    GtkComboBox *desktop_env;
+    GtkComboBoxText *desktop_env;
 
     builder = gtk_builder_new ();
     gtk_builder_add_from_file (builder, UI_PATH, &error);
@@ -273,12 +273,12 @@ build_dialog (VnrPrefs *prefs)
     /* Zoom mode combo box */
     zoom_mode_box = GTK_BOX (gtk_builder_get_object (builder, "zoom_mode_box"));
 
-    zoom_mode = (GtkComboBox*) gtk_combo_box_new_text();
-    gtk_combo_box_append_text(zoom_mode, _("Smart Mode"));
-    gtk_combo_box_append_text(zoom_mode, _("1:1 Mode"));
-    gtk_combo_box_append_text(zoom_mode, _("Fit To Window Mode"));
-    gtk_combo_box_append_text(zoom_mode, _("Last Used Mode"));
-    gtk_combo_box_set_active(zoom_mode, prefs->zoom);
+    zoom_mode = (GtkComboBoxText*) gtk_combo_box_text_new();
+    gtk_combo_box_text_append_text(zoom_mode, _("Smart Mode"));
+    gtk_combo_box_text_append_text(zoom_mode, _("1:1 Mode"));
+    gtk_combo_box_text_append_text(zoom_mode, _("Fit To Window Mode"));
+    gtk_combo_box_text_append_text(zoom_mode, _("Last Used Mode"));
+    gtk_combo_box_set_active(GTK_COMBO_BOX(zoom_mode), prefs->zoom);
 
     gtk_box_pack_end (zoom_mode_box, GTK_WIDGET(zoom_mode), FALSE, FALSE, 0);
     gtk_widget_show(GTK_WIDGET(zoom_mode));
@@ -288,18 +288,18 @@ build_dialog (VnrPrefs *prefs)
     /* Desktop combo box */
     desktop_box = GTK_BOX (gtk_builder_get_object (builder, "desktop_box"));
 
-    desktop_env = (GtkComboBox*) gtk_combo_box_new_text();
-    gtk_combo_box_append_text(desktop_env, "GNOME 2");
-    gtk_combo_box_append_text(desktop_env, "GNOME 3");
-    gtk_combo_box_append_text(desktop_env, "XFCE");
-    gtk_combo_box_append_text(desktop_env, "LXDE");
-    gtk_combo_box_append_text(desktop_env, "PUPPY");
-    gtk_combo_box_append_text(desktop_env, "FluxBox");
-    gtk_combo_box_append_text(desktop_env, "Nitrogen");
-    gtk_combo_box_append_text(desktop_env, "MATE");
-    gtk_combo_box_append_text(desktop_env, "Cinnamon");
-    gtk_combo_box_append_text(desktop_env, _("Autodetect"));
-    gtk_combo_box_set_active(desktop_env, prefs->desktop);
+    desktop_env = (GtkComboBoxText*) gtk_combo_box_text_new();
+    gtk_combo_box_text_append_text(desktop_env, "GNOME 2");
+    gtk_combo_box_text_append_text(desktop_env, "GNOME 3");
+    gtk_combo_box_text_append_text(desktop_env, "XFCE");
+    gtk_combo_box_text_append_text(desktop_env, "LXDE");
+    gtk_combo_box_text_append_text(desktop_env, "PUPPY");
+    gtk_combo_box_text_append_text(desktop_env, "FluxBox");
+    gtk_combo_box_text_append_text(desktop_env, "Nitrogen");
+    gtk_combo_box_text_append_text(desktop_env, "MATE");
+    gtk_combo_box_text_append_text(desktop_env, "Cinnamon");
+    gtk_combo_box_text_append_text(desktop_env, _("Autodetect"));
+    gtk_combo_box_set_active(GTK_COMBO_BOX(desktop_env), prefs->desktop);
 
     gtk_box_pack_end (desktop_box, GTK_WIDGET(desktop_env), FALSE, FALSE, 0);
     gtk_widget_show(GTK_WIDGET(desktop_env));
@@ -309,31 +309,31 @@ build_dialog (VnrPrefs *prefs)
     /* Behavior combo boxes */
     behavior_table = GTK_TABLE (gtk_builder_get_object (builder, "behavior_table"));
 
-    action_wheel = (GtkComboBox*) gtk_combo_box_new_text();
-    gtk_combo_box_append_text(action_wheel, _("Navigate images"));
-    gtk_combo_box_append_text(action_wheel, _("Zoom image"));
-    gtk_combo_box_append_text(action_wheel, _("Scroll image up/down"));
-    gtk_combo_box_set_active(action_wheel, prefs->behavior_wheel);
+    action_wheel = (GtkComboBoxText*) gtk_combo_box_text_new();
+    gtk_combo_box_text_append_text(action_wheel, _("Navigate images"));
+    gtk_combo_box_text_append_text(action_wheel, _("Zoom image"));
+    gtk_combo_box_text_append_text(action_wheel, _("Scroll image up/down"));
+    gtk_combo_box_set_active(GTK_COMBO_BOX(action_wheel), prefs->behavior_wheel);
 
     gtk_table_attach (behavior_table, GTK_WIDGET(action_wheel), 1,2,0,1, GTK_FILL,0, 0,0);
     gtk_widget_show(GTK_WIDGET(action_wheel));
     g_signal_connect(G_OBJECT(action_wheel), "changed", G_CALLBACK(change_action_wheel_cb), prefs);
 
-    action_click = (GtkComboBox*) gtk_combo_box_new_text();
-    gtk_combo_box_append_text(action_click, _("Switch zoom modes"));
-    gtk_combo_box_append_text(action_click, _("Enter fullscreen mode"));
-    gtk_combo_box_append_text(action_click, _("Navigate images"));
-    gtk_combo_box_set_active(action_click, prefs->behavior_click);
+    action_click = (GtkComboBoxText*) gtk_combo_box_text_new();
+    gtk_combo_box_text_append_text(action_click, _("Switch zoom modes"));
+    gtk_combo_box_text_append_text(action_click, _("Enter fullscreen mode"));
+    gtk_combo_box_text_append_text(action_click, _("Navigate images"));
+    gtk_combo_box_set_active(GTK_COMBO_BOX(action_click), prefs->behavior_click);
 
     gtk_table_attach (behavior_table, GTK_WIDGET(action_click), 1,2,1,2, GTK_FILL,0, 0,0);
     gtk_widget_show(GTK_WIDGET(action_click));
     g_signal_connect(G_OBJECT(action_click), "changed", G_CALLBACK(change_action_click_cb), prefs);
 
-    action_modify = (GtkComboBox*) gtk_combo_box_new_text();
-    gtk_combo_box_append_text(action_modify, _("Ask every time"));
-    gtk_combo_box_append_text(action_modify, _("Autosave"));
-    gtk_combo_box_append_text(action_modify, _("Ignore changes"));
-    gtk_combo_box_set_active(action_modify, prefs->behavior_modify);
+    action_modify = (GtkComboBoxText*) gtk_combo_box_text_new();
+    gtk_combo_box_text_append_text(action_modify, _("Ask every time"));
+    gtk_combo_box_text_append_text(action_modify, _("Autosave"));
+    gtk_combo_box_text_append_text(action_modify, _("Ignore changes"));
+    gtk_combo_box_set_active(GTK_COMBO_BOX(action_modify), prefs->behavior_modify);
 
     gtk_table_attach (behavior_table, GTK_WIDGET(action_modify), 1,2,2,3, GTK_FILL,0, 0,0);
     gtk_widget_show(GTK_WIDGET(action_modify));

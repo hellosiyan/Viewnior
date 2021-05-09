@@ -69,7 +69,7 @@ vnr_message_area_initialize(VnrMessageArea * msg_area)
     gtk_container_add(GTK_CONTAINER(msg_area->button_box),
                       msg_area->cancel_button);
 
-    gtk_widget_hide_all(msg_area->hbox);
+    gtk_widget_hide(msg_area->hbox);
     gtk_widget_set_state(GTK_WIDGET(msg_area), GTK_STATE_SELECTED);
     gtk_widget_set_state(msg_area->button_box, GTK_STATE_NORMAL);
     msg_area->initialized = TRUE;
@@ -132,7 +132,7 @@ vnr_message_area_show (VnrMessageArea *msg_area,
     }
 
     gtk_widget_show_all(GTK_WIDGET (msg_area->hbox));
-    gtk_widget_hide_all(GTK_WIDGET (msg_area->button_box));
+    gtk_widget_hide(GTK_WIDGET (msg_area->button_box));
 }
 
 void
@@ -164,7 +164,7 @@ vnr_message_area_show_with_button (VnrMessageArea *msg_area,
 void
 vnr_message_area_hide (VnrMessageArea *msg_area)
 {
-    gtk_widget_hide_all(GTK_WIDGET (msg_area->hbox));
+    gtk_widget_hide(GTK_WIDGET (msg_area->hbox));
     if(msg_area->with_button)
     {
         g_signal_handlers_disconnect_by_func (msg_area->user_button,

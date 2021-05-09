@@ -570,9 +570,7 @@ uni_image_view_button_press (GtkWidget * widget, GdkEventButton * ev)
     }
     else if(ev->type == GDK_2BUTTON_PRESS && ev->button == 1 && vnr_win->prefs->behavior_click == VNR_PREFS_CLICK_NEXT)
     {
-
-        int width;
-        gdk_drawable_get_size(GDK_DRAWABLE(gtk_widget_get_window(widget)), &width, NULL);
+        int width = gdk_window_get_width(gtk_widget_get_window(widget));
 
         if(ev->x/width < 0.5)
             vnr_window_prev(vnr_win);
