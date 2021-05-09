@@ -1096,10 +1096,10 @@ window_change_state_cb (GtkWidget * widget, GdkEventWindowState * event, gpointe
 
 
 static void
-window_destroy_cb (GtkObject *object, gpointer user_data)
+window_destroy_cb (GtkWidget *widget, gpointer user_data)
 {
     vnr_window_save_accel_map();
-    vnr_prefs_save(VNR_WINDOW(object)->prefs);
+    vnr_prefs_save(VNR_WINDOW(widget)->prefs);
     gtk_main_quit();
 }
 

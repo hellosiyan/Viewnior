@@ -628,7 +628,7 @@ uni_image_view_motion_notify (GtkWidget * widget, GdkEventMotion * ev)
 }
 
 static gboolean
-uni_image_view_hadj_changed_cb (GtkObject * adj, UniImageView * view)
+uni_image_view_hadj_changed_cb (GObject * adj, UniImageView * view)
 {
     int offset_x;
     offset_x = gtk_adjustment_get_value (GTK_ADJUSTMENT (adj));
@@ -637,7 +637,7 @@ uni_image_view_hadj_changed_cb (GtkObject * adj, UniImageView * view)
 }
 
 static gboolean
-uni_image_view_vadj_changed_cb (GtkObject * adj, UniImageView * view)
+uni_image_view_vadj_changed_cb (GObject * adj, UniImageView * view)
 {
     int offset_y;
     offset_y = gtk_adjustment_get_value (GTK_ADJUSTMENT (adj));
