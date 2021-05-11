@@ -306,7 +306,7 @@ uni_image_view_repaint_area (UniImageView * view, GdkRectangle * paint_rect)
 static void
 uni_image_view_fast_scroll (UniImageView * view, int delta_x, int delta_y)
 {
-    GdkDrawable *drawable = gtk_widget_get_window (GTK_WIDGET (view));
+    GdkWindow *drawable = gtk_widget_get_window (GTK_WIDGET (view));
 
     int src_x, src_y;
     int dest_x, dest_y;
@@ -570,9 +570,7 @@ uni_image_view_button_press (GtkWidget * widget, GdkEventButton * ev)
     }
     else if(ev->type == GDK_2BUTTON_PRESS && ev->button == 1 && vnr_win->prefs->behavior_click == VNR_PREFS_CLICK_NEXT)
     {
-
-        int width;
-        gdk_drawable_get_size(GDK_DRAWABLE(gtk_widget_get_window(widget)), &width, NULL);
+        int width = gdk_window_get_width(gtk_widget_get_window(widget));
 
         if(ev->x/width < 0.5)
             vnr_window_prev(vnr_win);
@@ -630,7 +628,7 @@ uni_image_view_motion_notify (GtkWidget * widget, GdkEventMotion * ev)
 }
 
 static gboolean
-uni_image_view_hadj_changed_cb (GtkObject * adj, UniImageView * view)
+uni_image_view_hadj_changed_cb (GObject * adj, UniImageView * view)
 {
     int offset_x;
     offset_x = gtk_adjustment_get_value (GTK_ADJUSTMENT (adj));
@@ -639,7 +637,7 @@ uni_image_view_hadj_changed_cb (GtkObject * adj, UniImageView * view)
 }
 
 static gboolean
-uni_image_view_vadj_changed_cb (GtkObject * adj, UniImageView * view)
+uni_image_view_vadj_changed_cb (GObject * adj, UniImageView * view)
 {
     int offset_y;
     offset_y = gtk_adjustment_get_value (GTK_ADJUSTMENT (adj));

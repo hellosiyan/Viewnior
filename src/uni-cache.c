@@ -210,8 +210,7 @@ uni_pixbuf_draw_cache_scroll_intersection (GdkPixbuf * pixbuf,
  **/
 static void
 uni_pixbuf_draw_cache_intersect_draw (UniPixbufDrawCache * cache,
-                                      UniPixbufDrawOpts * opts,
-                                      GdkDrawable * drawable)
+                                      UniPixbufDrawOpts * opts)
 {
     GdkRectangle this = opts->zoom_rect;
     GdkRectangle old_rect = cache->old.zoom_rect;
@@ -259,14 +258,14 @@ uni_pixbuf_draw_cache_intersect_draw (UniPixbufDrawCache * cache,
  * uni_pixbuf_draw_cache_draw:
  * @cache: a #UniPixbufDrawCache
  * @opts: the #UniPixbufDrawOpts to use in this draw
- * @drawable: a #GdkDrawable to draw on
+ * @window: a #GdkWindow to draw on
  *
  * Redraws the area specified in the pixbuf draw options in an
  * efficient way by using caching.
  **/
 void
 uni_pixbuf_draw_cache_draw (UniPixbufDrawCache * cache,
-                            UniPixbufDrawOpts * opts, GdkDrawable * drawable)
+                            UniPixbufDrawOpts * opts, GdkWindow * window)
 {
     GdkRectangle this = opts->zoom_rect;
     UniPixbufDrawMethod method =
@@ -280,7 +279,7 @@ uni_pixbuf_draw_cache_draw (UniPixbufDrawCache * cache,
     }
     else if (method == UNI_PIXBUF_DRAW_METHOD_SCROLL)
     {
-        uni_pixbuf_draw_cache_intersect_draw (cache, opts, drawable);
+        uni_pixbuf_draw_cache_intersect_draw (cache, opts);
     }
     else if (method == UNI_PIXBUF_DRAW_METHOD_SCALE)
     {
@@ -307,7 +306,7 @@ uni_pixbuf_draw_cache_draw (UniPixbufDrawCache * cache,
                                 (double) -this.x, (double) -this.y,
                                 opts->zoom, opts->interp, this.x, this.y);
     }
-    gdk_draw_pixbuf (drawable,
+    gdk_draw_pixbuf (window,
                      NULL,
                      cache->last_pixbuf,
                      deltax, deltay,

@@ -64,12 +64,12 @@ uni_pixbuf_scale_blend (GdkPixbuf * src,
  * draw a pixel at position (0,0).
  **/
 void
-uni_draw_rect (GdkDrawable * drawable,
+uni_draw_rect (GdkWindow * window,
                GdkGC * gc, gboolean filled, GdkRectangle * rect)
 {
     if (rect->width <= 0 || rect->height <= 0)
         return;
-    gdk_draw_rectangle (drawable, gc, filled,
+    gdk_draw_rectangle (window, gc, filled,
                         rect->x, rect->y, rect->width - 1, rect->height - 1);
 }
 
