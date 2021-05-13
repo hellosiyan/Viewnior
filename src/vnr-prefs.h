@@ -46,7 +46,6 @@ typedef enum{
     VNR_PREFS_ZOOM_LAST_USED,
 } VnrPrefsZoom;
 
-
 typedef enum{
     VNR_PREFS_DESKTOP_GNOME2,
     VNR_PREFS_DESKTOP_GNOME3,
@@ -64,19 +63,19 @@ typedef enum{
     VNR_PREFS_WHEEL_NAVIGATE ,
     VNR_PREFS_WHEEL_ZOOM ,
     VNR_PREFS_WHEEL_SCROLL,
-} VnrPrefsWheel ;
+} VnrPrefsWheel;
 
 typedef enum{
     VNR_PREFS_CLICK_ZOOM ,
     VNR_PREFS_CLICK_FULLSCREEN ,
     VNR_PREFS_CLICK_NEXT ,
-} VnrPrefsClick ;
+} VnrPrefsClick;
 
 typedef enum{
     VNR_PREFS_MODIFY_ASK ,
     VNR_PREFS_MODIFY_SAVE ,
     VNR_PREFS_MODIFY_IGNORE ,
-} VnrPrefsModify ;
+} VnrPrefsModify;
 
 struct _VnrPrefs {
     GObject parent;

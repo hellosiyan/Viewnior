@@ -29,6 +29,15 @@
 
 G_DEFINE_TYPE (VnrPrefs, vnr_prefs, G_TYPE_OBJECT);
 
+/**
+ * VNR_PREF_LOAD_KEY:
+ * @PK: Name of the VnrPrefs member.
+ * @PT: Type of the VnrPrefs member, a suffix for g_key_file_get_.
+ * @KN: Name of the key in the key file.
+ * @DEF: Default value for the preference.
+ */
+#define VNR_PREF_LOAD_KEY(PK, PT, KN, DEF)  prefs-> PK = g_key_file_get_ ## PT (conf, "prefs", KN, &read_error); if(read_error != NULL) { prefs-> PK = DEF; g_clear_error(&read_error); }
+
 /*************************************************************/
 /***** Private signal handlers *******************************/
 /*************************************************************/
@@ -352,53 +361,45 @@ build_dialog (VnrPrefs *prefs)
 }
 
 static gboolean
-vnr_prefs_load (VnrPrefs *prefs)
+vnr_prefs_load (VnrPrefs *prefs, GError **error)
 {
-    GKeyFile *conf;
-    GError *error = NULL;
+    GKeyFile *conf = g_key_file_new();
+    GError *read_error = NULL;
+    GError *load_file_error = NULL;
     const gchar *path;
 
     path = g_build_filename (g_get_user_config_dir(), PACKAGE, "viewnior.conf", NULL);
-
-    conf = g_key_file_new();
-    g_key_file_load_from_file (conf, path, G_KEY_FILE_NONE, &error);
+    g_key_file_load_from_file (conf, path, G_KEY_FILE_NONE, &load_file_error);
 
     g_free((char*)path);
 
-    if(error != NULL)
+    if(load_file_error != NULL)
     {
-        g_warning("Loading config file: %s. All preferences are set to their default values. Saving ...", error->message);
+        g_propagate_error (error, load_file_error);
         g_key_file_free (conf);
         return FALSE;
     }
 
-    prefs->zoom = g_key_file_get_integer (conf, "prefs", "zoom-mode", &error);
-    prefs->fit_on_fullscreen = g_key_file_get_boolean (conf, "prefs", "fit-on-fullscreen", &error);
-    prefs->show_hidden = g_key_file_get_boolean (conf, "prefs", "show-hidden", &error);
-    prefs->dark_background = g_key_file_get_boolean (conf, "prefs", "dark-background", NULL);
-    prefs->smooth_images = g_key_file_get_boolean (conf, "prefs", "smooth-images", &error);
-    prefs->confirm_delete = g_key_file_get_boolean (conf, "prefs", "confirm-delete", &error);
-    prefs->reload_on_save = g_key_file_get_boolean (conf, "prefs", "reload-on-save", &error);
-    prefs->show_menu_bar = g_key_file_get_boolean (conf, "prefs", "show-menu-bar", &error);
-    prefs->show_toolbar = g_key_file_get_boolean (conf, "prefs", "show-toolbar", &error);
-    prefs->show_scrollbar = g_key_file_get_boolean (conf, "prefs", "show-scrollbar", &error);
-    prefs->show_statusbar = g_key_file_get_boolean (conf, "prefs", "show-statusbar", &error);
-    prefs->start_maximized = g_key_file_get_boolean (conf, "prefs", "start-maximized", &error);
-    prefs->slideshow_timeout = g_key_file_get_integer (conf, "prefs", "slideshow-timeout", &error);
-    prefs->auto_resize = g_key_file_get_boolean (conf, "prefs", "auto-resize", &error);
-    prefs->behavior_wheel = g_key_file_get_integer (conf, "prefs", "behavior-wheel", &error);
-    prefs->behavior_click = g_key_file_get_integer (conf, "prefs", "behavior-click", &error);
-    prefs->behavior_modify = g_key_file_get_integer (conf, "prefs", "behavior-modify", &error);
-    prefs->jpeg_quality = g_key_file_get_integer (conf, "prefs", "jpeg-quality", &error);
-    prefs->png_compression = g_key_file_get_integer (conf, "prefs", "png-compression", &error);
-    prefs->desktop = g_key_file_get_integer (conf, "prefs", "desktop", &error);
-
-    if(error != NULL)
-    {
-        g_warning("Parsing config file: %s. All preferences are set to their default values.", error->message);
-        g_key_file_free (conf);
-        return FALSE;
-    }
+    VNR_PREF_LOAD_KEY (zoom, integer, "zoom-mode", VNR_PREFS_ZOOM_SMART);
+    VNR_PREF_LOAD_KEY (fit_on_fullscreen, boolean, "fit-on-fullscreen", TRUE);
+    VNR_PREF_LOAD_KEY (show_hidden, boolean, "show-hidden", FALSE);
+    VNR_PREF_LOAD_KEY (dark_background, boolean, "dark-background", FALSE);
+    VNR_PREF_LOAD_KEY (smooth_images, boolean, "smooth-images", TRUE);
+    VNR_PREF_LOAD_KEY (confirm_delete, boolean, "confirm-delete", TRUE);
+    VNR_PREF_LOAD_KEY (reload_on_save, boolean, "reload-on-save", FALSE);
+    VNR_PREF_LOAD_KEY (show_menu_bar, boolean, "show-menu-bar", FALSE);
+    VNR_PREF_LOAD_KEY (show_toolbar, boolean, "show-toolbar", TRUE);
+    VNR_PREF_LOAD_KEY (show_scrollbar, boolean, "show-scrollbar", TRUE);
+    VNR_PREF_LOAD_KEY (show_statusbar, boolean, "show-statusbar", FALSE);
+    VNR_PREF_LOAD_KEY (start_maximized, boolean, "start-maximized", FALSE);
+    VNR_PREF_LOAD_KEY (slideshow_timeout, integer, "slideshow-timeout", 5);
+    VNR_PREF_LOAD_KEY (auto_resize, boolean, "auto-resize", FALSE);
+    VNR_PREF_LOAD_KEY (behavior_wheel, integer, "behavior-wheel", VNR_PREFS_WHEEL_ZOOM);
+    VNR_PREF_LOAD_KEY (behavior_click, integer, "behavior-click", VNR_PREFS_CLICK_ZOOM);
+    VNR_PREF_LOAD_KEY (behavior_modify, integer, "behavior-modify", VNR_PREFS_MODIFY_ASK);
+    VNR_PREF_LOAD_KEY (jpeg_quality, integer, "jpeg-quality", 90);
+    VNR_PREF_LOAD_KEY (png_compression, integer, "png-compression", 9);
+    VNR_PREF_LOAD_KEY (desktop, integer, "desktop", VNR_PREFS_DESKTOP_AUTO);
 
     g_key_file_free (conf);
 
@@ -427,8 +428,11 @@ vnr_prefs_new (GtkWidget *vnr_win)
 static void
 vnr_prefs_init (VnrPrefs * prefs)
 {
-    if ( !vnr_prefs_load (prefs) )
+    GError *error = NULL;
+
+    if ( !vnr_prefs_load (prefs, &error) )
     {
+        g_warning("Error loading config file: %s. All preferences are set to their default values. Saving ...", error->message);
         vnr_prefs_set_default(prefs);
         vnr_prefs_save (prefs);
     }

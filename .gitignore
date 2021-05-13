@@ -36,3 +36,4 @@ builddir/
 viewnior-*.tar.gz
 *.sublime-project
 *.sublime-workspace
+.vscode
