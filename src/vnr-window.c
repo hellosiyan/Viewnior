@@ -88,6 +88,7 @@ const gchar *ui_definition = "<ui>"
       "<menuitem action=\"ViewMenuBar\"/>"
       "<menuitem action=\"ViewToolbar\"/>"
       "<menuitem action=\"ViewScrollbar\"/>"
+      "<menuitem action=\"ViewStatusbar\"/>"
       "<separator/>"
       "<menuitem action=\"ViewZoomIn\"/>"
       "<menuitem action=\"ViewZoomOut\"/>"
@@ -144,6 +145,7 @@ const gchar *ui_definition = "<ui>"
       "<menuitem action=\"ViewMenuBar\"/>"
       "<menuitem action=\"ViewToolbar\"/>"
       "<menuitem action=\"ViewScrollbar\"/>"
+      "<menuitem action=\"ViewStatusbar\"/>"
       "<menuitem name=\"Fullscreen\" action=\"ViewFullscreen\"/>"
       "<menuitem name=\"Slideshow\" action=\"ViewSlideshow\"/>"
       "<separator/>"
@@ -196,6 +198,7 @@ const gchar *ui_definition = "<ui>"
     "<menuitem name=\"MenuBar\" action=\"ViewMenuBar\"/>"
     "<menuitem name=\"Toolbar\" action=\"ViewToolbar\"/>"
     "<menuitem name=\"Scrollbar\" action=\"ViewScrollbar\"/>"
+    "<menuitem name=\"Statusbar\" action=\"ViewStatusbar\"/>"
     "<menuitem name=\"Fullscreen\" action=\"ViewFullscreen\"/>"
     "<separator/>"
     "<menuitem action=\"FileProperties\"/>"
@@ -534,6 +537,7 @@ vnr_window_fullscreen(VnrWindow *window)
 
     update_fs_filename_label(window);
     gtk_widget_hide (window->toolbar);
+    gtk_widget_hide (window->statusbar);
 
     if (window->prefs->show_menu_bar)
         gtk_widget_show (window->properties_button);
@@ -607,6 +611,11 @@ vnr_window_unfullscreen(VnrWindow *window)
         gtk_widget_hide (window->toolbar);
     else
         gtk_widget_show (window->toolbar);
+
+    if(!window->prefs->show_statusbar)
+        gtk_widget_hide (window->statusbar);
+    else
+        gtk_widget_show (window->statusbar);
 
     g_signal_handlers_disconnect_by_func(window->view,
                                          G_CALLBACK(fullscreen_motion_cb),
@@ -871,7 +880,7 @@ fullscreen_motion_cb(GtkWidget * widget, GdkEventMotion * ev, VnrWindow *window)
     if(window->disable_autohide)
         return FALSE;
 
-    /* Show the toolbar only when the moves moves to the top
+    /* Show the toolbar only when the mouse moves to the top
      * of the UniImageView */
     if (ev->y < 20 && !gtk_widget_get_visible (window->toolbar))
         gtk_widget_show (GTK_WIDGET (window->toolbar));
@@ -1121,6 +1130,11 @@ zoom_changed_cb (UniImageView *view, VnrWindow *window)
                                (int)(view->zoom*100.));
 
         gtk_window_set_title (GTK_WINDOW(window), buf);
+
+        gint context_id = gtk_statusbar_get_context_id(GTK_STATUSBAR(window->statusbar), "statusbar");
+        gtk_statusbar_pop (GTK_STATUSBAR(window->statusbar), GPOINTER_TO_INT(context_id));
+        gtk_statusbar_push(GTK_STATUSBAR(window->statusbar), GPOINTER_TO_INT(context_id), buf);
+
         g_free(buf);
     }
 }
@@ -1528,9 +1542,7 @@ vnr_set_wallpaper(GtkAction *action, VnrWindow *win)
 static void
 vnr_window_cmd_fullscreen (GtkAction *action, VnrWindow *window)
 {
-    gboolean fullscreen;
-
-    fullscreen = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
+    gboolean fullscreen = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
 
     if (fullscreen)
         vnr_window_fullscreen (window);
@@ -1541,12 +1553,10 @@ vnr_window_cmd_fullscreen (GtkAction *action, VnrWindow *window)
 static void
 vnr_window_cmd_menu_bar (GtkAction *action, VnrWindow *window)
 {
-    gboolean show;
-
-    show = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
+    gboolean show = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
     vnr_prefs_set_show_menu_bar(window->prefs, show);
 
-    if(window->mode != VNR_WINDOW_MODE_NORMAL)
+    if (window->mode != VNR_WINDOW_MODE_NORMAL)
        return;
 
 
@@ -1565,9 +1575,7 @@ vnr_window_cmd_menu_bar (GtkAction *action, VnrWindow *window)
 static void
 vnr_window_cmd_toolbar (GtkAction *action, VnrWindow *window)
 {
-    gboolean show;
-
-    show = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
+    gboolean show = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
     vnr_prefs_set_show_toolbar(window->prefs, show);
 
     if (show)
@@ -1579,11 +1587,21 @@ vnr_window_cmd_toolbar (GtkAction *action, VnrWindow *window)
 static void
 vnr_window_cmd_scrollbar (GtkAction *action, VnrWindow *window)
 {
-    gboolean show;
-
-    show = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
+    gboolean show = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
     vnr_prefs_set_show_scrollbar (window->prefs, show);
     uni_scroll_win_set_show_scrollbar (UNI_SCROLL_WIN (window->scroll_view), show);
+}
+
+static void
+vnr_window_cmd_statusbar (GtkAction *action, VnrWindow *window)
+{
+    gboolean show = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
+    vnr_prefs_set_show_statusbar(window->prefs, show);
+
+    if (show)
+        gtk_widget_show (window->statusbar);
+    else
+        gtk_widget_hide (window->statusbar);
 }
 
 static void
@@ -1931,6 +1949,9 @@ static const GtkToggleActionEntry toggle_entries_window[] = {
     { "ViewScrollbar", NULL, N_("Scrollbar"), NULL,
       N_("Show Scrollbar"),
       G_CALLBACK (vnr_window_cmd_scrollbar) },
+    { "ViewStatusbar", NULL, N_("Statusbar"), NULL,
+      N_("Show Statusbar"),
+      G_CALLBACK (vnr_window_cmd_statusbar) },
 };
 
 static const GtkToggleActionEntry toggle_entries_collection[] = {
@@ -2348,6 +2369,20 @@ vnr_window_init (VnrWindow * window)
     window->view = uni_anim_view_new ();
     gtk_widget_set_can_focus(window->view, TRUE);
     window->scroll_view = uni_scroll_win_new (UNI_IMAGE_VIEW (window->view));
+
+
+    window->statusbar = gtk_statusbar_new();
+    gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(window->statusbar), FALSE);
+    gtk_box_pack_end (GTK_BOX (window->layout), window->statusbar, FALSE,FALSE,0);
+
+    // Apply statusbar preference
+    action = gtk_action_group_get_action (window->actions_bars,
+                                          "ViewStatusbar");
+    if(!window->prefs->show_statusbar)
+        gtk_widget_hide (window->statusbar);
+    else
+        gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), TRUE);
+
 
     // Apply scrollbar preference
     action = gtk_action_group_get_action (window->actions_bars,
