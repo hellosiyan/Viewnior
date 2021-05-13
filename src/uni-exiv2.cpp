@@ -29,20 +29,6 @@
 
 static Exiv2::Image::AutoPtr cached_image;
 
-extern "C"
-void 
-uni_exif_dictionary_map(void (*callback)(const char*, const char*, void*), void *user_data)
-{
-    uint i;
-    for( i=0; i < ARRAY_SIZE(exifDataDictionary); i++ ) {
-        callback(exifDataDictionary[i].key, exifDataDictionary[i].label, user_data);
-    }
-
-    for( i=0; i < ARRAY_SIZE(iptcDataDictionary); i++ ) {
-        callback(iptcDataDictionary[i].key, iptcDataDictionary[i].label, user_data);
-    }
-}
-
 extern "C" 
 void 
 uni_read_exiv2_map(const char *uri, void (*callback)(const char*, const char*, void*), void *user_data)

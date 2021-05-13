@@ -68,8 +68,6 @@ extern "C" {
 
 #endif /* __cplusplus */
 
-void    uni_exif_dictionary_map     (void (*callback)(const char*, const char*, void*), 
-                                     void *user_data);
 void    uni_read_exiv2_map          (const char *uri, 
                                      void (*callback)(const char*, const char*, void*), 
                                      void *user_data);
