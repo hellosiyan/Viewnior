@@ -40,6 +40,7 @@ struct _VnrFile {
     const gchar *display_name;
     const gchar *display_name_collate;
     const gchar *path;
+    time_t mtime;
 };
 
 struct _VnrFileClass {

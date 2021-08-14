@@ -139,7 +139,8 @@ vnr_file_dir_content_to_list(gchar *path, gboolean sort, gboolean include_hidden
     f_enum = g_file_enumerate_children(file, G_FILE_ATTRIBUTE_STANDARD_NAME","
                                        G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME","
                                        G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE","
-                                       G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN,
+                                       G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN","
+                                       G_FILE_ATTRIBUTE_TIME_MODIFIED,
                                        G_FILE_QUERY_INFO_NONE,
                                        NULL, NULL);
     file_info = g_file_enumerator_next_file(f_enum,NULL,NULL);
@@ -152,6 +153,8 @@ vnr_file_dir_content_to_list(gchar *path, gboolean sort, gboolean include_hidden
 
         if(vnr_file_is_supported_mime_type(mimetype) && (include_hidden || !g_file_info_get_is_hidden (file_info)) ){
             vnr_file_set_display_name(vnr_file, (char*)g_file_info_get_display_name (file_info));
+
+            vnr_file->mtime = g_file_info_get_attribute_uint64 (file_info, G_FILE_ATTRIBUTE_TIME_MODIFIED);
 
             vnr_file->path =g_strjoin(G_DIR_SEPARATOR_S, path,
                                       vnr_file->display_name, NULL);
@@ -238,7 +241,8 @@ vnr_file_load_uri_list (GSList *uri_list, GList **file_list, gboolean include_hi
         GFileInfo *fileinfo = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_TYPE","
                                       G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME","
                                       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE","
-                                      G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN,
+                                      G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN","
+                                       G_FILE_ATTRIBUTE_TIME_MODIFIED,
                                       0, NULL, error);
 
         if (fileinfo == NULL)
@@ -268,6 +272,8 @@ vnr_file_load_uri_list (GSList *uri_list, GList **file_list, gboolean include_hi
             if(vnr_file_is_supported_mime_type(mimetype) && (include_hidden || !g_file_info_get_is_hidden (fileinfo)) )
             {
                 vnr_file_set_display_name(new_vnrfile, (char*)g_file_info_get_display_name (fileinfo));
+
+                new_vnrfile->mtime = g_file_info_get_attribute_uint64 (fileinfo, G_FILE_ATTRIBUTE_TIME_MODIFIED);
 
                 new_vnrfile->path = p_path;
 
