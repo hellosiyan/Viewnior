@@ -109,7 +109,8 @@ uni_scroll_win_set_view (UniScrollWin * window, UniImageView * view)
                       G_CALLBACK (uni_scroll_win_adjustment_changed), window);
 
     // Output the adjustments to the widget.
-    gtk_widget_set_scroll_adjustments (GTK_WIDGET (view), hadj, vadj);
+    gtk_scrollable_set_hadjustment(GTK_SCROLLABLE(view), hadj);
+    gtk_scrollable_set_vadjustment(GTK_SCROLLABLE(view), vadj);
 
     // Add the widgets to the table.
     gtk_widget_push_composite_child ();
@@ -153,13 +154,27 @@ uni_scroll_win_set_view (UniScrollWin * window, UniImageView * view)
    And so it continues.
  */
 static void
-uni_scroll_win_size_request (GtkWidget * widget, GtkRequisition * req)
+uni_scroll_win_get_preferred_width (GtkWidget *widget,
+                               gint      *minimal_width,
+                               gint      *natural_width)
 {
     /* Chain up. */
-    GTK_WIDGET_CLASS (uni_scroll_win_parent_class)->size_request
-        (widget, req);
-    req->width = req->height = 200;
+    GTK_WIDGET_CLASS (uni_scroll_win_parent_class)->get_preferred_width(widget, minimal_width, natural_width);
+
+    *minimal_width = *natural_width = 200;
 }
+
+static void
+uni_scroll_win_get_preferred_height (GtkWidget *widget,
+                                gint      *minimal_height,
+                                gint      *natural_height)
+{
+    /* Chain up. */
+    GTK_WIDGET_CLASS (uni_scroll_win_parent_class)->get_preferred_height(widget, minimal_height, natural_height);
+
+    *minimal_height = *natural_height = 200;
+}
+
 
 /*************************************************************/
 /***** Stuff that deals with the type ************************/
@@ -186,6 +201,7 @@ uni_scroll_win_init (UniScrollWin * window)
 
     gtk_widget_set_tooltip_text (window->nav_box,
                                  _("Open the navigator window"));
+    gtk_container_set_resize_mode(GTK_CONTAINER(window), GTK_RESIZE_IMMEDIATE);
 }
 
 static void
@@ -233,7 +249,8 @@ uni_scroll_win_class_init (UniScrollWinClass * klass)
     g_object_class_install_property (object_class, PROP_IMAGE_VIEW, pspec);
 
     GtkWidgetClass *widget_class = (GtkWidgetClass *) klass;
-    widget_class->size_request = uni_scroll_win_size_request;
+    widget_class->get_preferred_width = uni_scroll_win_get_preferred_width;
+    widget_class->get_preferred_height = uni_scroll_win_get_preferred_height;
 }
 
 /**

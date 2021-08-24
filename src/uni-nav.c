@@ -93,22 +93,25 @@ gtk_image_get_current_rectangle (UniNav * nav)
 }
 
 static void
-uni_nav_draw_rectangle (UniNav * nav, gboolean clear_last)
+uni_nav_draw_rectangle (UniNav * nav, cairo_t *cr, gboolean clear_last)
 {
-    GdkWindow * window;
     GdkRectangle rect;
-
-    window = gtk_widget_get_window (nav->preview);
     rect = gtk_image_get_current_rectangle (nav);
 
+    cairo_save(cr);
+    cairo_set_operator(cr, CAIRO_OPERATOR_DIFFERENCE);
+    cairo_set_source_rgba(cr, 1.0, 1.0, 1.0, 1.0);
     /* Clear the last drawn rectangle. */
     if (clear_last)
-        gdk_draw_rectangle (window, nav->gc, FALSE,
-                            nav->last_rect.x, nav->last_rect.y,
-                            nav->last_rect.width, nav->last_rect.height);
+    {
+        gdk_cairo_rectangle(cr, &nav->last_rect);
+        cairo_stroke(cr);
+    }
 
-    gdk_draw_rectangle (window, nav->gc, FALSE,
-                        rect.x, rect.y, rect.width, rect.height);
+    gdk_cairo_rectangle(cr, &rect);
+    cairo_stroke(cr);
+    cairo_restore(cr);
+    
     nav->last_rect = rect;
 }
 
@@ -175,20 +178,17 @@ uni_nav_update_pixbuf (UniNav * nav)
 /*************************************************************/
 static gboolean
 uni_nav_expose_drawing_area (GtkWidget * widget,
-                             GdkEventExpose * ev, UniNav * nav)
+                             cairo_t *cr, UniNav * nav)
 {
-    GdkWindow * window;
-    GtkStyle * style;
-
     if (!nav->pixbuf)
         return FALSE;
 
-    window = gtk_widget_get_window (nav->preview);
-    style = gtk_widget_get_style (nav->preview);
-
-    gdk_draw_pixbuf (window, style->white_gc, nav->pixbuf,
-                     0, 0, 0, 0, -1, -1, GDK_RGB_DITHER_MAX, 0, 0);
-    uni_nav_draw_rectangle (nav, FALSE);
+    cairo_save(cr);
+    cairo_set_operator(cr, CAIRO_OPERATOR_OVER);
+    gdk_cairo_set_source_pixbuf(cr, nav->pixbuf, 0, 0);
+    cairo_paint(cr);
+    uni_nav_draw_rectangle (nav, cr, FALSE);
+    cairo_restore(cr);
     uni_nav_update_position (nav);
     return TRUE;
 }
@@ -204,10 +204,12 @@ static int
 uni_nav_key_press (GtkWidget * widget, GdkEventKey * ev)
 {
     UniNav *nav = UNI_NAV (widget);
-    int retval = gtk_bindings_activate (GTK_OBJECT (nav->view),
+    int retval = gtk_bindings_activate (G_OBJECT (nav->view),
                                         ev->keyval,
                                         ev->state);
-    uni_nav_draw_rectangle (nav, TRUE);
+    cairo_t *cr = gdk_cairo_create(gtk_widget_get_window(nav->preview));
+    uni_nav_draw_rectangle (nav, cr, TRUE);
+    cairo_destroy(cr);
     return retval;
 }
 
@@ -240,7 +242,9 @@ uni_nav_motion_notify (GtkWidget * widget, GdkEventMotion * ev)
     int zoom_y_ofs = my * zoom2nav_factor;
 
     uni_image_view_set_offset (nav->view, zoom_x_ofs, zoom_y_ofs, TRUE);
-    uni_nav_draw_rectangle (nav, TRUE);
+    cairo_t *cr = gdk_cairo_create(gtk_widget_get_window(nav->preview));
+    uni_nav_draw_rectangle (nav, cr, TRUE);
+    cairo_destroy(cr);
 
     return TRUE;
 }
@@ -277,7 +281,9 @@ uni_nav_pixbuf_changed (UniNav * nav)
 static void
 uni_nav_zoom_changed (UniNav * nav)
 {
-    uni_nav_draw_rectangle (nav, TRUE);
+    cairo_t *cr = gdk_cairo_create(gtk_widget_get_window(nav->preview));
+    uni_nav_draw_rectangle (nav, cr, TRUE);
+    cairo_destroy(cr);
 }
 
 /**
@@ -295,25 +301,6 @@ uni_nav_button_released (UniNav * nav, GdkEventButton * ev)
     gtk_widget_hide (GTK_WIDGET (nav));
 }
 
-static void
-uni_nav_realize (GtkWidget * widget)
-{
-    GTK_WIDGET_CLASS (uni_nav_parent_class)->realize (widget);
-    UniNav *nav = UNI_NAV (widget);
-    nav->gc = gdk_gc_new (gtk_widget_get_window (widget));
-    gdk_gc_set_function (nav->gc, GDK_INVERT);
-    gdk_gc_set_line_attributes (nav->gc,
-                                3,
-                                GDK_LINE_SOLID, GDK_CAP_BUTT, GDK_JOIN_MITER);
-}
-
-static void
-uni_nav_unrealize (GtkWidget * widget)
-{
-    g_object_unref (UNI_NAV (widget)->gc);
-    GTK_WIDGET_CLASS (uni_nav_parent_class)->unrealize (widget);
-}
-
 /*************************************************************/
 /***** Stuff that deals with the type ************************/
 /*************************************************************/
@@ -321,7 +308,6 @@ static void
 uni_nav_init (UniNav * nav)
 {
     nav->view = NULL;
-    nav->gc = NULL;
     nav->last_rect = (GdkRectangle)
     {
     -1, -1, -1, -1};
@@ -334,7 +320,7 @@ uni_nav_init (UniNav * nav)
     nav->preview = gtk_drawing_area_new ();
     gtk_container_add (GTK_CONTAINER (out_frame), nav->preview);
     g_signal_connect (G_OBJECT (nav->preview),
-                      "expose_event",
+                      "draw",
                       G_CALLBACK (uni_nav_expose_drawing_area), nav);
 }
 
@@ -393,8 +379,6 @@ uni_nav_class_init (UniNavClass * klass)
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
     widget_class->key_press_event = uni_nav_key_press;
     widget_class->motion_notify_event = uni_nav_motion_notify;
-    widget_class->realize = uni_nav_realize;
-    widget_class->unrealize = uni_nav_unrealize;
 }
 
 /**
@@ -434,9 +418,10 @@ uni_nav_grab (UniNav * nav)
     GdkCursor *cursor = gdk_cursor_new (GDK_FLEUR);
     int mask = (GDK_POINTER_MOTION_MASK
                 | GDK_POINTER_MOTION_HINT_MASK
-                | GDK_BUTTON_RELEASE_MASK | GDK_EXTENSION_EVENTS_ALL);
+                | GDK_BUTTON_RELEASE_MASK);
     window = gtk_widget_get_window (preview);
-    gdk_pointer_grab (window, TRUE, mask, window, cursor, 0);
+    gdk_pointer_grab (window, TRUE, mask, window, cursor,
+                      0);
     gdk_cursor_unref (cursor);
 
     /* Capture keyboard events. */

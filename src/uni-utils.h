@@ -46,8 +46,7 @@ void    uni_pixbuf_scale_blend          (GdkPixbuf * src,
                                          gdouble zoom,
                                          GdkInterpType interp, int check_x, int check_y);
 
-void    uni_draw_rect                   (GdkWindow * window,
-                                         GdkGC * gc, gboolean filled, GdkRectangle * rect);
+void    uni_draw_rect                   (cairo_t *cr, gboolean filled, GdkRectangle * rect);
 
 void    uni_rectangle_get_rects_around  (GdkRectangle * outer,
                                          GdkRectangle * inner,

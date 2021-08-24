@@ -23,7 +23,7 @@ i18n = import('i18n')
 glib_ver = '>= 2.32'
 
 viewnior_deps = [
-  dependency('gtk+-2.0', version: '>= 2.20'),
+  dependency('gtk+-3.0'),
   dependency('glib-2.0', version: glib_ver),
   dependency('gio-2.0', version: glib_ver),
   dependency('shared-mime-info', version: '>= 0.20'),

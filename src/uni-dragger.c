@@ -100,8 +100,8 @@ uni_dragger_motion_notify (UniDragger * tool, GdkEventMotion * ev)
     if (abs (dx) < 1 && abs (dy) < 1)
         return FALSE;
 
-    vadj = UNI_IMAGE_VIEW(tool->view)->vadj;
-    hadj = UNI_IMAGE_VIEW(tool->view)->hadj;
+    vadj = uni_image_view_get_vadjustment(UNI_IMAGE_VIEW(tool->view));
+    hadj = uni_image_view_get_hadjustment(UNI_IMAGE_VIEW(tool->view));
     if ( pow(dx, 2) + pow(dy, 2) > 7 && UNI_IMAGE_VIEW(tool->view)->pixbuf != NULL && 
     		gtk_adjustment_get_upper(vadj) <= gtk_adjustment_get_page_size(vadj) && 
     		gtk_adjustment_get_upper(hadj) <= gtk_adjustment_get_page_size(hadj) ) 
@@ -139,9 +139,9 @@ uni_dragger_pixbuf_changed (UniDragger * tool,
 
 void
 uni_dragger_paint_image (UniDragger * tool,
-                         UniPixbufDrawOpts * opts, GdkWindow * window)
+                         UniPixbufDrawOpts * opts, cairo_t *cr)
 {
-    uni_pixbuf_draw_cache_draw (tool->cache, opts, window);
+    uni_pixbuf_draw_cache_draw (tool->cache, opts, cr);
 }
 
 /*************************************************************/

@@ -131,7 +131,7 @@ vnr_message_area_show (VnrMessageArea *msg_area,
         msg_area->with_button = FALSE;
     }
 
-    gtk_widget_show_all(GTK_WIDGET (msg_area->hbox));
+    gtk_widget_show_all(GTK_WIDGET (msg_area));
     gtk_widget_hide(GTK_WIDGET (msg_area->button_box));
 }
 
@@ -158,13 +158,13 @@ vnr_message_area_show_with_button (VnrMessageArea *msg_area,
     msg_area->c_handler = c_handler;
     g_signal_connect(msg_area->user_button, "clicked", c_handler, msg_area->vnr_win);
 
-    gtk_widget_show_all(GTK_WIDGET (msg_area->hbox));
+    gtk_widget_show_all(GTK_WIDGET (msg_area));
 }
 
 void
 vnr_message_area_hide (VnrMessageArea *msg_area)
 {
-    gtk_widget_hide(GTK_WIDGET (msg_area->hbox));
+    gtk_widget_hide(GTK_WIDGET (msg_area));
     if(msg_area->with_button)
     {
         g_signal_handlers_disconnect_by_func (msg_area->user_button,

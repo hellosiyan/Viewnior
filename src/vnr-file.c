@@ -23,7 +23,7 @@
 
 #include <gtk/gtk.h>
 #include <gio/gio.h>
-#include <gdk/gdkpixbuf.h>
+#include <gdk/gdk.h>
 #include "vnr-file.h"
 #include "vnr-tools.h"
 
