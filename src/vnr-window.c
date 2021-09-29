@@ -1674,8 +1674,8 @@ vnr_window_cmd_delete(GtkAction *action, VnrWindow *window)
         prompt = g_strdup_printf (_("Are you sure you want to\n"
                                     "permanently delete \"%s\"?"),
                                   VNR_FILE(window->file_list->data)->display_name);
-        markup = g_strdup_printf ("<span weight=\"bold\" size=\"larger\">%s</span>\n\n%s",
-                                  prompt, warning);
+        markup = g_markup_printf_escaped ("<span weight=\"bold\" size=\"larger\">%s</span>\n\n%s",
+                                          prompt, warning);
 
 
         dlg = gtk_message_dialog_new(GTK_WINDOW(window),
