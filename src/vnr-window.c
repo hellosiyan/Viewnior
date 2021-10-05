@@ -38,7 +38,7 @@
 #include "vnr-message-area.h"
 #include "vnr-properties-dialog.h"
 #include "vnr-crop.h"
-#include "uni-exiv2.hpp"
+#include "uni-exiv2.h"
 #include "uni-utils.h"
 
 /* Timeout to hide the toolbar in fullscreen mode */

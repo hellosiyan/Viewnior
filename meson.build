@@ -1,4 +1,4 @@
-project('viewnior', 'c', 'cpp',
+project('viewnior', 'c',
   version: '1.7',
   license: 'GPL3+',
   meson_version: '>= 0.43.0'
@@ -28,7 +28,8 @@ viewnior_deps = [
   dependency('gio-2.0', version: glib_ver),
   dependency('shared-mime-info', version: '>= 0.20'),
   dependency('gdk-pixbuf-2.0', version: '>= 0.21'),
-  dependency('exiv2', version: '>= 0.21'),
+  dependency('gexiv2', version: '>= 0.12'),
+  cc.find_library('m', required : false),
 ]
 #
 

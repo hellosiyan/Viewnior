@@ -27,7 +27,7 @@
 #include "vnr-properties-dialog.h"
 #include "vnr-file.h"
 #include "vnr-tools.h"
-#include "uni-exiv2.hpp"
+#include "uni-exiv2.h"
 
 G_DEFINE_TYPE (VnrPropertiesDialog, vnr_properties_dialog, GTK_TYPE_DIALOG);
 

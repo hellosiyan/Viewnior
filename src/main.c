@@ -21,6 +21,7 @@
 #define _(String) gettext (String)
 
 #include <config.h>
+#include <gexiv2/gexiv2.h>
 #include <gtk/gtk.h>
 #include "config.h"
 #include "vnr-window.h"
@@ -77,6 +78,8 @@ main (int argc, char *argv[])
         printf("%s\n", PACKAGE_STRING);
         return 0;
     }
+
+    gexiv2_initialize();
 
     gtk_icon_theme_append_search_path(gtk_icon_theme_get_default(), PIXMAP_DIR);
 
