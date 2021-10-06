@@ -23,8 +23,10 @@
 #ifndef __UNI_EXIV2__H_
 #define __UNI_EXIV2__H_ 
 
+typedef void (*UniReadExiv2Callback)(const char *label, const char *value, void *user_data);
+
 void    uni_read_exiv2_map          (const char *uri, 
-                                     void (*callback)(const char*, const char*, void*), 
+                                     UniReadExiv2Callback callback,
                                      void *user_data);
 
 int     uni_read_exiv2_to_cache     (const char *uri);

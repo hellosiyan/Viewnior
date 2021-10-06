@@ -28,26 +28,21 @@
 
 #define ARRAY_SIZE(array) (sizeof array/sizeof(array[0]))
 
-typedef struct _UniExiv2TagHandler
-{
-    void (*callback)(const char *, const char *, void *);
-    void *user_data;
-} UniExiv2TagHandler;
-
 static GExiv2Metadata *cached_image;
 
 static void
 uni_get_exiv2_tags(GExiv2Metadata *image,
                    const gchar *const *tags,
                    size_t tags_size,
-                   UniExiv2TagHandler *handler)
+                   UniReadExiv2Callback callback,
+                   void *user_data)
 {
     for (uint i = 0; i < tags_size; i++) {
         if (gexiv2_metadata_has_tag(image, tags[i])) {
             const gchar *label = gexiv2_metadata_get_tag_label(tags[i]);
             gchar *value = gexiv2_metadata_get_tag_interpreted_string(image, tags[i]);
 
-            handler->callback(label, value, handler->user_data);
+            callback(label, value, user_data);
 
             g_free(value);
         }
@@ -63,9 +58,8 @@ uni_clear_exiv2_cache(void)
 }
 
 void
-uni_read_exiv2_map(const char *uri, void (*callback)(const char*, const char*, void*), void *user_data)
+uni_read_exiv2_map(const char *uri, UniReadExiv2Callback callback, void *user_data)
 {
-    UniExiv2TagHandler handler = {callback, user_data};
     GExiv2Metadata *image;
     GError *err;
     gchar *comment;
@@ -93,13 +87,13 @@ uni_read_exiv2_map(const char *uri, void (*callback)(const char*, const char*, v
                                           "Exif.Image.ImageDescription",
                                           "Exif.Photo.UserComment"};
 
-        uni_get_exiv2_tags(image, exifTags, ARRAY_SIZE(exifTags), &handler);
+        uni_get_exiv2_tags(image, exifTags, ARRAY_SIZE(exifTags), callback, user_data);
     }
 
     comment = gexiv2_metadata_get_comment(image);
     if (comment) {
         if (*comment) {
-            handler.callback(_("Comment"), comment, handler.user_data);
+            callback(_("Comment"), comment, user_data);
         }
         g_free(comment);
     }
@@ -109,7 +103,7 @@ uni_read_exiv2_map(const char *uri, void (*callback)(const char*, const char*, v
                                           "Iptc.Application2.Copyright",
                                           "Iptc.Application2.Byline"};
 
-        uni_get_exiv2_tags(image, iptcTags, ARRAY_SIZE(iptcTags), &handler);
+        uni_get_exiv2_tags(image, iptcTags, ARRAY_SIZE(iptcTags), callback, user_data);
     }
 
     g_object_unref(image);
