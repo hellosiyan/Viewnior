@@ -275,7 +275,7 @@ vnr_file_load_uri_list (GSList *uri_list, GList **file_list, gboolean include_hi
 
                 new_vnrfile->mtime = g_file_info_get_attribute_uint64 (fileinfo, G_FILE_ATTRIBUTE_TIME_MODIFIED);
 
-                new_vnrfile->path = p_path;
+                new_vnrfile->path = g_strdup(p_path);
 
                 *file_list = g_list_prepend(*file_list, new_vnrfile);
             }
