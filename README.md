@@ -1,6 +1,6 @@
 # Viewnior - Fast and elegant image viewer
 
-This is Viewnior, an image viewer program. Created to be simple, fast and elegant. It's minimalistic interface provides more screenspace for your images. Among its features are:
+This is Viewnior, an image viewer program. Created to be simple, fast and elegant. Its minimalistic interface provides more screenspace for your images. Among its features are:
 
   * Fullscreen & Slideshow
   * Rotate, flip, crop, save, delete images
