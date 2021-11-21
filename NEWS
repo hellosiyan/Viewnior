@@ -1,3 +1,21 @@
+Viewnior 1.8
+------------
+
+New features included:
+ - Add Preview to the Open Image dialog
+ - Add "Best Fit" option to the right-click context menu
+ - Expand list of image info in the Property window (Description, Comment, Software)
+ - Add hideable statusbar showing the same info as the titlebar
+ - Increase size of the Crop Image window
+ - Updated translations
+
+Fixed:
+ - Don't allow drag and drop if source is the viewer itself
+ - Better error handling when loading preferences
+ - Properly escape file names displayed in the Delete popup
+ - Remove 1px white gap when the menu and the toolbar are hidden
+ - Memory leaks and UB
+
 Viewnior 1.7
 ------------
 
