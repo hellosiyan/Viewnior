@@ -74,9 +74,6 @@ struct _UniNav {
     int center_x;
     int center_y;
 
-    /* To draw the preview square. */
-    GdkGC *gc;
-
     /* A flag indicating whether the pixbuf needs to be recreated when
        the navigator is shown. */
     gboolean update_when_shown;

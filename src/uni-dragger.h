@@ -86,7 +86,7 @@ void    uni_dragger_pixbuf_changed      (UniDragger * tool,
 
 void    uni_dragger_paint_image         (UniDragger * tool,
                                          UniPixbufDrawOpts * opts,
-                                         GdkWindow * window);
+                                         cairo_t *cr);
 
 G_END_DECLS
 #endif /* __UNI_TOOL_DRAGGER_H__ */

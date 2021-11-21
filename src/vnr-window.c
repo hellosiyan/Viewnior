@@ -1434,7 +1434,7 @@ static void
 vnr_window_cmd_about (GtkAction *action, VnrWindow *window)
 {
     static const char *authors[] = {
-        "Programming & icon design",
+        "Programming &amp; icon design",
         "\tSiyan Panayotov <contact@siyanpanayotov.com>",
         "\nRefer to source code from GtkImageView",
         NULL
@@ -2340,6 +2340,8 @@ vnr_window_init (VnrWindow * window)
     g_object_set(G_OBJECT(window->toolbar), "show-arrow", FALSE, NULL);
     gtk_toolbar_insert (GTK_TOOLBAR (window->toolbar),
                         GTK_TOOL_ITEM(get_fs_controls(window)), -1);
+    GtkStyleContext *context = gtk_widget_get_style_context(window->toolbar);
+    gtk_style_context_add_class(context, GTK_STYLE_CLASS_PRIMARY_TOOLBAR);
     gtk_box_pack_start (GTK_BOX (window->menus), window->toolbar, FALSE,FALSE,0);
 
     window->popup_menu = gtk_ui_manager_get_widget (window->ui_mngr, "/PopupMenu");
@@ -2385,7 +2387,6 @@ vnr_window_init (VnrWindow * window)
 
 
     window->statusbar = gtk_statusbar_new();
-    gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(window->statusbar), FALSE);
     gtk_box_pack_end (GTK_BOX (window->layout), window->statusbar, FALSE,FALSE,0);
 
     // Apply statusbar preference

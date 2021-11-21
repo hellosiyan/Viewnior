@@ -37,6 +37,7 @@ G_BEGIN_DECLS
 #define UNI_IMAGE_VIEW_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), UNI_TYPE_IMAGE_VIEW, UniImageViewClass))
 typedef struct _UniImageView UniImageView;
 typedef struct _UniImageViewClass UniImageViewClass;
+typedef struct _UniImageViewPrivate UniImageViewPrivate;
 
 typedef enum {
     UNI_FITTING_NONE, /* Fitting disabled */
@@ -58,8 +59,7 @@ struct _UniImageView {
     gdouble offset_y;
     gboolean show_cursor;
     GdkCursor *void_cursor;
-    GtkAdjustment *hadj;
-    GtkAdjustment *vadj;
+    UniImageViewPrivate *priv;
 
     GObject *tool;
 };
@@ -118,6 +118,10 @@ void        uni_image_view_zoom_in      (UniImageView * view);
 void        uni_image_view_zoom_out     (UniImageView * view);
 void        uni_image_view_damage_pixels(UniImageView * view,
                                          GdkRectangle * rect);
+GtkAdjustment *uni_image_view_get_vadjustment(UniImageView * view);
+GtkAdjustment *uni_image_view_get_hadjustment(UniImageView * view);
+void        uni_image_view_set_vadjustment(UniImageView * view, GtkAdjustment * vadj);
+void        uni_image_view_set_hadjustment(UniImageView * view, GtkAdjustment * hadj);
 
 G_END_DECLS
 #endif /* __UNI_IMAGE_VIEW_H__ */

@@ -258,14 +258,14 @@ uni_pixbuf_draw_cache_intersect_draw (UniPixbufDrawCache * cache,
  * uni_pixbuf_draw_cache_draw:
  * @cache: a #UniPixbufDrawCache
  * @opts: the #UniPixbufDrawOpts to use in this draw
- * @window: a #GdkWindow to draw on
+ * @cr: a #cairo_t to draw with
  *
  * Redraws the area specified in the pixbuf draw options in an
  * efficient way by using caching.
  **/
 void
 uni_pixbuf_draw_cache_draw (UniPixbufDrawCache * cache,
-                            UniPixbufDrawOpts * opts, GdkWindow * window)
+                            UniPixbufDrawOpts * opts, cairo_t *cr)
 {
     GdkRectangle this = opts->zoom_rect;
     UniPixbufDrawMethod method =
@@ -306,13 +306,20 @@ uni_pixbuf_draw_cache_draw (UniPixbufDrawCache * cache,
                                 (double) -this.x, (double) -this.y,
                                 opts->zoom, opts->interp, this.x, this.y);
     }
-    gdk_draw_pixbuf (window,
-                     NULL,
-                     cache->last_pixbuf,
-                     deltax, deltay,
-                     opts->widget_x, opts->widget_y,
-                     this.width, this.height,
-                     GDK_RGB_DITHER_MAX, opts->widget_x, opts->widget_y);
+    cairo_save(cr);
+    GdkRectangle rect;
+    rect.x = opts->widget_x;
+    rect.y = opts->widget_y;
+    rect.width = this.width;
+    rect.height = this.height;
+    cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
+    GdkPixbuf *subpixbuf = gdk_pixbuf_new_subpixbuf(cache->last_pixbuf, deltax, deltay, this.width, this.height);
+    gdk_cairo_set_source_pixbuf(cr, subpixbuf, rect.x, rect.y);
+    cairo_rectangle(cr, opts->widget_x, opts->widget_y, this.width, this.height);
+    cairo_clip(cr);
+    cairo_paint(cr);
+    cairo_restore(cr);
+    g_object_unref(subpixbuf);
     if (method != UNI_PIXBUF_DRAW_METHOD_CONTAINS)
         cache->old = *opts;
 }
