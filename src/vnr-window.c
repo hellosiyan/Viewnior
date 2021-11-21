@@ -52,6 +52,7 @@ static void stop_slideshow(VnrWindow *window);
 static void start_slideshow(VnrWindow *window);
 static void restart_slideshow(VnrWindow *window);
 static void allow_slideshow(VnrWindow *window);
+static gint get_top_widgets_height(VnrWindow *window);
 
 static void leave_fs_cb (GtkButton *button, VnrWindow *window);
 static void toggle_show_next_cb (GtkToggleButton *togglebutton, VnrWindow *window);
@@ -709,6 +710,21 @@ allow_slideshow(VnrWindow *window)
     gtk_widget_set_sensitive(window->toggle_btn, TRUE);
 }
 
+static gint
+get_top_widgets_height(VnrWindow *window)
+{
+    GtkAllocation allocation;
+
+    if (!window->prefs->show_menu_bar && !window->prefs->show_toolbar)
+    {
+        return 0;
+    }
+
+    gtk_widget_get_allocation (window->menus, &allocation);
+
+    return allocation.height;
+}
+
 void
 deny_slideshow(VnrWindow *window)
 {
@@ -1262,8 +1278,6 @@ vnr_window_cmd_prev (GtkAction *action, gpointer user_data)
 static void
 vnr_window_cmd_resize (GtkToggleAction *action, VnrWindow *window)
 {
-    GtkAllocation allocation;
-
     if ( action != NULL && !gtk_toggle_action_get_active(action) ) {
         window->prefs->auto_resize = FALSE;
         return;
@@ -1280,8 +1294,7 @@ vnr_window_cmd_resize (GtkToggleAction *action, VnrWindow *window)
     window->prefs->auto_resize = TRUE;
 
     vnr_tools_fit_to_size (&img_w, &img_h, window->max_width, window->max_height);
-    gtk_widget_get_allocation (window->menus, &allocation);
-    gtk_window_resize (GTK_WINDOW (window), img_w, img_h + allocation.height);
+    gtk_window_resize (GTK_WINDOW (window), img_w, img_h + get_top_widgets_height(window));
 }
 
 static void
@@ -2487,7 +2500,6 @@ vnr_window_open (VnrWindow * window, gboolean fit_to_screen)
 
     if(fit_to_screen)
     {
-        GtkAllocation allocation;
         gint img_h, img_w;          /* Width and Height of the pixbuf */
 
         img_w = window->current_image_width;
@@ -2495,8 +2507,7 @@ vnr_window_open (VnrWindow * window, gboolean fit_to_screen)
 
         vnr_tools_fit_to_size (&img_w, &img_h, window->max_width, window->max_height);
 
-        gtk_widget_get_allocation (window->menus, &allocation);
-        gtk_window_resize (GTK_WINDOW (window), img_w, img_h + allocation.height);
+        gtk_window_resize (GTK_WINDOW (window), img_w, img_h + get_top_widgets_height(window));
     }
 
     last_fit_mode = UNI_IMAGE_VIEW(window->view)->fitting;
