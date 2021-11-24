@@ -1276,6 +1276,17 @@ vnr_window_cmd_prev (GtkAction *action, gpointer user_data)
 }
 
 static void
+vnr_window_resize (VnrWindow *window)
+{
+    gint img_w = window->current_image_width;          /* Width of the pixbuf */
+    gint img_h = window->current_image_height;         /* Height of the pixbuf */
+
+    vnr_tools_fit_to_size (&img_w, &img_h, window->max_width, window->max_height);
+
+    gtk_window_resize (GTK_WINDOW (window), img_w, img_h + get_top_widgets_height(window));
+}
+
+static void
 vnr_window_cmd_resize (GtkToggleAction *action, VnrWindow *window)
 {
     if ( action != NULL && !gtk_toggle_action_get_active(action) ) {
@@ -1283,18 +1294,12 @@ vnr_window_cmd_resize (GtkToggleAction *action, VnrWindow *window)
         return;
     }
 
-    gint img_h, img_w;          /* Width and Height of the pixbuf */
-
-    img_w = window->current_image_width;
-    img_h = window->current_image_height;
-
-    if ( img_w == 0 || img_h == 0 )
+    if ( window->current_image_width == 0 || window->current_image_height == 0 )
         return;
 
     window->prefs->auto_resize = TRUE;
 
-    vnr_tools_fit_to_size (&img_w, &img_h, window->max_width, window->max_height);
-    gtk_window_resize (GTK_WINDOW (window), img_w, img_h + get_top_widgets_height(window));
+    vnr_window_resize (window);
 }
 
 static void
@@ -2500,14 +2505,7 @@ vnr_window_open (VnrWindow * window, gboolean fit_to_screen)
 
     if(fit_to_screen)
     {
-        gint img_h, img_w;          /* Width and Height of the pixbuf */
-
-        img_w = window->current_image_width;
-        img_h = window->current_image_height;
-
-        vnr_tools_fit_to_size (&img_w, &img_h, window->max_width, window->max_height);
-
-        gtk_window_resize (GTK_WINDOW (window), img_w, img_h + get_top_widgets_height(window));
+        vnr_window_resize (window);
     }
 
     last_fit_mode = UNI_IMAGE_VIEW(window->view)->fitting;
