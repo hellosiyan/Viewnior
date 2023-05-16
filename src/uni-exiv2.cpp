@@ -22,12 +22,13 @@
 
 #include <exiv2/exiv2.hpp>
 #include <iostream>
+#include <memory>
 
 #include "uni-exiv2.hpp"
 
 #define ARRAY_SIZE(array) (sizeof array/sizeof(array[0]))
 
-static Exiv2::Image::AutoPtr cached_image;
+static std::unique_ptr<Exiv2::Image> cached_image;
 
 extern "C"
 void
@@ -35,8 +36,8 @@ uni_read_exiv2_map(const char *uri, void (*callback)(const char*, const char*, v
 {
     Exiv2::LogMsg::setLevel(Exiv2::LogMsg::mute);
     try {
-        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(uri);
-        if ( image.get() == 0 ) {
+        std::unique_ptr<Exiv2::Image> image = Exiv2::ImageFactory::open(uri);
+        if (image == nullptr) {
             return;
         }
 
@@ -91,14 +92,14 @@ uni_read_exiv2_to_cache(const char *uri)
 {
     Exiv2::LogMsg::setLevel(Exiv2::LogMsg::mute);
 
-    if ( cached_image.get() != NULL ) {
+    if (cached_image != nullptr) {
         cached_image->clearMetadata();
-        cached_image.reset(NULL);
+        cached_image.reset(nullptr);
     }
 
     try {
         cached_image = Exiv2::ImageFactory::open(uri);
-        if ( cached_image.get() == 0 ) {
+        if (cached_image == nullptr) {
             return 1;
         }
 
@@ -116,13 +117,13 @@ uni_write_exiv2_from_cache(const char *uri)
 {
     Exiv2::LogMsg::setLevel(Exiv2::LogMsg::mute);
 
-    if ( cached_image.get() == NULL ) {
+    if (cached_image == nullptr) {
         return 1;
     }
 
     try {
-        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(uri);
-        if ( image.get() == 0 ) {
+        std::unique_ptr<Exiv2::Image> image = Exiv2::ImageFactory::open(uri);
+        if (image == nullptr) {
             return 2;
         }
 
@@ -130,7 +131,7 @@ uni_write_exiv2_from_cache(const char *uri)
         image->writeMetadata();
 
         cached_image->clearMetadata();
-        cached_image.reset(NULL);
+        cached_image.reset(nullptr);
 
         return 0;
     } catch (Exiv2::AnyError& e) {
