@@ -28,6 +28,15 @@
 
 #define ARRAY_SIZE(array) (sizeof array/sizeof(array[0]))
 
+#define EXIV_ERROR Exiv2::AnyError
+#ifdef EXIV2_VERSION
+    #ifdef EXIV2_TEST_VERSION
+        #if EXIV2_TEST_VERSION(0,28,0)
+            #define EXIV_ERROR Exiv2::Error
+        #endif
+    #endif
+#endif
+
 static std::unique_ptr<Exiv2::Image> cached_image;
 
 extern "C"
@@ -81,7 +90,7 @@ uni_read_exiv2_map(const char *uri, void (*callback)(const char*, const char*, v
                 }
             }
         }
-    } catch (Exiv2::AnyError& e) {
+    } catch (EXIV_ERROR& e) {
         std::cerr << "Exiv2: '" << e << "'\n";
     }
 }
@@ -104,7 +113,7 @@ uni_read_exiv2_to_cache(const char *uri)
         }
 
         cached_image->readMetadata();
-    } catch (Exiv2::AnyError& e) {
+    } catch (EXIV_ERROR& e) {
         std::cerr << "Exiv2: '" << e << "'\n";
     }
 
@@ -134,7 +143,7 @@ uni_write_exiv2_from_cache(const char *uri)
         cached_image.reset(nullptr);
 
         return 0;
-    } catch (Exiv2::AnyError& e) {
+    } catch (EXIV_ERROR& e) {
         std::cerr << "Exiv2: '" << e << "'\n";
     }
 
