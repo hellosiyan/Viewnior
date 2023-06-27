@@ -196,7 +196,7 @@ uni_nav_expose_drawing_area (GtkWidget * widget,
 /**
  * uni_nav_key_press:
  *
- * Keyboard events are catched just to forward them to the
+ * Keyboard events are caught just to forward them to the
  * #UniImageView which responds to them. That way, keyboard navigation
  * in #UniNav behaves consistently with #UniImageView.
  **/
