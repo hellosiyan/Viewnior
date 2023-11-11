@@ -22,12 +22,21 @@
 
 #include <exiv2/exiv2.hpp>
 #include <iostream>
+#include <memory>
 
 #include "uni-exiv2.hpp"
 
+#if EXIV2_TEST_VERSION(0,28,0)
+    typedef Exiv2::Error Exiv2Error;
+    typedef Exiv2::Image::UniquePtr ImagePtr;
+#else
+    typedef Exiv2::AnyError Exiv2Error;
+    typedef Exiv2::Image::AutoPtr ImagePtr;
+#endif
+
 #define ARRAY_SIZE(array) (sizeof array/sizeof(array[0]))
 
-static Exiv2::Image::AutoPtr cached_image;
+static ImagePtr cached_image;
 
 extern "C"
 void
@@ -35,7 +44,7 @@ uni_read_exiv2_map(const char *uri, void (*callback)(const char*, const char*, v
 {
     Exiv2::LogMsg::setLevel(Exiv2::LogMsg::mute);
     try {
-        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(uri);
+        ImagePtr image = Exiv2::ImageFactory::open(uri);
         if ( image.get() == 0 ) {
             return;
         }
@@ -80,7 +89,7 @@ uni_read_exiv2_map(const char *uri, void (*callback)(const char*, const char*, v
                 }
             }
         }
-    } catch (Exiv2::AnyError& e) {
+    } catch (Exiv2Error& e) {
         std::cerr << "Exiv2: '" << e << "'\n";
     }
 }
@@ -103,7 +112,7 @@ uni_read_exiv2_to_cache(const char *uri)
         }
 
         cached_image->readMetadata();
-    } catch (Exiv2::AnyError& e) {
+    } catch (Exiv2Error& e) {
         std::cerr << "Exiv2: '" << e << "'\n";
     }
 
@@ -121,7 +130,7 @@ uni_write_exiv2_from_cache(const char *uri)
     }
 
     try {
-        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(uri);
+        ImagePtr image = Exiv2::ImageFactory::open(uri);
         if ( image.get() == 0 ) {
             return 2;
         }
@@ -133,7 +142,7 @@ uni_write_exiv2_from_cache(const char *uri)
         cached_image.reset(NULL);
 
         return 0;
-    } catch (Exiv2::AnyError& e) {
+    } catch (Exiv2Error& e) {
         std::cerr << "Exiv2: '" << e << "'\n";
     }
 
