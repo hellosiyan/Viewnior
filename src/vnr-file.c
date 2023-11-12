@@ -139,6 +139,7 @@ vnr_file_dir_content_to_list(gchar *path, gboolean sort, gboolean include_hidden
     f_enum = g_file_enumerate_children(file, G_FILE_ATTRIBUTE_STANDARD_NAME","
                                        G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME","
                                        G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE","
+                                       G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE","
                                        G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN","
                                        G_FILE_ATTRIBUTE_TIME_MODIFIED,
                                        G_FILE_QUERY_INFO_NONE,
@@ -150,6 +151,9 @@ vnr_file_dir_content_to_list(gchar *path, gboolean sort, gboolean include_hidden
         VnrFile *vnr_file = vnr_file_new();
 
         const char *mimetype =g_file_info_get_content_type(file_info);
+        if (mimetype == NULL) {
+            mimetype = g_file_info_get_attribute_string(file_info, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
+        }
 
         if(vnr_file_is_supported_mime_type(mimetype) && (include_hidden || !g_file_info_get_is_hidden (file_info)) ){
             vnr_file_set_display_name(vnr_file, (char*)g_file_info_get_display_name (file_info));
@@ -241,6 +245,7 @@ vnr_file_load_uri_list (GSList *uri_list, GList **file_list, gboolean include_hi
         GFileInfo *fileinfo = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_TYPE","
                                       G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME","
                                       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE","
+                                      G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE","
                                       G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN","
                                        G_FILE_ATTRIBUTE_TIME_MODIFIED,
                                       0, NULL, error);
@@ -268,6 +273,9 @@ vnr_file_load_uri_list (GSList *uri_list, GList **file_list, gboolean include_hi
             new_vnrfile = vnr_file_new();
 
             mimetype = g_file_info_get_content_type(fileinfo);
+            if (mimetype == NULL) {
+                mimetype = g_file_info_get_attribute_string(fileinfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
+            }
 
             if(vnr_file_is_supported_mime_type(mimetype) && (include_hidden || !g_file_info_get_is_hidden (fileinfo)) )
             {
